@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>VG Examples - Create Simple Scene</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='style.css' />
+    </head>
+    <body>
+         <script src="/vendor/three.js"></script>
+        <script src="/EngineScene.js"></script>
+        <script src="/GameScene.js"></script>
+        <script src="/GameSceneController.js"></script>
+        
+        
+        <div id="main"></div>
+        <script>
+
+            var BasicScene = function () {
+                VG.GameScene.call(this);
+                this.name = 'basic';
+
+                var mesh = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({color: 'red'}))
+                mesh.position.z = -5;
+                this.view.add(mesh)
+
+                this.update = function (dt) {
+                    mesh.rotation.y += dt
+                }
+            };
+            BasicScene.prototype = Object.create(VG.GameScene.prototype);
+
+            var engine = new VG.EngineScene('main');
+
+            var sceneController = new VG.GameSceneController();
+            engine.add(sceneController);
+            
+            var scene = new BasicScene();
+            sceneController.add(scene);
+
+            sceneController.activateScene('basic');
+
+        </script>
+    </body>
+</html>
