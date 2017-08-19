@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>VG Examples - Create Simple Scene</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='style.css' />
+    </head>
+    <body>
+        <script src="/vendor/three.js"></script>
+        <script src="/EngineScene.js"></script>
+        <script src="/GameScene.js"></script>
+        <script src="/GameSceneController.js"></script>
+        <script src="/Tools.js"></script>
+
+        <div id="main"></div>
+        <script>
+
+            var BasicScene = function () {
+                VG.GameScene.call(this);
+
+                var context = this;
+
+                this.name = 'basic';
+
+                var loader = new THREE.JSONLoader();
+
+                var textureLoader = new THREE.TextureLoader();
+
+                var light = new THREE.PointLight();
+                light.position.set(10, 20, 10)
+                this.view.add(light);
+
+                var mesh;
+                loader.load('models/robot.json', function (geometry) {
+                    mesh = VG.Tools.createAnimatedMesh(
+                            geometry,
+                            new THREE.MeshPhongMaterial({
+                                map: textureLoader.load('models/robot.png'),
+                                bumpMap: textureLoader.load('models/robo_dirt.png')
+                            }))
+
+                    mesh.playAnimation('run');
+                    mesh.position.set(0, -2, -20);
+                    context.view.add(mesh);
+
+                });
+
+                this.update = function (dt) {
+                    if (mesh) {
+                        mesh.update(dt);
+                        mesh.rotation.y += dt;
+                    }
+                };
+            };
+            BasicScene.prototype = Object.create(VG.GameScene.prototype);
+
+            var engine = new VG.EngineScene('main');
+
+            var sceneController = new VG.GameSceneController();
+            engine.add(sceneController);
+
+            var scene = new BasicScene();
+            sceneController.add(scene);
+
+            sceneController.activateScene('basic');
+
+        </script>
+    </body>
+</html>
