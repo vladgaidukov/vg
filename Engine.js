@@ -10,7 +10,7 @@ VG.CAMERA_NEAR = 0.1;
 VG.CAMERA_FAR = 10000;
 VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
 
-VG.EngineScene = function(container) {
+VG.Engine = function(container) {
     var self = this;
 
     var domelement = document.getElementById(container);

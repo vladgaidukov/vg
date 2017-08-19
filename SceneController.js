@@ -1,14 +1,14 @@
-VG.GameSceneController = function() {
+VG.SceneController = function() {
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
 }
 
-VG.GameSceneController.prototype = {
-    constructor: VG.GameSceneController,
+VG.SceneController.prototype = {
+    constructor: VG.SceneController,
 
     add: function(scene) {
-        if (scene instanceof VG.GameScene) {
+        if (scene instanceof VG.Scene) {
             if (this.scenes[scene.name]) {
                 console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
                 return;
@@ -21,7 +21,7 @@ VG.GameSceneController.prototype = {
     },
 
     remove: function(scene) {
-        if (scene instanceof VG.GameScene) {
+        if (scene instanceof VG.Scene) {
             if (!this.scenes[scene.name]) {
                 console.log('Error: Scene with name >>>' + scene.name + '<<< is not exist');
                 return;

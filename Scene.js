@@ -1,9 +1,9 @@
-VG.GameScene = function() {
+VG.Scene = function() {
     this.view = new THREE.Object3D;
     this.name = 'default';
 }
 
-VG.GameScene.prototype = {
+VG.Scene.prototype = {
     constructor: VG.GameScene,
 
     add: function(object) {
