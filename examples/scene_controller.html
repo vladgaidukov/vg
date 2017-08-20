@@ -7,6 +7,7 @@
     </head>
     <body>
         <script src="/vendor/three.js"></script>
+        <script src="/EventDispatcher.js"></script>
         <script src="/Engine.js"></script>
         <script src="/Scene.js"></script>
         <script src="/SceneController.js"></script>
@@ -22,10 +23,10 @@
             var sceneController = new VG.SceneController();
             engine.add(sceneController);
 
-            var scene = new BasicScene();
+            var scene = new BasicScene('basic');
             sceneController.add(scene);
 
-            var scene2 = new BasicScene2();
+            var scene2 = new BasicScene2('basic2');
             sceneController.add(scene2);
 
             sceneController.activateScene('basic');

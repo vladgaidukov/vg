@@ -2,6 +2,10 @@ VG.SceneController = function() {
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
+
+    VG.EventDispatcher.bind('sceneController.add', this, this.add);
+    VG.EventDispatcher.bind('sceneController.remove', this, this.remove);
+    VG.EventDispatcher.bind('sceneController.activateScene', this, this.activateScene);
 }
 
 VG.SceneController.prototype = {
@@ -52,7 +56,7 @@ VG.SceneController.prototype = {
     },
 
     update: function(dt) {
-        if (this.activeScene && this.activeScene.update)
+        if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
             this.activeScene.update(dt)
     }
 }

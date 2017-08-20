@@ -80,4 +80,10 @@ VG.Engine = function(container) {
                 animated.splice(animated.indexOf(object), 1);
         }
     }
+
+    VG.EventDispatcher.bind('engine.get.camera', this, function() { return camera });
+    VG.EventDispatcher.bind('engine.get.renderer', this, function() { return renderer });
+    VG.EventDispatcher.bind('engine.get.clock', this, function() { return clock });
+    VG.EventDispatcher.bind('engine.add', this, this.add);
+    VG.EventDispatcher.bind('engine.remove', this, this.remove);
 };
