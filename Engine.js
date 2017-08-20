@@ -3,7 +3,7 @@ VG.DEBUG = false;
 
 VG.DETAIL = 1;
 VG.ANTIALIAS = false;
-VG.CLEAR_COLOR = 'black'
+VG.CLEAR_COLOR = 'white'
 
 VG.CAMERA_FOV = 45;
 VG.CAMERA_NEAR = 0.1;

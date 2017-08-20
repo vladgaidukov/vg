@@ -36,7 +36,7 @@ VG.SceneController.prototype = {
 
     activateScene: function(name) {
         if (!this.scenes[name]) {
-            console.log('Error: Scene with name >>>' + scene.name + '<<< is not exist');
+            console.log('Error: Scene with name >>>' + name + '<<< is not exist');
             return;
         }
 

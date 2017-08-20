@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>VG Examples - Create Simple Scene</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='style.css' />
+    </head>
+    <body>
+        <script src="/vendor/three.js"></script>
+        <script src="/Engine.js"></script>
+        <script src="/Scene.js"></script>
+        <script src="/SceneController.js"></script>
+        <script src="/Tools.js"></script>
+        <script src="js/BasicScene.js"></script>
+        <script src="js/BasicScene2.js"></script>
+
+        <div id="main"></div>
+        <script>
+
+            var engine = new VG.Engine('main');
+
+            var sceneController = new VG.SceneController();
+            engine.add(sceneController);
+
+            var scene = new BasicScene();
+            sceneController.add(scene);
+
+            var scene2 = new BasicScene2();
+            sceneController.add(scene2);
+
+            sceneController.activateScene('basic');
+
+            var scenes = ['basic', 'basic2']
+
+            function changeScene() {
+                var curentScene = sceneController.activeScene.name;
+                var nextScene = scenes.indexOf(curentScene) == scenes.length - 1 ? scenes[scenes.length - 2] : scenes[scenes.length - 1]
+
+                setTimeout(function(){
+                    sceneController.activateScene(nextScene);
+                    changeScene()
+                },5000)
+            }
+
+            changeScene()
+
+
+        </script>
+    </body>
+</html>

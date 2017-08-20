@@ -6,38 +6,19 @@
         <link rel='stylesheet' href='style.css' />
     </head>
     <body>
-         <script src="/vendor/three.js"></script>
+        <script src="/vendor/three.js"></script>
         <script src="/Engine.js"></script>
         <script src="/Scene.js"></script>
         <script src="/SceneController.js"></script>
-        
+        <script src="js/BasicScene.js"></script>
         
         <div id="main"></div>
         <script>
 
-            var BasicScene = function () {
-                VG.Scene.call(this);
-                this.name = 'basic';
-
-                var mesh = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({color: 'red'}))
-                mesh.position.z = -5;
-                this.view.add(mesh)
-
-                this.update = function (dt) {
-                    mesh.rotation.y += dt
-                }
-            };
-            BasicScene.prototype = Object.create(VG.Scene.prototype);
-
             var engine = new VG.Engine('main');
-
-            var sceneController = new VG.SceneController();
-            engine.add(sceneController);
             
             var scene = new BasicScene();
-            sceneController.add(scene);
-
-            sceneController.activateScene('basic');
+            engine.add(scene);
 
         </script>
     </body>
