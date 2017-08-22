@@ -6,6 +6,8 @@ VG.SceneController = function() {
     VG.EventDispatcher.bind('sceneController.add', this, this.add);
     VG.EventDispatcher.bind('sceneController.remove', this, this.remove);
     VG.EventDispatcher.bind('sceneController.activateScene', this, this.activateScene);
+    VG.EventDispatcher.bind('sceneController.get.activeScene', this, function(){return this.activeScene});
+
 }
 
 VG.SceneController.prototype = {
@@ -39,6 +41,9 @@ VG.SceneController.prototype = {
     },
 
     activateScene: function(name) {
+        if (name instanceof VG.Scene)
+            name = name.name
+
         if (!this.scenes[name]) {
             console.log('Error: Scene with name >>>' + name + '<<< is not exist');
             return;

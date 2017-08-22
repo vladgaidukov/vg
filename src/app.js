@@ -1,3 +1,6 @@
+import './js/VG.js';
+import './js/BaseObject.js';
+
 import './js/Renderer.js';
 
 import './js/EventDispatcher.js';

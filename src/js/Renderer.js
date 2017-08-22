@@ -1,25 +1,14 @@
-VG = {}; 
-VG.DEBUG = false;
-
-VG.DETAIL = 1;
-VG.ANTIALIAS = false;
-VG.CLEAR_COLOR = 'white'
-
-VG.CAMERA_FOV = 45;
-VG.CAMERA_NEAR = 0.1;
-VG.CAMERA_FAR = 10000;
-VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
-
 VG.Renderer = function(container) {
+    VG.BaseObject.call(this, name);
     var self = this;
 
     var domelement = document.getElementById(container);
 
-    var scene = new THREE.Scene();
+    this.view = new THREE.Scene();
 
     var camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, domelement.clientWidth / domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
     camera.position.copy(VG.CAMERA_POSITION);
-    scene.add(camera);
+    this.view.add(camera);
 
     var renderer = new THREE.WebGLRenderer({
         antialias: VG.ANTIALIAS || false
@@ -29,8 +18,6 @@ VG.Renderer = function(container) {
     domelement.append(renderer.domElement);
 
     var clock = new THREE.Clock();
-
-    var animated = [];
 
     renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
 
@@ -47,42 +34,20 @@ VG.Renderer = function(container) {
             TWEEN.update();
         }
 
-        for (var i = 0; i < animated.length; i++) {
-            animated[i].update(delta);
+        for (var i = 0; i < self.animated.length; i++) {
+            self.animated[i].update(delta);
         }
-        renderer.render(scene, camera);
+        renderer.render(self.view, camera);
 
         requestAnimationFrame(render);
     }
 
     render();
 
-    this.add = function(object) {
-
-        if (object instanceof THREE.Object3D)
-            scene.add(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                scene.add(object.view);
-            if (typeof object.update == 'function')
-                animated.push(object);
-        }
-    }
-
-    this.remove = function(object) {
-
-        if (object instanceof THREE.Object3D)
-            scene.remove(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                scene.remove(object.view);
-            if (typeof object.update == 'function')
-                animated.splice(animated.indexOf(object), 1);
-        }
-    }
-
     VG.EventDispatcher.bind('renderer.get.camera', this, function() { return camera });
     VG.EventDispatcher.bind('renderer.get.renderer', this, function() { return renderer });
     VG.EventDispatcher.bind('renderer.add', this, this.add);
     VG.EventDispatcher.bind('renderer.remove', this, this.remove);
 };
+
+VG.Renderer.prototype = Object.create(VG.BaseObject.prototype);

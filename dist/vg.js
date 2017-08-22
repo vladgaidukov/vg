@@ -69,22 +69,29 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_Renderer_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_Renderer_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_Renderer_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_EventDispatcher_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_EventDispatcher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_VG_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_VG_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_VG_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_Renderer_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_Renderer_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_Renderer_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_EventDispatcher_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_EventDispatcher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_loaders_MTLLoader_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_loaders_OBJLoader_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_scene_SceneController_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_scene_Scene_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_scene_Scene_js__);
+
+
+
 
 
 
@@ -108,7 +115,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 1 */
 /***/ (function(module, exports) {
 
-VG = {}; 
+VG = {}
+
 VG.DEBUG = false;
 
 VG.DETAIL = 1;
@@ -120,16 +128,58 @@ VG.CAMERA_NEAR = 0.1;
 VG.CAMERA_FAR = 10000;
 VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
 
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+VG.BaseObject = function() {
+    this.view = new THREE.Object3D;
+    this.animated = [];
+}
+
+VG.BaseObject.prototype = {
+    constructor: VG.GameScene,
+
+    add : function(object) {
+
+        if (object instanceof THREE.Object3D)
+            this.view.add(object);
+        else {
+            if (object.view instanceof THREE.Object3D)
+                this.view.add(object.view);
+            if (typeof object.update == 'function')
+                this.animated.push(object);
+        }
+    },
+
+    remove : function(object) {
+
+        if (object instanceof THREE.Object3D)
+            this.view.remove(object);
+        else {
+            if (object.view instanceof THREE.Object3D)
+                this.view.remove(object.view);
+            if (typeof object.update == 'function')
+                this.animated.splice(this.animated.indexOf(object), 1);
+        }
+    }
+}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
 VG.Renderer = function(container) {
+    VG.BaseObject.call(this, name);
     var self = this;
 
     var domelement = document.getElementById(container);
 
-    var scene = new THREE.Scene();
+    this.view = new THREE.Scene();
 
     var camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, domelement.clientWidth / domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
     camera.position.copy(VG.CAMERA_POSITION);
-    scene.add(camera);
+    this.view.add(camera);
 
     var renderer = new THREE.WebGLRenderer({
         antialias: VG.ANTIALIAS || false
@@ -139,8 +189,6 @@ VG.Renderer = function(container) {
     domelement.append(renderer.domElement);
 
     var clock = new THREE.Clock();
-
-    var animated = [];
 
     renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
 
@@ -157,39 +205,15 @@ VG.Renderer = function(container) {
             TWEEN.update();
         }
 
-        for (var i = 0; i < animated.length; i++) {
-            animated[i].update(delta);
+        for (var i = 0; i < self.animated.length; i++) {
+            self.animated[i].update(delta);
         }
-        renderer.render(scene, camera);
+        renderer.render(self.view, camera);
 
         requestAnimationFrame(render);
     }
 
     render();
-
-    this.add = function(object) {
-
-        if (object instanceof THREE.Object3D)
-            scene.add(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                scene.add(object.view);
-            if (typeof object.update == 'function')
-                animated.push(object);
-        }
-    }
-
-    this.remove = function(object) {
-
-        if (object instanceof THREE.Object3D)
-            scene.remove(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                scene.remove(object.view);
-            if (typeof object.update == 'function')
-                animated.splice(animated.indexOf(object), 1);
-        }
-    }
 
     VG.EventDispatcher.bind('renderer.get.camera', this, function() { return camera });
     VG.EventDispatcher.bind('renderer.get.renderer', this, function() { return renderer });
@@ -197,8 +221,10 @@ VG.Renderer = function(container) {
     VG.EventDispatcher.bind('renderer.remove', this, this.remove);
 };
 
+VG.Renderer.prototype = Object.create(VG.BaseObject.prototype);
+
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports) {
 
 VG.EventDispatcher = {
@@ -358,7 +384,7 @@ VG.EventDispatcher = {
 
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /**
@@ -907,7 +933,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /**
@@ -1655,7 +1681,7 @@ THREE.OBJLoader.prototype = {
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function(options) {
@@ -1706,7 +1732,7 @@ VG.CameraControllerTopDown = function(options) {
 };
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -2752,7 +2778,7 @@ Object.defineProperties( VG.CameraControllerOrbit.prototype, {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 VG.SceneController = function() {
@@ -2763,6 +2789,8 @@ VG.SceneController = function() {
     VG.EventDispatcher.bind('sceneController.add', this, this.add);
     VG.EventDispatcher.bind('sceneController.remove', this, this.remove);
     VG.EventDispatcher.bind('sceneController.activateScene', this, this.activateScene);
+    VG.EventDispatcher.bind('sceneController.get.activeScene', this, function(){return this.activeScene});
+
 }
 
 VG.SceneController.prototype = {
@@ -2796,6 +2824,9 @@ VG.SceneController.prototype = {
     },
 
     activateScene: function(name) {
+        if (name instanceof VG.Scene)
+            name = name.name
+
         if (!this.scenes[name]) {
             console.log('Error: Scene with name >>>' + name + '<<< is not exist');
             return;
@@ -2820,30 +2851,26 @@ VG.SceneController.prototype = {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 VG.Scene = function(name) {
-    this.view = new THREE.Object3D;
+    VG.BaseObject.call(this);
+
     this.name = name || 'default';
     this.autoUpdate = true;
-    VG.EventDispatcher.bind('scene.' + this.name + '.add', this, this.add);
-    VG.EventDispatcher.bind('scene.' + this.name + '.remove', this, this.remove);
+    
 }
 
+VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
+
 VG.Scene.prototype = {
-    constructor: VG.GameScene,
-
-    add: function(object) {
-        this.view.add(object);
-    },
-
-    remove: function(object) {
-        this.view.remove(object);
-    },
+    constructor: VG.Scene,
 
     update: function(dt) {
-        return
+        for (var i = 0; i < animated.length; i++) {
+            animated[i].update(delta);
+        }
     }
 }
 

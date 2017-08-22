@@ -1,0 +1,12 @@
+VG = {}
+
+VG.DEBUG = false;
+
+VG.DETAIL = 1;
+VG.ANTIALIAS = false;
+VG.CLEAR_COLOR = 'white'
+
+VG.CAMERA_FOV = 45;
+VG.CAMERA_NEAR = 0.1;
+VG.CAMERA_FAR = 10000;
+VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);

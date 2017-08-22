@@ -7,7 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "vgtest"
+    "build": "webpack",
+    "start": "webpack --watch | webpack-dev-server --hot"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/vgaydukov/vge#readme",
   "devDependencies": {
-    "webpack": "^3.5.5"
-  },
-  "scripts": {
-    "build": "webpack",
-    "start": "webpack --watch | webpack-dev-server --hot"
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
   }
 }
