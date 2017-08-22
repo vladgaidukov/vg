@@ -1,6 +1,4 @@
-var ﻿VG = VG || {}; 
-
-﻿VG.EventDispatcher = {
+VG.EventDispatcher = {
     listeners: {},
     listenersArgs: {},
 

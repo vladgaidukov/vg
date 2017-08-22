@@ -1,4 +1,4 @@
-VG.CameraControllerTDS = function(options) {
+VG.CameraControllerTopDown = function(options) {
 
     options = options || {}
 
@@ -9,8 +9,8 @@ VG.CameraControllerTDS = function(options) {
     var mouse = new THREE.Vector3(0, 0, 0);
     var newpos = new THREE.Vector3(0, 0, 0);
     var newlook = new THREE.Vector3(0, 0, 0);
-    var camera = VG.EventDispatcher.query('engine.get.camera');
-    var renderer = VG.EventDispatcher.query('engine.get.renderer');
+    var camera = options.camera || console.error('options.camera is undefind');
+    var renderer = options.renderer || console.error('options.renderer is undefind');
 
     this.mousemove = function(evt) {
         mouse.x = (((evt.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1);

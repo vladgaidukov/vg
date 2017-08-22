@@ -13,15 +13,19 @@ var BasicScene2 = function(name) {
 
     var mesh;
     loader.load('models/robot.json', function(geometry) {
-        mesh = VG.Tools.createAnimatedMesh(
-            geometry,
-            new THREE.MeshPhongMaterial({
-                map: textureLoader.load('models/robot.png'),
-                bumpMap: textureLoader.load('models/robo_dirt.png')
-            }))
+        var material = new THREE.MeshPhongMaterial({
+            map: textureLoader.load('models/robot.png'),
+            bumpMap: textureLoader.load('models/robo_dirt.png')
+        });
+        material.morphTargets = true;
+        mesh = new THREE.MorphBlendMesh(geometry, material);
+        mesh.autoCreateAnimations(60);
+
+        mesh.position.z = -10;
+        mesh.position.y = -2;
 
         mesh.playAnimation('run');
-        mesh.position.set(0, -2, -20);
+
         context.view.add(mesh);
 
     });

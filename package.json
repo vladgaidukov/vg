@@ -1,0 +1,31 @@
+{
+  "name": "vge",
+  "version": "1.0.0",
+  "description": "Simple Game Framework based on Three.js",
+  "main": "vg.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "vgtest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/vgaydukov/vge.git"
+  },
+  "keywords": [
+    "three.js",
+    "game",
+    "engine"
+  ],
+  "author": "Vlad Gaidukov",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/vgaydukov/vge#readme",
+  "devDependencies": {
+    "webpack": "^3.5.5"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch | webpack-dev-server --hot"
+  }
+}

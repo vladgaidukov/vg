@@ -6,22 +6,18 @@
         <link rel='stylesheet' href='style.css' />
     </head>
     <body>
-        <script src="/vendor/three.js"></script>
-        <script src="/EventDispatcher.js"></script>
-        <script src="/Engine.js"></script>
-        <script src="/Scene.js"></script>
-        <script src="/SceneController.js"></script>
-        <script src="/Tools.js"></script>
+        <script src="vendor/three.js"></script>
+        <script src="/dist/vg.js"></script>
         <script src="js/BasicScene.js"></script>
         <script src="js/BasicScene2.js"></script>
 
         <div id="main"></div>
         <script>
 
-            var engine = new VG.Engine('main');
+            var renderer = new VG.Renderer('main');
 
             var sceneController = new VG.SceneController();
-            engine.add(sceneController);
+            renderer.add(sceneController);
 
             var scene = new BasicScene('basic');
             sceneController.add(scene);

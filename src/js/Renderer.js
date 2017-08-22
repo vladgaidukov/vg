@@ -1,4 +1,4 @@
-var VG = VG || {};
+VG = {}; 
 VG.DEBUG = false;
 
 VG.DETAIL = 1;
@@ -10,7 +10,7 @@ VG.CAMERA_NEAR = 0.1;
 VG.CAMERA_FAR = 10000;
 VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
 
-VG.Engine = function(container) {
+VG.Renderer = function(container) {
     var self = this;
 
     var domelement = document.getElementById(container);
@@ -81,9 +81,8 @@ VG.Engine = function(container) {
         }
     }
 
-    VG.EventDispatcher.bind('engine.get.camera', this, function() { return camera });
-    VG.EventDispatcher.bind('engine.get.renderer', this, function() { return renderer });
-    VG.EventDispatcher.bind('engine.get.clock', this, function() { return clock });
-    VG.EventDispatcher.bind('engine.add', this, this.add);
-    VG.EventDispatcher.bind('engine.remove', this, this.remove);
+    VG.EventDispatcher.bind('renderer.get.camera', this, function() { return camera });
+    VG.EventDispatcher.bind('renderer.get.renderer', this, function() { return renderer });
+    VG.EventDispatcher.bind('renderer.add', this, this.add);
+    VG.EventDispatcher.bind('renderer.remove', this, this.remove);
 };
