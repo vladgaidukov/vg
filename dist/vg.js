@@ -69,21 +69,21 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_Renderer_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_Renderer_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_Renderer_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_Renderer_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_EventDispatcher_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_EventDispatcher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_scene_Scene_js__);
 
 
@@ -105,7 +105,99 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 1 */,
+/* 1 */
+/***/ (function(module, exports) {
+
+VG = {}; 
+VG.DEBUG = false;
+
+VG.DETAIL = 1;
+VG.ANTIALIAS = false;
+VG.CLEAR_COLOR = 'white'
+
+VG.CAMERA_FOV = 45;
+VG.CAMERA_NEAR = 0.1;
+VG.CAMERA_FAR = 10000;
+VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
+
+VG.Renderer = function(container) {
+    var self = this;
+
+    var domelement = document.getElementById(container);
+
+    var scene = new THREE.Scene();
+
+    var camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, domelement.clientWidth / domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
+    camera.position.copy(VG.CAMERA_POSITION);
+    scene.add(camera);
+
+    var renderer = new THREE.WebGLRenderer({
+        antialias: VG.ANTIALIAS || false
+    });
+    renderer.setClearColor(VG.CLEAR_COLOR);
+    renderer.setSize(domelement.clientWidth, domelement.clientHeight);
+    domelement.append(renderer.domElement);
+
+    var clock = new THREE.Clock();
+
+    var animated = [];
+
+    renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
+
+    window.addEventListener('resize', function() {
+        camera.aspect = domelement.clientWidth / domelement.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(domelement.clientWidth, domelement.clientHeight);
+    }, false);
+
+    function render() {
+        var delta = clock.getDelta();
+
+        if (typeof TWEEN !== "undefined") {
+            TWEEN.update();
+        }
+
+        for (var i = 0; i < animated.length; i++) {
+            animated[i].update(delta);
+        }
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(render);
+    }
+
+    render();
+
+    this.add = function(object) {
+
+        if (object instanceof THREE.Object3D)
+            scene.add(object);
+        else {
+            if (object.view instanceof THREE.Object3D)
+                scene.add(object.view);
+            if (typeof object.update == 'function')
+                animated.push(object);
+        }
+    }
+
+    this.remove = function(object) {
+
+        if (object instanceof THREE.Object3D)
+            scene.remove(object);
+        else {
+            if (object.view instanceof THREE.Object3D)
+                scene.remove(object.view);
+            if (typeof object.update == 'function')
+                animated.splice(animated.indexOf(object), 1);
+        }
+    }
+
+    VG.EventDispatcher.bind('renderer.get.camera', this, function() { return camera });
+    VG.EventDispatcher.bind('renderer.get.renderer', this, function() { return renderer });
+    VG.EventDispatcher.bind('renderer.add', this, this.add);
+    VG.EventDispatcher.bind('renderer.remove', this, this.remove);
+};
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
@@ -266,200 +358,7 @@ VG.EventDispatcher = {
 
 
 /***/ }),
-/* 3 */,
-/* 4 */
-/***/ (function(module, exports) {
-
-VG.SceneController = function() {
-    this.scenes = {};
-    this.view = new THREE.Object3D();
-    this.activeScene = null;
-
-    VG.EventDispatcher.bind('sceneController.add', this, this.add);
-    VG.EventDispatcher.bind('sceneController.remove', this, this.remove);
-    VG.EventDispatcher.bind('sceneController.activateScene', this, this.activateScene);
-}
-
-VG.SceneController.prototype = {
-    constructor: VG.SceneController,
-
-    add: function(scene) {
-        if (scene instanceof VG.Scene) {
-            if (this.scenes[scene.name]) {
-                console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
-                return;
-            }
-
-            this.scenes[scene.name] = scene;
-        } else {
-            console.log('Error: Object is not instanceof VG.GameScene');
-        }
-    },
-
-    remove: function(scene) {
-        if (scene instanceof VG.Scene) {
-            if (!this.scenes[scene.name]) {
-                console.log('Error: Scene with name >>>' + scene.name + '<<< is not exist');
-                return;
-            }
-
-            this.scenes[scene.name] = null;
-            delete this.scenes[scene.name];
-        } else {
-            console.log('Error: Object is not instanceof VG.GameScene');
-        }
-    },
-
-    activateScene: function(name) {
-        if (!this.scenes[name]) {
-            console.log('Error: Scene with name >>>' + name + '<<< is not exist');
-            return;
-        }
-
-        if (this.activeScene && this.activeScene.name == name)
-            return
-
-        if (this.activeScene)
-            this.view.remove(this.activeScene.view);
-
-        this.activeScene = this.scenes[name];
-        this.view.add(this.activeScene.view);
-
-    },
-
-    update: function(dt) {
-        if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
-            this.activeScene.update(dt)
-    }
-}
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-VG.Scene = function(name) {
-    this.view = new THREE.Object3D;
-    this.name = name || 'default';
-    this.autoUpdate = true;
-    VG.EventDispatcher.bind('scene.' + this.name + '.add', this, this.add);
-    VG.EventDispatcher.bind('scene.' + this.name + '.remove', this, this.remove);
-}
-
-VG.Scene.prototype = {
-    constructor: VG.GameScene,
-
-    add: function(object) {
-        this.view.add(object);
-    },
-
-    remove: function(object) {
-        this.view.remove(object);
-    },
-
-    update: function(dt) {
-        return
-    }
-}
-
-/***/ }),
-/* 6 */,
-/* 7 */
-/***/ (function(module, exports) {
-
-VG = {}; 
-VG.DEBUG = false;
-
-VG.DETAIL = 1;
-VG.ANTIALIAS = false;
-VG.CLEAR_COLOR = 'white'
-
-VG.CAMERA_FOV = 45;
-VG.CAMERA_NEAR = 0.1;
-VG.CAMERA_FAR = 10000;
-VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
-
-VG.Renderer = function(container) {
-    var self = this;
-
-    var domelement = document.getElementById(container);
-
-    var scene = new THREE.Scene();
-
-    var camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, domelement.clientWidth / domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
-    camera.position.copy(VG.CAMERA_POSITION);
-    scene.add(camera);
-
-    var renderer = new THREE.WebGLRenderer({
-        antialias: VG.ANTIALIAS || false
-    });
-    renderer.setClearColor(VG.CLEAR_COLOR);
-    renderer.setSize(domelement.clientWidth, domelement.clientHeight);
-    domelement.append(renderer.domElement);
-
-    var clock = new THREE.Clock();
-
-    var animated = [];
-
-    renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
-
-    window.addEventListener('resize', function() {
-        camera.aspect = domelement.clientWidth / domelement.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(domelement.clientWidth, domelement.clientHeight);
-    }, false);
-
-    function render() {
-        var delta = clock.getDelta();
-
-        if (typeof TWEEN !== "undefined") {
-            TWEEN.update();
-        }
-
-        for (var i = 0; i < animated.length; i++) {
-            animated[i].update(delta);
-        }
-        renderer.render(scene, camera);
-
-        requestAnimationFrame(render);
-    }
-
-    render();
-
-    this.add = function(object) {
-
-        if (object instanceof THREE.Object3D)
-            scene.add(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                scene.add(object.view);
-            if (typeof object.update == 'function')
-                animated.push(object);
-        }
-    }
-
-    this.remove = function(object) {
-
-        if (object instanceof THREE.Object3D)
-            scene.remove(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                scene.remove(object.view);
-            if (typeof object.update == 'function')
-                animated.splice(animated.indexOf(object), 1);
-        }
-    }
-
-    VG.EventDispatcher.bind('renderer.get.camera', this, function() { return camera });
-    VG.EventDispatcher.bind('renderer.get.renderer', this, function() { return renderer });
-    VG.EventDispatcher.bind('renderer.add', this, this.add);
-    VG.EventDispatcher.bind('renderer.remove', this, this.remove);
-};
-
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */
+/* 3 */
 /***/ (function(module, exports) {
 
 /**
@@ -1008,7 +907,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 
 /***/ }),
-/* 11 */
+/* 4 */
 /***/ (function(module, exports) {
 
 /**
@@ -1756,7 +1655,7 @@ THREE.OBJLoader.prototype = {
 
 
 /***/ }),
-/* 12 */
+/* 5 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function(options) {
@@ -1807,7 +1706,7 @@ VG.CameraControllerTopDown = function(options) {
 };
 
 /***/ }),
-/* 13 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /**
@@ -2851,6 +2750,102 @@ Object.defineProperties( VG.CameraControllerOrbit.prototype, {
 
 } );
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+VG.SceneController = function() {
+    this.scenes = {};
+    this.view = new THREE.Object3D();
+    this.activeScene = null;
+
+    VG.EventDispatcher.bind('sceneController.add', this, this.add);
+    VG.EventDispatcher.bind('sceneController.remove', this, this.remove);
+    VG.EventDispatcher.bind('sceneController.activateScene', this, this.activateScene);
+}
+
+VG.SceneController.prototype = {
+    constructor: VG.SceneController,
+
+    add: function(scene) {
+        if (scene instanceof VG.Scene) {
+            if (this.scenes[scene.name]) {
+                console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
+                return;
+            }
+
+            this.scenes[scene.name] = scene;
+        } else {
+            console.log('Error: Object is not instanceof VG.GameScene');
+        }
+    },
+
+    remove: function(scene) {
+        if (scene instanceof VG.Scene) {
+            if (!this.scenes[scene.name]) {
+                console.log('Error: Scene with name >>>' + scene.name + '<<< is not exist');
+                return;
+            }
+
+            this.scenes[scene.name] = null;
+            delete this.scenes[scene.name];
+        } else {
+            console.log('Error: Object is not instanceof VG.GameScene');
+        }
+    },
+
+    activateScene: function(name) {
+        if (!this.scenes[name]) {
+            console.log('Error: Scene with name >>>' + name + '<<< is not exist');
+            return;
+        }
+
+        if (this.activeScene && this.activeScene.name == name)
+            return
+
+        if (this.activeScene)
+            this.view.remove(this.activeScene.view);
+
+        this.activeScene = this.scenes[name];
+        this.view.add(this.activeScene.view);
+
+    },
+
+    update: function(dt) {
+        if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
+            this.activeScene.update(dt)
+    }
+}
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+VG.Scene = function(name) {
+    this.view = new THREE.Object3D;
+    this.name = name || 'default';
+    this.autoUpdate = true;
+    VG.EventDispatcher.bind('scene.' + this.name + '.add', this, this.add);
+    VG.EventDispatcher.bind('scene.' + this.name + '.remove', this, this.remove);
+}
+
+VG.Scene.prototype = {
+    constructor: VG.GameScene,
+
+    add: function(object) {
+        this.view.add(object);
+    },
+
+    remove: function(object) {
+        this.view.remove(object);
+    },
+
+    update: function(dt) {
+        return
+    }
+}
 
 /***/ })
 /******/ ]);
