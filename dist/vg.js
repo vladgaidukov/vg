@@ -2859,18 +2859,14 @@ VG.Scene = function(name) {
 
     this.name = name || 'default';
     this.autoUpdate = true;
-    
+
 }
 
 VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
 
-VG.Scene.prototype = {
-    constructor: VG.Scene,
-
-    update: function(dt) {
-        for (var i = 0; i < animated.length; i++) {
-            animated[i].update(delta);
-        }
+VG.Scene.prototype.update = function(dt) {
+    for (var i = 0; i < this.animated.length; i++) {
+        this.animated[i].update(dt);
     }
 }
 
