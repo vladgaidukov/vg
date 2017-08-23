@@ -13,3 +13,7 @@ VG.Scene.prototype.update = function(dt) {
         this.animated[i].update(dt);
     }
 }
+
+VG.Scene.prototype.init = function() {
+    console.warn('Warning: Scene with name >>>' + this.name + '<<< init method is not define' )
+}

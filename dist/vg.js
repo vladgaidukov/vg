@@ -2785,12 +2785,6 @@ VG.SceneController = function() {
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
-
-    VG.EventDispatcher.bind('sceneController.add', this, this.add);
-    VG.EventDispatcher.bind('sceneController.remove', this, this.remove);
-    VG.EventDispatcher.bind('sceneController.activateScene', this, this.activateScene);
-    VG.EventDispatcher.bind('sceneController.get.activeScene', this, function(){return this.activeScene});
-
 }
 
 VG.SceneController.prototype = {
@@ -2823,7 +2817,7 @@ VG.SceneController.prototype = {
         }
     },
 
-    activateScene: function(name) {
+    activateScene: function(name, data) {
         if (name instanceof VG.Scene)
             name = name.name
 
@@ -2840,6 +2834,7 @@ VG.SceneController.prototype = {
 
         this.activeScene = this.scenes[name];
         this.view.add(this.activeScene.view);
+        this.activeScene.init(data);
 
     },
 
@@ -2868,6 +2863,10 @@ VG.Scene.prototype.update = function(dt) {
     for (var i = 0; i < this.animated.length; i++) {
         this.animated[i].update(dt);
     }
+}
+
+VG.Scene.prototype.init = function() {
+    console.warn('Warning: Scene with name >>>' + this.name + '<<< init method is not define' )
 }
 
 /***/ })

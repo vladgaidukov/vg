@@ -8,7 +8,7 @@ module.exports = {
   },
   devServer: {
     inline:true,
-    port: 10000,
+    port: 10001,
     hot: true
   },
 };
