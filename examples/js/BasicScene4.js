@@ -11,6 +11,11 @@ var BasicScene4 = function(name) {
     light.position.set(10, 20, 10)
     this.view.add(light);
 
+
+	var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+	directionalLight.position.set( 1, 1, 1 ).normalize();
+	this.add( directionalLight );
+
     var camera = VG.EventDispatcher.query('renderer.get.camera');
     camera.position.set(0,5,-5)
 
@@ -20,7 +25,7 @@ var BasicScene4 = function(name) {
 
     var mesh;
     loader.load('models/robot.json', function(geometry) {
-        var material = new THREE.MeshPhongMaterial({
+        var material = new THREE.MeshToonMaterial({
             map: textureLoader.load('models/robot.png'),
             bumpMap: textureLoader.load('models/robo_dirt.png')
         });

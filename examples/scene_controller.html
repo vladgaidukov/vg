@@ -14,10 +14,10 @@
         <div id="main"></div>
         <script>
 
-            var renderer = new VG.Renderer('main');
+            var engine = new VG.Engine('main');
 
             var sceneController = new VG.SceneController();
-            renderer.add(sceneController);
+            engine.add(sceneController);
 
             var scene = new BasicScene('basic');
             sceneController.add(scene);

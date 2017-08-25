@@ -73,8 +73,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_VG_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_VG_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_Renderer_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_Renderer_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_Renderer_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_Engine_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_Engine_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_EventDispatcher_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_EventDispatcher_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_loaders_MTLLoader_js__ = __webpack_require__(5);
@@ -169,7 +169,7 @@ VG.BaseObject.prototype = {
 /* 3 */
 /***/ (function(module, exports) {
 
-VG.Renderer = function(container) {
+VG.Engine = function(container) {
     VG.BaseObject.call(this, name);
     var self = this;
 
@@ -221,7 +221,7 @@ VG.Renderer = function(container) {
     VG.EventDispatcher.bind('renderer.remove', this, this.remove);
 };
 
-VG.Renderer.prototype = Object.create(VG.BaseObject.prototype);
+VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
 
 /***/ }),
 /* 4 */

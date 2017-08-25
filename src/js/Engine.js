@@ -1,4 +1,4 @@
-VG.Renderer = function(container) {
+VG.Engine = function(container) {
     VG.BaseObject.call(this, name);
     var self = this;
 
@@ -50,4 +50,4 @@ VG.Renderer = function(container) {
     VG.EventDispatcher.bind('renderer.remove', this, this.remove);
 };
 
-VG.Renderer.prototype = Object.create(VG.BaseObject.prototype);
+VG.Engine.prototype = Object.create(VG.BaseObject.prototype);

@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Simple Game Framework based on Three.js",
   "main": "vg.js",
-  "directories": {
-    "example": "examples"
-  },
   "scripts": {
     "build": "webpack",
     "start": "webpack --watch | webpack-dev-server --hot"
