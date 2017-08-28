@@ -1,4 +1,4 @@
-VG.BaseObject = function() {
+VG.BaseObject = function () {
     this.view = new THREE.Object3D;
     this.animated = [];
 }
@@ -6,7 +6,7 @@ VG.BaseObject = function() {
 VG.BaseObject.prototype = {
     constructor: VG.GameScene,
 
-    add : function(object) {
+    add: function (object) {
 
         if (object instanceof THREE.Object3D)
             this.view.add(object);
@@ -18,7 +18,7 @@ VG.BaseObject.prototype = {
         }
     },
 
-    remove : function(object) {
+    remove: function (object) {
 
         if (object instanceof THREE.Object3D)
             this.view.remove(object);

@@ -1,4 +1,4 @@
-VG.Engine = function(container) {
+VG.Engine = function (container) {
     VG.BaseObject.call(this, name);
     var self = this;
 
@@ -21,7 +21,7 @@ VG.Engine = function(container) {
 
     renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         camera.aspect = domelement.clientWidth / domelement.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(domelement.clientWidth, domelement.clientHeight);
@@ -44,8 +44,8 @@ VG.Engine = function(container) {
 
     render();
 
-    VG.EventDispatcher.bind('renderer.get.camera', this, function() { return camera });
-    VG.EventDispatcher.bind('renderer.get.renderer', this, function() { return renderer });
+    VG.EventDispatcher.bind('renderer.get.camera', this, function () { return camera });
+    VG.EventDispatcher.bind('renderer.get.renderer', this, function () { return renderer });
     VG.EventDispatcher.bind('renderer.add', this, this.add);
     VG.EventDispatcher.bind('renderer.remove', this, this.remove);
 };

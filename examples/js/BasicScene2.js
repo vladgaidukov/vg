@@ -1,5 +1,6 @@
-var BasicScene2 = function(name) {
-    VG.Scene.call(this, name);
+var BasicScene2 = function() {
+    VG.Scene.call(this);
+    this.name = 'basic2';
 
     var context = this;
 
@@ -12,10 +13,10 @@ var BasicScene2 = function(name) {
     this.view.add(light);
 
     var mesh;
-    loader.load('models/robot.json', function(geometry) {
+    loader.load('assets/models/robot.json', function(geometry) {
         var material = new THREE.MeshPhongMaterial({
-            map: textureLoader.load('models/robot.png'),
-            bumpMap: textureLoader.load('models/robo_dirt.png')
+            map: textureLoader.load('assets/models/robot.png'),
+            bumpMap: textureLoader.load('assets/models/robo_dirt.png')
         });
         material.morphTargets = true;
         mesh = new THREE.MorphBlendMesh(geometry, material);

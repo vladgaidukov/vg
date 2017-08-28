@@ -1,5 +1,6 @@
-var BasicScene = function(name) {
-    VG.Scene.call(this, name);
+var BasicScene = function() {
+    VG.Scene.call(this);
+    this.name = 'basic'
 
     var mesh = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ color: 'red' }))
     mesh.position.z = -5;

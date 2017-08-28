@@ -92,33 +92,32 @@ VG.EventDispatcher = {
             }
         }
     },
-    
+
     query: function (eventName, eventArgs) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
         }
-        
+
         if (this.listeners[eventName] == undefined)
             return undefined;
-        
+
         var listeners = this.listeners[eventName];
-        if (listeners > 1)
-        {
-            console.error ("EventDispatcher.query -> Can't send query to multiply objects");
+        if (listeners > 1) {
+            console.error("EventDispatcher.query -> Can't send query to multiply objects");
             return undefined;
         }
-        
-        var listenersArgs = this.listenersArgs [eventName];
+
+        var listenersArgs = this.listenersArgs[eventName];
         var listener = listeners[0];
         var result = undefined;
-        
+
         try {
-            result = listener.func.call (listener.object, eventArgs, listenersArgs[0]);
+            result = listener.func.call(listener.object, eventArgs, listenersArgs[0]);
         } catch (err) {
-            console.error ("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
+            console.error("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
         }
-        
+
         return result;
     },
 
@@ -136,18 +135,18 @@ VG.EventDispatcher = {
     toString: function () {
         return "[HB.EventDispatcher]";
     },
-    
+
     getListenerIndex: function (listeners, callback) {
         for (var i = 0; i < listeners.length; i++) {
             var obj = listeners[i];
             if (typeof obj.func === "function" && (callback === obj.func))
                 return i;
             else if ((obj.func.method !== null) && (obj.func.method !== undefined) &&
-                     (obj.func.context !== null) && (obj.func.context !== undefined) &&
-                     (callback.method === obj.func.method) && (callback.context === obj.func.context))
+                (obj.func.context !== null) && (obj.func.context !== undefined) &&
+                (callback.method === obj.func.method) && (callback.context === obj.func.context))
                 return i;
         }
-        
+
         return -1;
     }
 

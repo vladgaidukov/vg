@@ -1,4 +1,4 @@
-VG.CameraControllerTopDown = function(options) {
+VG.CameraControllerTopDown = function (options) {
 
     options = options || {}
 
@@ -12,19 +12,19 @@ VG.CameraControllerTopDown = function(options) {
     var camera = options.camera || console.error('options.camera is undefind');
     var renderer = options.renderer || console.error('options.renderer is undefind');
 
-    this.mousemove = function(evt) {
+    this.mousemove = function (evt) {
         mouse.x = (((evt.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1);
         mouse.z = (((evt.clientY - renderer.domElement.offsetTop) / renderer.domElement.height) * 2 - 1);
     };
 
-    this.update = function() {
+    this.update = function () {
 
         newpos.x = this.target.position.x + this.offset.x;
         newpos.y = this.target.position.y + this.offset.y;
         newpos.z = this.target.position.z + this.offset.z;
 
-        this.z_offset = mouse.z * this.offsetlook.z ;
-        this.x_offset = mouse.x * this.offsetlook.x ;
+        this.z_offset = mouse.z * this.offsetlook.z;
+        this.x_offset = mouse.x * this.offsetlook.x;
 
         camera.position.x = newpos.x + this.x_offset
         camera.position.y = newpos.y;
@@ -37,7 +37,7 @@ VG.CameraControllerTopDown = function(options) {
         camera.lookAt(newlook);
 
     };
-    this.destroy = function() {
+    this.destroy = function () {
         document.removeEventListener('mousemove', this.mousemove, false);
     };
 
