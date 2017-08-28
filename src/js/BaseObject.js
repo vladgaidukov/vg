@@ -4,7 +4,7 @@ VG.BaseObject = function () {
 }
 
 VG.BaseObject.prototype = {
-    constructor: VG.GameScene,
+    constructor: VG.BaseObject,
 
     add: function (object) {
 

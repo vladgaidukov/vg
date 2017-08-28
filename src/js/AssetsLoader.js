@@ -2,7 +2,7 @@ VG.AssetsLoader = function (assetPath) {
 
 	var context = this;
 
-	this.assetPath = assetPath;
+	this.assetPath = assetPath || this.assetPath;
 
 	this.loaders = {
 		'file': new THREE.FileLoader(),

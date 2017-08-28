@@ -141,7 +141,7 @@ VG.BaseObject = function () {
 }
 
 VG.BaseObject.prototype = {
-    constructor: VG.GameScene,
+    constructor: VG.BaseObject,
 
     add: function (object) {
 
@@ -1690,7 +1690,7 @@ VG.AssetsLoader = function (assetPath) {
 
 	var context = this;
 
-	this.assetPath = assetPath;
+	this.assetPath = assetPath || this.assetPath;
 
 	this.loaders = {
 		'file': new THREE.FileLoader(),
