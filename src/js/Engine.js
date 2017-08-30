@@ -51,3 +51,4 @@ VG.Engine = function (container) {
 };
 
 VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
+VG.Engine.constructor = VG.Engine

@@ -83,16 +83,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_loaders_OBJLoader_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_AssetsLoader_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_controls_KeyboardController_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_controls_KeyboardController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_controls_KeyboardController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_scene_SceneController_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_scene_Scene_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_controls_KeyboardEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_controls_MouseEventsHandler_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_controls_MouseEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_scene_SceneController_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_scene_Scene_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_scene_Scene_js__);
+
 
 
 
@@ -135,11 +138,64 @@ VG.CAMERA_NEAR = 0.1;
 VG.CAMERA_FAR = 10000;
 VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 0);
 
+VG.MOBILE_CLIENT = (function() {
+    var mobileKeys = [
+        "android",
+        "bb",
+        "meego",
+        "mobile",
+        "avantgo",
+        "bada",
+        "blackberry",
+        "blazer",
+        "compal",
+        "elaine",
+        "fennec",
+        "hiptop",
+        "iemobile",
+        "iphone",
+        "ipod",
+        "iris",
+        "kindle",
+        "lge",
+        "maemo",
+        "midp",
+        "mmp",
+        "netfront",
+        "opera mob",
+        "opera min",
+        "palm",
+        "phone pixi",
+        "phone pre",
+        "plucker",
+        "pocket",
+        "psp",
+        "series40",
+        "series60",
+        "symbian",
+        "treo",
+        "vodafone",
+        "wap",
+        "windows ce",
+        "windows phone",
+        "xda",
+        "xiino",
+    ];
+
+    var agent = navigator.userAgent.toLowerCase();
+    for (var i = 0; i < mobileKeys.length; i++) {
+        if (agent.indexOf(mobileKeys[i]) >= 0)
+            return true;
+    }
+
+    return false;
+})()
+
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-VG.BaseObject = function () {
+VG.BaseObject = function() {
     this.view = new THREE.Object3D;
     this.animated = [];
 }
@@ -147,28 +203,26 @@ VG.BaseObject = function () {
 VG.BaseObject.prototype = {
     constructor: VG.BaseObject,
 
-    add: function (object) {
+    add: function(object) {
 
-        if (object instanceof THREE.Object3D)
-            this.view.add(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                this.view.add(object.view);
-            if (typeof object.update == 'function')
-                this.animated.push(object);
-        }
+        var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
+        if (view)
+            this.view.add(view);
+
+        var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
+        if (animated)
+            this.animated.push(animated);
     },
 
-    remove: function (object) {
+    remove: function(object) {
 
-        if (object instanceof THREE.Object3D)
-            this.view.remove(object);
-        else {
-            if (object.view instanceof THREE.Object3D)
-                this.view.remove(object.view);
-            if (typeof object.update == 'function')
-                this.animated.splice(this.animated.indexOf(object), 1);
-        }
+        var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
+        if (view)
+            this.view.remove(view);
+
+        var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
+        if (animated)
+            this.animated.splice(this.animated.indexOf(animated), 1);
     }
 }
 
@@ -229,6 +283,7 @@ VG.Engine = function (container) {
 };
 
 VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
+VG.Engine.constructor = VG.Engine
 
 /***/ }),
 /* 4 */
@@ -1817,195 +1872,193 @@ VG.AssetsLoader.prototype = {
 /* 8 */
 /***/ (function(module, exports) {
 
-VG.KeyboardEventsHandler = function (owner, container, onKeyDown, onKeyUp, onKeyPress, onDoubleKey) {
-    this.owner = owner;
-    this.container = container;
+VG.KeyboardEventsHandler = function(domElement) {
 
-    let lastKey = null;
-    let timeout = null;
+    var container = domElement;
 
-    if (onKeyDown) {
-        container.addEventListener('keydown',
-            function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                if (!event.key)
-                    event.key = String.fromCharCode (event.keyCode).toLowerCase ();
-                onKeyDown(event.keyCode, event.key);
-                return false;
-            }, false);
+    var lastKey = null;
+    var timeout = null;
 
-        if (onKeyUp) {
-            container.addEventListener("keyup",
-                function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    if (!event.key)
-                        event.key = String.fromCharCode (event.keyCode).toLowerCase ();
+    container.addEventListener('keydown',
+        function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!event.key)
+                event.key = String.fromCharCode(event.keyCode).toLowerCase();
 
-                    if (lastKey && lastKey == event.keyCode) {
-                        clearTimeout(timeout);
-                        lastKey = null;
+            VG.EventDispatcher.send('keyboard.keydown.' + event.key, event);
 
-                        if (onDoubleKey){
-                            onDoubleKey(event.keyCode, event.key);
-                        }
+            return false;
+        }, false);
 
-                    } else {
-                        lastKey = event.keyCode;
-                        timeout = setTimeout(function(){
-                            lastKey = null;
-                        },600);
-                    };
+    container.addEventListener("keyup",
+        function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!event.key)
+                event.key = String.fromCharCode(event.keyCode).toLowerCase();
 
-                    onKeyUp(event.keyCode, event.key);
-                    return false;
-                }, false);
-        }
-    }
+            if (lastKey && lastKey == event.keyCode) {
+                clearTimeout(timeout);
+                lastKey = null;
+                VG.EventDispatcher.send('keyboard.doublekey.' + event.key, event);
+                
 
-    if (onKeyPress) {
-        container.addEventListener("keypress",
-            function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                if (!event.key)
-                    event.key = String.fromCharCode (event.keyCode).toLowerCase ();
-                onKeyPress(event.keyCode, event.key);
-            }, false);
-    }
+            } else {
+                lastKey = event.keyCode;
+                timeout = setTimeout(function() {
+                    lastKey = null;
+                }, 600);
+            };
 
-    this.setFocus();
+            VG.EventDispatcher.send('keyboard.keyup.' + event.key, event);
+            return false;
+        }, false);
+
+    container.addEventListener("keypress",
+        function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!event.key)
+                event.key = String.fromCharCode(event.keyCode).toLowerCase();
+            VG.EventDispatcher.send('keyboard.keypress.' + event.key, event);
+        }, false);
+
 };
-
-VG.KeyboardEventsHandler.prototype = {
-    constructor: VG.KeyboardEventsHandler,
-
-    setFocus: function () {
-        this.container.setAttribute("tabindex", 0);
-    }
-};
-
-
-VG.KeyboardListener = function (container) {
-    var context = this;
-
-    this.keymap = {};
-    this.evtdsp = VG.EventDispatcher;
-
-    var keybHandler = new VG.KeyboardEventsHandler(this, container,
-        function (code, char) {
-            context.keymap[char] = true;
-            context.keymap[code] = true;
-
-            context.evtdsp.send('keyboard.key.' + char, {
-                key: char,
-                pressed: true
-            });
-            context.evtdsp.send('keyboard.key.' + code, {
-                key: code,
-                pressed: true
-            });
-        },
-        function (code, char) {
-            context.keymap[char] = false;
-            context.keymap[code] = false;
-
-            context.evtdsp.send('keyboard.key.' + char, {
-                key: char,
-                pressed: false
-            });
-            context.evtdsp.send('keyboard.key.' + code, {
-                key: code,
-                pressed: false
-            });
-        },
-        null,
-        function(code, char){
-            context.evtdsp.send('keyboard.doubleKey.' + char, {
-                key: char,
-            });
-            context.evtdsp.send('keyboard.doubleKey.' + code, {
-                key: code,
-            });
-        });
-};
-
-VG.KeyboardListener.KeyCode =
-{
-    Shift: 16,
-    Ctrl: 17,
-    W: 87,
-    A: 65,
-    S: 83,
-    D: 68,
-    Up: 38,
-    R: 82,
-    Down: 40,
-    Left: 37,
-    Right: 39,
-    Q: 81,
-    E: 69,
-    F: 70,
-    Z: 90,
-    X: 88,
-    C: 67,
-    H: 72,
-    B: 66,
-    O: 79,
-    G: 71,
-    Space: 32,
-    One: 49,
-    Two: 50,
-    Three: 51
-};
-
-VG.KeyboardListener.prototype = {
-    constructor: VG.KeyboardListener,
-
-    isKeyPressed: function (char) {
-        return this.keymap[char];
-    },
-
-    isKeyCodePressed: function (code) {
-        return this.keymap[code];
-    },
-
-    bindKey: function (char, callback) {
-        this.evtdsp.bind('keyboard.key.' + char, this, callback);
-    },
-
-    unbindKey: function (char, callback) {
-        this.evtdsp.unbind('keyboard.key.' + char, callback);
-    },
-
-    bindKeyCode: function (code, callback) {
-        this.evtdsp.bind('keyboard.key.' + code, this, callback);
-    },
-
-    unbindKeyCode: function (code, callback) {
-        this.evtdsp.unbind('keyboard.key.' + code, callback);
-    },
-
-    bindDoubleKey: function (char, callback) {
-        this.evtdsp.bind('keyboard.doubleKey.' + char, this, callback);
-    },
-
-    unbindDoubleKey: function (char, callback) {
-        this.evtdsp.unbind('keyboard.doubleKey.' + char, callback);
-    },
-
-    emitKey: function (key, state) {
-        this.evtdsp.send('keyboard.key.' + key, {
-            key: key,
-            pressed: state
-        });
-    }
-};
-
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+VG.MouseEventsHandler = function(domElement) {
+
+    var context = this;
+
+    var container = domElement;
+
+    this.mouseCaptured = false;
+    this.mouseMoved = false;
+    this.lastMouseX = null;
+    this.lastMouseY = null;
+
+    function getPointerCoord(event, prevX, prevY) {
+        var coord = [0, 0, 0, 0];
+
+        var cx = event.clientX;
+        var cy = event.clientY;
+        if (event.changedTouches) {
+            cx = event.changedTouches[0].clientX;
+            cy = event.changedTouches[0].clientY;
+        }
+
+        var clientRect = container.getBoundingClientRect();
+        coord[0] = cx - clientRect.left;
+        coord[1] = cy - clientRect.top;
+        coord[2] = coord[0] - prevX;
+        coord[3] = coord[1] - prevY;
+
+        return coord;
+    }
+
+    function onSelectorUp(event) {
+        if (VG.MOBILE_CLIENT) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        var pt = getPointerCoord(event, context.lastMouseX, context.lastMouseY);
+
+        VG.EventDispatcher.send('mouse.up', { button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+
+        if (context.mouseCaptured && !context.mouseMoved)
+            VG.EventDispatcher.send('mouse.click', { button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+
+        context.mouseMoved = false;
+        context.mouseCaptured = false;
+    }
+
+    function onSelectorDown(event) {
+        if (VG.MOBILE_CLIENT) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        var pt = getPointerCoord(event, context.lastMouseX, context.lastMouseY);
+        context.lastMouseX = pt[0];
+        context.lastMouseY = pt[1];
+
+        context.mouseCaptured = true;
+        context.mouseMoved = false;
+
+        VG.EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1] });
+    }
+
+    function onSelectorMove(event) {
+        if (VG.MOBILE_CLIENT)
+            event.stopPropagation();
+
+        event.preventDefault();
+
+        var pt = getPointerCoord(event, context.lastMouseX, context.lastMouseY);
+        context.lastMouseX = pt[0];
+        context.lastMouseY = pt[1];
+
+        var sendEvent = false;
+        if (VG.MOBILE_CLIENT)
+            sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
+        else
+            sendEvent = (pt[2] || pt[3]);
+
+        if (!context.mouseMoved && sendEvent)
+            context.mouseMoved = true;
+
+        if (sendEvent) {
+            if (context.mouseCaptured)
+                VG.EventDispatcher.send('mouse.view', {view: true, x: pt[2], y: pt[3] });
+
+            VG.EventDispatcher.send('mouse.move', {move: true, x: pt[0], y: pt[1] });
+        }
+    }
+
+    function onSelectorScroll(event) {
+
+        var e = event || window.event;
+        var delta = e.deltaY || e.detail || e.wheelDelta;
+        e.preventDefault();
+        VG.EventDispatcher.send('mouse.scroll', Math.sign(delta));
+
+    }
+
+    if (VG.MOBILE_CLIENT) {
+
+        container.addEventListener("touchstart", onSelectorDown, false);
+        container.addEventListener("touchmove", onSelectorMove, false);
+        container.addEventListener("touchcancel", onSelectorUp, false);
+        container.addEventListener("touchend", onSelectorUp, false);
+
+    } else {
+
+        container.addEventListener('mousedown', onSelectorDown, false);
+        container.addEventListener('mouseup', onSelectorUp, false);
+        container.addEventListener('mousemove', onSelectorMove, false);
+
+        if ('onwheel' in document) {
+            document.body.addEventListener("wheel", onSelectorScroll, false);
+        } else if ('onmousewheel' in document) {
+            document.body.addEventListener("mousewheel", onSelectorScroll, false);
+        } else {
+            document.body.addEventListener("MozMousePixelScroll", onSelectorScroll, false);
+        }
+    }
+
+    container.addEventListener('contextmenu',
+        function(event) {
+            event.preventDefault();
+        }, false);
+};
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function (options) {
@@ -2023,8 +2076,8 @@ VG.CameraControllerTopDown = function (options) {
     var renderer = options.renderer || console.error('options.renderer is undefind');
 
     this.mousemove = function (evt) {
-        mouse.x = (((evt.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1);
-        mouse.z = (((evt.clientY - renderer.domElement.offsetTop) / renderer.domElement.height) * 2 - 1);
+        mouse.x = (((evt.x - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1);
+        mouse.z = (((evt.y - renderer.domElement.offsetTop) / renderer.domElement.height) * 2 - 1);
     };
 
     this.update = function () {
@@ -2048,15 +2101,15 @@ VG.CameraControllerTopDown = function (options) {
 
     };
     this.destroy = function () {
-        document.removeEventListener('mousemove', this.mousemove, false);
+        VG.EventDispatcher.unbind('mouse.move', this.mousemove)
     };
 
-    document.addEventListener('mousemove', this.mousemove, false);
+    VG.EventDispatcher.bind('mouse.move', this, this.mousemove)
 
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /**
@@ -2279,8 +2332,9 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 	this.dispose = function () {
 
-		scope.domElement.removeEventListener('contextmenu', onContextMenu, false);
-		scope.domElement.removeEventListener('mousedown', onMouseDown, false);
+		VG.EventDispatcher.unbind('mouse.down', onMouseDown)
+
+		//scope.domElement.removeEventListener('mousedown', onMouseDown, false);
 		scope.domElement.removeEventListener('wheel', onMouseWheel, false);
 
 		scope.domElement.removeEventListener('touchstart', onTouchStart, false);
@@ -2292,13 +2346,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		window.removeEventListener('keydown', onKeyDown, false);
 
-		//scope.dispatchEvent( { type: 'dispose' } ); // should this be added here?
-
 	};
-
-	//
-	// internals
-	//
 
 	var scope = this;
 
@@ -2477,7 +2525,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		//console.log( 'handleMouseDownRotate' );
 
-		rotateStart.set(event.clientX, event.clientY);
+		rotateStart.set(event.x, event.y);
 
 	}
 
@@ -2485,7 +2533,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		//console.log( 'handleMouseDownDolly' );
 
-		dollyStart.set(event.clientX, event.clientY);
+		dollyStart.set(event.x, event.y);
 
 	}
 
@@ -2493,7 +2541,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		//console.log( 'handleMouseDownPan' );
 
-		panStart.set(event.clientX, event.clientY);
+		panStart.set(event.x, event.y);
 
 	}
 
@@ -2721,8 +2769,6 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		if (scope.enabled === false) return;
 
-		event.preventDefault();
-
 		switch (event.button) {
 
 			case scope.mouseButtons.ORBIT:
@@ -2947,17 +2993,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 	}
 
-	function onContextMenu(event) {
-
-		event.preventDefault();
-
-	}
-
-	//
-
-	scope.domElement.addEventListener('contextmenu', onContextMenu, false);
-
-	scope.domElement.addEventListener('mousedown', onMouseDown, false);
+	VG.EventDispatcher.bind('mouse.down', this, onMouseDown);
 	scope.domElement.addEventListener('wheel', onMouseWheel, false);
 
 	scope.domElement.addEventListener('touchstart', onTouchStart, false);
@@ -3101,7 +3137,7 @@ Object.defineProperties(VG.CameraControllerOrbit.prototype, {
 });
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 VG.SceneController = function () {
@@ -3168,7 +3204,7 @@ VG.SceneController.prototype = {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 VG.Scene = function (data) {
@@ -3180,6 +3216,7 @@ VG.Scene = function (data) {
 }
 
 VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
+VG.Scene.constructor = VG.Scene;
 
 VG.Scene.prototype.update = function (dt) {
 	for (var i = 0; i < this.animated.length; i++) {

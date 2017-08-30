@@ -9,7 +9,8 @@ import './js/loaders/MTLLoader.js';
 import './js/loaders/OBJLoader.js';
 import './js/AssetsLoader.js';
 
-import './js/controls/KeyboardController.js';
+import './js/controls/KeyboardEventsHandler.js';
+import './js/controls/MouseEventsHandler.js';
 
 import './js/cameras/CameraControllerTopDown.js';
 import './js/cameras/CameraControllerOrbit.js';

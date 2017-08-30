@@ -12,6 +12,8 @@ var BasicScene3 = function() {
     light.position.set(10, 20, 10)
     this.view.add(light);
 
+    var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('renderer.get.renderer').domElement);
+
     var cameraController = new VG.CameraControllerTopDown({
         offset: new THREE.Vector3(0, 30, 1),
         offsetlook: new THREE.Vector3(10, 0, 5),

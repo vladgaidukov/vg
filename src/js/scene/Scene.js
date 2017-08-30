@@ -7,6 +7,7 @@ VG.Scene = function (data) {
 }
 
 VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
+VG.Scene.constructor = VG.Scene;
 
 VG.Scene.prototype.update = function (dt) {
 	for (var i = 0; i < this.animated.length; i++) {

@@ -12,6 +12,7 @@ var BasicScene4 = function() {
     light.position.set(10, 20, 10)
     this.view.add(light);
 
+    var keyboard = new VG.KeyboardEventsHandler(window);
 
 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
 	directionalLight.position.set( 1, 1, 1 ).normalize();
@@ -23,6 +24,7 @@ var BasicScene4 = function() {
     var renderer = VG.EventDispatcher.query('renderer.get.renderer');
 
     var cameraController = new VG.CameraControllerOrbit(camera, renderer.domElement);
+    this.add(cameraController)
 
     var mesh;
     loader.load('assets/models/robot.json', function(geometry) {
@@ -36,16 +38,16 @@ var BasicScene4 = function() {
 
         mesh.playAnimation('run');
 
-        context.view.add(mesh);
+        VG.EventDispatcher.bind('keyboard.keyup.w', this, function(){
+            mesh.scale.addScalar(0.2)
+        })
+
+        VG.EventDispatcher.bind('keyboard.keyup.s', this, function(){
+            mesh.scale.subScalar(0.2)
+        })        
+
+        context.add(mesh);
 
     });
-
-    this.update = function(dt) {
-        cameraController.update(dt)
-
-        if (mesh) {
-            mesh.update(dt);
-        }
-    };
 };
 BasicScene4.prototype = Object.create(VG.Scene.prototype);

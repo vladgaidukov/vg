@@ -218,8 +218,9 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 	this.dispose = function () {
 
-		scope.domElement.removeEventListener('contextmenu', onContextMenu, false);
-		scope.domElement.removeEventListener('mousedown', onMouseDown, false);
+		VG.EventDispatcher.unbind('mouse.down', onMouseDown)
+
+		//scope.domElement.removeEventListener('mousedown', onMouseDown, false);
 		scope.domElement.removeEventListener('wheel', onMouseWheel, false);
 
 		scope.domElement.removeEventListener('touchstart', onTouchStart, false);
@@ -231,13 +232,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		window.removeEventListener('keydown', onKeyDown, false);
 
-		//scope.dispatchEvent( { type: 'dispose' } ); // should this be added here?
-
 	};
-
-	//
-	// internals
-	//
 
 	var scope = this;
 
@@ -416,7 +411,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		//console.log( 'handleMouseDownRotate' );
 
-		rotateStart.set(event.clientX, event.clientY);
+		rotateStart.set(event.x, event.y);
 
 	}
 
@@ -424,7 +419,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		//console.log( 'handleMouseDownDolly' );
 
-		dollyStart.set(event.clientX, event.clientY);
+		dollyStart.set(event.x, event.y);
 
 	}
 
@@ -432,7 +427,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		//console.log( 'handleMouseDownPan' );
 
-		panStart.set(event.clientX, event.clientY);
+		panStart.set(event.x, event.y);
 
 	}
 
@@ -660,8 +655,6 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 		if (scope.enabled === false) return;
 
-		event.preventDefault();
-
 		switch (event.button) {
 
 			case scope.mouseButtons.ORBIT:
@@ -886,17 +879,7 @@ VG.CameraControllerOrbit = function (object, domElement) {
 
 	}
 
-	function onContextMenu(event) {
-
-		event.preventDefault();
-
-	}
-
-	//
-
-	scope.domElement.addEventListener('contextmenu', onContextMenu, false);
-
-	scope.domElement.addEventListener('mousedown', onMouseDown, false);
+	VG.EventDispatcher.bind('mouse.down', this, onMouseDown);
 	scope.domElement.addEventListener('wheel', onMouseWheel, false);
 
 	scope.domElement.addEventListener('touchstart', onTouchStart, false);
