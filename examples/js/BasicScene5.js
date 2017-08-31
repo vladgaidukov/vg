@@ -14,10 +14,10 @@ var BasicScene5 = function () {
         directionalLight.position.set( 1, 1, 1 ).normalize();
         this.add( directionalLight );
 
-        var camera = VG.EventDispatcher.query('renderer.get.camera');
+        var camera = VG.EventDispatcher.query('engine.get.camera');
         camera.position.set(0, 5, -5)
 
-        var renderer = VG.EventDispatcher.query('renderer.get.renderer');
+        var renderer = VG.EventDispatcher.query('engine.get.renderer');
 
         var cameraController = new VG.CameraControllerOrbit(camera, renderer.domElement);
 
@@ -25,3 +25,4 @@ var BasicScene5 = function () {
     }
 };
 BasicScene5.prototype = Object.create(VG.Scene.prototype);
+BasicScene5.constructor = BasicScene5;

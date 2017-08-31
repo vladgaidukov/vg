@@ -18,7 +18,7 @@
             var scene = new BasicScene4();
             engine.add(scene);
 
-            var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('renderer.get.renderer').domElement);
+            var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('engine.get.renderer').domElement);
 
             VG.EventDispatcher.bind('mouse.scroll', this, function(data){
                 console.log(data)

@@ -12,14 +12,15 @@ var BasicScene3 = function() {
     light.position.set(10, 20, 10)
     this.view.add(light);
 
-    var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('renderer.get.renderer').domElement);
+    var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('engine.get.renderer').domElement);
 
     var cameraController = new VG.CameraControllerTopDown({
         offset: new THREE.Vector3(0, 30, 1),
         offsetlook: new THREE.Vector3(10, 0, 5),
-        camera: VG.EventDispatcher.query('renderer.get.camera'),
-        renderer: VG.EventDispatcher.query('renderer.get.renderer')
+        camera: VG.EventDispatcher.query('engine.get.camera'),
+        renderer: VG.EventDispatcher.query('engine.get.renderer')
     });
+    this.add(cameraController);
 
     var mesh;
     loader.load('assets/models/robot.json', function(geometry) {
@@ -35,16 +36,9 @@ var BasicScene3 = function() {
 
         cameraController.target = mesh;
 
-        context.view.add(mesh);
+        context.add(mesh);
 
     });
-
-    this.update = function(dt) {
-        cameraController.update(dt)
-
-        if (mesh) {
-            mesh.update(dt);
-        }
-    };
 };
 BasicScene3.prototype = Object.create(VG.Scene.prototype);
+BasicScene3.constructor = BasicScene3

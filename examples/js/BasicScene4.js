@@ -18,10 +18,10 @@ var BasicScene4 = function() {
 	directionalLight.position.set( 1, 1, 1 ).normalize();
 	this.add( directionalLight );
 
-    var camera = VG.EventDispatcher.query('renderer.get.camera');
+    var camera = VG.EventDispatcher.query('engine.get.camera');
     camera.position.set(0,5,-5)
 
-    var renderer = VG.EventDispatcher.query('renderer.get.renderer');
+    var renderer = VG.EventDispatcher.query('engine.get.renderer');
 
     var cameraController = new VG.CameraControllerOrbit(camera, renderer.domElement);
     this.add(cameraController)
@@ -38,16 +38,17 @@ var BasicScene4 = function() {
 
         mesh.playAnimation('run');
 
-        VG.EventDispatcher.bind('keyboard.keyup.w', this, function(){
-            mesh.scale.addScalar(0.2)
-        })
+        // VG.EventDispatcher.bind('keyboard.keyup.w', this, function(){
+        //     mesh.scale.addScalar(0.2)
+        // })
 
-        VG.EventDispatcher.bind('keyboard.keyup.s', this, function(){
-            mesh.scale.subScalar(0.2)
-        })        
+        // VG.EventDispatcher.bind('keyboard.keyup.s', this, function(){
+        //     mesh.scale.subScalar(0.2)
+        // })        
 
         context.add(mesh);
 
     });
 };
 BasicScene4.prototype = Object.create(VG.Scene.prototype);
+BasicScene4.constructor = BasicScene4

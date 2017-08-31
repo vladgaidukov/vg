@@ -27,15 +27,9 @@ var BasicScene2 = function() {
 
         mesh.playAnimation('run');
 
-        context.view.add(mesh);
+        context.add(mesh);
 
     });
-
-    this.update = function(dt) {
-        if (mesh) {
-            mesh.update(dt);
-            mesh.rotation.y += dt;
-        }
-    };
 };
 BasicScene2.prototype = Object.create(VG.Scene.prototype);
+BasicScene2.constructor = BasicScene2

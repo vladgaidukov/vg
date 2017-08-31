@@ -11,3 +11,4 @@ var BasicScene = function() {
     }
 };
 BasicScene.prototype = Object.create(VG.Scene.prototype);
+BasicScene.constructor = BasicScene

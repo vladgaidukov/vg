@@ -9,6 +9,7 @@ module.exports = {
   devServer: {
     inline:true,
     port: 10001,
-    hot: true
+    hot: true,
+    host: '0.0.0.0'
   },
 };

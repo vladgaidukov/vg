@@ -36,10 +36,10 @@ VG.MouseEventsHandler = function(domElement) {
 
         var pt = getPointerCoord(event, context.lastMouseX, context.lastMouseY);
 
-        VG.EventDispatcher.send('mouse.up', { button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+        VG.EventDispatcher.send('mouse.up', { touches: VG.MOBILE_CLIENT ? event.touches.length : -1, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
 
         if (context.mouseCaptured && !context.mouseMoved)
-            VG.EventDispatcher.send('mouse.click', { button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+            VG.EventDispatcher.send('mouse.click', {touches: VG.MOBILE_CLIENT ? event.touches.length : -1, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
 
         context.mouseMoved = false;
         context.mouseCaptured = false;
@@ -58,7 +58,7 @@ VG.MouseEventsHandler = function(domElement) {
         context.mouseCaptured = true;
         context.mouseMoved = false;
 
-        VG.EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1] });
+        VG.EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1], touches: VG.MOBILE_CLIENT ? event.touches.length : -1  });
     }
 
     function onSelectorMove(event) {
@@ -82,9 +82,9 @@ VG.MouseEventsHandler = function(domElement) {
 
         if (sendEvent) {
             if (context.mouseCaptured)
-                VG.EventDispatcher.send('mouse.view', {view: true, x: pt[2], y: pt[3] });
+                VG.EventDispatcher.send('mouse.view', {view: true, x: pt[2], y: pt[3], touches: VG.MOBILE_CLIENT ? event.touches.length : -1 });
 
-            VG.EventDispatcher.send('mouse.move', {move: true, x: pt[0], y: pt[1] });
+            VG.EventDispatcher.send('mouse.move', {move: true, x: pt[0], y: pt[1], touches: VG.MOBILE_CLIENT ? event.touches.length : -1  });
         }
     }
 

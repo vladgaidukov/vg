@@ -44,10 +44,10 @@ VG.Engine = function (container) {
 
     render();
 
-    VG.EventDispatcher.bind('renderer.get.camera', this, function () { return camera });
-    VG.EventDispatcher.bind('renderer.get.renderer', this, function () { return renderer });
-    VG.EventDispatcher.bind('renderer.add', this, this.add);
-    VG.EventDispatcher.bind('renderer.remove', this, this.remove);
+    VG.EventDispatcher.bind('engine.get.camera', this, function () { return camera });
+    VG.EventDispatcher.bind('engine.get.renderer', this, function () { return renderer });
+    VG.EventDispatcher.bind('engine.add', this, this.add);
+    VG.EventDispatcher.bind('engine.remove', this, this.remove);
 };
 
 VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
