@@ -1753,8 +1753,6 @@ VG.AssetsLoader = function (assetPath) {
 
 	this.loaders = {
 		'file': new THREE.FileLoader(),
-		'obj': new THREE.OBJLoader(),
-		'mtl': new THREE.MTLLoader()
 	};
 
 	this.loaderMap = {
@@ -1835,13 +1833,13 @@ VG.AssetsLoader.prototype = {
 
 		path = context.assetPath + path;
 
-		var mtlLoader = context.loaders['mtl'];
+		var mtlLoader = new THREE.MTLLoader();
 		mtlLoader.setPath(path);
 		mtlLoader.load(name + '.mtl', function (materials) {
 
 			materials.preload();
 
-			var objLoader = context.loaders['obj'];
+			var objLoader = new THREE.OBJLoader();
 			objLoader.setMaterials(materials);
 			objLoader.setPath(path);
 			objLoader.load(name + '.obj', function (object) {
