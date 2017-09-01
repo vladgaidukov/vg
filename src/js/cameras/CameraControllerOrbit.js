@@ -455,48 +455,49 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     function handleTouchStartRotate(event) {
 
-        rotateStart.set(event.x, event.y);
+        rotateStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
 
     }
 
     function handleTouchStartDolly(event) {
 
-        var distance = Math.sqrt(event.x * event.x + event.y * event.y);
+        var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
+        var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 
-        dollyStart.set(0, distance);
+        var distance = Math.sqrt( dx * dx + dy * dy );
+
+        dollyStart.set( 0, distance );
 
     }
 
     function handleTouchStartPan(event) {
 
-        panStart.set(event.x, event.y);
+        panStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
 
     }
 
     function handleTouchMoveRotate(event) {
 
-        rotateEnd.set(event.x, event.y);
-        rotateDelta.subVectors(rotateEnd, rotateStart);
+        rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+        rotateDelta.subVectors( rotateEnd, rotateStart );
 
         var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+        rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed );
 
-        rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed);
+        rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
 
-        rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed);
-
-        rotateStart.copy(rotateEnd);
+        rotateStart.copy( rotateEnd );
 
         scope.update();
 
     }
 
     function handleTouchMoveDolly(event) {
+        
+        var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
+        var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 
-        var dx = event.x;
-        var dy = event.y;
-
-        var distance = Math.sqrt(dx * dx + dy * dy);
-
+        var distance = Math.sqrt( dx * dx + dy * dy );
         dollyEnd.set(0, distance);
 
         dollyDelta.subVectors(dollyEnd, dollyStart);
@@ -519,7 +520,7 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     function handleTouchMovePan(event) {
 
-        panEnd.set(event.x, event.y);
+        panEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
 
         panDelta.subVectors(panEnd, panStart);
 
@@ -642,7 +643,9 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
         if (scope.enabled === false) return;
 
-        switch (event.touches) {
+        var event = event.event;
+
+        switch (event.touches.length) {
 
             case 1:
 
@@ -686,7 +689,9 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
         if (scope.enabled === false) return;
 
-        switch (event.touches) {
+        var event = event.event;
+
+        switch (event.touches.length) {
 
             case 1:
 
