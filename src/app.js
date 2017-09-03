@@ -1,5 +1,6 @@
 import './js/VG.js';
 import './js/BaseObject.js';
+import './js/BaseUIObject.js';
 
 import './js/Engine.js';
 

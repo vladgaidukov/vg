@@ -1,4 +1,4 @@
-VG.SceneController = function () {
+VG.SceneController = function() {
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
@@ -7,7 +7,7 @@ VG.SceneController = function () {
 VG.SceneController.prototype = {
     constructor: VG.SceneController,
 
-    add: function (scene) {
+    add: function(scene) {
         if (scene instanceof VG.Scene) {
             if (this.scenes[scene.name]) {
                 console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
@@ -20,7 +20,7 @@ VG.SceneController.prototype = {
         }
     },
 
-    remove: function (scene) {
+    remove: function(scene) {
         if (scene instanceof VG.Scene) {
             if (!this.scenes[scene.name]) {
                 console.log('Error: Scene with name >>>' + scene.name + '<<< is not exist');
@@ -34,7 +34,7 @@ VG.SceneController.prototype = {
         }
     },
 
-    activateScene: function (name, data) {
+    activateScene: function(name, data) {
         if (name instanceof VG.Scene)
             name = name.name
 
@@ -46,16 +46,23 @@ VG.SceneController.prototype = {
         if (this.activeScene && this.activeScene.name == name)
             return
 
-        if (this.activeScene)
+        if (this.activeScene) {
             this.view.remove(this.activeScene.view);
+            if (this.activeScene.ui)
+                this.activeScene.ui.hide();
+        }
 
         this.activeScene = this.scenes[name];
         this.view.add(this.activeScene.view);
+
+        if (this.activeScene.ui)
+            this.activeScene.ui.show();
+
         this.activeScene.init(data);
 
     },
 
-    update: function (dt) {
+    update: function(dt) {
         if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
             this.activeScene.update(dt)
     }

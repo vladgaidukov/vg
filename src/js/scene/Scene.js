@@ -4,6 +4,8 @@ VG.Scene = function (data) {
 	this.name = 'default';
 	this.autoUpdate = true;
 
+	this.ui = null;
+
 }
 
 VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
