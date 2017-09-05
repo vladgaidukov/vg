@@ -2099,11 +2099,11 @@ VG.MouseEventsHandler = function(domElement) {
         container.addEventListener('mousemove', onSelectorMove, false);
 
         if ('onwheel' in document) {
-            document.body.addEventListener("wheel", onSelectorScroll, false);
+            container.addEventListener("wheel", onSelectorScroll, false);
         } else if ('onmousewheel' in document) {
-            document.body.addEventListener("mousewheel", onSelectorScroll, false);
+            container.addEventListener("mousewheel", onSelectorScroll, false);
         } else {
-            document.body.addEventListener("MozMousePixelScroll", onSelectorScroll, false);
+            container.addEventListener("MozMousePixelScroll", onSelectorScroll, false);
         }
     }
 
