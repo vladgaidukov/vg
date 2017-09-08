@@ -7,8 +7,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 
     container.addEventListener('keydown',
         function(event) {
-            event.preventDefault();
-            event.stopPropagation();
+
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
 
@@ -19,8 +18,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 
     container.addEventListener("keyup",
         function(event) {
-            event.preventDefault();
-            event.stopPropagation();
+
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
 
@@ -43,8 +41,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 
     container.addEventListener("keypress",
         function(event) {
-            event.preventDefault();
-            event.stopPropagation();
+
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
             VG.EventDispatcher.send('keyboard.keypress.' + event.key, event);
