@@ -1,6 +1,7 @@
 VG.BaseObject = function() {
     this.view = new THREE.Object3D;
     this.animated = [];
+    this.autoUpdate = true;
 }
 
 VG.BaseObject.prototype = {
@@ -11,6 +12,9 @@ VG.BaseObject.prototype = {
         var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
         if (view)
             this.view.add(view);
+
+        if (object instanceof VG.BaseObject && !object.autoUpdate)
+            return
 
         var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
         if (animated)

@@ -201,6 +201,7 @@ VG.MOBILE_CLIENT = (function() {
 VG.BaseObject = function() {
     this.view = new THREE.Object3D;
     this.animated = [];
+    this.autoUpdate = true;
 }
 
 VG.BaseObject.prototype = {
@@ -211,6 +212,9 @@ VG.BaseObject.prototype = {
         var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
         if (view)
             this.view.add(view);
+
+        if (object instanceof VG.BaseObject && !object.autoUpdate)
+            return
 
         var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
         if (animated)
@@ -3120,10 +3124,10 @@ VG.SceneController.prototype = {
         this.activeScene = this.scenes[name];
         this.view.add(this.activeScene.view);
 
+        this.activeScene.init(data);
+
         if (this.activeScene.ui)
             this.activeScene.ui.show();
-
-        this.activeScene.init(data);
 
     },
 
@@ -3141,7 +3145,6 @@ VG.Scene = function (data) {
 	VG.BaseObject.call(this);
 
 	this.name = 'default';
-	this.autoUpdate = true;
 
 	this.ui = null;
 

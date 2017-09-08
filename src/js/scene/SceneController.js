@@ -55,10 +55,10 @@ VG.SceneController.prototype = {
         this.activeScene = this.scenes[name];
         this.view.add(this.activeScene.view);
 
+        this.activeScene.init(data);
+
         if (this.activeScene.ui)
             this.activeScene.ui.show();
-
-        this.activeScene.init(data);
 
     },
 

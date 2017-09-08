@@ -2,7 +2,6 @@ VG.Scene = function (data) {
 	VG.BaseObject.call(this);
 
 	this.name = 'default';
-	this.autoUpdate = true;
 
 	this.ui = null;
 
