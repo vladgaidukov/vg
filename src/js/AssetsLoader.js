@@ -9,7 +9,8 @@ VG.AssetsLoader = function (assetPath) {
 	};
 
 	this.loaderMap = {
-		'obj': this.objLoad
+		'obj': this.objLoad,
+		'dae': this.daeLoad
 	};
 
 	this.loadPack = function (url, onStart, onProgress, onSuccess) {
@@ -84,7 +85,7 @@ VG.AssetsLoader.prototype = {
 
 	objLoad: function (context, path, name) {
 
-		path = context.assetPath + path;
+		var path = context.assetPath + path;
 
 		var mtlLoader = new THREE.MTLLoader();
 		mtlLoader.setPath(path);
@@ -104,7 +105,20 @@ VG.AssetsLoader.prototype = {
 
 		});
 	},
+	daeLoad: function (context, path, name) {
 
+		var path = context.assetPath + path;
+
+		var loader = new THREE.ColladaLoader();
+		loader.options.convertUpAxis = true;
+		loader.load( path + name + '.dae', function ( collada ) {
+
+			var object = collada;
+			context.assets[name] = object;
+			context.checkComplete();
+
+		});
+	},
 	checkComplete: function () {
 
 		this.loadedCount++;

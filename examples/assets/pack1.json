@@ -1,7 +1,9 @@
 {
 	"assets": [
 		"models/naturePack_169.obj",
-		"models/naturePack_169.obj"
+		"models/naturePack_169.obj",
+		"models/avatar.dae",
+		"models/monster.dae"
 	],
 	"level": {
 		"mesh": "asdasdad"

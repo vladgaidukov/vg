@@ -22,6 +22,19 @@ var BasicScene5 = function () {
         var cameraController = new VG.CameraControllerOrbit(camera, renderer.domElement);
 
         this.add(data.assets['naturePack_169']);
+
+        var avatar = data.assets['avatar'];
+        avatar.animations[0].play();
+        this.add(avatar);
+        for (var i = 100; i >= 0; i--) {
+            avatar = data.assets['monster'].clone();
+            avatar.view.scale.set(0.001,0.001,0.001);
+            avatar.animations[0].play();
+            avatar.view.position.set(100 * Math.random() - 100, 0, 100 * Math.random() - 100);
+            this.add(avatar);
+        }
+
+        
     }
 };
 BasicScene5.prototype = Object.create(VG.Scene.prototype);

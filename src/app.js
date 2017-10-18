@@ -8,6 +8,7 @@ import './js/EventDispatcher.js';
 
 import './js/loaders/MTLLoader.js';
 import './js/loaders/OBJLoader.js';
+import './js/loaders/ColladaLoader.js';
 import './js/AssetsLoader.js';
 
 import './js/controls/KeyboardEventsHandler.js';
