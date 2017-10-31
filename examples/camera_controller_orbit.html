@@ -8,17 +8,21 @@
     <body>
         <script src="vendor/three.js"></script>
         <script src="/dist/vg.js"></script>
-        <script src="js/BasicScene4.js"></script>
+        <script src="js/animated_mesh.js"></script>
 
         <div id="main"></div>
         <script>
 
             var engine = new VG.Engine('main');
 
-            var scene = new BasicScene4();
+            var scene = new Scene2();
             engine.add(scene);
 
-            var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('engine.get.renderer').domElement);
+            var mouse = new VG.MouseEventsHandler(engine.renderer.domElement);
+            var keyboard = new VG.KeyboardEventsHandler(window);
+
+            var cameraController = new VG.CameraControllerOrbit(engine.camera, engine.renderer.domElement);
+            engine.add(cameraController)
 
             VG.EventDispatcher.bind('mouse.scroll', this, function(data){
                 console.log(data)

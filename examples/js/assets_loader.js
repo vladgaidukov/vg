@@ -1,4 +1,4 @@
-var BasicScene5 = function () {
+var Scene5 = function () {
     VG.Scene.call(this);
     this.name = 'basic5';
 
@@ -26,16 +26,16 @@ var BasicScene5 = function () {
         var avatar = data.assets['avatar'];
         avatar.animations[0].play();
         this.add(avatar);
-        for (var i = 100; i >= 0; i--) {
+        for (var i = 10; i >= 0; i--) {
             avatar = data.assets['monster'].clone();
             avatar.view.scale.set(0.001,0.001,0.001);
             avatar.animations[0].play();
-            avatar.view.position.set(100 * Math.random() - 100, 0, 100 * Math.random() - 100);
+            avatar.view.position.set(10 * Math.random() - 10, 0, 10 * Math.random() - 10);
             this.add(avatar);
         }
 
         
     }
 };
-BasicScene5.prototype = Object.create(VG.Scene.prototype);
-BasicScene5.constructor = BasicScene5;
+Scene5.prototype = Object.create(VG.Scene.prototype);
+Scene5.constructor = Scene5;

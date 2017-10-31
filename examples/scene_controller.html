@@ -8,8 +8,8 @@
     <body>
         <script src="vendor/three.js"></script>
         <script src="/dist/vg.js"></script>
-        <script src="js/BasicScene.js"></script>
-        <script src="js/BasicScene2.js"></script>
+        <script src="js/simple_scene.js"></script>
+        <script src="js/animated_mesh.js"></script>
 
         <div id="main"></div>
         <script>
@@ -19,10 +19,10 @@
             var sceneController = new VG.SceneController();
             engine.add(sceneController);
 
-            var scene = new BasicScene();
+            var scene = new Scene1();
             sceneController.add(scene);
 
-            var scene2 = new BasicScene2();
+            var scene2 = new Scene2();
             sceneController.add(scene2);
 
             sceneController.activateScene('basic');

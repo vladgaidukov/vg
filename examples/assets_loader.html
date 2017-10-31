@@ -10,7 +10,7 @@
 <body>
 	<script src="vendor/three.js"></script>
 	<script src="/dist/vg.js"></script>
-	<script src="js/BasicScene5.js"></script>
+	<script src="js/assets_loader.js"></script>
 	<div id="main"></div>
 	<script>
 	var engine = new VG.Engine('main');
@@ -18,7 +18,7 @@
     var sceneController = new VG.SceneController();
     engine.add(sceneController);
 
-	var scene = new BasicScene5();
+	var scene = new Scene5();
 	sceneController.add(scene);
 
 	var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('engine.get.renderer').domElement);
