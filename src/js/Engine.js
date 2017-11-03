@@ -17,6 +17,14 @@ VG.Engine = function (container) {
     this.renderer.setSize(domelement.clientWidth, domelement.clientHeight);
     domelement.append(this.renderer.domElement);
 
+    var composer = new THREE.EffectComposer( this.renderer );
+
+    composer.addPass(new THREE.RenderPass(this.view, this.camera));
+
+    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(domelement.clientWidth, domelement.clientHeight));
+    pass.renderToScreen = true;
+    composer.addPass(pass);
+
     var clock = new THREE.Clock();
 
     this.renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
@@ -35,7 +43,10 @@ VG.Engine = function (container) {
         for (var i = 0; i < self.animated.length; i++) {
             self.animated[i].update(delta);
         }
+
         self.renderer.render(self.view, self.camera);
+
+        //composer.render(delta);
 
         requestAnimationFrame(render);
     }

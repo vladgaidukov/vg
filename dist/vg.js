@@ -69,36 +69,56 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_VG_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_VG_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_VG_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_BaseObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_BaseUIObject_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_BaseUIObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_Engine_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_Engine_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_EventDispatcher_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__js_EventDispatcher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_loaders_MTLLoader_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_loaders_OBJLoader_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_loaders_ColladaLoader_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_loaders_ColladaLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_AssetsLoader_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_controls_KeyboardEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_controls_MouseEventsHandler_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_controls_MouseEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_scene_SceneController_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_scene_Scene_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_VG_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_VG_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_VG_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseObject_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_BaseObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_BaseUIObject_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_BaseUIObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_Engine_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_Engine_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js__);
+
+
+
+
+
+
+
+
 
 
 
@@ -129,6 +149,588 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+
+THREE.RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
+
+	this.scene = scene;
+	this.camera = camera;
+
+	this.overrideMaterial = overrideMaterial;
+
+	this.clearColor = clearColor;
+	this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 1;
+
+	this.oldClearColor = new THREE.Color();
+	this.oldClearAlpha = 1;
+
+	this.enabled = true;
+	this.clear = true;
+	this.needsSwap = false;
+
+};
+
+THREE.RenderPass.prototype = {
+
+	render: function ( renderer, writeBuffer, readBuffer, delta ) {
+
+		this.scene.overrideMaterial = this.overrideMaterial;
+
+		if ( this.clearColor ) {
+
+			this.oldClearColor.copy( renderer.getClearColor() );
+			this.oldClearAlpha = renderer.getClearAlpha();
+
+			renderer.setClearColor( this.clearColor, this.clearAlpha );
+
+		}
+
+		renderer.render( this.scene, this.camera, readBuffer, this.clear );
+
+		if ( this.clearColor ) {
+
+			renderer.setClearColor( this.oldClearColor, this.oldClearAlpha );
+
+		}
+
+		this.scene.overrideMaterial = null;
+
+	}
+
+};
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+/**
+ * @author mattatz / http://mattatz.github.io/
+ */
+
+THREE.BloomBlendPass = function ( amount, opacity, resolution ) {
+    THREE.RenderPass.call(this);
+
+    this.amount = ( amount !== undefined ) ? amount : 1.0;
+    this.opacity = ( opacity !== undefined ) ? opacity : 1.0;
+    this.resolution = ( resolution !== undefined ) ? resolution : new THREE.Vector2(1024, 1024);
+
+    // render targets
+
+    var pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat };
+
+    this.renderTargetX = new THREE.WebGLRenderTarget( this.resolution.x, this.resolution.y, pars );
+    this.renderTargetY = new THREE.WebGLRenderTarget( this.resolution.x, this.resolution.y, pars );
+
+    var kernel = [
+
+        "varying vec2 vUv;",
+
+        "void main() {",
+
+        "vUv = uv;",
+        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+        "}"
+
+    ].join( "\n" );
+
+    this.blurMaterial = new THREE.ShaderMaterial( {
+        uniforms: {
+            "tDiffuse" : { type : "t", value : null },
+            "increment" : { type : "v2", value : new THREE.Vector2() }
+        },
+        vertexShader: kernel,
+        fragmentShader: [
+
+            "uniform sampler2D tDiffuse;",
+
+            "uniform vec2 increment;",
+
+            "varying vec2 vUv;",
+
+            "vec4 sampleTexture (sampler2D sampler, vec2 tc){",
+                "vec4 c = texture2D (sampler, tc);",
+                "return vec4 (c.rgb * pow (length (c.rgb), 2.2), c.a);",
+            "}",
+
+            "void main() {",
+
+                "vec4 color = vec4(0.0);",
+
+                "color += sampleTexture(tDiffuse, (vUv - increment * 4.0)) * 0.051;",
+                "color += sampleTexture(tDiffuse, (vUv - increment * 3.0)) * 0.0918;",
+                "color += sampleTexture(tDiffuse, (vUv - increment * 2.0)) * 0.12245;",
+                "color += sampleTexture(tDiffuse, (vUv - increment * 1.0)) * 0.1531;",
+                "color += sampleTexture(tDiffuse, (vUv + increment * 0.0)) * 0.1633;",
+                "color += sampleTexture(tDiffuse, (vUv + increment * 1.0)) * 0.1531;",
+                "color += sampleTexture(tDiffuse, (vUv + increment * 2.0)) * 0.12245;",
+                "color += sampleTexture(tDiffuse, (vUv + increment * 3.0)) * 0.0918;",
+                "color += sampleTexture(tDiffuse, (vUv + increment * 4.0)) * 0.051;",
+
+                "gl_FragColor = color;",
+
+            "}"
+            
+
+        ].join( "\n" ),
+    } );
+
+    this.blendMaterial = new THREE.ShaderMaterial( {
+        uniforms : {
+            "tDiffuse" : { type : "t", value : null },
+            "tBlend" : { type : "t", value : null },
+            "opacity" : { type : "f", value : this.opacity },
+        },
+        vertexShader : kernel,
+        fragmentShader : [
+
+            "uniform sampler2D tDiffuse;",
+            "uniform sampler2D tBlend;",
+            "uniform float opacity;",
+
+            "varying vec2 vUv;",
+
+            "void main() {",
+
+            "vec4 base = texture2D(tDiffuse, vUv);",
+            "vec4 blend = texture2D(tBlend, vUv);",
+
+            // screen blending
+            "vec4 color = (1.0 - ((1.0 - base) * (1.0 - blend)));",
+            "gl_FragColor = color * opacity + base * ( 1. - opacity );",
+
+            "}"
+
+        ].join( "\n" )
+    } );
+
+    this.enabled = true;
+    this.needsSwap = true;
+    this.clear = false;
+
+    this.camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
+    this.scene  = new THREE.Scene();
+
+    this.quad = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), null );
+    this.scene.add( this.quad );
+
+};
+
+THREE.BloomBlendPass.prototype = Object.assign(Object.create(THREE.RenderPass.prototype), {
+
+    constructor: THREE.BloomBlendPass,
+
+    render: function ( renderer, writeBuffer, readBuffer, delta, maskActive ) {
+
+        if ( maskActive ) renderer.context.disable( renderer.context.STENCIL_TEST );
+
+        this.quad.material = this.blurMaterial;
+
+        // horizontal blur
+        this.blurMaterial.uniforms[ "tDiffuse" ].value = readBuffer;
+        this.blurMaterial.uniforms[ "increment" ].value.set( this.amount / readBuffer.width, 0.0 );
+
+        renderer.render( this.scene, this.camera, this.renderTargetX, false);
+
+        // vertical blur
+        this.blurMaterial.uniforms[ "tDiffuse" ].value = this.renderTargetX;
+        this.blurMaterial.uniforms[ "increment" ].value.set( 0.0, this.amount / this.renderTargetX.height);
+
+        renderer.render( this.scene, this.camera, this.renderTargetY, false);
+
+        // screen blending original buffer and blurred buffer
+
+        this.quad.material = this.blendMaterial;
+
+        this.blendMaterial.uniforms[ "tDiffuse" ].value = readBuffer;
+        this.blendMaterial.uniforms[ "tBlend" ].value = this.renderTargetY;
+        this.blendMaterial.uniforms[ "opacity" ].value = this.opacity;
+
+        if ( maskActive ) renderer.context.enable( renderer.context.STENCIL_TEST );
+
+        if( this.renderToScreen ) {
+            renderer.render( this.scene, this.camera );
+        } else {
+            renderer.render( this.scene, this.camera, writeBuffer, this.clear );
+        }
+    }
+
+});
+
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+/**
+ * @author alteredq / http://alteredqualia.com/
+ *
+ * Full-screen textured quad shader
+ */
+
+THREE.CopyShader = {
+
+	uniforms: {
+
+		"tDiffuse": { type: "t", value: null },
+		"opacity":  { type: "f", value: 1.0 }
+
+	},
+
+	vertexShader: [
+
+		"varying vec2 vUv;",
+
+		"void main() {",
+
+			"vUv = uv;",
+			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+		"}"
+
+	].join( "\n" ),
+
+	fragmentShader: [
+
+		"uniform float opacity;",
+
+		"uniform sampler2D tDiffuse;",
+
+		"varying vec2 vUv;",
+
+		"void main() {",
+
+			"vec4 texel = texture2D( tDiffuse, vUv );",
+			"gl_FragColor = opacity * texel;",
+
+		"}"
+
+	].join( "\n" )
+
+};
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+
+THREE.EffectComposer = function ( renderer, renderTarget ) {
+
+	this.renderer = renderer;
+
+	if ( renderTarget === undefined ) {
+
+		var pixelRatio = renderer.getPixelRatio();
+
+		var width  = Math.floor( renderer.context.canvas.width  / pixelRatio ) || 1;
+		var height = Math.floor( renderer.context.canvas.height / pixelRatio ) || 1;
+		var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
+
+		renderTarget = new THREE.WebGLRenderTarget( width, height, parameters );
+
+	}
+
+	this.renderTarget1 = renderTarget;
+	this.renderTarget2 = renderTarget.clone();
+
+	this.writeBuffer = this.renderTarget1;
+	this.readBuffer = this.renderTarget2;
+
+	this.passes = [];
+
+	if ( THREE.CopyShader === undefined )
+		console.error( "THREE.EffectComposer relies on THREE.CopyShader" );
+
+	this.copyPass = new THREE.ShaderPass( THREE.CopyShader );
+
+};
+
+THREE.EffectComposer.prototype = {
+
+	swapBuffers: function() {
+
+		var tmp = this.readBuffer;
+		this.readBuffer = this.writeBuffer;
+		this.writeBuffer = tmp;
+
+	},
+
+	addPass: function ( pass ) {
+
+		this.passes.push( pass );
+
+	},
+
+	insertPass: function ( pass, index ) {
+
+		this.passes.splice( index, 0, pass );
+
+	},
+
+	render: function ( delta ) {
+
+		this.writeBuffer = this.renderTarget1;
+		this.readBuffer = this.renderTarget2;
+
+		var maskActive = false;
+
+		var pass, i, il = this.passes.length;
+
+		for ( i = 0; i < il; i ++ ) {
+
+			pass = this.passes[ i ];
+
+			if ( ! pass.enabled ) continue;
+
+			pass.render( this.renderer, this.writeBuffer, this.readBuffer, delta, maskActive );
+
+			if ( pass.needsSwap ) {
+
+				if ( maskActive ) {
+
+					var context = this.renderer.context;
+
+					context.stencilFunc( context.NOTEQUAL, 1, 0xffffffff );
+
+					this.copyPass.render( this.renderer, this.writeBuffer, this.readBuffer, delta );
+
+					context.stencilFunc( context.EQUAL, 1, 0xffffffff );
+
+				}
+
+				this.swapBuffers();
+
+			}
+
+			if ( pass instanceof THREE.MaskPass ) {
+
+				maskActive = true;
+
+			} else if ( pass instanceof THREE.ClearMaskPass ) {
+
+				maskActive = false;
+
+			}
+
+		}
+
+	},
+
+	reset: function ( renderTarget ) {
+
+		if ( renderTarget === undefined ) {
+
+			renderTarget = this.renderTarget1.clone();
+
+			var pixelRatio = this.renderer.getPixelRatio();
+
+			renderTarget.setSize(
+				Math.floor( this.renderer.context.canvas.width  / pixelRatio ),
+				Math.floor( this.renderer.context.canvas.height / pixelRatio )
+			);
+
+		}
+
+		this.renderTarget1.dispose();
+		this.renderTarget1 = renderTarget;
+		this.renderTarget2.dispose();
+		this.renderTarget2 = renderTarget.clone();
+
+		this.writeBuffer = this.renderTarget1;
+		this.readBuffer = this.renderTarget2;
+
+	},
+
+	setSize: function ( width, height ) {
+
+		this.renderTarget1.setSize( width, height );
+		this.renderTarget2.setSize( width, height );
+
+	}
+
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+
+THREE.MaskPass = function ( scene, camera ) {
+
+	this.scene = scene;
+	this.camera = camera;
+
+	this.enabled = true;
+	this.clear = true;
+	this.needsSwap = false;
+
+	this.inverse = false;
+
+};
+
+THREE.MaskPass.prototype = {
+
+	render: function ( renderer, writeBuffer, readBuffer, delta ) {
+
+		var context = renderer.context;
+
+		// don't update color or depth
+
+		context.colorMask( false, false, false, false );
+		context.depthMask( false );
+
+		// set up stencil
+
+		var writeValue, clearValue;
+
+		if ( this.inverse ) {
+
+			writeValue = 0;
+			clearValue = 1;
+
+		} else {
+
+			writeValue = 1;
+			clearValue = 0;
+
+		}
+
+		context.enable( context.STENCIL_TEST );
+		context.stencilOp( context.REPLACE, context.REPLACE, context.REPLACE );
+		context.stencilFunc( context.ALWAYS, writeValue, 0xffffffff );
+		context.clearStencil( clearValue );
+
+		// draw into the stencil buffer
+
+		renderer.render( this.scene, this.camera, readBuffer, this.clear );
+		renderer.render( this.scene, this.camera, writeBuffer, this.clear );
+
+		// re-enable update of color and depth
+
+		context.colorMask( true, true, true, true );
+		context.depthMask( true );
+
+		// only render where stencil is set to 1
+
+		context.stencilFunc( context.EQUAL, 1, 0xffffffff );  // draw if == 1
+		context.stencilOp( context.KEEP, context.KEEP, context.KEEP );
+
+	}
+
+};
+
+
+THREE.ClearMaskPass = function () {
+
+	this.enabled = true;
+
+};
+
+THREE.ClearMaskPass.prototype = {
+
+	render: function ( renderer, writeBuffer, readBuffer, delta ) {
+
+		var context = renderer.context;
+
+		context.disable( context.STENCIL_TEST );
+
+	}
+
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+
+THREE.ShaderPass = function( shader, textureID ) {
+
+	this.textureID = ( textureID !== undefined ) ? textureID : "tDiffuse";
+
+	if ( shader instanceof THREE.ShaderMaterial ) {
+
+		this.uniforms = shader.uniforms;
+
+		this.material = shader;
+
+	}
+	else if ( shader ) {
+
+		this.uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+
+		this.material = new THREE.ShaderMaterial( {
+
+			defines: shader.defines || {},
+			uniforms: this.uniforms,
+			vertexShader: shader.vertexShader,
+			fragmentShader: shader.fragmentShader
+
+		} );
+
+	}
+
+	this.renderToScreen = false;
+
+	this.enabled = true;
+	this.needsSwap = true;
+	this.clear = false;
+
+
+	this.camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
+	this.scene = new THREE.Scene();
+
+	this.quad = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), null );
+	this.scene.add( this.quad );
+
+};
+
+THREE.ShaderPass.prototype = {
+
+	render: function( renderer, writeBuffer, readBuffer, delta ) {
+
+		if ( this.uniforms[ this.textureID ] ) {
+
+			this.uniforms[ this.textureID ].value = readBuffer;
+
+		}
+
+		this.quad.material = this.material;
+
+		if ( this.renderToScreen ) {
+
+			renderer.render( this.scene, this.camera );
+
+		} else {
+
+			renderer.render( this.scene, this.camera, writeBuffer, this.clear );
+
+		}
+
+	}
+
+};
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 VG = {}
@@ -198,7 +800,7 @@ VG.MOBILE_CLIENT = (function() {
 })()
 
 /***/ }),
-/* 2 */
+/* 8 */
 /***/ (function(module, exports) {
 
 VG.BaseObject = function() {
@@ -237,7 +839,7 @@ VG.BaseObject.prototype = {
 }
 
 /***/ }),
-/* 3 */
+/* 9 */
 /***/ (function(module, exports) {
 
 VG.BaseUIObject = function(container) {
@@ -292,7 +894,7 @@ VG.BaseUIObject.prototype = {
 }
 
 /***/ }),
-/* 4 */
+/* 10 */
 /***/ (function(module, exports) {
 
 VG.Engine = function (container) {
@@ -314,6 +916,14 @@ VG.Engine = function (container) {
     this.renderer.setSize(domelement.clientWidth, domelement.clientHeight);
     domelement.append(this.renderer.domElement);
 
+    var composer = new THREE.EffectComposer( this.renderer );
+
+    composer.addPass(new THREE.RenderPass(this.view, this.camera));
+
+    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(domelement.clientWidth, domelement.clientHeight));
+    pass.renderToScreen = true;
+    composer.addPass(pass);
+
     var clock = new THREE.Clock();
 
     this.renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
@@ -332,7 +942,10 @@ VG.Engine = function (container) {
         for (var i = 0; i < self.animated.length; i++) {
             self.animated[i].update(delta);
         }
+
         self.renderer.render(self.view, self.camera);
+
+        //composer.render(delta);
 
         requestAnimationFrame(render);
     }
@@ -356,7 +969,7 @@ VG.Engine.prototype.resize = function () {
 }
 
 /***/ }),
-/* 5 */
+/* 11 */
 /***/ (function(module, exports) {
 
 VG.EventDispatcher = {
@@ -514,7 +1127,7 @@ VG.EventDispatcher = {
 };
 
 /***/ }),
-/* 6 */
+/* 12 */
 /***/ (function(module, exports) {
 
 /**
@@ -1062,7 +1675,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 };
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /**
@@ -1812,7 +2425,7 @@ THREE.OBJLoader.prototype = {
 };
 
 /***/ }),
-/* 8 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -7380,7 +7993,7 @@ THREE.ColladaLoader = function () {
 
 
 /***/ }),
-/* 9 */
+/* 15 */
 /***/ (function(module, exports) {
 
 VG.AssetsLoader = function (assetPath) {
@@ -7545,7 +8158,7 @@ VG.AssetsLoader.prototype = {
 }
 
 /***/ }),
-/* 10 */
+/* 16 */
 /***/ (function(module, exports) {
 
 VG.KeyboardEventsHandler = function(domElement) {
@@ -7600,7 +8213,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 11 */
+/* 17 */
 /***/ (function(module, exports) {
 
 VG.MouseEventsHandler = function(domElement) {
@@ -7731,7 +8344,7 @@ VG.MouseEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 12 */
+/* 18 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function (options) {
@@ -7782,7 +8395,7 @@ VG.CameraControllerTopDown = function (options) {
 };
 
 /***/ }),
-/* 13 */
+/* 19 */
 /***/ (function(module, exports) {
 
 /**
@@ -8677,7 +9290,7 @@ VG.CameraControllerOrbit.prototype = {
 }
 
 /***/ }),
-/* 14 */
+/* 20 */
 /***/ (function(module, exports) {
 
 VG.SceneController = function() {
@@ -8751,7 +9364,7 @@ VG.SceneController.prototype = {
 }
 
 /***/ }),
-/* 15 */
+/* 21 */
 /***/ (function(module, exports) {
 
 VG.Scene = function (data) {

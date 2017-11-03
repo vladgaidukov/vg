@@ -38,15 +38,15 @@ var Scene5 = function () {
         this.add(avatar);
 
 
-        for (var i = 10; i >= 0; i--) {
-            avatar = data.assets['monster'].clone();
-            avatar.view.scale.set(0.01,0.01,0.01);
-            avatar.animations[0].play();
-            avatar.view.position.set(100 * Math.random() - 50, 0, 100 * Math.random() - 50);
-            this.add(avatar);
-        }
+        // for (var i = 10; i >= 0; i--) {
+        //     avatar = data.assets['monster'].clone();
+        //     avatar.view.scale.set(0.01,0.01,0.01);
+        //     avatar.animations[0].play();
+        //     avatar.view.position.set(100 * Math.random() - 50, 0, 100 * Math.random() - 50);
+        //     this.add(avatar);
+        // }
 
-        for (var i = 10; i >= 0; i--) {
+        for (var i = 20; i >= 0; i--) {
             var mesh = data.assets['234234'].clone();
             mesh.autoCreateAnimations(25);
             mesh.playAnimation('animation');

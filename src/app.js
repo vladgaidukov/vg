@@ -1,3 +1,11 @@
+import './js/postprocessing/RenderPass.js';
+import './js/postprocessing/BloomBlendPass.js';
+import './js/postprocessing/CopyShader.js';
+import './js/postprocessing/EffectComposer.js';
+import './js/postprocessing/MaskPass.js';
+
+import './js/postprocessing/ShaderPass.js';
+
 import './js/VG.js';
 import './js/BaseObject.js';
 import './js/BaseUIObject.js';
