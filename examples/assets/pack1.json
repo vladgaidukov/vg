@@ -3,7 +3,10 @@
 		"models/naturePack_169.obj",
 		"models/naturePack_169.obj",
 		"models/avatar.dae",
-		"models/monster.dae"
+		"models/monster.dae",
+		"models/untitled.json",
+		"models/234234.json",
+		"models/angar.json"
 	],
 	"level": {
 		"mesh": "asdasdad"

@@ -137,11 +137,11 @@ VG.DEBUG = false;
 
 VG.DETAIL = 1;
 VG.ANTIALIAS = false;
-VG.CLEAR_COLOR = 'white'
+VG.CLEAR_COLOR = 'gray'
 
 VG.CAMERA_FOV = 45;
 VG.CAMERA_NEAR = 0.1;
-VG.CAMERA_FAR = 10000;
+VG.CAMERA_FAR = 100000;
 VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 5);
 
 VG.MOBILE_CLIENT = (function() {
@@ -7391,11 +7391,13 @@ VG.AssetsLoader = function (assetPath) {
 
 	this.loaders = {
 		'file': new THREE.FileLoader(),
+		'json': new THREE.JSONLoader()
 	};
 
 	this.loaderMap = {
 		'obj': this.objLoad,
-		'dae': this.daeLoad
+		'dae': this.daeLoad,
+		'json': this.jsonLoad
 	};
 
 	this.loadPack = function (url, onStart, onProgress, onSuccess) {
@@ -7500,6 +7502,30 @@ VG.AssetsLoader.prototype = {
 
 			var object = collada;
 			context.assets[name] = object;
+			context.checkComplete();
+
+		});
+	},
+	jsonLoad: function (context, path, name) {
+
+		var path = context.assetPath + path;
+
+		var loader = context.loaders.json
+		loader.load( path + name + '.json', function ( geometry, materials ) {
+			console.log(geometry, materials)
+
+			var mesh = null;
+
+			if (geometry.animations){
+		        for (var i = materials.length - 1; i >= 0; i--) {
+		            materials[i].morphTargets = true;
+		        }
+	        	mesh = new THREE.MorphBlendMesh(geometry, materials);
+			} else {
+				mesh = new THREE.Mesh(geometry, materials);
+			}
+
+			context.assets[name] = mesh;
 			context.checkComplete();
 
 		});

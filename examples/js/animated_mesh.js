@@ -13,18 +13,24 @@ var Scene2 = function() {
     this.view.add(light);
 
     var mesh;
-    loader.load('assets/models/robot.json', function(geometry) {
-        var material = new THREE.MeshPhongMaterial({
-            map: textureLoader.load('assets/models/robot.png'),
-            bumpMap: textureLoader.load('assets/models/robo_dirt.png')
-        });
-        material.morphTargets = true;
-        mesh = new THREE.MorphBlendMesh(geometry, material);
-        mesh.autoCreateAnimations(60);
+    loader.load('assets/models/234234.json', function(geometry, materials) {
+        console.log(arguments)
+        for (var i = materials.length - 1; i >= 0; i--) {
+            materials[i].morphTargets = true;
+        }
+        mesh = new THREE.MorphBlendMesh(geometry, materials);
+        //mesh.scale.set(0.02, 0.02, 0.02)
 
-        mesh.playAnimation('run');
+        for (var i = 200; i >= 0; i--) {
 
-        context.add(mesh);
+            var m = mesh.clone()
+            m.autoCreateAnimations(25);
+            m.playAnimation('animation');
+            m.position.set(Math.random() * 100 - 50,0, Math.random() * 100 - 50)
+            context.add(m);  
+        }
+
+        
 
     });
 };
