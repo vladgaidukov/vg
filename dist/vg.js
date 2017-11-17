@@ -851,6 +851,7 @@ VG.BaseUIObject = function(container) {
             if (!this.view) {
                 this.view = document.createElement('div');
                 this.view.id = container;
+                document.body.appendChild(this.view)
             }
         } else {
             this.view = container;
@@ -901,11 +902,11 @@ VG.Engine = function (container) {
     VG.BaseObject.call(this, name);
     var self = this;
 
-    var domelement = document.getElementById(container);
+    this.domelement = document.getElementById(container);
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, domelement.clientWidth / domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
+    this.camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
     this.camera.position.copy(VG.CAMERA_POSITION);
     this.view.add(this.camera);
 
@@ -913,14 +914,14 @@ VG.Engine = function (container) {
         antialias: VG.ANTIALIAS || false
     });
     this.renderer.setClearColor(VG.CLEAR_COLOR);
-    this.renderer.setSize(domelement.clientWidth, domelement.clientHeight);
-    domelement.append(this.renderer.domElement);
+    this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
+    this.domelement.append(this.renderer.domElement);
 
     var composer = new THREE.EffectComposer( this.renderer );
 
     composer.addPass(new THREE.RenderPass(this.view, this.camera));
 
-    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(domelement.clientWidth, domelement.clientHeight));
+    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(this.domelement.clientWidth, this.domelement.clientHeight));
     pass.renderToScreen = true;
     composer.addPass(pass);
 
@@ -963,9 +964,9 @@ VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
 VG.Engine.constructor = VG.Engine;
 
 VG.Engine.prototype.resize = function () {
-    this.camera.aspect = domelement.clientWidth / domelement.clientHeight;
+    this.camera.aspect = this.domelement.clientWidth / this.domelement.clientHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(domelement.clientWidth, domelement.clientHeight);
+    this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
 }
 
 /***/ }),
@@ -8010,7 +8011,10 @@ VG.AssetsLoader = function (assetPath) {
 	this.loaderMap = {
 		'obj': this.objLoad,
 		'dae': this.daeLoad,
-		'json': this.jsonLoad
+		'json': this.jsonLoad,
+		'png': this.imageLoad,
+		'jpg': this.imageLoad,
+		'jpeg': this.imageLoad
 	};
 
 	this.loadPack = function (url, onStart, onProgress, onSuccess) {
@@ -8049,7 +8053,7 @@ VG.AssetsLoader = function (assetPath) {
 
 					context.assets[name] = null;
 
-					this.loaderMap[extension](this, url, name);
+					this.loaderMap[extension](this, url, name, extension);
 				}
 			} else {
 				this.loadedData[key] = data[key]
@@ -8125,7 +8129,6 @@ VG.AssetsLoader.prototype = {
 
 		var loader = context.loaders.json
 		loader.load( path + name + '.json', function ( geometry, materials ) {
-			console.log(geometry, materials)
 
 			var mesh = null;
 
@@ -8142,6 +8145,17 @@ VG.AssetsLoader.prototype = {
 			context.checkComplete();
 
 		});
+	},
+	imageLoad: function (context, path, name, extension) {
+
+		var path = context.assetPath + path + name + '.' + extension;
+
+		var image = new Image();
+		image.src = path;
+		image.onload = function(){
+			context.assets[name] = this;
+			context.checkComplete();
+		}
 	},
 	checkComplete: function () {
 

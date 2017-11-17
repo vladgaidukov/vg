@@ -12,7 +12,10 @@ VG.AssetsLoader = function (assetPath) {
 	this.loaderMap = {
 		'obj': this.objLoad,
 		'dae': this.daeLoad,
-		'json': this.jsonLoad
+		'json': this.jsonLoad,
+		'png': this.imageLoad,
+		'jpg': this.imageLoad,
+		'jpeg': this.imageLoad
 	};
 
 	this.loadPack = function (url, onStart, onProgress, onSuccess) {
@@ -51,13 +54,14 @@ VG.AssetsLoader = function (assetPath) {
 
 					context.assets[name] = null;
 
-					this.loaderMap[extension](this, url, name);
+					this.loaderMap[extension](this, url, name, extension);
 				}
 			} else {
 				this.loadedData[key] = data[key]
 			}
 		}
 	}
+    VG.EventDispatcher.bind('assetsLoader.assets', this, function () { return this.assets });
 }
 
 VG.AssetsLoader.prototype = {
@@ -127,7 +131,6 @@ VG.AssetsLoader.prototype = {
 
 		var loader = context.loaders.json
 		loader.load( path + name + '.json', function ( geometry, materials ) {
-			console.log(geometry, materials)
 
 			var mesh = null;
 
@@ -144,6 +147,17 @@ VG.AssetsLoader.prototype = {
 			context.checkComplete();
 
 		});
+	},
+	imageLoad: function (context, path, name, extension) {
+
+		var path = context.assetPath + path + name + '.' + extension;
+
+		var image = new Image();
+		image.src = path;
+		image.onload = function(){
+			context.assets[name] = this;
+			context.checkComplete();
+		}
 	},
 	checkComplete: function () {
 

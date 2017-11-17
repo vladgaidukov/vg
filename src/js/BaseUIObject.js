@@ -7,6 +7,7 @@ VG.BaseUIObject = function(container) {
             if (!this.view) {
                 this.view = document.createElement('div');
                 this.view.id = container;
+                document.body.appendChild(this.view)
             }
         } else {
             this.view = container;

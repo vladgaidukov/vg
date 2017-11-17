@@ -2,11 +2,11 @@ VG.Engine = function (container) {
     VG.BaseObject.call(this, name);
     var self = this;
 
-    var domelement = document.getElementById(container);
+    this.domelement = document.getElementById(container);
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, domelement.clientWidth / domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
+    this.camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
     this.camera.position.copy(VG.CAMERA_POSITION);
     this.view.add(this.camera);
 
@@ -14,14 +14,14 @@ VG.Engine = function (container) {
         antialias: VG.ANTIALIAS || false
     });
     this.renderer.setClearColor(VG.CLEAR_COLOR);
-    this.renderer.setSize(domelement.clientWidth, domelement.clientHeight);
-    domelement.append(this.renderer.domElement);
+    this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
+    this.domelement.append(this.renderer.domElement);
 
     var composer = new THREE.EffectComposer( this.renderer );
 
     composer.addPass(new THREE.RenderPass(this.view, this.camera));
 
-    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(domelement.clientWidth, domelement.clientHeight));
+    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(this.domelement.clientWidth, this.domelement.clientHeight));
     pass.renderToScreen = true;
     composer.addPass(pass);
 
@@ -64,7 +64,7 @@ VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
 VG.Engine.constructor = VG.Engine;
 
 VG.Engine.prototype.resize = function () {
-    this.camera.aspect = domelement.clientWidth / domelement.clientHeight;
+    this.camera.aspect = this.domelement.clientWidth / this.domelement.clientHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(domelement.clientWidth, domelement.clientHeight);
+    this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
 }
