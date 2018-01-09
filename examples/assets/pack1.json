@@ -1,14 +1,18 @@
 {
-	"assets": [
-		"models/naturePack_169.obj",
-		"models/naturePack_169.obj",
-		"models/avatar.dae",
-		"models/monster.dae",
-		"models/untitled.json",
-		"models/234234.json",
-		"models/angar.json"
-	],
-	"level": {
-		"mesh": "asdasdad"
-	}
+    "assets": [
+        "images/BTN_RED_RECT_IN.png",
+        "images/BTN_RED_RECT_OUT.png",
+        "images/dialog.png",
+        "models/naturePack_169.obj",
+        "models/naturePack_169.obj",
+        "models/avatar.dae",
+        "models/monster.dae",
+        "models/untitled.json",
+        "models/234234.json",
+        "models/angar.json"
+    ],
+    "level":
+    {
+        "mesh": "test data"
+    }
 }

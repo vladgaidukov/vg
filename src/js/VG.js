@@ -1,5 +1,7 @@
 VG = {}
 
+VG.UI = {};
+
 VG.DEBUG = false;
 
 VG.DETAIL = 1;

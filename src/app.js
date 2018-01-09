@@ -8,7 +8,6 @@ import './js/postprocessing/ShaderPass.js';
 
 import './js/VG.js';
 import './js/BaseObject.js';
-import './js/BaseUIObject.js';
 
 import './js/Engine.js';
 
@@ -27,6 +26,15 @@ import './js/cameras/CameraControllerOrbit.js';
 
 import './js/scene/SceneController.js';
 import './js/scene/Scene.js';
+
+import './js/matrices/LevelMatrix2D.js';
+import './js/matrices/LevelMatrix3D.js';
+
+import './js/ui/BaseUIObject.js';
+import './js/ui/TextElement.js';
+import './js/ui/Container.js';
+import './js/ui/Panel.js';
+import './js/ui/Button.js';
 
 
 

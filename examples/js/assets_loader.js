@@ -53,6 +53,30 @@ var Scene5 = function () {
             mesh.position.set(100 * Math.random() - 50, 0, 100 * Math.random() - 50);
             this.add(mesh);
         }
+        var ui = new VG.UI.Container();
+
+        var testPanel = new VG.UI.Panel(data.assets['dialog'])
+        ui.add(testPanel)
+
+        var testBtn = new VG.UI.Button(data.assets['BTN_RED_RECT_OUT'], data.assets['BTN_RED_RECT_IN'], function (){
+            alert('btn')
+        })
+        testBtn.scale = 0.5;
+        testBtn.position = {x: '50%', y: 30}
+        testPanel.add(testBtn)
+
+        var clone = testPanel.clone();
+        clone.position = testBtn.position;
+        ui.add(clone)
+
+        var testText = new VG.UI.TextElement('1', '25px arial, sans-serif');
+        clone.add(testText);
+        testText.position = {x: 120, y: 30};
+
+        setInterval(function(){
+            testText.value = parseInt(testText.value) + 1;
+        },150)
+        
 
         
     }

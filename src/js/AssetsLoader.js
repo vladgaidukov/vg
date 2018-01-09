@@ -164,7 +164,8 @@ VG.AssetsLoader.prototype = {
 		this.loadedCount++;
 
 		if (this.loadCount <= this.loadedCount) {
-			this.onSuccess({assets: this.assets, data: this.loadedData})
+			this.loadedData.assets = this.assets;
+			this.onSuccess(this.loadedData)
 			return
 		}
 
