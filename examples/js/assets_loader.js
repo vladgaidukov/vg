@@ -18,10 +18,10 @@ var Scene5 = function () {
         directionalLight.position.set( -500, -500, -500 )
         this.add( directionalLight );
 
-        var camera = VG.EventDispatcher.query('engine.get.camera');
+        var camera = VG.EventDispatcher.query('Engine.get.camera');
         camera.position.set(0, 5, -5)
 
-        var renderer = VG.EventDispatcher.query('engine.get.renderer');
+        var renderer = VG.EventDispatcher.query('Engine.get.renderer');
 
         var cameraController = new VG.CameraControllerOrbit(camera, renderer.domElement);
 

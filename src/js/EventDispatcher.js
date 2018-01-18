@@ -1,8 +1,7 @@
 VG.EventDispatcher = {
     listeners: {},
-    listenersArgs: {},
 
-    bind: function (type, listener, callback, args) {
+    bind: function (type, listener, callback) {
         if (typeof (type) !== "string") {
             console.error("EventDispatcher.bind -> 'type' should be string constant");
             return;
@@ -25,11 +24,8 @@ VG.EventDispatcher = {
 
         if (this.listeners[type] == undefined)
             this.listeners[type] = [];
-        if (this.listenersArgs[type] == undefined)
-            this.listenersArgs[type] = [];
 
         var listeners = this.listeners[type];
-        var listenersArgs = this.listenersArgs[type];
 
         var index = this.getListenerIndex(listeners, listener);
 
@@ -38,7 +34,6 @@ VG.EventDispatcher = {
                 object: listener,
                 func: callback
             });
-            listenersArgs.push(args || {});
         }
     },
 
@@ -62,17 +57,15 @@ VG.EventDispatcher = {
             this.listeners[type] = [];
 
         var listeners = this.listeners[type];
-        var listenersArgs = this.listenersArgs[type];
 
         var index = this.getListenerIndex(listeners, callback);
 
         if (index >= 0) {
             listeners.splice(index, 1);
-            listenersArgs.splice(index, 1);
         }
     },
 
-    send: function (eventName, eventArgs) {
+    send: function (eventName) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
@@ -82,18 +75,20 @@ VG.EventDispatcher = {
             return;
 
         var listeners = this.listeners[eventName];
-        var listenersArgs = this.listenersArgs[eventName];
+
+        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
+
         for (var i = 0; i < listeners.length; i++) {
             try {
                 var listener = listeners[i];
-                listener.func.call(listener.object, eventArgs, listenersArgs[i]);
+                listener.func.apply(listener.object, args);
             } catch (err) {
                 console.error("EventDispatcher.send -> " + eventName + " Exception thrown in event handler -> " + err);
             }
         }
     },
 
-    query: function (eventName, eventArgs) {
+    query: function (eventName) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
@@ -108,12 +103,13 @@ VG.EventDispatcher = {
             return undefined;
         }
 
-        var listenersArgs = this.listenersArgs[eventName];
         var listener = listeners[0];
         var result = undefined;
 
+        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
+
         try {
-            result = listener.func.call(listener.object, eventArgs, listenersArgs[0]);
+            result = listener.func.apply(listener.object, args);
         } catch (err) {
             console.error("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
         }
@@ -124,16 +120,9 @@ VG.EventDispatcher = {
     release: function () {
         for (var event_name in this.listeners) {
             this.listeners[event_name].splice();
-            this.listenersArgs[event_name].splice();
             delete this.listeners[event_name];
-            delete this.listenersArgs[event_name];
         }
         this.listeners = null;
-        this.listenersArgs = null;
-    },
-
-    toString: function () {
-        return "[HB.EventDispatcher]";
     },
 
     getListenerIndex: function (listeners, callback) {

@@ -2,6 +2,7 @@ VG.SceneController = function() {
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
+    VG.EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
 }
 
 VG.SceneController.prototype = {

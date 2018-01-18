@@ -919,11 +919,11 @@ VG.Engine = function (container) {
 
     render();
 
-    VG.EventDispatcher.bind('engine.get.camera', this, function () { return this.camera });
-    VG.EventDispatcher.bind('engine.get.renderer', this, function () { return this.renderer });
-    VG.EventDispatcher.bind('engine.add', this, this.add);
-    VG.EventDispatcher.bind('engine.remove', this, this.remove);
-    VG.EventDispatcher.bind('engine.resize', this, this.resize);
+    VG.EventDispatcher.bind('Engine.get.camera', this, function () { return this.camera });
+    VG.EventDispatcher.bind('Engine.get.renderer', this, function () { return this.renderer });
+    VG.EventDispatcher.bind('Engine.add', this, this.add);
+    VG.EventDispatcher.bind('Engine.remove', this, this.remove);
+    VG.EventDispatcher.bind('Engine.resize', this, this.resize);
 };
 
 VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
@@ -941,9 +941,8 @@ VG.Engine.prototype.resize = function () {
 
 VG.EventDispatcher = {
     listeners: {},
-    listenersArgs: {},
 
-    bind: function (type, listener, callback, args) {
+    bind: function (type, listener, callback) {
         if (typeof (type) !== "string") {
             console.error("EventDispatcher.bind -> 'type' should be string constant");
             return;
@@ -966,11 +965,8 @@ VG.EventDispatcher = {
 
         if (this.listeners[type] == undefined)
             this.listeners[type] = [];
-        if (this.listenersArgs[type] == undefined)
-            this.listenersArgs[type] = [];
 
         var listeners = this.listeners[type];
-        var listenersArgs = this.listenersArgs[type];
 
         var index = this.getListenerIndex(listeners, listener);
 
@@ -979,7 +975,6 @@ VG.EventDispatcher = {
                 object: listener,
                 func: callback
             });
-            listenersArgs.push(args || {});
         }
     },
 
@@ -1003,17 +998,15 @@ VG.EventDispatcher = {
             this.listeners[type] = [];
 
         var listeners = this.listeners[type];
-        var listenersArgs = this.listenersArgs[type];
 
         var index = this.getListenerIndex(listeners, callback);
 
         if (index >= 0) {
             listeners.splice(index, 1);
-            listenersArgs.splice(index, 1);
         }
     },
 
-    send: function (eventName, eventArgs) {
+    send: function (eventName) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
@@ -1023,18 +1016,20 @@ VG.EventDispatcher = {
             return;
 
         var listeners = this.listeners[eventName];
-        var listenersArgs = this.listenersArgs[eventName];
+
+        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
+
         for (var i = 0; i < listeners.length; i++) {
             try {
                 var listener = listeners[i];
-                listener.func.call(listener.object, eventArgs, listenersArgs[i]);
+                listener.func.apply(listener.object, args);
             } catch (err) {
                 console.error("EventDispatcher.send -> " + eventName + " Exception thrown in event handler -> " + err);
             }
         }
     },
 
-    query: function (eventName, eventArgs) {
+    query: function (eventName) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
@@ -1049,12 +1044,13 @@ VG.EventDispatcher = {
             return undefined;
         }
 
-        var listenersArgs = this.listenersArgs[eventName];
         var listener = listeners[0];
         var result = undefined;
 
+        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
+
         try {
-            result = listener.func.call(listener.object, eventArgs, listenersArgs[0]);
+            result = listener.func.apply(listener.object, args);
         } catch (err) {
             console.error("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
         }
@@ -1065,16 +1061,9 @@ VG.EventDispatcher = {
     release: function () {
         for (var event_name in this.listeners) {
             this.listeners[event_name].splice();
-            this.listenersArgs[event_name].splice();
             delete this.listeners[event_name];
-            delete this.listenersArgs[event_name];
         }
         this.listeners = null;
-        this.listenersArgs = null;
-    },
-
-    toString: function () {
-        return "[HB.EventDispatcher]";
     },
 
     getListenerIndex: function (listeners, callback) {
@@ -7965,178 +7954,183 @@ THREE.ColladaLoader = function () {
 
 VG.AssetsLoader = function (assetPath) {
 
-	var context = this;
+    var context = this;
 
-	this.assetPath = assetPath || this.assetPath;
+    this.assetPath = assetPath || this.assetPath;
 
-	this.loaders = {
-		'file': new THREE.FileLoader(),
-		'json': new THREE.JSONLoader()
-	};
+    this.loaders = {
+        'file': new THREE.FileLoader(),
+        'json': new THREE.JSONLoader()
+    };
 
-	this.loaderMap = {
-		'obj': this.objLoad,
-		'dae': this.daeLoad,
-		'json': this.jsonLoad,
-		'png': this.imageLoad,
-		'jpg': this.imageLoad,
-		'jpeg': this.imageLoad
-	};
+    this.loaderMap = {
+        'obj': this.objLoad,
+        'dae': this.daeLoad,
+        'json': this.jsonLoad,
+        'png': this.imageLoad,
+        'jpg': this.imageLoad,
+        'jpeg': this.imageLoad
+    };
 
-	this.loadPack = function (url, onStart, onProgress, onSuccess) {
-		this.onStart = onStart || this.onStart;
-		this.onProgress = onProgress || this.onProgress;
-		this.onSuccess = onSuccess || this.onSuccess;
+    this.loadPack = function (url, onStart, onProgress, onSuccess) {
+        this.onStart = onStart || this.onStart;
+        this.onProgress = onProgress || this.onProgress;
+        this.onSuccess = onSuccess || this.onSuccess;
 
-		this.onStart();
+        this.onStart();
 
-		var fileLoader = this.loaders['file'];
-		fileLoader.load(this.assetPath + url, function (data) { context.parsePack(data) });
-	};
+        var fileLoader = this.loaders['file'];
+        fileLoader.load(this.assetPath + url, function (data) { context.parsePack(data) });
+    };
 
 
-	this.parsePack = function (data) {
-		data = JSON.parse(data);
+    this.parsePack = function (data) {
+        data = JSON.parse(data);
 
-		for (var key in data) {
-			if (key == 'assets') {
-				this.loadCount = data.assets.length;
+        for (var key in data) {
+            if (key == 'assets') {
+                this.loadCount = data.assets.length;
 
-				for (var a = 0; a < this.loadCount; a++) {
-					var nametmp = data.assets[a].split('.');
+                for (var a = 0; a < this.loadCount; a++) {
+                    var nametmp = data.assets[a].split('.');
 
-					var extension = nametmp.pop();
+                    var extension = nametmp.pop();
 
-					nametmp = nametmp[0].split('/');
+                    nametmp = nametmp[0].split('/');
 
-					var name = nametmp.pop();
-					var url = nametmp.join('/') + '/';
+                    var name = nametmp.pop();
+                    var url = nametmp.join('/') + '/';
 
-					if (context.assets.hasOwnProperty(name)) {
-						this.checkComplete();
-						continue;
-					}
+                    if (context.assets.hasOwnProperty(name)) {
+                        this.checkComplete();
+                        continue;
+                    }
 
-					context.assets[name] = null;
+                    context.assets[name] = null;
 
-					this.loaderMap[extension](this, url, name, extension);
-				}
-			} else {
-				this.loadedData[key] = data[key]
-			}
-		}
-	}
-    VG.EventDispatcher.bind('assetsLoader.assets', this, function () { return this.assets });
+                    this.loaderMap[extension](this, url, name, extension);
+                }
+            } else {
+                this.loadedData[key] = data[key]
+            }
+        }
+    }
+    VG.EventDispatcher.bind('AssetsLoader.getAsset', this, this.getAsset);
 }
 
 VG.AssetsLoader.prototype = {
-	constructor: VG.AssetsLoader,
+    constructor: VG.AssetsLoader,
 
-	assetPath: '/',
+    assetPath: '/',
 
-	assets: {},
+    assets: {},
 
-	loadedData: {},
+    loadedData: {},
 
-	loadCount: 0,
+    loadCount: 0,
 
-	loadedCount: 0,
+    loadedCount: 0,
 
-	onStart: function () {
-		console.log('AE.LevelLoader -> onStart')
-	},
+    onStart: function () {
+        console.log('AE.LevelLoader -> onStart')
+    },
 
-	onProgress: function (progress) {
-		console.log(progress)
-	},
+    onProgress: function (progress) {
+        console.log(progress)
+    },
 
-	onSuccess: function () {
-		console.log('AE.LevelLoader -> onSuccess')
-	},
+    onSuccess: function () {
+        console.log('AE.LevelLoader -> onSuccess')
+    },
 
-	objLoad: function (context, path, name) {
+    objLoad: function (context, path, name) {
 
-		var path = context.assetPath + path;
+        var path = context.assetPath + path;
 
-		var mtlLoader = new THREE.MTLLoader();
-		mtlLoader.setPath(path);
-		mtlLoader.load(name + '.mtl', function (materials) {
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setPath(path);
+        mtlLoader.load(name + '.mtl', function (materials) {
 
-			materials.preload();
+            materials.preload();
 
-			var objLoader = new THREE.OBJLoader();
-			objLoader.setMaterials(materials);
-			objLoader.setPath(path);
-			objLoader.load(name + '.obj', function (object) {
+            var objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.setPath(path);
+            objLoader.load(name + '.obj', function (object) {
 
-				context.assets[name] = object;
-				context.checkComplete();
+                context.assets[name] = object;
+                context.checkComplete();
 
-			});
+            });
 
-		});
-	},
-	daeLoad: function (context, path, name) {
+        });
+    },
+    daeLoad: function (context, path, name) {
 
-		var path = context.assetPath + path;
+        var path = context.assetPath + path;
 
-		var loader = new THREE.ColladaLoader();
-		loader.options.convertUpAxis = true;
-		loader.load( path + name + '.dae', function ( collada ) {
+        var loader = new THREE.ColladaLoader();
+        loader.options.convertUpAxis = true;
+        loader.load(path + name + '.dae', function (collada) {
 
-			var object = collada;
-			context.assets[name] = object;
-			context.checkComplete();
+            var object = collada;
+            context.assets[name] = object;
+            context.checkComplete();
 
-		});
-	},
-	jsonLoad: function (context, path, name) {
+        });
+    },
+    jsonLoad: function (context, path, name) {
 
-		var path = context.assetPath + path;
+        var path = context.assetPath + path;
 
-		var loader = context.loaders.json
-		loader.load( path + name + '.json', function ( geometry, materials ) {
+        var loader = context.loaders.json
+        loader.load(path + name + '.json', function (geometry, materials) {
 
-			var mesh = null;
+            var mesh = null;
 
-			if (geometry.animations){
-		        for (var i = materials.length - 1; i >= 0; i--) {
-		            materials[i].morphTargets = true;
-		        }
-	        	mesh = new THREE.MorphBlendMesh(geometry, materials);
-			} else {
-				mesh = new THREE.Mesh(geometry, materials);
-			}
+            if (geometry.animations) {
+                for (var i = materials.length - 1; i >= 0; i--) {
+                    materials[i].morphTargets = true;
+                }
+                mesh = new THREE.MorphBlendMesh(geometry, materials);
+            } else {
+                mesh = new THREE.Mesh(geometry, materials);
+            }
 
-			context.assets[name] = mesh;
-			context.checkComplete();
+            context.assets[name] = mesh;
+            context.checkComplete();
 
-		});
-	},
-	imageLoad: function (context, path, name, extension) {
+        });
+    },
+    imageLoad: function (context, path, name, extension) {
 
-		var path = context.assetPath + path + name + '.' + extension;
+        var path = context.assetPath + path + name + '.' + extension;
 
-		var image = new Image();
-		image.src = path;
-		image.onload = function(){
-			context.assets[name] = this;
-			context.checkComplete();
-		}
-	},
-	checkComplete: function () {
+        var image = new Image();
+        image.src = path;
+        image.onload = function () {
+            context.assets[name] = this;
+            context.checkComplete();
+        }
+    },
+    checkComplete: function () {
 
-		this.loadedCount++;
+        this.loadedCount++;
 
-		if (this.loadCount <= this.loadedCount) {
-			this.loadedData.assets = this.assets;
-			this.onSuccess(this.loadedData)
-			return
-		}
+        if (this.loadCount <= this.loadedCount) {
+            this.loadedData.assets = this.assets;
+            this.onSuccess(this.loadedData);
+            this.loadedCount = 0;
+            return
+        }
 
-		this.onProgress(this.loadedCount / this.loadCount)
+        this.onProgress(this.loadedCount / this.loadCount)
 
-	}
+    },
+    getAsset: function (name) {
+    	if (this.assets[name])
+    		return this.assets[name];
+    }
 }
 
 /***/ }),
@@ -9279,6 +9273,7 @@ VG.SceneController = function() {
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
+    VG.EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
 }
 
 VG.SceneController.prototype = {
