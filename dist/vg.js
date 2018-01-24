@@ -89,40 +89,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_Engine_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_loaders_MTLLoader_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_OBJLoader_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_ColladaLoader_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_loaders_ColladaLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_AssetsLoader_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_controls_KeyboardEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_MouseEventsHandler_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_controls_MouseEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_scene_SceneController_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_Scene_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_scene_Scene_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_matrices_LevelMatrix2D_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_matrices_LevelMatrix2D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix3D_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix3D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_ui_BaseUIObject_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_ui_BaseUIObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_ui_TextElement_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_ui_TextElement_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_Container_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_ui_Container_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_Panel_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_Panel_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Button_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_Button_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix2D_js__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix2D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix3D_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix3D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_ui_BaseUIObject_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_ui_BaseUIObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_TextElement_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_ui_TextElement_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_Container_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_Container_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Panel_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_Panel_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Button_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_Button_js__);
+
+
 
 
 
@@ -756,6 +760,7 @@ THREE.ShaderPass.prototype = {
 VG = {}
 
 VG.UI = {};
+VG.Meshes = {};
 
 VG.DEBUG = false;
 
@@ -825,7 +830,7 @@ VG.MOBILE_CLIENT = (function() {
 /* 8 */
 /***/ (function(module, exports) {
 
-VG.BaseObject = function() {
+VG.BaseObject = function () {
     this.view = new THREE.Object3D;
     this.animated = [];
     this.autoUpdate = true;
@@ -834,7 +839,7 @@ VG.BaseObject = function() {
 VG.BaseObject.prototype = {
     constructor: VG.BaseObject,
 
-    add: function(object) {
+    add: function (object) {
 
         var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
         if (view)
@@ -848,7 +853,7 @@ VG.BaseObject.prototype = {
             this.animated.push(animated);
     },
 
-    remove: function(object) {
+    remove: function (object) {
 
         var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
         if (view)
@@ -857,6 +862,12 @@ VG.BaseObject.prototype = {
         var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
         if (animated)
             this.animated.splice(this.animated.indexOf(animated), 1);
+    },
+    
+    update: function (dt) {
+        for (var i = 0; i < this.animated.length; i++) {
+            this.animated[i].update(dt);
+        }
     }
 }
 
@@ -906,9 +917,7 @@ VG.Engine = function (container) {
             TWEEN.update();
         }
 
-        for (var i = 0; i < self.animated.length; i++) {
-            self.animated[i].update(delta);
-        }
+        self.update(delta);
 
         self.renderer.render(self.view, self.camera);
 
@@ -1084,6 +1093,148 @@ VG.EventDispatcher = {
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports) {
+
+VG.Meshes.MorphBlendMesh = function (geometry, material) {
+
+    THREE.Mesh.call(this, geometry, material);
+
+    this.fps = 10;
+    this.direction = 1;
+
+}
+
+VG.Meshes.MorphBlendMesh.prototype = Object.create(THREE.Mesh.prototype);
+VG.Meshes.MorphBlendMesh.prototype.constructor = VG.Meshes.MorphBlendMesh;
+
+VG.Meshes.MorphBlendMesh.prototype.playAnimation = function (label) {
+
+    var animation = this.geometry.animations[label];
+
+    if (animation) {
+
+        this.setFrameRange(animation.start, animation.end);
+        this.duration = 1000 * ((animation.end - animation.start) / this.fps);
+        this.time = 0;
+
+    } else {
+
+        console.warn('animation[' + label + '] undefined');
+
+    }
+
+};
+VG.Meshes.MorphBlendMesh.prototype.parseAnimations = function (fps) {
+
+    this.fps = fps
+
+    var geometry = this.geometry;
+
+    if (!geometry.animations) geometry.animations = {};
+
+    var firstAnimation, animations = geometry.animations;
+
+    var pattern = /([a-z]+)_?(\d+)/;
+
+    for (var i = 0, il = geometry.morphTargets.length; i < il; i++) {
+
+        var morph = geometry.morphTargets[i];
+        var parts = morph.name.match(pattern);
+
+        if (parts && parts.length > 1) {
+
+            var label = parts[1];
+            var num = parts[2];
+
+            if (!animations[label]) animations[label] = { start: Infinity, end: -Infinity };
+
+            var animation = animations[label];
+
+            if (i < animation.start) animation.start = i;
+            if (i > animation.end) animation.end = i;
+
+            if (!firstAnimation) firstAnimation = label;
+
+        }
+
+    }
+
+    geometry.firstAnimation = firstAnimation;
+
+};
+VG.Meshes.MorphBlendMesh.prototype.setFrameRange = function (start, end) {
+
+    this.startKeyframe = start;
+    this.endKeyframe = end;
+
+    this.length = this.endKeyframe - this.startKeyframe + 1;
+
+};
+VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
+
+    var frameTime = this.duration / this.length;
+
+    this.time += this.direction * delta * 1000;
+
+    if (this.mirroredLoop) {
+
+        if (this.time > this.duration || this.time < 0) {
+
+            this.direction *= -1;
+
+            if (this.time > this.duration) {
+
+                this.time = this.duration;
+                this.directionBackwards = true;
+
+            }
+
+            if (this.time < 0) {
+
+                this.time = 0;
+                this.directionBackwards = false;
+
+            }
+
+        }
+
+    } else {
+
+        this.time = this.time % this.duration;
+
+        if (this.time < 0) this.time += this.duration;
+
+    }
+
+    var keyframe = this.startKeyframe + THREE.Math.clamp(Math.floor(this.time / frameTime), 0, this.length - 1);
+
+    if (keyframe !== this.currentKeyframe) {
+
+        this.morphTargetInfluences[this.lastKeyframe] = 0;
+        this.morphTargetInfluences[this.currentKeyframe] = 1;
+
+        this.morphTargetInfluences[keyframe] = 0;
+
+        this.lastKeyframe = this.currentKeyframe;
+        this.currentKeyframe = keyframe;
+
+    }
+
+    var mix = (this.time % frameTime) / frameTime;
+
+    if (this.directionBackwards) {
+
+        mix = 1 - mix;
+
+    }
+
+    this.morphTargetInfluences[this.currentKeyframe] = mix;
+    this.morphTargetInfluences[this.lastKeyframe] = 1 - mix;
+
+};
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports) {
 
 /**
@@ -1631,7 +1782,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /**
@@ -2381,7 +2532,7 @@ THREE.OBJLoader.prototype = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -7949,7 +8100,7 @@ THREE.ColladaLoader = function () {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 VG.AssetsLoader = function (assetPath) {
@@ -8092,7 +8243,7 @@ VG.AssetsLoader.prototype = {
                 for (var i = materials.length - 1; i >= 0; i--) {
                     materials[i].morphTargets = true;
                 }
-                mesh = new THREE.MorphBlendMesh(geometry, materials);
+                mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
             } else {
                 mesh = new THREE.Mesh(geometry, materials);
             }
@@ -8134,7 +8285,7 @@ VG.AssetsLoader.prototype = {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 VG.KeyboardEventsHandler = function(domElement) {
@@ -8189,7 +8340,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 VG.MouseEventsHandler = function(domElement) {
@@ -8320,7 +8471,7 @@ VG.MouseEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function (options) {
@@ -8371,7 +8522,7 @@ VG.CameraControllerTopDown = function (options) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 /**
@@ -9266,7 +9417,7 @@ VG.CameraControllerOrbit.prototype = {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 VG.SceneController = function() {
@@ -9341,7 +9492,7 @@ VG.SceneController.prototype = {
 }
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 VG.Scene = function (data) {
@@ -9356,18 +9507,12 @@ VG.Scene = function (data) {
 VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
 VG.Scene.constructor = VG.Scene;
 
-VG.Scene.prototype.update = function (dt) {
-	for (var i = 0; i < this.animated.length; i++) {
-		this.animated[i].update(dt);
-	}
-}
-
 VG.Scene.prototype.init = function () {
 	console.warn('Warning: Scene with name >>>' + this.name + '<<< init method is not define')
 }
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix2D = function (sizeX, sizeY) {
@@ -9400,7 +9545,7 @@ VG.LevelMatrix2D.prototype = {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ) {
@@ -9427,7 +9572,7 @@ VG.LevelMatrix3D.prototype = {
 }
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 VG.UI.BaseUIObject = function () {
@@ -9466,7 +9611,7 @@ VG.UI.BaseUIObject.prototype = {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 VG.UI.TextElement = function (text, cssfont, csscolor) {
@@ -9525,7 +9670,7 @@ VG.UI.TextElement.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 VG.UI.Container = function(container) {
@@ -9553,7 +9698,7 @@ VG.UI.Container.prototype = Object.create(VG.UI.BaseUIObject.prototype);
 VG.UI.Container.constructor = VG.UI.Container;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 VG.UI.Panel = function (image) {
@@ -9621,7 +9766,7 @@ VG.UI.Panel.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 VG.UI.Button = function (normal, active, action) {

@@ -48,7 +48,7 @@ var Scene5 = function () {
 
         for (var i = 20; i >= 0; i--) {
             var mesh = data.assets['234234'].clone();
-            mesh.autoCreateAnimations(25);
+            mesh.parseAnimations(25);
             mesh.playAnimation('animation');
             mesh.position.set(100 * Math.random() - 50, 0, 100 * Math.random() - 50);
             this.add(mesh);

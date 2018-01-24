@@ -13,6 +13,8 @@ import './js/Engine.js';
 
 import './js/EventDispatcher.js';
 
+import './js/meshes/MorphBlendMesh.js';
+
 import './js/loaders/MTLLoader.js';
 import './js/loaders/OBJLoader.js';
 import './js/loaders/ColladaLoader.js';

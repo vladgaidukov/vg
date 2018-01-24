@@ -1,6 +1,7 @@
 VG = {}
 
 VG.UI = {};
+VG.Meshes = {};
 
 VG.DEBUG = false;
 

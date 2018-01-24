@@ -1,4 +1,4 @@
-VG.BaseObject = function() {
+VG.BaseObject = function () {
     this.view = new THREE.Object3D;
     this.animated = [];
     this.autoUpdate = true;
@@ -7,7 +7,7 @@ VG.BaseObject = function() {
 VG.BaseObject.prototype = {
     constructor: VG.BaseObject,
 
-    add: function(object) {
+    add: function (object) {
 
         var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
         if (view)
@@ -21,7 +21,7 @@ VG.BaseObject.prototype = {
             this.animated.push(animated);
     },
 
-    remove: function(object) {
+    remove: function (object) {
 
         var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
         if (view)
@@ -30,5 +30,11 @@ VG.BaseObject.prototype = {
         var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
         if (animated)
             this.animated.splice(this.animated.indexOf(animated), 1);
+    },
+    
+    update: function (dt) {
+        for (var i = 0; i < this.animated.length; i++) {
+            this.animated[i].update(dt);
+        }
     }
 }

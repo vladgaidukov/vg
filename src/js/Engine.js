@@ -40,9 +40,7 @@ VG.Engine = function (container) {
             TWEEN.update();
         }
 
-        for (var i = 0; i < self.animated.length; i++) {
-            self.animated[i].update(delta);
-        }
+        self.update(delta);
 
         self.renderer.render(self.view, self.camera);
 

@@ -138,7 +138,7 @@ VG.AssetsLoader.prototype = {
                 for (var i = materials.length - 1; i >= 0; i--) {
                     materials[i].morphTargets = true;
                 }
-                mesh = new THREE.MorphBlendMesh(geometry, materials);
+                mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
             } else {
                 mesh = new THREE.Mesh(geometry, materials);
             }
