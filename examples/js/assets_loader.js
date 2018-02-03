@@ -46,13 +46,13 @@ var Scene5 = function () {
         //     this.add(avatar);
         // }
 
-        for (var i = 20; i >= 0; i--) {
+       // for (var i = 20; i >= 0; i--) {
             var mesh = data.assets['234234'].clone();
             mesh.parseAnimations(25);
-            mesh.playAnimation('animation');
+            mesh.playAnimations(['animation']);
             mesh.position.set(100 * Math.random() - 50, 0, 100 * Math.random() - 50);
             this.add(mesh);
-        }
+       // }
         var ui = new VG.UI.Container();
 
         var testPanel = new VG.UI.Panel(data.assets['dialog'])

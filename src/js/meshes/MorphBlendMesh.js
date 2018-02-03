@@ -4,15 +4,29 @@ VG.Meshes.MorphBlendMesh = function (geometry, material) {
 
     this.fps = 10;
     this.direction = 1;
+    this.animationList = [];
+
+    this.currentAnimation = '';
 
 }
 
 VG.Meshes.MorphBlendMesh.prototype = Object.create(THREE.Mesh.prototype);
 VG.Meshes.MorphBlendMesh.prototype.constructor = VG.Meshes.MorphBlendMesh;
 
-VG.Meshes.MorphBlendMesh.prototype.playAnimation = function (label) {
+VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (list) {
 
-    var animation = this.geometry.animations[label];
+    this.animationList = list || this.animationList;
+
+    var animation = this.animationList.shift();
+
+    console.log(animation)
+
+    if (animation == this.currentAnimation)
+        return
+    else
+        this.currentAnimation = animation;
+
+    animation = this.geometry.animations[this.currentAnimation];
 
     if (animation) {
 
@@ -22,7 +36,7 @@ VG.Meshes.MorphBlendMesh.prototype.playAnimation = function (label) {
 
     } else {
 
-        console.warn('animation[' + label + '] undefined');
+        console.warn('animation[' + this.currentAnimation + '] undefined');
 
     }
 
@@ -74,6 +88,10 @@ VG.Meshes.MorphBlendMesh.prototype.setFrameRange = function (start, end) {
 
 };
 VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
+
+    if (this.animationList.length > 0)
+        if (this.lastKeyframe > this.currentKeyframe)
+            this.playAnimations();
 
     var frameTime = this.duration / this.length;
 
