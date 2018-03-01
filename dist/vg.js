@@ -8155,6 +8155,8 @@ VG.AssetsLoader = function (assetPath) {
 
     this.parsePack = function (data) {
         data = JSON.parse(data);
+        
+        this.loadedData['assetsList'] = data.assets;
 
         for (var key in data) {
             if (key == 'assets') {
@@ -8180,7 +8182,7 @@ VG.AssetsLoader = function (assetPath) {
                     this.loaderMap[extension](this, url, name, extension);
                 }
             } else {
-                this.loadedData[key] = data[key]
+                this.loadedData[key] = data[key];
             }
         }
     }
@@ -8252,7 +8254,7 @@ VG.AssetsLoader.prototype = {
 
         var path = context.assetPath + path;
 
-        var loader = context.loaders.json
+        var loader = context.loaders.json;
         loader.load(path + name + '.json', function (geometry, materials) {
 
             var mesh = null;
