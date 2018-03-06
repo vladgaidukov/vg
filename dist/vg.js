@@ -8155,8 +8155,8 @@ VG.AssetsLoader = function (assetPath) {
 
     this.parsePack = function (data) {
         data = JSON.parse(data);
-        
-        this.loadedData['assetsList'] = data.assets;
+
+        this.loadedData = data;
 
         for (var key in data) {
             if (key == 'assets') {
@@ -8178,11 +8178,10 @@ VG.AssetsLoader = function (assetPath) {
                     }
 
                     context.assets[name] = null;
+                    context.assetsUrlMap[name] = data.assets[a];
 
                     this.loaderMap[extension](this, url, name, extension);
                 }
-            } else {
-                this.loadedData[key] = data[key];
             }
         }
     }
@@ -8195,6 +8194,7 @@ VG.AssetsLoader.prototype = {
     assetPath: '/',
 
     assets: {},
+    assetsUrlMap: {},
 
     loadedData: {},
 
@@ -8289,6 +8289,9 @@ VG.AssetsLoader.prototype = {
         this.loadedCount++;
 
         if (this.loadCount <= this.loadedCount) {
+            for (var asset in this.assets) {
+                this.assets[asset].assetUrl = this.assetsUrlMap[asset];
+            }
             this.loadedData.assets = this.assets;
             this.onSuccess(this.loadedData);
             this.loadedCount = 0;
@@ -9514,21 +9517,31 @@ VG.LevelMatrix2D = function (sizeX, sizeY) {
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
 	this.length = this.sizeX * this.sizeY;
-	this.matrix = new Int16Array(this.length);
+	this.matrix = new Uint16Array(this.length);
 
 }
 
 VG.LevelMatrix2D.prototype = {
 	constructor: VG.LevelMatrix2D,
 
+	cellExist: function (x, y){
+		if (x < 0 || y < 0 || x > this.sizeX - 1 || y > this.sizeY - 1)
+			return false
+		return true
+	},
+
 	getCell: function (x, y) {
+
+		if (!this.cellExist(x, y))
+			return
+
 		var index = x * this.sizeX + y;
 		return this.matrix[index];
 	},
 
 	setCell: function (x, y, value) {
 		
-		if (x < 0 || y < 0 || x > this.sizeX * 0.9 || y > this.sizeY * 0.9)
+		if (!this.cellExist(x, y))
 			return
 
 		var index = x * this.sizeX + y;
@@ -9547,19 +9560,31 @@ VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ) {
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
 	this.sizeZ = sizeZ;
-	this.matrix = new Int16Array(this.sizeX * this.sizeY * this.sizeZ);
+	this.matrix = new Uint16Array(this.sizeX * this.sizeY * this.sizeZ);
 
 }
 
 VG.LevelMatrix3D.prototype = {
 	constructor: VG.LevelMatrix3D,
 
+	cellExist: function (x, y, z){
+		if (x < 0 || y < 0 || z < 0 || x > this.sizeX - 1 || y > this.sizeY - 1 || z > this.sizeZ - 1 )
+			return false
+		return true
+	},
+
 	getCell: function (x, y, z) {
+		if (!this.cellExist(x, y, z))
+			return
+
 		var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
 		return this.matrix[index];
 	},
 
 	setCell: function (x, y, z, value) {
+		if (!this.cellExist(x, y, z))
+			return
+		
 		var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
 		this.matrix[index] = value;
 	},

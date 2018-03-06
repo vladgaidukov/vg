@@ -32,8 +32,8 @@ VG.AssetsLoader = function (assetPath) {
 
     this.parsePack = function (data) {
         data = JSON.parse(data);
-        
-        this.loadedData['assetsList'] = data.assets;
+
+        this.loadedData = data;
 
         for (var key in data) {
             if (key == 'assets') {
@@ -55,11 +55,10 @@ VG.AssetsLoader = function (assetPath) {
                     }
 
                     context.assets[name] = null;
+                    context.assetsUrlMap[name] = data.assets[a];
 
                     this.loaderMap[extension](this, url, name, extension);
                 }
-            } else {
-                this.loadedData[key] = data[key];
             }
         }
     }
@@ -72,6 +71,7 @@ VG.AssetsLoader.prototype = {
     assetPath: '/',
 
     assets: {},
+    assetsUrlMap: {},
 
     loadedData: {},
 
@@ -166,6 +166,9 @@ VG.AssetsLoader.prototype = {
         this.loadedCount++;
 
         if (this.loadCount <= this.loadedCount) {
+            for (var asset in this.assets) {
+                this.assets[asset].assetUrl = this.assetsUrlMap[asset];
+            }
             this.loadedData.assets = this.assets;
             this.onSuccess(this.loadedData);
             this.loadedCount = 0;
