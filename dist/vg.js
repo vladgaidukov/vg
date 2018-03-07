@@ -1116,8 +1116,6 @@ VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (list) {
 
     var animation = this.animationList.shift();
 
-    console.log(animation)
-
     if (animation == this.currentAnimation)
         return
     else
