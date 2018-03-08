@@ -1,9 +1,10 @@
-VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ) {
+VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
 	this.sizeZ = sizeZ;
-	this.matrix = new Uint16Array(this.sizeX * this.sizeY * this.sizeZ);
+	this.length = this.sizeX * this.sizeY * this.sizeZ;
+	this.matrix = new Uint16Array(array || this.length);
 
 }
 

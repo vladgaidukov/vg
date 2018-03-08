@@ -1,9 +1,9 @@
-VG.LevelMatrix2D = function (sizeX, sizeY) {
+VG.LevelMatrix2D = function (sizeX, sizeY, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
 	this.length = this.sizeX * this.sizeY;
-	this.matrix = new Uint16Array(this.length);
+	this.matrix = new Uint16Array(array || this.length);
 
 }
 

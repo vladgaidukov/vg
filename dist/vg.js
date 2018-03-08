@@ -9510,12 +9510,12 @@ VG.Scene.prototype.init = function () {
 /* 22 */
 /***/ (function(module, exports) {
 
-VG.LevelMatrix2D = function (sizeX, sizeY) {
+VG.LevelMatrix2D = function (sizeX, sizeY, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
 	this.length = this.sizeX * this.sizeY;
-	this.matrix = new Uint16Array(this.length);
+	this.matrix = new Uint16Array(array || this.length);
 
 }
 
@@ -9553,12 +9553,13 @@ VG.LevelMatrix2D.prototype = {
 /* 23 */
 /***/ (function(module, exports) {
 
-VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ) {
+VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
 	this.sizeZ = sizeZ;
-	this.matrix = new Uint16Array(this.sizeX * this.sizeY * this.sizeZ);
+	this.length = this.sizeX * this.sizeY * this.sizeZ;
+	this.matrix = new Uint16Array(array || this.length);
 
 }
 
