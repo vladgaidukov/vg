@@ -91,40 +91,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_ColladaLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_controls_KeyboardEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_controls_MouseEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_scene_Scene_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix2D_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_matrices_LevelMatrix2D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix3D_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix3D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_ui_BaseUIObject_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_ui_BaseUIObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_TextElement_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_ui_TextElement_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_Container_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_Container_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Panel_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_Panel_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Button_js__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_Button_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_Terrain_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_Terrain_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_meshes_Terrain_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_MTLLoader_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_OBJLoader_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_ColladaLoader_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_loaders_ColladaLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_SceneController_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_Scene_js__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix2D_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix2D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix3D_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix3D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_BaseUIObject_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_ui_BaseUIObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_TextElement_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_TextElement_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Container_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_Container_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Panel_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_Panel_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Button_js__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__js_ui_Button_js__);
+
 
 
 
@@ -1253,6 +1256,1500 @@ VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
 /* 12 */
 /***/ (function(module, exports) {
 
+(function(global) {
+    var module = global.noise = {};
+
+    function Grad(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    Grad.prototype.dot2 = function(x, y) {
+        return this.x*x + this.y*y;
+    };
+
+    Grad.prototype.dot3 = function(x, y, z) {
+        return this.x*x + this.y*y + this.z*z;
+    };
+
+    var grad3 = [
+        new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
+        new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
+        new Grad(0,1,1),new Grad(0,-1,1),new Grad(0,1,-1),new Grad(0,-1,-1),
+    ];
+
+    var p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,
+        30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,
+        252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,
+        168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,
+        60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,
+        1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,
+        86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,
+        118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,
+        170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,
+        22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,
+        251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,
+        107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,
+        150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,
+        61,156,180];
+    // To avoid the need for index wrapping, double the permutation table length
+    var perm = new Array(512),
+        gradP = new Array(512);
+
+    // This isn't a very good seeding function, but it works okay. It supports
+    // 2^16 different seed values. Write your own if you need more seeds.
+    module.seed = function(seed) {
+        if (seed > 0 && seed < 1) {
+            // Scale the seed out
+            seed *= 65536;
+        }
+
+        seed = Math.floor(seed);
+        if (seed < 256) {
+            seed |= seed << 8;
+        }
+
+        for (var i = 0; i < 256; i++) {
+            var v;
+            if (i & 1) {
+                v = p[i] ^ (seed & 255);
+            }
+            else {
+                v = p[i] ^ ((seed>>8) & 255);
+            }
+
+            perm[i] = perm[i + 256] = v;
+            gradP[i] = gradP[i + 256] = grad3[v % 12];
+        }
+    };
+
+    module.seed(Math.random());
+
+    // Skewing and unskewing factors for 2 and 3 dimensions
+    var F2 = 0.5*(Math.sqrt(3)-1),
+        G2 = (3-Math.sqrt(3))/6,
+        F3 = 1/3,
+        G3 = 1/6;
+
+    // 2D simplex noise
+    module.simplex = function(xin, yin) {
+        var n0, n1, n2; // Noise contributions from the three corners
+        // Skew the input space to determine which simplex cell we're in
+        var s = (xin+yin)*F2; // Hairy factor for 2D
+        var i = Math.floor(xin+s);
+        var j = Math.floor(yin+s);
+        var t = (i+j)*G2;
+        var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed
+        var y0 = yin-j+t;
+        // For the 2D case, the simplex shape is an equilateral triangle.
+        // Determine which simplex we are in.
+        var i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
+        if (x0 > y0) { // Lower triangle, XY order: (0,0)->(1,0)->(1,1)
+            i1 = 1; j1 = 0;
+        }
+        else { // Upper triangle, YX order: (0,0)->(0,1)->(1,1)
+            i1 = 0; j1 = 1;
+        }
+        // A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
+        // a step of (0,1) in (i,j) means a step of (-c,1-c) in (x,y), where
+        // c = (3-sqrt(3))/6
+        var x1 = x0 - i1 + G2; // Offsets for middle corner in (x,y) unskewed coords
+        var y1 = y0 - j1 + G2;
+        var x2 = x0 - 1 + 2 * G2; // Offsets for last corner in (x,y) unskewed coords
+        var y2 = y0 - 1 + 2 * G2;
+        // Work out the hashed gradient indices of the three simplex corners
+        i &= 255;
+        j &= 255;
+        var gi0 = gradP[i+perm[j]];
+        var gi1 = gradP[i+i1+perm[j+j1]];
+        var gi2 = gradP[i+1+perm[j+1]];
+        // Calculate the contribution from the three corners
+        var t0 = 0.5 - x0*x0-y0*y0;
+        if (t0 < 0) {
+            n0 = 0;
+        }
+        else {
+            t0 *= t0;
+            n0 = t0 * t0 * gi0.dot2(x0, y0); // (x,y) of grad3 used for 2D gradient
+        }
+        var t1 = 0.5 - x1*x1-y1*y1;
+        if (t1 < 0) {
+            n1 = 0;
+        }
+        else {
+            t1 *= t1;
+            n1 = t1 * t1 * gi1.dot2(x1, y1);
+        }
+        var t2 = 0.5 - x2*x2-y2*y2;
+        if (t2 < 0) {
+            n2 = 0;
+        }
+        else {
+            t2 *= t2;
+            n2 = t2 * t2 * gi2.dot2(x2, y2);
+        }
+        // Add contributions from each corner to get the final noise value.
+        // The result is scaled to return values in the interval [-1,1].
+        return 70 * (n0 + n1 + n2);
+    };
+
+    // ##### Perlin noise stuff
+
+    function fade(t) {
+        return t*t*t*(t*(t*6-15)+10);
+    }
+
+    function lerp(a, b, t) {
+        return (1-t)*a + t*b;
+    }
+
+    // 2D Perlin Noise
+    module.perlin = function(x, y) {
+        // Find unit grid cell containing point
+        var X = Math.floor(x),
+            Y = Math.floor(y);
+        // Get relative xy coordinates of point within that cell
+        x = x - X;
+        y = y - Y;
+        // Wrap the integer cells at 255 (smaller integer period can be introduced here)
+        X = X & 255;
+        Y = Y & 255;
+
+        // Calculate noise contributions from each of the four corners
+        var n00 = gradP[X+perm[Y]].dot2(x, y);
+        var n01 = gradP[X+perm[Y+1]].dot2(x, y-1);
+        var n10 = gradP[X+1+perm[Y]].dot2(x-1, y);
+        var n11 = gradP[X+1+perm[Y+1]].dot2(x-1, y-1);
+
+        // Compute the fade curve value for x
+        var u = fade(x);
+
+        // Interpolate the four results
+        return lerp(
+            lerp(n00, n10, u),
+            lerp(n01, n11, u),
+            fade(y)
+        );
+    };
+})(this);
+
+
+VG.Meshes.Terrain = function(options) {
+    var defaultOptions = {
+        after: null,
+        easing: VG.Meshes.Terrain.Linear,
+        heightmap: VG.Meshes.Terrain.DiamondSquare,
+        material: null,
+        maxHeight: 100,
+        minHeight: -100,
+        optimization: VG.Meshes.Terrain.NONE,
+        frequency: 2.5,
+        steps: 1,
+        stretch: true,
+        turbulent: false,
+        useBufferGeometry: false,
+        xSegments: 63,
+        xSize: 1024,
+        ySegments: 63,
+        ySize: 1024,
+        _mesh: null, // internal only
+    };
+    options = options || {};
+    for (var opt in defaultOptions) {
+        if (defaultOptions.hasOwnProperty(opt)) {
+            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
+        }
+    }
+    options.material = options.material || new THREE.MeshBasicMaterial({ color: 0xee6633 });
+
+    // Encapsulating the terrain in a parent object allows us the flexibility
+    // to more easily have multiple meshes for optimization purposes.
+    var scene = new THREE.Object3D();
+    // Planes are initialized on the XY plane, so rotate the plane to make it lie flat.
+    scene.rotation.x = -0.5 * Math.PI;
+
+    // Create the terrain mesh.
+    // To save memory, it is possible to re-use a pre-existing mesh.
+    var mesh = options._mesh;
+    if (mesh && mesh.geometry.type === 'PlaneGeometry' &&
+                mesh.geometry.parameters.widthSegments === options.xSegments &&
+                mesh.geometry.parameters.heightSegments === options.ySegments) {
+        mesh.material = options.material;
+        mesh.scale.x = options.xSize / mesh.geometry.parameters.width;
+        mesh.scale.y = options.ySize / mesh.geometry.parameters.height;
+        for (var i = 0, l = mesh.geometry.vertices.length; i < l; i++) {
+            mesh.geometry.vertices[i].z = 0;
+        }
+    }
+    else {
+        mesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(options.xSize, options.ySize, options.xSegments, options.ySegments),
+            options.material
+        );
+    }
+    delete options._mesh; // Remove the reference for GC
+
+    // Assign elevation data to the terrain plane from a heightmap or function.
+    if (options.heightmap instanceof HTMLCanvasElement || options.heightmap instanceof Image) {
+        VG.Meshes.Terrain.fromHeightmap(mesh.geometry.vertices, options);
+    }
+    else if (typeof options.heightmap === 'function') {
+        options.heightmap(mesh.geometry.vertices, options);
+    }
+    else {
+        console.warn('An invalid value was passed for `options.heightmap`: ' + options.heightmap);
+    }
+    VG.Meshes.Terrain.Normalize(mesh, options);
+
+    if (options.useBufferGeometry) {
+        mesh.geometry = (new THREE.BufferGeometry()).fromGeometry(mesh.geometry);
+    }
+
+    // lod.addLevel(mesh, options.unit * 10 * Math.pow(2, lodLevel));
+
+    scene.add(mesh);
+    return scene;
+};
+
+
+VG.Meshes.Terrain.Normalize = function(mesh, options) {
+    var v = mesh.geometry.vertices;
+    if (options.turbulent) {
+        VG.Meshes.Terrain.Turbulence(v, options);
+    }
+    if (options.steps > 1) {
+        VG.Meshes.Terrain.Step(v, options.steps);
+        VG.Meshes.Terrain.Smooth(v, options);
+    }
+    // Keep the terrain within the allotted height range if necessary, and do easing.
+    VG.Meshes.Terrain.Clamp(v, options);
+    // Call the "after" callback
+    if (typeof options.after === 'function') {
+        options.after(v, options);
+    }
+    // Mark the geometry as having changed and needing updates.
+    mesh.geometry.verticesNeedUpdate = true;
+    mesh.geometry.normalsNeedUpdate = true;
+    mesh.geometry.computeBoundingSphere();
+    mesh.geometry.computeFaceNormals();
+    mesh.geometry.computeVertexNormals();
+};
+
+VG.Meshes.Terrain.NONE = 0;
+VG.Meshes.Terrain.GEOMIPMAP = 1;
+VG.Meshes.Terrain.GEOCLIPMAP = 2;
+VG.Meshes.Terrain.POLYGONREDUCTION = 3;
+
+
+VG.Meshes.Terrain.toArray2D = function(vertices, options) {
+    var tgt = new Array(options.xSegments),
+        xl = options.xSegments + 1,
+        yl = options.ySegments + 1,
+        i, j;
+    for (i = 0; i < xl; i++) {
+        tgt[i] = new Float64Array(options.ySegments);
+        for (j = 0; j < yl; j++) {
+            tgt[i][j] = vertices[j * xl + i].z;
+        }
+    }
+    return tgt;
+};
+
+
+VG.Meshes.Terrain.fromArray2D = function(vertices, src) {
+    for (var i = 0, xl = src.length; i < xl; i++) {
+        for (var j = 0, yl = src[i].length; j < yl; j++) {
+            vertices[j * xl + i].z = src[i][j];
+        }
+    }
+};
+
+
+VG.Meshes.Terrain.toArray1D = function(vertices) {
+    var tgt = new Float64Array(vertices.length);
+    for (var i = 0, l = tgt.length; i < l; i++) {
+        tgt[i] = vertices[i].z;
+    }
+    return tgt;
+};
+
+
+VG.Meshes.Terrain.fromArray1D = function(vertices, src) {
+    for (var i = 0, l = Math.min(vertices.length, src.length); i < l; i++) {
+        vertices[i].z = src[i];
+    }
+};
+
+
+VG.Meshes.Terrain.heightmapArray = function(method, options) {
+    var arr = new Array((options.xSegments+1) * (options.ySegments+1)),
+        l = arr.length,
+        i;
+    // The heightmap functions provided by this script operate on THREE.Vector3
+    // objects by changing the z field, so we need to make that available.
+    // Unfortunately that means creating a bunch of objects we're just going to
+    // throw away, but a conscious decision was made here to optimize for the
+    // vector case.
+    for (i = 0; i < l; i++) {
+        arr[i] = {z: 0};
+    }
+    options.minHeight = options.minHeight || 0;
+    options.maxHeight = typeof options.maxHeight === 'undefined' ? 1 : options.maxHeight;
+    options.stretch = options.stretch || false;
+    method(arr, options);
+    VG.Meshes.Terrain.Clamp(arr, options);
+    for (i = 0; i < l; i++) {
+        arr[i] = arr[i].z;
+    }
+    return arr;
+};
+
+/**
+ * Randomness interpolation functions.
+ */
+VG.Meshes.Terrain.Linear = function(x) {
+    return x;
+};
+
+// x = [0, 1], x^2
+VG.Meshes.Terrain.EaseIn = function(x) {
+    return x*x;
+};
+
+// x = [0, 1], -x(x-2)
+VG.Meshes.Terrain.EaseOut = function(x) {
+    return -x * (x - 2);
+};
+
+// x = [0, 1], x^2(3-2x)
+// Nearly identical alternatives: 0.5+0.5*cos(x*pi-pi), x^a/(x^a+(1-x)^a) (where a=1.6 seems nice)
+// For comparison: http://www.wolframalpha.com/input/?i=x^1.6%2F%28x^1.6%2B%281-x%29^1.6%29%2C+x^2%283-2x%29%2C+0.5%2B0.5*cos%28x*pi-pi%29+from+0+to+1
+VG.Meshes.Terrain.EaseInOut = function(x) {
+    return x*x*(3-2*x);
+};
+
+// x = [0, 1], 0.5*(2x-1)^3+0.5
+VG.Meshes.Terrain.InEaseOut = function(x) {
+    var y = 2*x-1;
+    return 0.5 * y*y*y + 0.5;
+};
+
+// x = [0, 1], x^1.55
+VG.Meshes.Terrain.EaseInWeak = function(x) {
+    return Math.pow(x, 1.55);
+};
+
+// x = [0, 1], x^7
+VG.Meshes.Terrain.EaseInStrong = function(x) {
+    return x*x*x*x*x*x*x;
+};
+
+
+VG.Meshes.Terrain.fromHeightmap = function(g, options) {
+    var canvas = document.createElement('canvas'),
+        context = canvas.getContext('2d'),
+        rows = options.ySegments + 1,
+        cols = options.xSegments + 1,
+        spread = options.maxHeight - options.minHeight;
+    canvas.width = cols;
+    canvas.height = rows;
+    context.drawImage(options.heightmap, 0, 0, canvas.width, canvas.height);
+    var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < cols; col++) {
+            var i = row * cols + col,
+                idx = i * 4;
+            g[i].z = (data[idx] + data[idx+1] + data[idx+2]) / 765 * spread + options.minHeight;
+        }
+    }
+};
+
+
+VG.Meshes.Terrain.toHeightmap = function(g, options) {
+    var hasMax = typeof options.maxHeight === 'undefined',
+        hasMin = typeof options.minHeight === 'undefined',
+        max = hasMax ? options.maxHeight : -Infinity,
+        min = hasMin ? options.minHeight :  Infinity;
+    if (!hasMax || !hasMin) {
+        var max2 = max,
+            min2 = min;
+        for (var k = 0, l = g.length; k < l; k++) {
+            if (g[k].z > max2) max2 = g[k].z;
+            if (g[k].z < min2) min2 = g[k].z;
+        }
+        if (!hasMax) max = max2;
+        if (!hasMin) min = min2;
+    }
+    var canvas = options.heightmap instanceof HTMLCanvasElement ? options.heightmap : document.createElement('canvas'),
+        context = canvas.getContext('2d'),
+        rows = options.ySegments + 1,
+        cols = options.xSegments + 1,
+        spread = options.maxHeight - options.minHeight;
+    canvas.width = cols;
+    canvas.height = rows;
+    var d = context.createImageData(canvas.width, canvas.height),
+        data = d.data;
+    for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < cols; col++) {
+            var i = row * cols + col,
+            idx = i * 4;
+            data[idx] = data[idx+1] = data[idx+2] = Math.round(((g[i].z - options.minHeight) / spread) * 255);
+            data[idx+3] = 255;
+        }
+    }
+    context.putImageData(d, 0, 0);
+    return canvas;
+};
+
+VG.Meshes.Terrain.Clamp = function(g, options) {
+    var min = Infinity,
+        max = -Infinity,
+        l = g.length,
+        i;
+    options.easing = options.easing || VG.Meshes.Terrain.Linear;
+    for (i = 0; i < l; i++) {
+        if (g[i].z < min) min = g[i].z;
+        if (g[i].z > max) max = g[i].z;
+    }
+    var actualRange = max - min,
+        optMax = typeof options.maxHeight !== 'number' ? max : options.maxHeight,
+        optMin = typeof options.minHeight !== 'number' ? min : options.minHeight,
+        targetMax = options.stretch ? optMax : (max < optMax ? max : optMax),
+        targetMin = options.stretch ? optMin : (min > optMin ? min : optMin),
+        range = targetMax - targetMin;
+    if (targetMax < targetMin) {
+        targetMax = optMax;
+        range = targetMax - targetMin;
+    }
+    for (i = 0; i < l; i++) {
+        g[i].z = options.easing((g[i].z - min) / actualRange) * range + optMin;
+    }
+};
+
+VG.Meshes.Terrain.Edges = function(g, options, direction, distance, easing, edges) {
+    var numXSegments = Math.floor(distance / (options.xSize / options.xSegments)) || 1,
+        numYSegments = Math.floor(distance / (options.ySize / options.ySegments)) || 1,
+        peak = direction ? options.maxHeight : options.minHeight,
+        max = direction ? Math.max : Math.min,
+        xl = options.xSegments + 1,
+        yl = options.ySegments + 1,
+        i, j, multiplier, k1, k2;
+    easing = easing || VG.Meshes.Terrain.EaseInOut;
+    if (typeof edges !== 'object') {
+        edges = {top: true, bottom: true, left: true, right: true};
+    }
+    for (i = 0; i < xl; i++) {
+        for (j = 0; j < numYSegments; j++) {
+            multiplier = easing(1 - j / numYSegments);
+            k1 = j*xl + i;
+            k2 = (options.ySegments-j)*xl + i;
+            if (edges.top) {
+                g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
+            }
+            if (edges.bottom) {
+                g[k2].z = max(g[k2].z, (peak - g[k2].z) * multiplier + g[k2].z);
+            }
+        }
+    }
+    for (i = 0; i < yl; i++) {
+        for (j = 0; j < numXSegments; j++) {
+            multiplier = easing(1 - j / numXSegments);
+            k1 = i*xl+j;
+            k2 = (options.ySegments-i)*xl + (options.xSegments-j);
+            if (edges.left) {
+                g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
+            }
+            if (edges.right) {
+                g[k2].z = max(g[k2].z, (peak - g[k2].z) * multiplier + g[k2].z);
+            }
+        }
+    }
+    VG.Meshes.Terrain.Clamp(g, {
+        maxHeight: options.maxHeight,
+        minHeight: options.minHeight,
+        stretch: true,
+    });
+};
+
+VG.Meshes.Terrain.RadialEdges = function(g, options, direction, distance, easing) {
+    var peak = direction ? options.maxHeight : options.minHeight,
+        max = direction ? Math.max : Math.min,
+        xl = (options.xSegments + 1),
+        yl = (options.ySegments + 1),
+        xl2 = xl * 0.5,
+        yl2 = yl * 0.5,
+        xSegmentSize = options.xSize / options.xSegments,
+        ySegmentSize = options.ySize / options.ySegments,
+        edgeRadius = Math.min(options.xSize, options.ySize) * 0.5 - distance,
+        i, j, multiplier, k, vertexDistance;
+    for (i = 0; i < xl; i++) {
+        for (j = 0; j < yl2; j++) {
+            k = j*xl + i;
+            vertexDistance = Math.min(edgeRadius, Math.sqrt((xl2-i)*xSegmentSize*(xl2-i)*xSegmentSize + (yl2-j)*ySegmentSize*(yl2-j)*ySegmentSize) - distance);
+            if (vertexDistance < 0) continue;
+            multiplier = easing(vertexDistance / edgeRadius);
+            g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
+            // Use symmetry to reduce the number of iterations.
+            k = (options.ySegments-j)*xl + i;
+            g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
+        }
+    }
+};
+
+VG.Meshes.Terrain.Smooth = function(g, options, weight) {
+    var heightmap = new Float64Array(g.length);
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            var sum = 0,
+                c = 0;
+            for (var n = -1; n <= 1; n++) {
+                for (var m = -1; m <= 1; m++) {
+                    var key = (j+n)*xl + i + m;
+                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                        sum += g[key].z;
+                        c++;
+                    }
+                }
+            }
+            heightmap[j*xl + i] = sum / c;
+        }
+    }
+    weight = weight || 0;
+    var w = 1 / (1 + weight);
+    for (var k = 0, l = g.length; k < l; k++) {
+        g[k].z = (heightmap[k] + g[k].z * weight) * w;
+    }
+};
+
+VG.Meshes.Terrain.SmoothMedian = function(g, options) {
+    var heightmap = new Float64Array(g.length),
+        neighborValues = [],
+        neighborKeys = [],
+        sortByValue = function(a, b) {
+            return neighborValues[a] - neighborValues[b];
+        };
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            neighborValues.length = 0;
+            neighborKeys.length = 0;
+            for (var n = -1; n <= 1; n++) {
+                for (var m = -1; m <= 1; m++) {
+                    var key = (j+n)*xl + i + m;
+                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                        neighborValues.push(g[key].z);
+                        neighborKeys.push(key);
+                    }
+                }
+            }
+            neighborKeys.sort(sortByValue);
+            var halfKey = Math.floor(neighborKeys.length*0.5),
+                median;
+            if (neighborKeys.length % 2 === 1) {
+                median = g[neighborKeys[halfKey]].z;
+            }
+            else {
+                median = (g[neighborKeys[halfKey-1]].z + g[neighborKeys[halfKey]].z) * 0.5;
+            }
+            heightmap[j*xl + i] = median;
+        }
+    }
+    for (var k = 0, l = g.length; k < l; k++) {
+        g[k].z = heightmap[k];
+    }
+};
+
+VG.Meshes.Terrain.SmoothConservative = function(g, options, multiplier) {
+    var heightmap = new Float64Array(g.length);
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            var max = -Infinity,
+                min = Infinity;
+            for (var n = -1; n <= 1; n++) {
+                for (var m = -1; m <= 1; m++) {
+                    var key = (j+n)*xl + i + m;
+                    if (typeof g[key] !== 'undefined' && n && m && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                        if (g[key].z < min) min = g[key].z;
+                        if (g[key].z > max) max = g[key].z;
+                    }
+                }
+            }
+            var kk = j*xl + i;
+            if (typeof multiplier === 'number') {
+                var halfdiff = (max - min) * 0.5,
+                    middle = min + halfdiff;
+                max = middle + halfdiff * multiplier;
+                min = middle - halfdiff * multiplier;
+            }
+            heightmap[kk] = g[kk].z > max ? max : (g[kk].z < min ? min : g[kk].z);
+        }
+    }
+    for (var k = 0, l = g.length; k < l; k++) {
+        g[k].z = heightmap[k];
+    }
+};
+
+VG.Meshes.Terrain.Step = function(g, levels) {
+    // Calculate the max, min, and avg values for each bucket
+    var i = 0,
+        j = 0,
+        l = g.length,
+        inc = Math.floor(l / levels),
+        heights = new Array(l),
+        buckets = new Array(levels);
+    if (typeof levels === 'undefined') {
+        levels = Math.floor(Math.pow(l*0.5, 0.25));
+    }
+    for (i = 0; i < l; i++) {
+        heights[i] = g[i].z;
+    }
+    heights.sort(function(a, b) { return a - b; });
+    for (i = 0; i < levels; i++) {
+        // Bucket by population (bucket size) not range size
+        var subset = heights.slice(i*inc, (i+1)*inc),
+            sum = 0,
+            bl = subset.length;
+        for (j = 0; j < bl; j++) {
+            sum += subset[j];
+        }
+        buckets[i] = {
+            min: subset[0],
+            max: subset[subset.length-1],
+            avg: sum / bl,
+        };
+    }
+
+    // Set the height of each vertex to the average height of its bucket
+    for (i = 0; i < l; i++) {
+        var startHeight = g[i].z;
+        for (j = 0; j < levels; j++) {
+            if (startHeight >= buckets[j].min && startHeight <= buckets[j].max) {
+                g[i].z = buckets[j].avg;
+                break;
+            }
+        }
+    }
+};
+
+
+VG.Meshes.Terrain.Turbulence = function(g, options) {
+    var range = options.maxHeight - options.minHeight;
+    for (var i = 0, l = g.length; i < l; i++) {
+        g[i].z = options.minHeight + Math.abs((g[i].z - options.minHeight) * 2 - range);
+    }
+};
+
+
+VG.Meshes.Terrain.MultiPass = function(g, options, passes) {
+    var clonedOptions = {};
+    for (var opt in options) {
+        if (options.hasOwnProperty(opt)) {
+            clonedOptions[opt] = options[opt];
+        }
+    }
+    var range = options.maxHeight - options.minHeight;
+    for (var i = 0, l = passes.length; i < l; i++) {
+        var amp = typeof passes[i].amplitude === 'undefined' ? 1 : passes[i].amplitude,
+            move = 0.5 * (range - range * amp);
+        clonedOptions.maxHeight = options.maxHeight - move;
+        clonedOptions.minHeight = options.minHeight + move;
+        clonedOptions.frequency = typeof passes[i].frequency === 'undefined' ? options.frequency : passes[i].frequency;
+        passes[i].method(g, clonedOptions);
+    }
+};
+
+
+VG.Meshes.Terrain.Curve = function(g, options, curve) {
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        scalar = options.frequency / (Math.min(options.xSegments, options.ySegments) + 1);
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            g[j * xl + i].z += curve(i * scalar, j * scalar) * range;
+        }
+    }
+};
+
+VG.Meshes.Terrain.Cosine = function(g, options) {
+    var amplitude = (options.maxHeight - options.minHeight) * 0.5,
+        frequencyScalar = options.frequency * Math.PI / (Math.min(options.xSegments, options.ySegments) + 1),
+        phase = Math.random() * Math.PI * 2;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            g[j * xl + i].z += amplitude * (Math.cos(i * frequencyScalar + phase) + Math.cos(j * frequencyScalar + phase));
+        }
+    }
+};
+
+
+VG.Meshes.Terrain.CosineLayers = function(g, options) {
+    VG.Meshes.Terrain.MultiPass(g, options, [
+        { method: VG.Meshes.Terrain.Cosine,                   frequency:  2.5 },
+        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.1,   frequency:  12  },
+        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.05,  frequency:  15  },
+        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.025, frequency:  20  },
+    ]);
+};
+
+
+VG.Meshes.Terrain.DiamondSquare = function(g, options) {
+    // Set the segment length to the smallest power of 2 that is greater than
+    // the number of vertices in either dimension of the plane
+    var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
+
+    // Initialize heightmap
+    var size = segments + 1,
+        heightmap = [],
+        smoothing = (options.maxHeight - options.minHeight),
+        i,
+        j,
+        xl = options.xSegments + 1,
+        yl = options.ySegments + 1;
+    for (i = 0; i <= segments; i++) {
+        heightmap[i] = new Float64Array(segments+1);
+    }
+
+    // Generate heightmap
+    for (var l = segments; l >= 2; l /= 2) {
+        var half = Math.round(l*0.5),
+            whole = Math.round(l),
+            x,
+            y,
+            avg,
+            d,
+            e;
+        smoothing /= 2;
+        // square
+        for (x = 0; x < segments; x += whole) {
+            for (y = 0; y < segments; y += whole) {
+                d = Math.random() * smoothing * 2 - smoothing;
+                avg = heightmap[x][y] +            // top left
+                      heightmap[x+whole][y] +      // top right
+                      heightmap[x][y+whole] +      // bottom left
+                      heightmap[x+whole][y+whole]; // bottom right
+                avg *= 0.25;
+                heightmap[x+half][y+half] = avg + d;
+            }
+        }
+        // diamond
+        for (x = 0; x < segments; x += half) {
+            for (y = (x+half) % l; y < segments; y += l) {
+                d = Math.random() * smoothing * 2 - smoothing;
+                avg = heightmap[(x-half+size)%size][y] + // middle left
+                      heightmap[(x+half)%size][y] +      // middle right
+                      heightmap[x][(y+half)%size] +      // middle top
+                      heightmap[x][(y-half+size)%size];  // middle bottom
+                avg *= 0.25;
+                avg += d;
+                heightmap[x][y] = avg;
+                // top and right edges
+                if (x === 0) heightmap[segments][y] = avg;
+                if (y === 0) heightmap[x][segments] = avg;
+            }
+        }
+    }
+
+    // Apply heightmap
+    for (i = 0; i < xl; i++) {
+        for (j = 0; j < yl; j++) {
+            g[j * xl + i].z += heightmap[i][j];
+        }
+    }
+
+    // VG.Meshes.Terrain.SmoothConservative(g, options);
+};
+
+
+VG.Meshes.Terrain.Fault = function(g, options) {
+    var d = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments),
+        iterations = d * options.frequency,
+        range = (options.maxHeight - options.minHeight) * 0.5,
+        displacement = range / iterations,
+        smoothDistance = Math.min(options.xSize / options.xSegments, options.ySize / options.ySegments) * options.frequency;
+    for (var k = 0; k < iterations; k++) {
+        var v = Math.random(),
+            a = Math.sin(v * Math.PI * 2),
+            b = Math.cos(v * Math.PI * 2),
+            c = Math.random() * d - d*0.5;
+        for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+            for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+                var distance = a*i + b*j - c;
+                if (distance > smoothDistance) {
+                    g[j * xl + i].z += displacement;
+                }
+                else if (distance < -smoothDistance) {
+                    g[j * xl + i].z -= displacement;
+                }
+                else {
+                    g[j * xl + i].z += Math.cos(distance / smoothDistance * Math.PI * 2) * displacement;
+                }
+            }
+        }
+    }
+    // VG.Meshes.Terrain.Smooth(g, options);
+};
+
+
+VG.Meshes.Terrain.Hill = function(g, options, feature, shape) {
+    var frequency = options.frequency * 2,
+        numFeatures = frequency * frequency * 10,
+        heightRange = options.maxHeight - options.minHeight,
+        minHeight = heightRange / (frequency * frequency),
+        maxHeight = heightRange / frequency,
+        smallerSideLength = Math.min(options.xSize, options.ySize),
+        minRadius = smallerSideLength / (frequency * frequency),
+        maxRadius = smallerSideLength / frequency;
+    feature = feature || VG.Meshes.Terrain.Influences.Hill;
+
+    var coords = { x: 0, y: 0 };
+    for (var i = 0; i < numFeatures; i++) {
+        var radius = Math.random() * (maxRadius - minRadius) + minRadius,
+            height = Math.random() * (maxHeight - minHeight) + minHeight;
+        var min = 0 - radius,
+            maxX = options.xSize + radius,
+            maxY = options.ySize + radius;
+        coords.x = Math.random();
+        coords.y = Math.random();
+        if (typeof shape === 'function') shape(coords);
+        VG.Meshes.Terrain.Influence(
+            g, options,
+            feature,
+            coords.x, coords.y,
+            radius, height,
+            THREE.AdditiveBlending,
+            VG.Meshes.Terrain.EaseInStrong
+        );
+    }
+};
+
+VG.Meshes.Terrain.HillIsland = (function() {
+    var island = function(coords) {
+        var theta = Math.random() * Math.PI * 2;
+        coords.x = 0.5 + Math.cos(theta) * coords.x * 0.4;
+        coords.y = 0.5 + Math.sin(theta) * coords.y * 0.4;
+    };
+    return function(g, options, feature) {
+        VG.Meshes.Terrain.Hill(g, options, feature, island);
+    };
+})();
+
+(function() {
+    /**
+     * Deposit a particle at a vertex.
+     */
+    function deposit(g, i, j, xl, displacement) {
+        var currentKey = j * xl + i;
+        // Pick a random neighbor.
+        for (var k = 0; k < 3; k++) {
+            var r = Math.floor(Math.random() * 8);
+            switch (r) {
+                case 0: i++; break;
+                case 1: i--; break;
+                case 2: j++; break;
+                case 3: j--; break;
+                case 4: i++; j++; break;
+                case 5: i++; j--; break;
+                case 6: i--; j++; break;
+                case 7: i--; j--; break;
+            }
+            var neighborKey = j * xl + i;
+            // If the neighbor is lower, move the particle to that neighbor and re-evaluate.
+            if (typeof g[neighborKey] !== 'undefined') {
+                if (g[neighborKey].z < g[currentKey].z) {
+                    deposit(g, i, j, xl, displacement);
+                    return;
+                }
+            }
+            // Deposit some particles on the edge.
+            else if (Math.random() < 0.2) {
+                g[currentKey].z += displacement;
+                return;
+            }
+        }
+        g[currentKey].z += displacement;
+    }
+
+    VG.Meshes.Terrain.Particles = function(g, options) {
+        var iterations = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments) * options.frequency * 300,
+            xl = options.xSegments + 1,
+            displacement = (options.maxHeight - options.minHeight) / iterations * 1000,
+            i = Math.floor(Math.random() * options.xSegments),
+            j = Math.floor(Math.random() * options.ySegments),
+            xDeviation = Math.random() * 0.2 - 0.1,
+            yDeviation = Math.random() * 0.2 - 0.1;
+        for (var k = 0; k < iterations; k++) {
+            deposit(g, i, j, xl, displacement);
+            var d = Math.random() * Math.PI * 2;
+            if (k % 1000 === 0) {
+                xDeviation = Math.random() * 0.2 - 0.1;
+                yDeviation = Math.random() * 0.2 - 0.1;
+            }
+            if (k % 100 === 0) {
+                i = Math.floor(options.xSegments*(0.5+xDeviation) + Math.cos(d) * Math.random() * options.xSegments*(0.5-Math.abs(xDeviation)));
+                j = Math.floor(options.ySegments*(0.5+yDeviation) + Math.sin(d) * Math.random() * options.ySegments*(0.5-Math.abs(yDeviation)));
+            }
+        }
+        // VG.Meshes.Terrain.Smooth(g, options, 3);
+    };
+})();
+
+
+VG.Meshes.Terrain.Perlin = function(g, options) {
+    noise.seed(Math.random());
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        divisor = (Math.min(options.xSegments, options.ySegments) + 1) / options.frequency;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            g[j * xl + i].z += noise.perlin(i / divisor, j / divisor) * range;
+        }
+    }
+};
+
+VG.Meshes.Terrain.PerlinDiamond = function(g, options) {
+    VG.Meshes.Terrain.MultiPass(g, options, [
+        { method: VG.Meshes.Terrain.Perlin },
+        { method: VG.Meshes.Terrain.DiamondSquare, amplitude: 0.75 },
+        { method: function(g, o) { return VG.Meshes.Terrain.SmoothMedian(g, o); } },
+    ]);
+};
+
+
+VG.Meshes.Terrain.PerlinLayers = function(g, options) {
+    VG.Meshes.Terrain.MultiPass(g, options, [
+        { method: VG.Meshes.Terrain.Perlin,                  frequency:  1.25 },
+        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.05, frequency:  2.5  },
+        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.35, frequency:  5    },
+        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.15, frequency: 10    },
+    ]);
+};
+
+VG.Meshes.Terrain.Simplex = function(g, options) {
+    noise.seed(Math.random());
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        divisor = (Math.min(options.xSegments, options.ySegments) + 1) * 2 / options.frequency;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            g[j * xl + i].z += noise.simplex(i / divisor, j / divisor) * range;
+        }
+    }
+};
+
+VG.Meshes.Terrain.SimplexLayers = function(g, options) {
+    VG.Meshes.Terrain.MultiPass(g, options, [
+        { method: VG.Meshes.Terrain.Simplex,                    frequency:  1.25 },
+        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.5,    frequency:  2.5  },
+        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.25,   frequency:  5    },
+        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.125,  frequency: 10    },
+        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.0625, frequency: 20    },
+    ]);
+};
+
+(function() {
+
+    function WhiteNoise(g, options, scale, segments, range, data) {
+        if (scale > segments) return;
+        var i = 0,
+            j = 0,
+            xl = segments,
+            yl = segments,
+            inc = Math.floor(segments / scale),
+            lastX = -inc,
+            lastY = -inc;
+        // Walk over the target. For a target of size W and a resolution of N,
+        // set every W/N points (in both directions).
+        for (i = 0; i <= xl; i += inc) {
+            for (j = 0; j <= yl; j += inc) {
+                var k = j * xl + i;
+                data[k] = Math.random() * range;
+                if (lastX < 0 && lastY < 0) continue;
+                // jscs:disable disallowSpacesInsideBrackets
+                /* c b *
+                 * l t */
+                var t = data[k],
+                    l = data[ j      * xl + (i-inc)] || t, // left
+                    b = data[(j-inc) * xl +  i     ] || t, // bottom
+                    c = data[(j-inc) * xl + (i-inc)] || t; // corner
+                // jscs:enable disallowSpacesInsideBrackets
+                // Interpolate between adjacent points to set the height of
+                // higher-resolution target data.
+                for (var x = lastX; x < i; x++) {
+                    for (var y = lastY; y < j; y++) {
+                        if (x === lastX && y === lastY) continue;
+                        var z = y * xl + x;
+                        if (z < 0) continue;
+                        var px = ((x-lastX) / inc),
+                            py = ((y-lastY) / inc),
+                            r1 = px * b + (1-px) * c,
+                            r2 = px * t + (1-px) * l;
+                        data[z] = py * r2 + (1-py) * r1;
+                    }
+                }
+                lastY = j;
+            }
+            lastX = i;
+            lastY = -inc;
+        }
+        // Assign the temporary data back to the actual terrain heightmap.
+        for (i = 0, xl = options.xSegments + 1; i < xl; i++) {
+            for (j = 0, yl = options.ySegments + 1; j < yl; j++) {
+                // http://stackoverflow.com/q/23708306/843621
+                var kg = j * xl + i,
+                    kd = j * segments + i;
+                g[kg].z += data[kd];
+            }
+        }
+    }
+
+    VG.Meshes.Terrain.Value = function(g, options) {
+        // Set the segment length to the smallest power of 2 that is greater
+        // than the number of vertices in either dimension of the plane
+        var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
+
+        // Store the array of white noise outside of the WhiteNoise function to
+        // avoid allocating a bunch of unnecessary arrays; we can just
+        // overwrite old data each time WhiteNoise() is called.
+        var data = new Float64Array((segments+1)*(segments+1));
+
+        // Layer white noise at different resolutions.
+        var range = options.maxHeight - options.minHeight;
+        for (var i = 2; i < 7; i++) {
+            WhiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4-i*1.2), data);
+        }
+
+        // White noise creates some weird artifacts; fix them.
+        // VG.Meshes.Terrain.Smooth(g, options, 1);
+        VG.Meshes.Terrain.Clamp(g, {
+            maxHeight: options.maxHeight,
+            minHeight: options.minHeight,
+            stretch: true,
+        });
+    };
+})();
+
+VG.Meshes.Terrain.Weierstrass = function(g, options) {
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        dir1 = Math.random() < 0.5 ? 1 : -1,
+        dir2 = Math.random() < 0.5 ? 1 : -1,
+        r11  =  0.5   + Math.random() * 1.0,
+        r12  =  0.5   + Math.random() * 1.0,
+        r13  =  0.025 + Math.random() * 0.10,
+        r14  = -1.0   + Math.random() * 2.0,
+        r21  =  0.5   + Math.random() * 1.0,
+        r22  =  0.5   + Math.random() * 1.0,
+        r23  =  0.025 + Math.random() * 0.10,
+        r24  = -1.0   + Math.random() * 2.0;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            var sum = 0;
+            for (var k = 0; k < 20; k++) {
+                var x = Math.pow(1+r11, -k) * Math.sin(Math.pow(1+r12, k) * (i + 0.25*Math.cos(j) + r14*j) * r13);
+                var y = Math.pow(1+r21, -k) * Math.sin(Math.pow(1+r22, k) * (j + 0.25*Math.cos(i) + r24*i) * r23);
+                sum -= Math.exp(dir1*x*x + dir2*y*y);
+            }
+            g[j * xl + i].z += sum * range;
+        }
+    }
+    VG.Meshes.Terrain.Clamp(g, options);
+};
+
+VG.Meshes.Terrain.glslifyNumber = function(n) {
+    return n === (n|0) ? n+'.0' : n+'';
+};
+
+VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
+    // Convert numbers to strings of floats so GLSL doesn't barf on "1" instead of "1.0"
+
+
+    var uniforms = THREE.UniformsUtils.merge([THREE.ShaderLib.lambert.uniforms]),
+        declare = '',
+        assign = '',
+        t0Repeat = textures[0].texture.repeat,
+        t0Offset = textures[0].texture.offset;
+    for (var i = 0, l = textures.length; i < l; i++) {
+        // Uniforms
+        textures[i].texture.wrapS = textures[i].texture.wrapT = THREE.RepeatWrapping;
+        textures[i].texture.needsUpdate = true;
+        uniforms['texture_' + i] = {
+            type: 't',
+            value: textures[i].texture,
+        };
+
+        // Shader fragments
+        // Declare each texture, then mix them together.
+        declare += 'uniform sampler2D texture_' + i + ';\n';
+        if (i !== 0) {
+            var v = textures[i].levels, // Vertex heights at which to blend textures in and out
+                p = textures[i].glsl, // Or specify a GLSL expression that evaluates to a float between 0.0 and 1.0 indicating how opaque the texture should be at this texel
+                useLevels = typeof v !== 'undefined', // Use levels if they exist; otherwise, use the GLSL expression
+                tiRepeat = textures[i].texture.repeat,
+                tiOffset = textures[i].texture.offset;
+            if (useLevels) {
+                // Must fade in; can't start and stop at the same point.
+                // So, if levels are too close, move one of them slightly.
+                if (v[1] - v[0] < 1) v[0] -= 1;
+                if (v[3] - v[2] < 1) v[3] += 1;
+                for (var j = 0; j < v.length; j++) {
+                    v[j] = VG.Meshes.Terrain.glslifyNumber(v[j]);
+                }
+            }
+            // The transparency of the new texture when it is layered on top of the existing color at this texel is
+            // (how far between the start-blending-in and fully-blended-in levels the current vertex is) +
+            // (how far between the start-blending-out and fully-blended-out levels the current vertex is)
+            // So the opacity is 1.0 minus that.
+            var blendAmount = !useLevels ? p :
+                '1.0 - smoothstep(' + v[0] + ', ' + v[1] + ', vPosition.z) + smoothstep(' + v[2] + ', ' + v[3] + ', vPosition.z)';
+            assign += '        color = mix( ' +
+                'texture2D( texture_' + i + ', MyvUv * vec2( ' + VG.Meshes.Terrain.glslifyNumber(tiRepeat.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(tiRepeat.y) + ' ) + vec2( ' + VG.Meshes.Terrain.glslifyNumber(tiOffset.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(tiOffset.y) + ' ) ), ' +
+                'color, ' +
+                'max(min(' + blendAmount + ', 1.0), 0.0)' +
+                ');\n';
+        }
+    }
+
+    var params = {
+        // I don't know which of these properties have any effect
+        fog: true,
+        lights: true,
+        // shading: THREE.SmoothShading,
+        // blending: THREE.NormalBlending,
+        // depthTest: <bool>,
+        // depthWrite: <bool>,
+        // wireframe: false,
+        // wireframeLinewidth: 1,
+        // vertexColors: THREE.NoColors,
+        // skinning: <bool>,
+        // morphTargets: <bool>,
+        // morphNormals: <bool>,
+        // opacity: 1.0,
+        // transparent: <bool>,
+        // side: THREE.FrontSide,
+
+        uniforms: uniforms,
+        vertexShader: THREE.ShaderLib.lambert.vertexShader.replace(
+            'void main() {',
+            'varying vec2 MyvUv;\nvarying vec3 vPosition;\nvarying vec3 myNormal; void main() {\nMyvUv = uv;\nvPosition = position;\nmyNormal = normal;'
+        ),
+        // This is mostly copied from THREE.ShaderLib.lambert.fragmentShader
+        fragmentShader: [
+            'uniform vec3 diffuse;',
+            'uniform vec3 emissive;',
+            'uniform float opacity;',
+            'varying vec3 vLightFront;',
+            '#ifdef DOUBLE_SIDED',
+            '    varying vec3 vLightBack;',
+            '#endif',
+
+            THREE.ShaderChunk.common,
+            THREE.ShaderChunk.packing,
+            THREE.ShaderChunk.dithering_pars_fragment,
+            THREE.ShaderChunk.color_pars_fragment,
+            THREE.ShaderChunk.uv_pars_fragment,
+            THREE.ShaderChunk.uv2_pars_fragment,
+            THREE.ShaderChunk.map_pars_fragment,
+            THREE.ShaderChunk.alphamap_pars_fragment,
+            THREE.ShaderChunk.aomap_pars_fragment,
+            THREE.ShaderChunk.lightmap_pars_fragment,
+            THREE.ShaderChunk.emissivemap_pars_fragment,
+            THREE.ShaderChunk.envmap_pars_fragment,
+            THREE.ShaderChunk.bsdfs,
+            THREE.ShaderChunk.lights_pars,
+            THREE.ShaderChunk.fog_pars_fragment,
+            THREE.ShaderChunk.shadowmap_pars_fragment,
+            THREE.ShaderChunk.shadowmask_pars_fragment,
+            THREE.ShaderChunk.specularmap_pars_fragment,
+            THREE.ShaderChunk.logdepthbuf_pars_fragment,
+            THREE.ShaderChunk.clipping_planes_pars_fragment,
+
+            declare,
+            'varying vec2 MyvUv;',
+            'varying vec3 vPosition;',
+            'varying vec3 myNormal;',
+
+            'void main() {',
+
+            THREE.ShaderChunk.clipping_planes_fragment,
+
+	'ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );',
+	'vec3 totalEmissiveRadiance = emissive;',
+
+            // TODO: The second vector here is the object's "up" vector. Ideally we'd just pass it in directly.
+            'float slope = acos(max(min(dot(myNormal, vec3(0.0, 0.0, 1.0)), 1.0), -1.0));',
+
+            '    vec4 diffuseColor = vec4( diffuse, opacity );',
+            '    vec4 color = texture2D( texture_0, MyvUv * vec2( ' + VG.Meshes.Terrain.glslifyNumber(t0Repeat.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(t0Repeat.y) + ' ) + vec2( ' + VG.Meshes.Terrain.glslifyNumber(t0Offset.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(t0Offset.y) + ' ) ); // base',
+                assign,
+            '    diffuseColor = color;',
+            // '    gl_FragColor = color;',
+
+                THREE.ShaderChunk.logdepthbuf_fragment,
+                THREE.ShaderChunk.map_fragment,
+                THREE.ShaderChunk.color_fragment,
+                THREE.ShaderChunk.alphamap_fragment,
+                THREE.ShaderChunk.alphatest_fragment,
+                THREE.ShaderChunk.specularmap_fragment,
+                THREE.ShaderChunk.emissivemap_fragment,
+
+            // accumulation
+            '   reflectedLight.indirectDiffuse = getAmbientLightIrradiance( ambientLightColor );',
+
+                THREE.ShaderChunk.lightmap_fragment,
+
+            '    reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb );',
+            '    #ifdef DOUBLE_SIDED',
+            '            reflectedLight.directDiffuse = ( gl_FrontFacing ) ? vLightFront : vLightBack;',
+            '    #else',
+            '            reflectedLight.directDiffuse = vLightFront;',
+            '    #endif',
+            '    reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb ) * getShadowMask();',
+
+                // modulation
+                THREE.ShaderChunk.aomap_fragment,
+            '   vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;',
+                THREE.ShaderChunk.normal_flip,
+                THREE.ShaderChunk.envmap_fragment,
+            '   gl_FragColor = vec4( outgoingLight, diffuseColor.a );', // This will probably change in future three.js releases
+                THREE.ShaderChunk.tonemapping_fragment,
+                THREE.ShaderChunk.encodings_fragment,
+                THREE.ShaderChunk.fog_fragment,
+                THREE.ShaderChunk.premultiplied_alpha_fragment,
+                THREE.ShaderChunk.dithering_fragment,
+            '}'
+        ].join('\n'),
+    };
+    return new THREE.ShaderMaterial(params);
+};
+
+
+VG.Meshes.Terrain.ScatterMeshes = function(geometry, options) {
+    if (!options.mesh) {
+        console.error('options.mesh is required for VG.Meshes.Terrain.ScatterMeshes but was not passed');
+        return;
+    }
+    if (geometry instanceof THREE.BufferGeometry) {
+        console.warn('The terrain mesh is using BufferGeometry but VG.Meshes.Terrain.ScatterMeshes can only work with Geometry.');
+        return;
+    }
+    if (!options.scene) {
+        options.scene = new THREE.Object3D();
+    }
+    var defaultOptions = {
+        spread: 0.025,
+        smoothSpread: 0,
+        sizeVariance: 0.1,
+        randomness: Math.random,
+        maxSlope: 0.6283185307179586, // 36deg or 36 / 180 * Math.PI, about the angle of repose of earth
+        maxTilt: Infinity,
+        w: 0,
+        h: 0,
+    };
+    for (var opt in defaultOptions) {
+        if (defaultOptions.hasOwnProperty(opt)) {
+            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
+        }
+    }
+
+    var spreadIsNumber = typeof options.spread === 'number',
+        randomHeightmap,
+        randomness,
+        spreadRange = 1 / options.smoothSpread,
+        doubleSizeVariance = options.sizeVariance * 2,
+        v = geometry.vertices,
+        meshes = [],
+        up = options.mesh.up.clone().applyAxisAngle(new THREE.Vector3(1, 0, 0), 0.5*Math.PI);
+    if (spreadIsNumber) {
+        randomHeightmap = options.randomness();
+        randomness = typeof randomHeightmap === 'number' ? Math.random : function(k) { return randomHeightmap[k]; };
+    }
+    // geometry.computeFaceNormals();
+    for (var i = 0, w = options.w*2; i < w; i++) {
+        for (var j = 0, h = options.h; j < h; j++) {
+            var key = j*w + i,
+                f = geometry.faces[key],
+                place = false;
+            if (spreadIsNumber) {
+                var rv = randomness(key);
+                if (rv < options.spread) {
+                    place = true;
+                }
+                else if (rv < options.spread + options.smoothSpread) {
+                    // Interpolate rv between spread and spread + smoothSpread,
+                    // then multiply that "easing" value by the probability
+                    // that a mesh would get placed on a given face.
+                    place = VG.Meshes.Terrain.EaseInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
+                }
+            }
+            else {
+                place = options.spread(v[f.a], key, f, i, j);
+            }
+            if (place) {
+                // Don't place a mesh if the angle is too steep.
+                if (f.normal.angleTo(up) > options.maxSlope) {
+                    continue;
+                }
+                var mesh = options.mesh.clone();
+                // mesh.geometry.computeBoundingBox();
+                mesh.position.copy(v[f.a]).add(v[f.b]).add(v[f.c]).divideScalar(3);
+                // mesh.translateZ((mesh.geometry.boundingBox.max.z - mesh.geometry.boundingBox.min.z) * 0.5);
+                if (options.maxTilt > 0) {
+                    var normal = mesh.position.clone().add(f.normal);
+                    mesh.lookAt(normal);
+                    var tiltAngle = f.normal.angleTo(up);
+                    if (tiltAngle > options.maxTilt) {
+                        var ratio = options.maxTilt / tiltAngle;
+                        mesh.rotation.x *= ratio;
+                        mesh.rotation.y *= ratio;
+                        mesh.rotation.z *= ratio;
+                    }
+                }
+                mesh.rotation.x += 90 / 180 * Math.PI;
+                mesh.rotateY(Math.random() * 2 * Math.PI);
+                if (options.sizeVariance) {
+                    var variance = Math.random() * doubleSizeVariance - options.sizeVariance;
+                    mesh.scale.x = mesh.scale.z = 1 + variance;
+                    mesh.scale.y += variance;
+                }
+                meshes.push(mesh);
+            }
+        }
+    }
+
+    // Merge geometries.
+    var k, l;
+    if (options.mesh.geometry instanceof THREE.Geometry) {
+        var g = new THREE.Geometry();
+        for (k = 0, l = meshes.length; k < l; k++) {
+            var m = meshes[k];
+            m.updateMatrix();
+            g.merge(m.geometry, m.matrix);
+        }
+        /*
+        if (!(options.mesh.material instanceof THREE.MeshFaceMaterial)) {
+            g = THREE.BufferGeometryUtils.fromGeometry(g);
+        }
+        */
+        options.scene.add(new THREE.Mesh(g, options.mesh.material));
+    }
+    // There's no BufferGeometry merge method implemented yet.
+    else {
+        for (k = 0, l = meshes.length; k < l; k++) {
+            options.scene.add(meshes[k]);
+        }
+    }
+
+    return options.scene;
+};
+
+VG.Meshes.Terrain.ScatterHelper = function(method, options, skip, threshold) {
+    skip = skip || 1;
+    threshold = threshold || 0.25;
+    options.frequency = options.frequency || 2.5;
+
+    var clonedOptions = {};
+    for (var opt in options) {
+        if (options.hasOwnProperty(opt)) {
+            clonedOptions[opt] = options[opt];
+        }
+    }
+
+    clonedOptions.xSegments *= 2;
+    clonedOptions.stretch = true;
+    clonedOptions.maxHeight = 1;
+    clonedOptions.minHeight = 0;
+    var heightmap = VG.Meshes.Terrain.heightmapArray(method, clonedOptions);
+
+    for (var i = 0, l = heightmap.length; i < l; i++) {
+        if (i % skip || Math.random() > threshold) {
+            heightmap[i] = 1; // 0 = place, 1 = don't place
+        }
+    }
+    return function() {
+        return heightmap;
+    };
+};
+
+// Allows placing geometrically-described features on a terrain.
+// If you want these features to look a little less regular,
+// just apply them before a procedural pass.
+// If you want more complex influence, you can just composite heightmaps.
+
+VG.Meshes.Terrain.Influences = {
+    Mesa: function(x) {
+        return 1.25 * Math.min(0.8, Math.exp(-(x*x)));
+    },
+    Hole: function(x) {
+        return -VG.Meshes.Terrain.Influences.Mesa(x);
+    },
+    Hill: function(x) {
+        // Same curve as EaseInOut, but mirrored and translated.
+        return x < 0 ? (x+1)*(x+1)*(3-2*(x+1)) : 1-x*x*(3-2*x);
+    },
+    Valley: function(x) {
+        return -VG.Meshes.Terrain.Influences.Hill(x);
+    },
+    Dome: function(x) {
+        // Parabola
+        return -(x+1)*(x-1);
+    },
+    // Not meaningful in Additive or Subtractive mode
+    Flat: function(x) {
+        return 0;
+    },
+    Volcano: function(x) {
+        return 0.94 - 0.32 * (Math.abs(2 * x) + Math.cos(2 * Math.PI * Math.abs(x) + 0.4));
+    },
+};
+
+VG.Meshes.Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
+    f = f || VG.Meshes.Terrain.Influences.Hill; // feature shape
+    x = typeof x === 'undefined' ? 0.5 : x; // x-location %
+    y = typeof y === 'undefined' ? 0.5 : y; // y-location %
+    r = typeof r === 'undefined' ? 64  : r; // radius
+    h = typeof h === 'undefined' ? 64  : h; // height
+    t = typeof t === 'undefined' ? THREE.NormalBlending : t; // blending
+    e = e || VG.Meshes.Terrain.EaseIn; // falloff
+    // Find the vertex location of the feature origin
+    var xl = options.xSegments + 1, // # x-vertices
+        yl = options.ySegments + 1, // # y-vertices
+        vx = xl * x, // vertex x-location
+        vy = yl * y, // vertex y-location
+        xw = options.xSize / options.xSegments, // width of x-segments
+        yw = options.ySize / options.ySegments, // width of y-segments
+        rx = r / xw, // radius of the feature in vertices on the x-axis
+        ry = r / yw, // radius of the feature in vertices on the y-axis
+        r1 = 1 / r, // for speed
+        xs = Math.ceil(vx - rx),  // starting x-vertex index
+        xe = Math.floor(vx + rx), // ending x-vertex index
+        ys = Math.ceil(vy - ry),  // starting y-vertex index
+        ye = Math.floor(vy + ry); // ending y-vertex index
+    // Walk over the vertices within radius of origin
+    for (var i = xs; i < xe; i++) {
+        for (var j = ys; j < ye; j++) {
+            var k = j * xl + i,
+                // distance to the feature origin
+                fdx = (i - vx) * xw,
+                fdy = (j - vy) * yw,
+                fd = Math.sqrt(fdx*fdx + fdy*fdy),
+                fdr = fd * r1,
+                fdxr = fdx * r1,
+                fdyr = fdy * r1,
+                // Get the displacement according to f, multiply it by h,
+                // interpolate using e, then blend according to t.
+                d = f(fdr, fdxr, fdyr) * h * (1 - e(fdr, fdxr, fdyr));
+            if (fd > r || typeof g[k] == 'undefined') continue;
+            if      (t === THREE.AdditiveBlending)    g[k].z += d; // jscs:ignore requireSpaceAfterKeywords
+            else if (t === THREE.SubtractiveBlending) g[k].z -= d;
+            else if (t === THREE.MultiplyBlending)    g[k].z *= d;
+            else if (t === THREE.NoBlending)          g[k].z  = d;
+            else if (t === THREE.NormalBlending)      g[k].z  = e(fdr, fdxr, fdyr) * g[k].z + d;
+            else if (typeof t === 'function')         g[k].z  = t(g[k].z, d, fdr, fdxr, fdyr);
+        }
+    }
+};
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
 /**
  * Loads a Wavefront .mtl file specifying materials
  *
@@ -1798,7 +3295,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -2548,7 +4045,7 @@ THREE.OBJLoader.prototype = {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /**
@@ -8116,7 +9613,7 @@ THREE.ColladaLoader = function () {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 VG.AssetsLoader = function (assetPath) {
@@ -8306,7 +9803,7 @@ VG.AssetsLoader.prototype = {
 }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 VG.KeyboardEventsHandler = function(domElement) {
@@ -8361,7 +9858,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 VG.MouseEventsHandler = function(domElement) {
@@ -8492,7 +9989,7 @@ VG.MouseEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function (options) {
@@ -8517,7 +10014,7 @@ VG.CameraControllerTopDown = function (options) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 /**
@@ -9412,7 +10909,7 @@ VG.CameraControllerOrbit.prototype = {
 }
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 VG.SceneController = function() {
@@ -9487,7 +10984,7 @@ VG.SceneController.prototype = {
 }
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 VG.Scene = function (data) {
@@ -9507,7 +11004,7 @@ VG.Scene.prototype.init = function () {
 }
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix2D = function (sizeX, sizeY, array) {
@@ -9550,7 +11047,7 @@ VG.LevelMatrix2D.prototype = {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
@@ -9590,7 +11087,7 @@ VG.LevelMatrix3D.prototype = {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 VG.UI.BaseUIObject = function () {
@@ -9629,7 +11126,7 @@ VG.UI.BaseUIObject.prototype = {
 }
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 VG.UI.TextElement = function (text, cssfont, csscolor) {
@@ -9688,7 +11185,7 @@ VG.UI.TextElement.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 VG.UI.Container = function(container) {
@@ -9716,7 +11213,7 @@ VG.UI.Container.prototype = Object.create(VG.UI.BaseUIObject.prototype);
 VG.UI.Container.constructor = VG.UI.Container;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 VG.UI.Panel = function (image) {
@@ -9784,7 +11281,7 @@ VG.UI.Panel.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 VG.UI.Button = function (normal, active, action) {

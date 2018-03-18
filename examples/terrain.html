@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>VG Examples - Create Simple Scene</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='style.css' />
+    </head>
+    <body>
+        <script src="vendor/three.js"></script>
+        <script src="/dist/vg.js"></script>
+        <script src="js/terrain.js"></script>
+
+        <div id="main"></div>
+        <script>
+
+            var engine = new VG.Engine('main');
+
+
+            var mouse = new VG.MouseEventsHandler(engine.renderer.domElement);
+            var keyboard = new VG.KeyboardEventsHandler(window);
+
+            var cameraController = new VG.CameraControllerOrbit(engine.camera, engine.renderer.domElement);
+            engine.add(cameraController)
+
+            var sceneController = new VG.SceneController();
+            engine.add(sceneController);
+
+            var scene = new Scene6();
+            sceneController.add(scene);
+
+            var assetsLoader = new VG.AssetsLoader('assets/');
+            assetsLoader.loadPack('pack_terrain.json',
+                function () {
+                    console.log('start')
+                },
+                function (data) {
+                    console.log(data)
+                },
+                function (data) {
+                    sceneController.activateScene('basic6', data);
+                })
+
+        </script>
+    </body>
+</html>
