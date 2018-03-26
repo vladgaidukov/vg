@@ -18,14 +18,14 @@ var Scene2 = function() {
         for (var i = materials.length - 1; i >= 0; i--) {
             materials[i].morphTargets = true;
         }
-        mesh = new THREE.MorphBlendMesh(geometry, materials);
+        mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
         //mesh.scale.set(0.02, 0.02, 0.02)
 
         for (var i = 200; i >= 0; i--) {
 
             var m = mesh.clone()
-            m.autoCreateAnimations(25);
-            m.playAnimation('animation');
+            m.parseAnimations(25);
+            m.playAnimations(['animation']);
             m.position.set(Math.random() * 100 - 50,0, Math.random() * 100 - 50)
             context.add(m);  
         }
