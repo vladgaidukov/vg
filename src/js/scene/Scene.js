@@ -1,5 +1,5 @@
 VG.Scene = function (data) {
-	VG.BaseObject.call(this);
+	VG.SceneEntity.call(this);
 
 	this.name = 'default';
 
@@ -7,9 +7,5 @@ VG.Scene = function (data) {
 
 }
 
-VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
+VG.Scene.prototype = Object.create(VG.SceneEntity.prototype);
 VG.Scene.constructor = VG.Scene;
-
-VG.Scene.prototype.init = function () {
-	console.warn('Warning: Scene with name >>>' + this.name + '<<< init method is not define')
-}

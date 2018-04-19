@@ -1,5 +1,5 @@
 VG.Engine = function (container) {
-    VG.BaseObject.call(this, name);
+    VG.SceneEntity.call(this, name);
     var self = this;
 
     this.domelement = document.getElementById(container);
@@ -58,7 +58,7 @@ VG.Engine = function (container) {
     VG.EventDispatcher.bind('Engine.resize', this, this.resize);
 };
 
-VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
+VG.Engine.prototype = Object.create(VG.SceneEntity.prototype);
 VG.Engine.constructor = VG.Engine;
 
 VG.Engine.prototype.resize = function () {

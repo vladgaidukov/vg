@@ -190,7 +190,7 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     }();
 
-    this.dispose = function() {
+    this.deactivate = function() {
 
         if (VG.MOBILE_CLIENT) {
             VG.EventDispatcher.unbind('mouse.down', onTouchStart);

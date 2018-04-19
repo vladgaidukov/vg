@@ -7,7 +7,8 @@ import './js/postprocessing/MaskPass.js';
 import './js/postprocessing/ShaderPass.js';
 
 import './js/VG.js';
-import './js/BaseObject.js';
+import './js/BaseEntity.js';
+import './js/SceneEntity.js';
 
 import './js/Engine.js';
 

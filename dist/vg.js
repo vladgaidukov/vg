@@ -83,50 +83,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_VG_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_VG_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_VG_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseObject_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_BaseObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_Engine_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_Engine_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_meshes_MorphBlendMesh_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_Terrain_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_Terrain_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_meshes_Terrain_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_MTLLoader_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_OBJLoader_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_ColladaLoader_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_loaders_ColladaLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_SceneController_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_Scene_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_scene_Scene_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix2D_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_matrices_LevelMatrix2D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix3D_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix3D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_BaseUIObject_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_ui_BaseUIObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_TextElement_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_TextElement_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Container_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_Container_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Panel_js__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_Panel_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Button_js__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__js_ui_Button_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseEntity_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseEntity_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_BaseEntity_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_SceneEntity_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_SceneEntity_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_SceneEntity_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_Engine_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_Engine_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_MTLLoader_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_OBJLoader_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_ColladaLoader_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_loaders_ColladaLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_AssetsLoader_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_AssetsLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_controls_KeyboardEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_MouseEventsHandler_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_controls_MouseEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_SceneController_js__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_Scene_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix2D_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix2D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix3D_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix3D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_BaseUIObject_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_BaseUIObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_TextElement_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_TextElement_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Container_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_Container_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Panel_js__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__js_ui_Panel_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Button_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__js_ui_Button_js__);
+
 
 
 
@@ -833,53 +836,86 @@ VG.MOBILE_CLIENT = (function() {
 /* 8 */
 /***/ (function(module, exports) {
 
-VG.BaseObject = function () {
-    this.view = new THREE.Object3D;
-    this.animated = [];
-    this.autoUpdate = true;
-}
+VG.BaseEntity = function () {
 
-VG.BaseObject.prototype = {
-    constructor: VG.BaseObject,
+    this.autoUpdate = false;
 
-    add: function (object) {
+};
 
-        var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
-        if (view)
-            this.view.add(view);
+VG.BaseEntity.prototype = {
 
-        if (object instanceof VG.BaseObject && !object.autoUpdate)
-            return
+    constructor: VG.BaseEntity,
 
-        var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
-        if (animated)
-            this.animated.push(animated);
+    activate: function () {
+
     },
 
-    remove: function (object) {
+    deactivate: function () {
 
-        var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
-        if (view)
-            this.view.remove(view);
-
-        var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
-        if (animated)
-            this.animated.splice(this.animated.indexOf(animated), 1);
     },
-    
-    update: function (dt) {
-        for (var i = 0; i < this.animated.length; i++) {
-            this.animated[i].update(dt);
-        }
+
+    update: function () {
+
     }
-}
+};
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
+VG.SceneEntity = function () {
+
+    VG.BaseEntity.call(this);
+
+    this.view = new THREE.Object3D;
+    this.animated = [];
+    this.autoUpdate = true;
+};
+
+VG.SceneEntity.prototype = Object.create(VG.BaseEntity.prototype);
+VG.SceneEntity.constructor = VG.SceneEntity;
+
+VG.SceneEntity.prototype.add = function (object) {
+    if (!object)
+        return;
+
+    var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
+    if (view)
+        this.view.add(view);
+
+    if (object instanceof VG.BaseEntity && !object.autoUpdate)
+        return
+
+    var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
+    if (animated)
+        this.animated.push(animated);
+};
+
+VG.SceneEntity.prototype.remove = function (object) {
+    if (!object)
+        return;
+
+    var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
+    if (view)
+        this.view.remove(view);
+
+    var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
+    if (animated)
+        this.animated.splice(this.animated.indexOf(animated), 1);
+};
+
+VG.SceneEntity.prototype.update = function (dt) {
+    for (var i = 0; i < this.animated.length; i++) {
+        this.animated[i].update(dt);
+    }
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
 VG.Engine = function (container) {
-    VG.BaseObject.call(this, name);
+    VG.SceneEntity.call(this, name);
     var self = this;
 
     this.domelement = document.getElementById(container);
@@ -938,7 +974,7 @@ VG.Engine = function (container) {
     VG.EventDispatcher.bind('Engine.resize', this, this.resize);
 };
 
-VG.Engine.prototype = Object.create(VG.BaseObject.prototype);
+VG.Engine.prototype = Object.create(VG.SceneEntity.prototype);
 VG.Engine.constructor = VG.Engine;
 
 VG.Engine.prototype.resize = function () {
@@ -948,7 +984,7 @@ VG.Engine.prototype.resize = function () {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 VG.EventDispatcher = {
@@ -1095,7 +1131,7 @@ VG.EventDispatcher = {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 VG.Meshes.MorphBlendMesh = function (geometry, material) {
@@ -1253,7 +1289,7 @@ VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 (function(global) {
@@ -2748,7 +2784,7 @@ VG.Meshes.Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -3296,7 +3332,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /**
@@ -4046,7 +4082,7 @@ THREE.OBJLoader.prototype = {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -9614,7 +9650,7 @@ THREE.ColladaLoader = function () {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 VG.AssetsLoader = function (assetPath) {
@@ -9804,7 +9840,7 @@ VG.AssetsLoader.prototype = {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 VG.KeyboardEventsHandler = function(domElement) {
@@ -9859,7 +9895,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 VG.MouseEventsHandler = function(domElement) {
@@ -9990,32 +10026,43 @@ VG.MouseEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function (options) {
+
+    VG.BaseEntity.call(this);
+    this.autoUpdate = true;
 
     options = options || {}
 
     this.offset = options.offset || new THREE.Vector3(0, 120, 120);
     this.target = options.target || new THREE.Mesh();
 
-    var camera = options.camera || console.error('options.camera is undefind');
-
-    this.update = function () {
-
-        camera.position.copy(this.target.position.clone().add(this.offset));
-        camera.lookAt(this.target.position);
-
-    };
-    this.destroy = function () {
-        return;
-    };
+    this.camera = options.camera || console.error('options.camera is undefind');
 
 };
 
+VG.CameraControllerTopDown.prototype = Object.create(VG.BaseEntity.prototype);
+VG.CameraControllerTopDown.constructor = VG.SceneEntity;
+
+VG.CameraControllerTopDown.prototype.update = function () {
+
+    this.camera.position.copy(this.target.position.clone().add(this.offset));
+    this.camera.lookAt(this.target.position);
+
+};
+
+VG.CameraControllerTopDown.prototype.setTarget = function (view) {
+
+    this.target = view;
+
+};
+
+
+
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 /**
@@ -10210,7 +10257,7 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     }();
 
-    this.dispose = function() {
+    this.deactivate = function() {
 
         if (VG.MOBILE_CLIENT) {
             VG.EventDispatcher.unbind('mouse.down', onTouchStart);
@@ -10910,86 +10957,92 @@ VG.CameraControllerOrbit.prototype = {
 }
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
-VG.SceneController = function() {
+VG.SceneController = function () {
+
+    VG.SceneEntity.call(this, name);
+
     this.scenes = {};
     this.view = new THREE.Object3D();
     this.activeScene = null;
     VG.EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
-}
+};
 
-VG.SceneController.prototype = {
-    constructor: VG.SceneController,
+VG.SceneController.prototype = Object.create(VG.SceneEntity.prototype);
+VG.SceneController.constructor = VG.SceneController;
 
-    add: function(scene) {
-        if (scene instanceof VG.Scene) {
-            if (this.scenes[scene.name]) {
-                console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
-                return;
-            }
-
-            this.scenes[scene.name] = scene;
-        } else {
-            console.log('Error: Object is not instanceof VG.GameScene');
-        }
-    },
-
-    remove: function(scene) {
-        if (scene instanceof VG.Scene) {
-            if (!this.scenes[scene.name]) {
-                console.log('Error: Scene with name >>>' + scene.name + '<<< is not exist');
-                return;
-            }
-
-            this.scenes[scene.name] = null;
-            delete this.scenes[scene.name];
-        } else {
-            console.log('Error: Object is not instanceof VG.GameScene');
-        }
-    },
-
-    activateScene: function(name, data) {
-        if (name instanceof VG.Scene)
-            name = name.name
-
-        if (!this.scenes[name]) {
-            console.log('Error: Scene with name >>>' + name + '<<< is not exist');
+VG.SceneController.prototype.add = function (scene) {
+    if (scene instanceof VG.Scene) {
+        if (this.scenes[scene.name]) {
+            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
             return;
         }
 
-        if (this.activeScene && this.activeScene.name == name)
-            return
+        this.scenes[scene.name] = scene;
+    } else {
+        console.log('Error: Object is not instanceof VG.GameScene');
+    }
+};
 
-        if (this.activeScene) {
-            this.view.remove(this.activeScene.view);
-            if (this.activeScene.ui)
-                this.activeScene.ui.hide();
+VG.SceneController.prototype.remove = function (scene) {
+    if (scene instanceof VG.Scene) {
+        if (this.scenes[scene.name]) {
+            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
+            return;
         }
 
-        this.activeScene = this.scenes[name];
-        this.view.add(this.activeScene.view);
-
-        this.activeScene.init(data);
-
-        if (this.activeScene.ui)
-            this.activeScene.ui.show();
-
-    },
-
-    update: function(dt) {
-        if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
-            this.activeScene.update(dt)
+        this.scenes[scene.name] = scene;
+    } else {
+        console.log('Error: Object is not instanceof VG.GameScene');
     }
-}
+};
+VG.SceneController.prototype.activateScene = function (name, data) {
+
+    if (name instanceof VG.Scene)
+        name = name.name
+
+    if (!this.scenes[name]) {
+        console.log('Error: Scene with name >>>' + name + '<<< is not exist');
+        return;
+    }
+
+    if (this.activeScene && this.activeScene.name == name)
+        return
+
+    if (this.activeScene) {
+
+        this.activeScene.deactivate();
+        
+        VG.SceneEntity.prototype.remove.call(this, this.activeScene.view);
+        
+        if (this.activeScene.ui)
+            this.activeScene.ui.hide();
+    }
+
+    this.activeScene = this.scenes[name];
+
+    VG.SceneEntity.prototype.add.call(this, this.activeScene.view);
+
+    this.activeScene.activate(data);
+
+    if (this.activeScene.ui)
+        this.activeScene.ui.show();
+
+};
+
+VG.SceneController.prototype.update = function (dt) {
+    if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
+        this.activeScene.update(dt)
+};
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 VG.Scene = function (data) {
-	VG.BaseObject.call(this);
+	VG.SceneEntity.call(this);
 
 	this.name = 'default';
 
@@ -10997,15 +11050,11 @@ VG.Scene = function (data) {
 
 }
 
-VG.Scene.prototype = Object.create(VG.BaseObject.prototype);
+VG.Scene.prototype = Object.create(VG.SceneEntity.prototype);
 VG.Scene.constructor = VG.Scene;
 
-VG.Scene.prototype.init = function () {
-	console.warn('Warning: Scene with name >>>' + this.name + '<<< init method is not define')
-}
-
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix2D = function (sizeX, sizeY, array) {
@@ -11048,7 +11097,7 @@ VG.LevelMatrix2D.prototype = {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
@@ -11088,7 +11137,7 @@ VG.LevelMatrix3D.prototype = {
 }
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 VG.UI.BaseUIObject = function () {
@@ -11127,7 +11176,7 @@ VG.UI.BaseUIObject.prototype = {
 }
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 VG.UI.TextElement = function (text, cssfont, csscolor) {
@@ -11186,7 +11235,7 @@ VG.UI.TextElement.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 VG.UI.Container = function(container) {
@@ -11214,7 +11263,7 @@ VG.UI.Container.prototype = Object.create(VG.UI.BaseUIObject.prototype);
 VG.UI.Container.constructor = VG.UI.Container;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 VG.UI.Panel = function (image) {
@@ -11282,7 +11331,7 @@ VG.UI.Panel.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 VG.UI.Button = function (normal, active, action) {
