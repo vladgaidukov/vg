@@ -26,7 +26,7 @@ VG.AssetsLoader = function (assetPath) {
         this.onStart();
 
         var fileLoader = this.loaders['file'];
-        fileLoader.load(this.assetPath + url, function (data) { context.parsePack(data) });
+        fileLoader.load(url, function (data) { context.parsePack(data) });
     };
 
 
@@ -170,6 +170,7 @@ VG.AssetsLoader.prototype = {
                 this.assets[asset].assetUrl = this.assetsUrlMap[asset];
             }
             this.loadedData.assets = this.assets;
+            this.onProgress(this.loadedCount / this.loadCount)
             this.onSuccess(this.loadedData);
             this.loadedCount = 0;
             return
