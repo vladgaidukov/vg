@@ -16,7 +16,7 @@ module.exports = [{
     {
         entry: './src/app.js',
         output: {
-            path: path.resolve(__dirname, '../arena-game/vendor/'),
+            path: path.resolve(__dirname, '../arena-game/static/js/vendor/'),
             filename: 'vg.js',
         },
     }

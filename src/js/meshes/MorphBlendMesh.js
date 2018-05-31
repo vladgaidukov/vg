@@ -13,11 +13,25 @@ VG.Meshes.MorphBlendMesh = function (geometry, material) {
 VG.Meshes.MorphBlendMesh.prototype = Object.create(THREE.Mesh.prototype);
 VG.Meshes.MorphBlendMesh.prototype.constructor = VG.Meshes.MorphBlendMesh;
 
-VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (list) {
+VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (animations) {
 
-    this.animationList = list || this.animationList;
+    //TODO: переписать по нормальному ))
 
-    var animation = this.animationList.shift();
+    var animation;
+
+    if (animations instanceof Array) {
+
+        this.animationList = animations.slice();
+        animation = this.animationList.shift();
+
+    } else if (typeof animations === "string") {
+        this.animationList = [];
+        animation = animations;
+
+    } else {
+
+        animation = this.animationList.shift();
+    }
 
     if (animation == this.currentAnimation)
         return
