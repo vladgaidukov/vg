@@ -922,6 +922,15 @@ VG.SceneEntity.prototype.update = function (dt) {
     }
 };
 
+VG.SceneEntity.prototype.clear = function () {
+
+    for (var i = this.view.children.length - 1; i >= 0; i--) {
+        this.view.remove(this.view.children[i]);
+    }
+
+    this.animated = [];
+};
+
 Object.defineProperty(VG.SceneEntity.prototype, 'position', {
 
     get: function () {
