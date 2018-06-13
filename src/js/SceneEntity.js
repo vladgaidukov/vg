@@ -10,6 +10,18 @@ VG.SceneEntity = function () {
 VG.SceneEntity.prototype = Object.create(VG.BaseEntity.prototype);
 VG.SceneEntity.constructor = VG.SceneEntity;
 
+Object.defineProperty(VG.SceneEntity.prototype, 'matrixAutoUpdate', {
+
+    get: function () {
+        return this.view.matrixAutoUpdate;
+    },
+
+    set: function (value) {
+        this.view.matrixAutoUpdate  = value;
+        this.view.updateMatrix();
+    },
+});
+
 VG.SceneEntity.prototype.add = function (object) {
     if (!object)
         return;
@@ -44,3 +56,25 @@ VG.SceneEntity.prototype.update = function (dt) {
         this.animated[i].update(dt);
     }
 };
+
+Object.defineProperty(VG.SceneEntity.prototype, 'position', {
+
+    get: function () {
+        return this.view.position;
+    },
+
+    set: function (value) {
+        this.view.position.set(value.x, value.y, value.z);
+    },
+});
+
+Object.defineProperty(VG.SceneEntity.prototype, 'rotation', {
+
+    get: function () {
+        return this.view.rotation;
+    },
+
+    set: function (value) {
+        this.view.rotation.set(value.x, value.y, value.z);
+    },
+});

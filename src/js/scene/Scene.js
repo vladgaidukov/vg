@@ -2,6 +2,7 @@ VG.Scene = function (data) {
 	VG.SceneEntity.call(this);
 
 	this.name = 'default';
+	this.matrixAutoUpdate = false;
 
 	this.ui = null;
 
