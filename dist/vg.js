@@ -11022,10 +11022,11 @@ VG.CameraControllerOrbit.prototype = {
 VG.SceneController = function () {
 
     VG.SceneEntity.call(this, name);
+    this.matrixAutoUpdate = false;
 
     this.scenes = {};
-    this.view = new THREE.Object3D();
     this.activeScene = null;
+
     VG.EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
 };
 
@@ -11075,9 +11076,6 @@ VG.SceneController.prototype.activateScene = function (name, data) {
         this.activeScene.deactivate();
         
         VG.SceneEntity.prototype.remove.call(this, this.activeScene.view);
-        
-        if (this.activeScene.ui)
-            this.activeScene.ui.hide();
     }
 
     this.activeScene = this.scenes[name];
@@ -11085,10 +11083,6 @@ VG.SceneController.prototype.activateScene = function (name, data) {
     VG.SceneEntity.prototype.add.call(this, this.activeScene.view);
 
     this.activeScene.activate(data);
-
-    if (this.activeScene.ui)
-        this.activeScene.ui.show();
-
 };
 
 VG.SceneController.prototype.update = function (dt) {
@@ -11112,6 +11106,26 @@ VG.Scene = function (data) {
 
 VG.Scene.prototype = Object.create(VG.SceneEntity.prototype);
 VG.Scene.constructor = VG.Scene;
+
+VG.Scene.prototype.activate = function (data) {
+
+	VG.SceneEntity.prototype.activate.apply(this, arguments);
+
+    if (this.ui)
+        this.ui.show();
+
+};
+
+VG.Scene.prototype.deactivate = function (data) {
+
+	VG.SceneEntity.prototype.deactivate.apply(this, arguments);
+
+    if (this.ui)
+        this.ui.hide();
+
+};
+
+
 
 /***/ }),
 /* 24 */

@@ -1,10 +1,11 @@
 VG.SceneController = function () {
 
     VG.SceneEntity.call(this, name);
+    this.matrixAutoUpdate = false;
 
     this.scenes = {};
-    this.view = new THREE.Object3D();
     this.activeScene = null;
+
     VG.EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
 };
 
@@ -54,9 +55,6 @@ VG.SceneController.prototype.activateScene = function (name, data) {
         this.activeScene.deactivate();
         
         VG.SceneEntity.prototype.remove.call(this, this.activeScene.view);
-        
-        if (this.activeScene.ui)
-            this.activeScene.ui.hide();
     }
 
     this.activeScene = this.scenes[name];
@@ -64,10 +62,6 @@ VG.SceneController.prototype.activateScene = function (name, data) {
     VG.SceneEntity.prototype.add.call(this, this.activeScene.view);
 
     this.activeScene.activate(data);
-
-    if (this.activeScene.ui)
-        this.activeScene.ui.show();
-
 };
 
 VG.SceneController.prototype.update = function (dt) {

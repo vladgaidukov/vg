@@ -31,4 +31,10 @@ VG.UI.BaseUIObject.prototype = {
     update: function () {
         return
     },
+
+    clear: function () {
+        while (this.view.firstChild) {
+            this.view.removeChild(this.view.firstChild);
+        };
+    }
 }
