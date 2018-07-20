@@ -23,8 +23,9 @@
 
 	var mouse = new VG.MouseEventsHandler(VG.EventDispatcher.query('Engine.get.renderer').domElement);
 
+debugger
 	var assetsLoader = new VG.AssetsLoader('assets/');
-	assetsLoader.loadPack('pack1.json',
+	assetsLoader.loadPack('assets/pack1.json',
 		function () {
 			console.log('start')
 		},

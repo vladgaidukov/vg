@@ -16,6 +16,7 @@ import './js/EventDispatcher.js';
 
 import './js/meshes/MorphBlendMesh.js';
 import './js/meshes/Terrain.js';
+import './js/meshes/AnimatedSprite.js';
 
 import './js/loaders/MTLLoader.js';
 import './js/loaders/OBJLoader.js';

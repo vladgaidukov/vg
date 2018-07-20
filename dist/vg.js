@@ -95,40 +95,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_MTLLoader_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_OBJLoader_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_ColladaLoader_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_loaders_ColladaLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_AssetsLoader_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_controls_KeyboardEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_MouseEventsHandler_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_controls_MouseEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_SceneController_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_Scene_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_scene_Scene_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix2D_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_matrices_LevelMatrix2D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix3D_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix3D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_BaseUIObject_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_ui_BaseUIObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_TextElement_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_TextElement_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Container_js__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_Container_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Panel_js__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__js_ui_Panel_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Button_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__js_ui_Button_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_meshes_AnimatedSprite_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_meshes_AnimatedSprite_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_meshes_AnimatedSprite_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_MTLLoader_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_OBJLoader_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_loaders_ColladaLoader_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_loaders_ColladaLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_AssetsLoader_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_AssetsLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_controls_KeyboardEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_controls_MouseEventsHandler_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_controls_MouseEventsHandler_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerTopDown_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerOrbit_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_SceneController_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_scene_SceneController_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_scene_Scene_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_scene_Scene_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix2D_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix2D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_matrices_LevelMatrix3D_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_matrices_LevelMatrix3D_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_BaseUIObject_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_BaseUIObject_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_TextElement_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_TextElement_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Container_js__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__js_ui_Container_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Panel_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__js_ui_Panel_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__js_ui_Button_js__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__js_ui_Button_js__);
+
 
 
 
@@ -2845,6 +2848,94 @@ VG.Meshes.Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
 /* 14 */
 /***/ (function(module, exports) {
 
+VG.AnimatedSprite = function(image, tilesHoriz, tilesVert, tileDispDuration) {
+
+    this.texture = new THREE.Texture(image);
+    this.texture.needsUpdate = true;
+
+    var spriteMaterial = new THREE.SpriteMaterial({ map: this.texture});
+
+    this.view = new THREE.Sprite(spriteMaterial);
+
+	// note: texture passed by reference, will be updated by the update function.
+		
+	this.tilesHorizontal = tilesHoriz;
+	this.tilesVertical = tilesVert;
+	// how many images does this spritesheet contain?
+	//  usually equals tilesHoriz * tilesVert, but not necessarily,
+	//  if there at blank tiles at the bottom of the spritesheet. 
+	this.numberOfTiles = tilesHoriz * tilesVert;
+	this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping; 
+	this.texture.repeat.set( 1 / this.tilesHorizontal, 1 / this.tilesVertical );
+
+	// how long should each image be displayed?
+	this.tileDisplayDuration = tileDispDuration;
+
+	// how long has the current image been displayed?
+	this.currentDisplayTime = 0;
+
+	// which image is currently being displayed?
+	this.currentTile = 0;
+		
+	this.update = function( dt )
+	{
+		this.currentDisplayTime += dt;
+
+		if (this.currentDisplayTime > this.tileDisplayDuration)
+		{
+			//this.currentDisplayTime -= this.tileDisplayDuration;
+			this.currentDisplayTime = 0;
+
+			this.currentTile++;
+			if (this.currentTile == this.numberOfTiles)
+				this.currentTile = 0;
+
+			console.log('iter');
+
+			var currentColumn = this.currentTile % this.tilesHorizontal ;
+
+			console.log(currentColumn)
+
+			this.texture.offset.x = currentColumn / this.tilesHorizontal;
+			var currentRow = this.tilesVertical - Math.floor( this.currentTile / this.tilesHorizontal )-1;
+			
+			console.log(currentRow)
+
+			this.texture.offset.y = currentRow / this.tilesVertical;
+		}
+	};
+};
+
+// VG.AnimatedSprite.prototype = {
+
+// 	constructor: VG.AnimatedSprite,
+
+// 	currentTile: 0,
+
+// 	currentDisplayTime: 0,
+
+//     update: function(dt) {
+//         this.currentDisplayTime += dt * 1000;
+
+//         while (this.currentDisplayTime > this.tileDisplayDuration) {
+//             this.currentDisplayTime -= this.tileDisplayDuration;
+//             this.currentTile++;
+
+//             if (this.currentTile == this.numberOfTiles)
+//                 this.currentTile = 0;
+
+//             var currentColumn = this.currentTile % this.tilesHorizontal;
+//             this.texture.offset.x = currentColumn / this.tilesHorizontal;
+//             var currentRow = Math.floor(this.currentTile / this.tilesHorizontal);
+//             this.texture.offset.y = currentRow / this.tilesVertical;
+//         }
+//     }
+// };
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
 /**
  * Loads a Wavefront .mtl file specifying materials
  *
@@ -3390,7 +3481,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -4140,7 +4231,7 @@ THREE.OBJLoader.prototype = {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /**
@@ -9708,7 +9799,7 @@ THREE.ColladaLoader = function () {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 VG.AssetsLoader = function (assetPath) {
@@ -9899,7 +9990,7 @@ VG.AssetsLoader.prototype = {
 }
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 VG.KeyboardEventsHandler = function(domElement) {
@@ -9954,7 +10045,7 @@ VG.KeyboardEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 VG.MouseEventsHandler = function(domElement) {
@@ -10085,7 +10176,7 @@ VG.MouseEventsHandler = function(domElement) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 VG.CameraControllerTopDown = function (options) {
@@ -10121,7 +10212,7 @@ VG.CameraControllerTopDown.prototype.setTarget = function (view) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /**
@@ -11016,7 +11107,7 @@ VG.CameraControllerOrbit.prototype = {
 }
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 VG.SceneController = function () {
@@ -11091,7 +11182,7 @@ VG.SceneController.prototype.update = function (dt) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 VG.Scene = function (data) {
@@ -11128,7 +11219,7 @@ VG.Scene.prototype.deactivate = function (data) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix2D = function (sizeX, sizeY, array) {
@@ -11171,7 +11262,7 @@ VG.LevelMatrix2D.prototype = {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
@@ -11211,7 +11302,7 @@ VG.LevelMatrix3D.prototype = {
 }
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 VG.UI.BaseUIObject = function () {
@@ -11256,7 +11347,7 @@ VG.UI.BaseUIObject.prototype = {
 }
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 VG.UI.TextElement = function (text, cssfont, csscolor) {
@@ -11315,7 +11406,7 @@ VG.UI.TextElement.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 VG.UI.Container = function(container) {
@@ -11362,7 +11453,7 @@ VG.UI.Container.prototype.show = function(data) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 VG.UI.Panel = function (image) {
@@ -11430,7 +11521,7 @@ VG.UI.Panel.prototype.clone = function (){
 } 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 VG.UI.Button = function (normal, active, action) {
