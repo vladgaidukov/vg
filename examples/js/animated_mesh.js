@@ -21,7 +21,7 @@ var Scene2 = function() {
         mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
         //mesh.scale.set(0.02, 0.02, 0.02)
 
-        for (var i = 200; i >= 0; i--) {
+        for (var i = 100; i >= 0; i--) {
 
             var m = mesh.clone()
             m.parseAnimations(25);

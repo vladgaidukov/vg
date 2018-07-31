@@ -9,6 +9,15 @@ VG.MouseEventsHandler = function(domElement) {
     this.lastMouseX = null;
     this.lastMouseY = null;
 
+    this.mousePosition = new THREE.Vector2();
+
+    function updateMouseScreenPosition(pointerCoords) {
+
+        context.mousePosition.x = ((pointerCoords[0] / container.clientWidth) * 2 - 1);
+        context.mousePosition.y = (-(pointerCoords[1] / container.clientHeight) * 2 + 1);
+
+    };
+
     function getPointerCoord(event, prevX, prevY) {
         var coord = [0, 0, 0, 0];
 
@@ -39,7 +48,7 @@ VG.MouseEventsHandler = function(domElement) {
         VG.EventDispatcher.send('mouse.up', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
 
         if (context.mouseCaptured && !context.mouseMoved)
-            VG.EventDispatcher.send('mouse.click', {event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+            VG.EventDispatcher.send('mouse.click', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
 
         context.mouseMoved = false;
         context.mouseCaptured = false;
@@ -58,7 +67,7 @@ VG.MouseEventsHandler = function(domElement) {
         context.mouseCaptured = true;
         context.mouseMoved = false;
 
-        VG.EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1], event: event  });
+        VG.EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1], event: event });
     }
 
     function onSelectorMove(event) {
@@ -80,11 +89,20 @@ VG.MouseEventsHandler = function(domElement) {
         if (!context.mouseMoved && sendEvent)
             context.mouseMoved = true;
 
+        updateMouseScreenPosition(pt);
+
         if (sendEvent) {
             if (context.mouseCaptured)
-                VG.EventDispatcher.send('mouse.view', {view: true, x: pt[2], y: pt[3], event: event });
+                VG.EventDispatcher.send('mouse.view', { view: true, x: pt[2], y: pt[3], event: event });
 
-            VG.EventDispatcher.send('mouse.move', {move: true, x: pt[0], y: pt[1], event: event  });
+            VG.EventDispatcher.send('mouse.move', {
+                move: true,
+                x: pt[0],
+                y: pt[1],
+                sx: context.mousePosition.x,
+                sy: context.mousePosition.y,
+                event: event
+            });
         }
     }
 
