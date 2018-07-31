@@ -29,21 +29,21 @@ Scene5.prototype.activate = function (data) {
 
     var cameraController = new VG.CameraControllerOrbit(camera, renderer.domElement);
 
-    // //this.add(data.assets['naturePack_169']);
-    // var angar = data.assets['angar'].clone();
-    // angar.scale.set(10, 10, 10);
-    // angar.position.y += 53.5;
-    // this.add(angar);
+
+    var avatar = data.assets['avatar'];
+    avatar.animations[0].play();
+    avatar.view.scale.set(7, 7, 7)
+    this.add(avatar);
+    
+    var angar = data.assets['angar'];
+    angar.scale.set(10,10,10);
+    angar.position.y+= 53.5;
+    this.add(angar);
 
 
-    // var avatar = data.assets['avatar'];
-    // avatar.animations[0].play();
-    // avatar.view.scale.set(7, 7, 7)
-    // this.add(avatar);
-
-
-    var sprite = new VG.AnimatedSprite(data.assets['PlasLaser'], 10, 1, 1);
-    sprite.view.scale.set(10, 1, 1);
+    var sprite = new VG.AnimatedSprite(data.assets['PlasLaser'], 8, 6, 0.016666666666666666);
+    sprite.scale = 10;
+    sprite.position.set(10, 10, 10);
     this.add(sprite);
 
     var mesh = data.assets['234234'].clone();
@@ -53,28 +53,28 @@ Scene5.prototype.activate = function (data) {
     this.add(mesh);
 
 
-    // var ui = new VG.UI.Container();
+    var ui = new VG.UI.Container();
 
-    // var testPanel = new VG.UI.Panel(data.assets['dialog'])
-    // ui.add(testPanel)
+    var testPanel = new VG.UI.Panel(data.assets['dialog'])
+    ui.add(testPanel)
 
-    // var testBtn = new VG.UI.Button(data.assets['BTN_RED_RECT_OUT'], data.assets['BTN_RED_RECT_IN'], function () {
-    //     alert('btn')
-    // })
-    // testBtn.scale = 0.5;
-    // testBtn.position = { x: '50%', y: 30 }
-    // testPanel.add(testBtn)
+    var testBtn = new VG.UI.Button(data.assets['BTN_RED_RECT_OUT'], data.assets['BTN_RED_RECT_IN'], function () {
+        alert('btn')
+    })
+    testBtn.scale = 0.5;
+    testBtn.position = { x: '50%', y: 30 }
+    testPanel.add(testBtn)
 
-    // var clone = testPanel.clone();
-    // clone.position = testBtn.position;
-    // ui.add(clone)
+    var clone = testPanel.clone();
+    clone.position = testBtn.position;
+    ui.add(clone)
 
-    // var testText = new VG.UI.TextElement('1', '25px arial, sans-serif');
-    // clone.add(testText);
-    // testText.position = { x: 120, y: 30 };
+    var testText = new VG.UI.TextElement('1', '25px arial, sans-serif');
+    clone.add(testText);
+    testText.position = { x: 120, y: 30 };
 
-    // setInterval(function () {
-    //     testText.value = parseInt(testText.value) + 1;
-    // }, 150)
+    setInterval(function () {
+        testText.value = parseInt(testText.value) + 1;
+    }, 150)
 
 }
