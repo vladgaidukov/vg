@@ -10,14 +10,12 @@ VG.UI.Container = function(container) {
             if (!this.view) {
                 this.view = document.createElement('div');
                 this.view.id = container;
-                document.body.appendChild(this.view)
             }
         } else {
             this.view = container;
         }
     } else {
         this.view = document.createElement('div');
-        document.body.appendChild(this.view)
     }
 };
 
