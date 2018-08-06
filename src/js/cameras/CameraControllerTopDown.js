@@ -5,7 +5,11 @@ VG.CameraControllerTopDown = function (options) {
 
     options = options || {}
 
-    this.offset = options.offset || new THREE.Vector3(120, 120, 120);
+    this.offset = options.offset || new THREE.Vector3(0, 120, 0);
+	this.offsetAngle = Math.atan2(this.offset.x, this.offset.z);
+	this.dxoffset = Math.cos(this.offsetAngle);
+	this.dzoffset = Math.sin(this.offsetAngle);
+
     this.target = options.target || new THREE.Mesh();
     this.moveOffset = options.moveOffset || new THREE.Vector3(20, 20, 20);
 
@@ -30,12 +34,12 @@ VG.CameraControllerTopDown.prototype.update = function () {
 
 		position.copy(this.target.position).add(this.offset);
 
-		position.x += this.moveOffset.x * this.mousePosition.x;
-		position.z -= this.moveOffset.z * this.mousePosition.y;
+		position.x += this.moveOffset.x * this.mousePosition.x * this.dxoffset;
+		position.z -= this.moveOffset.z * this.mousePosition.y //* this.dzoffset;
 
 		look.copy(this.target.position);
-		look.x += this.moveOffset.x * this.mousePosition.x;
-		look.z -= this.moveOffset.z * this.mousePosition.y;
+		look.x += this.moveOffset.x * this.mousePosition.x * this.dxoffset;
+		look.z -= this.moveOffset.z * this.mousePosition.y //* this.dzoffset;
 
 		this.camera.position.copy(position);
 
@@ -51,8 +55,9 @@ VG.CameraControllerTopDown.prototype.setTarget = function (view) {
 
 VG.CameraControllerTopDown.prototype.mouseMove = function (event) {
 
-    this.mousePosition.x = event.sx;
-    this.mousePosition.y = event.sy;
+	this.mousePosition.x = event.sx * this.dxoffset - event.sy * this.dzoffset;
+	this.mousePosition.y = event.sx * this.dzoffset + event.sy * this.dxoffset;
 
 };
+
 
