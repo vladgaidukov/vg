@@ -6,8 +6,12 @@
  * @author erich666 / http://erichaines.com
  * @author vgaidukov / https://github.com/vladgaidukov
  */
+import { EventDispatcher } from '../EventDispatcher.js';
+import {
+    MOBILE_CLIENT
+} from '../settings.js';
 
-VG.CameraControllerOrbit = function(object, domElement) {
+function CameraControllerOrbit (object, domElement) {
 
     this.object = object;
 
@@ -192,14 +196,14 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     this.deactivate = function() {
 
-        if (VG.MOBILE_CLIENT) {
-            VG.EventDispatcher.unbind('mouse.down', onTouchStart);
-            VG.EventDispatcher.unbind('mouse.up', onTouchEnd);
-            VG.EventDispatcher.unbind('mouse.move', onTouchMove);
+        if (MOBILE_CLIENT) {
+            EventDispatcher.unbind('mouse.down', onTouchStart);
+            EventDispatcher.unbind('mouse.up', onTouchEnd);
+            EventDispatcher.unbind('mouse.move', onTouchMove);
         } else {
 
-            VG.EventDispatcher.unbind('mouse.down', onMouseDown);
-            VG.EventDispatcher.unbind('mouse.scroll', onMouseWheel);
+            EventDispatcher.unbind('mouse.down', onMouseDown);
+            EventDispatcher.unbind('mouse.scroll', onMouseWheel);
         }
 
     };
@@ -572,8 +576,8 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
         if (state !== STATE.NONE) {
 
-        	VG.EventDispatcher.bind('mouse.move', this, onMouseMove);
-        	VG.EventDispatcher.bind('mouse.up', this, onMouseUp);
+        	EventDispatcher.bind('mouse.move', this, onMouseMove);
+        	EventDispatcher.bind('mouse.up', this, onMouseUp);
 
         }
 
@@ -617,8 +621,8 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
         if (scope.enabled === false) return;
 
-    	VG.EventDispatcher.unbind('mouse.move', onMouseMove);
-    	VG.EventDispatcher.unbind('mouse.up', onMouseUp);
+    	EventDispatcher.unbind('mouse.move', onMouseMove);
+    	EventDispatcher.unbind('mouse.up', onMouseUp);
 
         state = STATE.NONE;
 
@@ -736,29 +740,29 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     }
 
-    if (VG.MOBILE_CLIENT) {
-        VG.EventDispatcher.bind('mouse.down', this, onTouchStart);
-        VG.EventDispatcher.bind('mouse.up', this, onTouchEnd);
-        VG.EventDispatcher.bind('mouse.move', this, onTouchMove);
+    if (MOBILE_CLIENT) {
+        EventDispatcher.bind('mouse.down', this, onTouchStart);
+        EventDispatcher.bind('mouse.up', this, onTouchEnd);
+        EventDispatcher.bind('mouse.move', this, onTouchMove);
     } else {
-        VG.EventDispatcher.bind('mouse.down', this, onMouseDown);
-        VG.EventDispatcher.bind('mouse.scroll', this, onMouseWheel);
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.UP, this, function() {
+        EventDispatcher.bind('mouse.down', this, onMouseDown);
+        EventDispatcher.bind('mouse.scroll', this, onMouseWheel);
+        EventDispatcher.bind('keyboard.keydown.' + scope.keys.UP, this, function() {
             pan(0, scope.keyPanSpeed);
             scope.update();
         });
 
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.BOTTOM, this, function() {
+        EventDispatcher.bind('keyboard.keydown.' + scope.keys.BOTTOM, this, function() {
             pan(0, -scope.keyPanSpeed);
             scope.update();
         });
 
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.LEFT, this, function() {
+        EventDispatcher.bind('keyboard.keydown.' + scope.keys.LEFT, this, function() {
             pan(scope.keyPanSpeed, 0);
             scope.update();
         });
 
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.RIGHT, this, function() {
+        EventDispatcher.bind('keyboard.keydown.' + scope.keys.RIGHT, this, function() {
             pan(-scope.keyPanSpeed, 0);
             scope.update();
         });
@@ -768,7 +772,7 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
 };
 
-VG.CameraControllerOrbit.prototype = {
+CameraControllerOrbit.prototype = {
     center: {
 
         get: function() {
@@ -887,4 +891,6 @@ VG.CameraControllerOrbit.prototype = {
         }
 
     }
-}
+};
+
+export { CameraControllerOrbit };

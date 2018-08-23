@@ -1,4 +1,7 @@
-VG.AssetsLoader = function (assetPath) {
+import { EventDispatcher } from './EventDispatcher.js';
+import { AnimatedMeshMorph } from './meshes/AnimatedMeshMorph.js';
+
+function AssetsLoader(assetPath) {
 
     var context = this;
 
@@ -62,11 +65,11 @@ VG.AssetsLoader = function (assetPath) {
             }
         }
     }
-    VG.EventDispatcher.bind('AssetsLoader.getAsset', this, this.getAsset);
+    EventDispatcher.bind('AssetsLoader.getAsset', this, this.getAsset);
 }
 
-VG.AssetsLoader.prototype = {
-    constructor: VG.AssetsLoader,
+AssetsLoader.prototype = {
+    constructor: AssetsLoader,
 
     assetPath: '/',
 
@@ -140,7 +143,7 @@ VG.AssetsLoader.prototype = {
                 for (var i = materials.length - 1; i >= 0; i--) {
                     materials[i].morphTargets = true;
                 }
-                mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
+                mesh = new AnimatedMeshMorph(geometry, materials);
             } else {
                 mesh = new THREE.Mesh(geometry, materials);
             }
@@ -183,4 +186,6 @@ VG.AssetsLoader.prototype = {
     	if (this.assets[name])
     		return this.assets[name];
     }
-}
+};
+
+export { AssetsLoader };

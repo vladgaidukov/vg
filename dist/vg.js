@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["VG"] = factory();
+	else
+		root["VG"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -60,7 +70,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,69 +78,481 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventDispatcher; });
+var EventDispatcher = {
+    listeners: {},
+
+    bind: function (type, listener, callback) {
+        if (typeof (type) !== "string") {
+            console.error("EventDispatcher.bind -> 'type' should be string constant");
+            return;
+        }
+
+        if (listener === null || listener === undefined) {
+            console.error("EventDispatcher.bind -> 'listener' should exist");
+            return;
+        }
+
+        if (typeof listener !== "object") {
+            console.error("EventDispatcher.bind -> 'listener' should be object");
+            return;
+        }
+
+        if (typeof callback !== "function") {
+            console.error("EventDispatcher.bind -> 'callback' should be function");
+            return;
+        }
+
+        if (this.listeners[type] == undefined)
+            this.listeners[type] = [];
+
+        var listeners = this.listeners[type];
+
+        var index = this.getListenerIndex(listeners, listener);
+
+        if (index < 0) {
+            listeners.push({
+                object: listener,
+                func: callback
+            });
+        }
+    },
+
+    unbind: function (type, callback) {
+        if (typeof (type) !== "string") {
+            console.error("EventDispatcher.unbind -> 'type' should be string constant");
+            return;
+        }
+
+        if (callback === null || callback === undefined) {
+            console.error("EventDispatcher.removeEventListener -> 'listener' should exist");
+            return;
+        }
+
+        if ((typeof callback !== "function") && ((typeof callback.method !== "string") || (typeof callback.context !== "object"))) {
+            console.error("EventDispatcher.unbind -> 'callback' has not supported type");
+            return;
+        }
+
+        if (this.listeners[type] == undefined)
+            this.listeners[type] = [];
+
+        var listeners = this.listeners[type];
+
+        var index = this.getListenerIndex(listeners, callback);
+
+        if (index >= 0) {
+            listeners.splice(index, 1);
+        }
+    },
+
+    send: function (eventName) {
+        if (typeof (eventName) !== "string") {
+            console.error("EventDispatcher.send -> 'event.type' should be string constant");
+            return;
+        }
+
+        if (this.listeners[eventName] == undefined)
+            return;
+
+        var listeners = this.listeners[eventName];
+
+        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
+
+        for (var i = 0; i < listeners.length; i++) {
+            try {
+                var listener = listeners[i];
+                listener.func.apply(listener.object, args);
+            } catch (err) {
+                console.error("EventDispatcher.send -> " + eventName + " Exception thrown in event handler -> " + err);
+            }
+        }
+    },
+
+    query: function (eventName) {
+        if (typeof (eventName) !== "string") {
+            console.error("EventDispatcher.send -> 'event.type' should be string constant");
+            return;
+        }
+
+        if (this.listeners[eventName] == undefined)
+            return undefined;
+
+        var listeners = this.listeners[eventName];
+        if (listeners > 1) {
+            console.error("EventDispatcher.query -> Can't send query to multiply objects");
+            return undefined;
+        }
+
+        var listener = listeners[0];
+        var result = undefined;
+
+        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
+
+        try {
+            result = listener.func.apply(listener.object, args);
+        } catch (err) {
+            console.error("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
+        }
+
+        return result;
+    },
+
+    release: function () {
+        for (var event_name in this.listeners) {
+            this.listeners[event_name].splice();
+            delete this.listeners[event_name];
+        }
+        this.listeners = null;
+    },
+
+    getListenerIndex: function (listeners, callback) {
+        for (var i = 0; i < listeners.length; i++) {
+            var obj = listeners[i];
+            if (typeof obj.func === "function" && (callback === obj.func))
+                return i;
+            else if ((obj.func.method !== null) && (obj.func.method !== undefined) &&
+                (obj.func.context !== null) && (obj.func.context !== undefined) &&
+                (callback.method === obj.func.method) && (callback.context === obj.func.context))
+                return i;
+        }
+
+        return -1;
+    }
+
+};
+
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SceneEntity; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseEntity_js__ = __webpack_require__(3);
+
+
+function SceneEntity() {
+
+    __WEBPACK_IMPORTED_MODULE_0__BaseEntity_js__["a" /* BaseEntity */].call(this);
+
+    this.view = new THREE.Object3D;
+    this.animated = [];
+    this.autoUpdate = true;
+};
+
+SceneEntity.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__BaseEntity_js__["a" /* BaseEntity */].prototype);
+SceneEntity.constructor = SceneEntity;
+
+Object.defineProperty(SceneEntity.prototype, 'matrixAutoUpdate', {
+
+    get: function () {
+        return this.view.matrixAutoUpdate;
+    },
+
+    set: function (value) {
+        this.view.matrixAutoUpdate  = value;
+        this.view.updateMatrix();
+    },
+});
+
+SceneEntity.prototype.add = function (object) {
+    if (!object)
+        return;
+
+    var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
+    if (view)
+        this.view.add(view);
+
+    if (object instanceof __WEBPACK_IMPORTED_MODULE_0__BaseEntity_js__["a" /* BaseEntity */] && !object.autoUpdate)
+        return
+
+    var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
+    if (animated)
+        this.animated.push(animated);
+};
+
+SceneEntity.prototype.remove = function (object) {
+    if (!object)
+        return;
+
+    var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
+    if (view)
+        this.view.remove(view);
+
+    var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
+    if (animated)
+        this.animated.splice(this.animated.indexOf(animated), 1);
+};
+
+SceneEntity.prototype.update = function (dt) {
+    for (var i = 0; i < this.animated.length; i++) {
+        this.animated[i].update(dt);
+    }
+};
+
+SceneEntity.prototype.clear = function () {
+
+    for (var i = this.view.children.length - 1; i >= 0; i--) {
+        this.view.remove(this.view.children[i]);
+    }
+
+    this.animated = [];
+};
+
+Object.defineProperty(SceneEntity.prototype, 'position', {
+
+    get: function () {
+        return this.view.position;
+    },
+
+    set: function (value) {
+        this.view.position.set(value.x, value.y, value.z);
+    },
+});
+
+Object.defineProperty(SceneEntity.prototype, 'rotation', {
+
+    get: function () {
+        return this.view.rotation;
+    },
+
+    set: function (value) {
+        this.view.rotation.set(value.x, value.y, value.z);
+    },
+});
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export UI */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return Meshes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DEBUG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return DETAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ANTIALIAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CLEAR_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMERA_FOV; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CAMERA_NEAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMERA_FAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CAMERA_POSITION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return MOBILE_CLIENT; });
+
+var UI = {};
+var Meshes = {};
+
+var DEBUG = false;
+
+var DETAIL = 1;
+var ANTIALIAS = false;
+var CLEAR_COLOR = 'gray'
+
+var CAMERA_FOV = 45;
+var CAMERA_NEAR = 0.1;
+var CAMERA_FAR = 100000;
+var CAMERA_POSITION = new THREE.Vector3(0, 0, 5);
+
+var MOBILE_CLIENT = (function() {
+    var mobileKeys = [
+        "android",
+        "bb",
+        "meego",
+        "mobile",
+        "avantgo",
+        "bada",
+        "blackberry",
+        "blazer",
+        "compal",
+        "elaine",
+        "fennec",
+        "hiptop",
+        "iemobile",
+        "iphone",
+        "ipod",
+        "iris",
+        "kindle",
+        "lge",
+        "maemo",
+        "midp",
+        "mmp",
+        "netfront",
+        "opera mob",
+        "opera min",
+        "palm",
+        "phone pixi",
+        "phone pre",
+        "plucker",
+        "pocket",
+        "psp",
+        "series40",
+        "series60",
+        "symbian",
+        "treo",
+        "vodafone",
+        "wap",
+        "windows ce",
+        "windows phone",
+        "xda",
+        "xiino",
+    ];
+
+    var agent = navigator.userAgent.toLowerCase();
+    for (var i = 0; i < mobileKeys.length; i++) {
+        if (agent.indexOf(mobileKeys[i]) >= 0)
+            return true;
+    }
+
+    return false;
+})()
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseEntity; });
+function BaseEntity () {
+
+    this.autoUpdate = false;
+
+};
+
+BaseEntity.prototype = {
+
+    constructor: BaseEntity,
+
+    activate: function () {
+
+    },
+
+    deactivate: function () {
+
+    },
+
+    update: function () {
+
+    }
+};
+
+
+
+/***/ }),
+/* 4 */,
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Scene; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__ = __webpack_require__(1);
+
+
+function Scene(data) {
+	__WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].call(this);
+
+	this.name = 'default';
+	this.matrixAutoUpdate = false;
+
+	this.ui = null;
+
+}
+
+Scene.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype);
+Scene.constructor = Scene;
+
+Scene.prototype.activate = function (data) {
+
+	__WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype.activate.apply(this, arguments);
+
+    if (this.ui)
+        this.ui.show();
+
+};
+
+Scene.prototype.deactivate = function (data) {
+
+	__WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype.deactivate.apply(this, arguments);
+
+    if (this.ui)
+        this.ui.hide();
+
+};
+
+
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_postprocessing_RenderPass_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__js_postprocessing_BloomBlendPass_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__js_postprocessing_CopyShader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_postprocessing_EffectComposer_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__js_postprocessing_MaskPass_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__js_postprocessing_ShaderPass_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_VG_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_VG_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_VG_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseEntity_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_BaseEntity_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_BaseEntity_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_SceneEntity_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_SceneEntity_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_SceneEntity_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_Engine_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_Engine_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__js_Engine_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__js_EventDispatcher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__js_meshes_MorphBlendMesh_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__js_meshes_Terrain_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_meshes_AnimatedSprite_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_meshes_AnimatedSprite_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__js_meshes_AnimatedSprite_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_MTLLoader_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__js_loaders_MTLLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_OBJLoader_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__js_loaders_OBJLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_loaders_ColladaLoader_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__js_loaders_ColladaLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_AssetsLoader_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_AssetsLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__js_AssetsLoader_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_KeyboardEventsHandler_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_controls_KeyboardEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__js_controls_KeyboardEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_controls_MouseEventsHandler_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_controls_MouseEventsHandler_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__js_controls_MouseEventsHandler_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerTopDown_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerTopDown_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__js_cameras_CameraControllerTopDown_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerOrbit_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerOrbit_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerOrbit_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_SceneController_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_scene_SceneController_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__js_scene_SceneController_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_scene_Scene_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_scene_Scene_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__js_scene_Scene_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix2D_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix2D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__js_matrices_LevelMatrix2D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_matrices_LevelMatrix3D_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_matrices_LevelMatrix3D_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__js_matrices_LevelMatrix3D_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_BaseUIObject_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_ui_BaseUIObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__js_ui_BaseUIObject_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_TextElement_js__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__js_ui_TextElement_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__js_ui_TextElement_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Container_js__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__js_ui_Container_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__js_ui_Container_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Panel_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__js_ui_Panel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__js_ui_Panel_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__js_ui_Button_js__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__js_ui_Button_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__js_ui_Button_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_loaders_MTLLoader_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__js_loaders_MTLLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__js_loaders_MTLLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_loaders_OBJLoader_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__js_loaders_OBJLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__js_loaders_OBJLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_loaders_ColladaLoader_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__js_loaders_ColladaLoader_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__js_loaders_ColladaLoader_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher__ = __webpack_require__(0);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "EventDispatcher", function() { return __WEBPACK_IMPORTED_MODULE_9__js_EventDispatcher__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__js_BaseEntity__ = __webpack_require__(3);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BaseEntity", function() { return __WEBPACK_IMPORTED_MODULE_10__js_BaseEntity__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__js_SceneEntity__ = __webpack_require__(1);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "SceneEntity", function() { return __WEBPACK_IMPORTED_MODULE_11__js_SceneEntity__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__js_scene_SceneController__ = __webpack_require__(13);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "SceneController", function() { return __WEBPACK_IMPORTED_MODULE_12__js_scene_SceneController__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__js_scene_Scene__ = __webpack_require__(5);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Scene", function() { return __WEBPACK_IMPORTED_MODULE_13__js_scene_Scene__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__js_Engine__ = __webpack_require__(14);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Engine", function() { return __WEBPACK_IMPORTED_MODULE_14__js_Engine__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader__ = __webpack_require__(18);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "AssetsLoader", function() { return __WEBPACK_IMPORTED_MODULE_15__js_AssetsLoader__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler__ = __webpack_require__(19);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardEventsHandler", function() { return __WEBPACK_IMPORTED_MODULE_16__js_controls_KeyboardEventsHandler__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler__ = __webpack_require__(20);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MouseEventsHandler", function() { return __WEBPACK_IMPORTED_MODULE_17__js_controls_MouseEventsHandler__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__js_meshes_Terrain__ = __webpack_require__(21);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Terrain", function() { return __WEBPACK_IMPORTED_MODULE_18__js_meshes_Terrain__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__js_meshes_AnimatedSprite__ = __webpack_require__(22);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "AnimatedSprite", function() { return __WEBPACK_IMPORTED_MODULE_19__js_meshes_AnimatedSprite__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__js_meshes_AnimatedMeshMorph__ = __webpack_require__(27);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "AnimatedMeshMorph", function() { return __WEBPACK_IMPORTED_MODULE_20__js_meshes_AnimatedMeshMorph__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerTopDown__ = __webpack_require__(23);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "CameraControllerTopDown", function() { return __WEBPACK_IMPORTED_MODULE_21__js_cameras_CameraControllerTopDown__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__js_cameras_CameraControllerOrbit__ = __webpack_require__(24);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "CameraControllerOrbit", function() { return __WEBPACK_IMPORTED_MODULE_22__js_cameras_CameraControllerOrbit__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__js_matrices_Matrix2D__ = __webpack_require__(25);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Matrix2D", function() { return __WEBPACK_IMPORTED_MODULE_23__js_matrices_Matrix2D__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__js_matrices_Matrix3D__ = __webpack_require__(26);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Matrix3D", function() { return __WEBPACK_IMPORTED_MODULE_24__js_matrices_Matrix3D__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_UI__ = __webpack_require__(28);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "UI", function() { return __WEBPACK_IMPORTED_MODULE_25__js_ui_UI__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_settings__ = __webpack_require__(2);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Meshes", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["j"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DEBUG", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["g"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DETAIL", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["h"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ANTIALIAS", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CLEAR_COLOR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["f"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_FOV", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_NEAR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["d"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_FAR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_POSITION", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["e"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MOBILE_CLIENT", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["i"]; });
 
 
 
@@ -181,7 +603,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 1 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /**
@@ -238,7 +660,7 @@ THREE.RenderPass.prototype = {
 
 
 /***/ }),
-/* 2 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -398,7 +820,7 @@ THREE.BloomBlendPass.prototype = Object.assign(Object.create(THREE.RenderPass.pr
 
 
 /***/ }),
-/* 3 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /**
@@ -450,7 +872,7 @@ THREE.CopyShader = {
 
 
 /***/ }),
-/* 4 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /**
@@ -595,7 +1017,7 @@ THREE.EffectComposer.prototype = {
 
 
 /***/ }),
-/* 5 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /**
@@ -687,7 +1109,7 @@ THREE.ClearMaskPass.prototype = {
 
 
 /***/ }),
-/* 6 */
+/* 12 */
 /***/ (function(module, exports) {
 
 /**
@@ -763,220 +1185,121 @@ THREE.ShaderPass.prototype = {
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG = {}
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SceneController; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EventDispatcher_js__ = __webpack_require__(0);
 
-VG.UI = {};
-VG.Meshes = {};
 
-VG.DEBUG = false;
 
-VG.DETAIL = 1;
-VG.ANTIALIAS = false;
-VG.CLEAR_COLOR = 'gray'
 
-VG.CAMERA_FOV = 45;
-VG.CAMERA_NEAR = 0.1;
-VG.CAMERA_FAR = 100000;
-VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 5);
+function SceneController () {
 
-VG.MOBILE_CLIENT = (function() {
-    var mobileKeys = [
-        "android",
-        "bb",
-        "meego",
-        "mobile",
-        "avantgo",
-        "bada",
-        "blackberry",
-        "blazer",
-        "compal",
-        "elaine",
-        "fennec",
-        "hiptop",
-        "iemobile",
-        "iphone",
-        "ipod",
-        "iris",
-        "kindle",
-        "lge",
-        "maemo",
-        "midp",
-        "mmp",
-        "netfront",
-        "opera mob",
-        "opera min",
-        "palm",
-        "phone pixi",
-        "phone pre",
-        "plucker",
-        "pocket",
-        "psp",
-        "series40",
-        "series60",
-        "symbian",
-        "treo",
-        "vodafone",
-        "wap",
-        "windows ce",
-        "windows phone",
-        "xda",
-        "xiino",
-    ];
+    __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].call(this, name);
+    this.matrixAutoUpdate = false;
 
-    var agent = navigator.userAgent.toLowerCase();
-    for (var i = 0; i < mobileKeys.length; i++) {
-        if (agent.indexOf(mobileKeys[i]) >= 0)
-            return true;
-    }
+    this.scenes = {};
+    this.activeScene = null;
 
-    return false;
-})()
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-VG.BaseEntity = function () {
-
-    this.autoUpdate = false;
-
+    __WEBPACK_IMPORTED_MODULE_2__EventDispatcher_js__["a" /* EventDispatcher */].bind('SceneController.activateScene', this, this.activateScene);
 };
 
-VG.BaseEntity.prototype = {
+SceneController.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype);
+SceneController.constructor = SceneController;
 
-    constructor: VG.BaseEntity,
+SceneController.prototype.add = function (scene) {
+    if (scene instanceof __WEBPACK_IMPORTED_MODULE_1__Scene_js__["a" /* Scene */]) {
+        if (this.scenes[scene.name]) {
+            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
+            return;
+        }
 
-    activate: function () {
-
-    },
-
-    deactivate: function () {
-
-    },
-
-    update: function () {
-
+        this.scenes[scene.name] = scene;
+    } else {
+        console.log('Error: Object is not instanceof VG.GameScene');
     }
 };
 
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
+SceneController.prototype.remove = function (scene) {
+    if (scene instanceof __WEBPACK_IMPORTED_MODULE_1__Scene_js__["a" /* Scene */]) {
+        if (this.scenes[scene.name]) {
+            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
+            return;
+        }
 
-VG.SceneEntity = function () {
-
-    VG.BaseEntity.call(this);
-
-    this.view = new THREE.Object3D;
-    this.animated = [];
-    this.autoUpdate = true;
+        this.scenes[scene.name] = scene;
+    } else {
+        console.log('Error: Object is not instanceof VG.GameScene');
+    }
 };
+SceneController.prototype.activateScene = function (name, data) {
 
-VG.SceneEntity.prototype = Object.create(VG.BaseEntity.prototype);
-VG.SceneEntity.constructor = VG.SceneEntity;
+    if (name instanceof __WEBPACK_IMPORTED_MODULE_1__Scene_js__["a" /* Scene */])
+        name = name.name
 
-Object.defineProperty(VG.SceneEntity.prototype, 'matrixAutoUpdate', {
-
-    get: function () {
-        return this.view.matrixAutoUpdate;
-    },
-
-    set: function (value) {
-        this.view.matrixAutoUpdate  = value;
-        this.view.updateMatrix();
-    },
-});
-
-VG.SceneEntity.prototype.add = function (object) {
-    if (!object)
+    if (!this.scenes[name]) {
+        console.log('Error: Scene with name >>>' + name + '<<< is not exist');
         return;
+    }
 
-    var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
-    if (view)
-        this.view.add(view);
-
-    if (object instanceof VG.BaseEntity && !object.autoUpdate)
+    if (this.activeScene && this.activeScene.name == name)
         return
 
-    var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
-    if (animated)
-        this.animated.push(animated);
-};
+    if (this.activeScene) {
 
-VG.SceneEntity.prototype.remove = function (object) {
-    if (!object)
-        return;
-
-    var view = object instanceof THREE.Object3D ? object : object.view instanceof THREE.Object3D ? object.view : false;
-    if (view)
-        this.view.remove(view);
-
-    var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
-    if (animated)
-        this.animated.splice(this.animated.indexOf(animated), 1);
-};
-
-VG.SceneEntity.prototype.update = function (dt) {
-    for (var i = 0; i < this.animated.length; i++) {
-        this.animated[i].update(dt);
-    }
-};
-
-VG.SceneEntity.prototype.clear = function () {
-
-    for (var i = this.view.children.length - 1; i >= 0; i--) {
-        this.view.remove(this.view.children[i]);
+        this.activeScene.deactivate();
+        
+        __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype.remove.call(this, this.activeScene.view);
     }
 
-    this.animated = [];
+    this.activeScene = this.scenes[name];
+
+    __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype.add.call(this, this.activeScene.view);
+
+    this.activeScene.activate(data);
 };
 
-Object.defineProperty(VG.SceneEntity.prototype, 'position', {
+SceneController.prototype.update = function (dt) {
+    if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
+        this.activeScene.update(dt)
+};
 
-    get: function () {
-        return this.view.position;
-    },
-
-    set: function (value) {
-        this.view.position.set(value.x, value.y, value.z);
-    },
-});
-
-Object.defineProperty(VG.SceneEntity.prototype, 'rotation', {
-
-    get: function () {
-        return this.view.rotation;
-    },
-
-    set: function (value) {
-        this.view.rotation.set(value.x, value.y, value.z);
-    },
-});
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.Engine = function (container) {
-    VG.SceneEntity.call(this, name);
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Engine; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EventDispatcher_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_js__ = __webpack_require__(2);
+
+
+
+
+function Engine (container) {
+    __WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].call(this, name);
+
     var self = this;
 
     this.domelement = document.getElementById(container);
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
-    this.camera.position.copy(VG.CAMERA_POSITION);
+    this.camera = new THREE.PerspectiveCamera(__WEBPACK_IMPORTED_MODULE_2__settings_js__["c" /* CAMERA_FOV */] || 45, this.domelement.clientWidth / this.domelement.clientHeight, __WEBPACK_IMPORTED_MODULE_2__settings_js__["d" /* CAMERA_NEAR */], __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* CAMERA_FAR */]);
+    this.camera.position.copy(__WEBPACK_IMPORTED_MODULE_2__settings_js__["e" /* CAMERA_POSITION */]);
     this.view.add(this.camera);
 
     this.renderer = new THREE.WebGLRenderer({
-        antialias: VG.ANTIALIAS || false
+        antialias: __WEBPACK_IMPORTED_MODULE_2__settings_js__["a" /* ANTIALIAS */] || false
     });
-    this.renderer.setClearColor(VG.CLEAR_COLOR);
+    this.renderer.setClearColor(__WEBPACK_IMPORTED_MODULE_2__settings_js__["f" /* CLEAR_COLOR */]);
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
     this.domelement.append(this.renderer.domElement);
 
@@ -984,13 +1307,13 @@ VG.Engine = function (container) {
 
     composer.addPass(new THREE.RenderPass(this.view, this.camera));
 
-    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(this.domelement.clientWidth, this.domelement.clientHeight));
+    var pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(this.domelement.clientWidth, this.domelement.clientHeight));
     pass.renderToScreen = true;
     composer.addPass(pass);
 
     var clock = new THREE.Clock();
 
-    this.renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
+    this.renderer.setPixelRatio(window.devicePixelRatio * __WEBPACK_IMPORTED_MODULE_2__settings_js__["h" /* DETAIL */]);
 
     window.addEventListener('resize', function () {
         self.resize();
@@ -1014,1920 +1337,23 @@ VG.Engine = function (container) {
 
     render();
 
-    VG.EventDispatcher.bind('Engine.get.camera', this, function () { return this.camera });
-    VG.EventDispatcher.bind('Engine.get.renderer', this, function () { return this.renderer });
-    VG.EventDispatcher.bind('Engine.add', this, this.add);
-    VG.EventDispatcher.bind('Engine.remove', this, this.remove);
-    VG.EventDispatcher.bind('Engine.resize', this, this.resize);
+    __WEBPACK_IMPORTED_MODULE_1__EventDispatcher_js__["a" /* EventDispatcher */].bind('Engine.get.camera', this, function () { return this.camera });
+    __WEBPACK_IMPORTED_MODULE_1__EventDispatcher_js__["a" /* EventDispatcher */].bind('Engine.get.renderer', this, function () { return this.renderer });
+    __WEBPACK_IMPORTED_MODULE_1__EventDispatcher_js__["a" /* EventDispatcher */].bind('Engine.add', this, this.add);
+    __WEBPACK_IMPORTED_MODULE_1__EventDispatcher_js__["a" /* EventDispatcher */].bind('Engine.remove', this, this.remove);
+    __WEBPACK_IMPORTED_MODULE_1__EventDispatcher_js__["a" /* EventDispatcher */].bind('Engine.resize', this, this.resize);
 };
 
-VG.Engine.prototype = Object.create(VG.SceneEntity.prototype);
-VG.Engine.constructor = VG.Engine;
+Engine.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__SceneEntity_js__["a" /* SceneEntity */].prototype);
+Engine.constructor = Engine;
 
-VG.Engine.prototype.resize = function () {
+Engine.prototype.resize = function () {
     this.camera.aspect = this.domelement.clientWidth / this.domelement.clientHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
 }
 
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
 
-VG.EventDispatcher = {
-    listeners: {},
-
-    bind: function (type, listener, callback) {
-        if (typeof (type) !== "string") {
-            console.error("EventDispatcher.bind -> 'type' should be string constant");
-            return;
-        }
-
-        if (listener === null || listener === undefined) {
-            console.error("EventDispatcher.bind -> 'listener' should exist");
-            return;
-        }
-
-        if (typeof listener !== "object") {
-            console.error("EventDispatcher.bind -> 'listener' should be object");
-            return;
-        }
-
-        if (typeof callback !== "function") {
-            console.error("EventDispatcher.bind -> 'callback' should be function");
-            return;
-        }
-
-        if (this.listeners[type] == undefined)
-            this.listeners[type] = [];
-
-        var listeners = this.listeners[type];
-
-        var index = this.getListenerIndex(listeners, listener);
-
-        if (index < 0) {
-            listeners.push({
-                object: listener,
-                func: callback
-            });
-        }
-    },
-
-    unbind: function (type, callback) {
-        if (typeof (type) !== "string") {
-            console.error("EventDispatcher.unbind -> 'type' should be string constant");
-            return;
-        }
-
-        if (callback === null || callback === undefined) {
-            console.error("EventDispatcher.removeEventListener -> 'listener' should exist");
-            return;
-        }
-
-        if ((typeof callback !== "function") && ((typeof callback.method !== "string") || (typeof callback.context !== "object"))) {
-            console.error("EventDispatcher.unbind -> 'callback' has not supported type");
-            return;
-        }
-
-        if (this.listeners[type] == undefined)
-            this.listeners[type] = [];
-
-        var listeners = this.listeners[type];
-
-        var index = this.getListenerIndex(listeners, callback);
-
-        if (index >= 0) {
-            listeners.splice(index, 1);
-        }
-    },
-
-    send: function (eventName) {
-        if (typeof (eventName) !== "string") {
-            console.error("EventDispatcher.send -> 'event.type' should be string constant");
-            return;
-        }
-
-        if (this.listeners[eventName] == undefined)
-            return;
-
-        var listeners = this.listeners[eventName];
-
-        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
-
-        for (var i = 0; i < listeners.length; i++) {
-            try {
-                var listener = listeners[i];
-                listener.func.apply(listener.object, args);
-            } catch (err) {
-                console.error("EventDispatcher.send -> " + eventName + " Exception thrown in event handler -> " + err);
-            }
-        }
-    },
-
-    query: function (eventName) {
-        if (typeof (eventName) !== "string") {
-            console.error("EventDispatcher.send -> 'event.type' should be string constant");
-            return;
-        }
-
-        if (this.listeners[eventName] == undefined)
-            return undefined;
-
-        var listeners = this.listeners[eventName];
-        if (listeners > 1) {
-            console.error("EventDispatcher.query -> Can't send query to multiply objects");
-            return undefined;
-        }
-
-        var listener = listeners[0];
-        var result = undefined;
-
-        var args = (arguments.length > 1 ? Array.apply(null, arguments).splice(1, arguments.length - 1) : []);
-
-        try {
-            result = listener.func.apply(listener.object, args);
-        } catch (err) {
-            console.error("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
-        }
-
-        return result;
-    },
-
-    release: function () {
-        for (var event_name in this.listeners) {
-            this.listeners[event_name].splice();
-            delete this.listeners[event_name];
-        }
-        this.listeners = null;
-    },
-
-    getListenerIndex: function (listeners, callback) {
-        for (var i = 0; i < listeners.length; i++) {
-            var obj = listeners[i];
-            if (typeof obj.func === "function" && (callback === obj.func))
-                return i;
-            else if ((obj.func.method !== null) && (obj.func.method !== undefined) &&
-                (obj.func.context !== null) && (obj.func.context !== undefined) &&
-                (callback.method === obj.func.method) && (callback.context === obj.func.context))
-                return i;
-        }
-
-        return -1;
-    }
-
-};
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-VG.Meshes.MorphBlendMesh = function (geometry, material) {
-
-    THREE.Mesh.call(this, geometry, material);
-
-    this.fps = 10;
-    this.direction = 1;
-    this.animationList = [];
-
-    this.currentAnimation = '';
-
-}
-
-VG.Meshes.MorphBlendMesh.prototype = Object.create(THREE.Mesh.prototype);
-VG.Meshes.MorphBlendMesh.prototype.constructor = VG.Meshes.MorphBlendMesh;
-
-VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (animations) {
-
-    //TODO: переписать по нормальному ))
-
-    var animation;
-
-    if (animations instanceof Array) {
-
-        this.animationList = animations.slice();
-        animation = this.animationList.shift();
-
-    } else if (typeof animations === "string") {
-        this.animationList = [];
-        animation = animations;
-
-    } else {
-
-        animation = this.animationList.shift();
-    }
-
-    if (animation == this.currentAnimation)
-        return
-    else
-        this.currentAnimation = animation;
-
-    animation = this.geometry.animations[this.currentAnimation];
-
-    if (animation) {
-
-        this.setFrameRange(animation.start, animation.end);
-        this.duration = 1000 * ((animation.end - animation.start) / this.fps);
-        this.time = 0;
-
-    } else {
-
-        console.warn('animation[' + this.currentAnimation + '] undefined');
-
-    }
-
-};
-VG.Meshes.MorphBlendMesh.prototype.parseAnimations = function (fps) {
-
-    this.fps = fps
-
-    var geometry = this.geometry;
-
-    if (!geometry.animations) geometry.animations = {};
-
-    var firstAnimation, animations = geometry.animations;
-
-    var pattern = /([a-z]+)_?(\d+)/;
-
-    for (var i = 0, il = geometry.morphTargets.length; i < il; i++) {
-
-        var morph = geometry.morphTargets[i];
-        var parts = morph.name.match(pattern);
-
-        if (parts && parts.length > 1) {
-
-            var label = parts[1];
-            var num = parts[2];
-
-            if (!animations[label]) animations[label] = { start: Infinity, end: -Infinity };
-
-            var animation = animations[label];
-
-            if (i < animation.start) animation.start = i;
-            if (i > animation.end) animation.end = i;
-
-            if (!firstAnimation) firstAnimation = label;
-
-        }
-
-    }
-
-    geometry.firstAnimation = firstAnimation;
-
-};
-VG.Meshes.MorphBlendMesh.prototype.setFrameRange = function (start, end) {
-
-    this.startKeyframe = start;
-    this.endKeyframe = end;
-
-    this.length = this.endKeyframe - this.startKeyframe + 1;
-
-};
-VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
-
-    if (this.animationList.length > 0)
-        if (this.lastKeyframe > this.currentKeyframe)
-            this.playAnimations();
-
-    var frameTime = this.duration / this.length;
-
-    this.time += this.direction * delta * 1000;
-
-    if (this.mirroredLoop) {
-
-        if (this.time > this.duration || this.time < 0) {
-
-            this.direction *= -1;
-
-            if (this.time > this.duration) {
-
-                this.time = this.duration;
-                this.directionBackwards = true;
-
-            }
-
-            if (this.time < 0) {
-
-                this.time = 0;
-                this.directionBackwards = false;
-
-            }
-
-        }
-
-    } else {
-
-        this.time = this.time % this.duration;
-
-        if (this.time < 0) this.time += this.duration;
-
-    }
-
-    var keyframe = this.startKeyframe + THREE.Math.clamp(Math.floor(this.time / frameTime), 0, this.length - 1);
-
-    if (keyframe !== this.currentKeyframe) {
-
-        this.morphTargetInfluences[this.lastKeyframe] = 0;
-        this.morphTargetInfluences[this.currentKeyframe] = 1;
-
-        this.morphTargetInfluences[keyframe] = 0;
-
-        this.lastKeyframe = this.currentKeyframe;
-        this.currentKeyframe = keyframe;
-
-    }
-
-    var mix = (this.time % frameTime) / frameTime;
-
-    if (this.directionBackwards) {
-
-        mix = 1 - mix;
-
-    }
-
-    this.morphTargetInfluences[this.currentKeyframe] = mix;
-    this.morphTargetInfluences[this.lastKeyframe] = 1 - mix;
-
-};
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-(function(global) {
-    var module = global.noise = {};
-
-    function Grad(x, y, z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
-    Grad.prototype.dot2 = function(x, y) {
-        return this.x*x + this.y*y;
-    };
-
-    Grad.prototype.dot3 = function(x, y, z) {
-        return this.x*x + this.y*y + this.z*z;
-    };
-
-    var grad3 = [
-        new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
-        new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
-        new Grad(0,1,1),new Grad(0,-1,1),new Grad(0,1,-1),new Grad(0,-1,-1),
-    ];
-
-    var p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,
-        30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,
-        252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,
-        168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,
-        60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,
-        1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,
-        86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,
-        118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,
-        170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,
-        22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,
-        251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,
-        107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,
-        150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,
-        61,156,180];
-    // To avoid the need for index wrapping, double the permutation table length
-    var perm = new Array(512),
-        gradP = new Array(512);
-
-    // This isn't a very good seeding function, but it works okay. It supports
-    // 2^16 different seed values. Write your own if you need more seeds.
-    module.seed = function(seed) {
-        if (seed > 0 && seed < 1) {
-            // Scale the seed out
-            seed *= 65536;
-        }
-
-        seed = Math.floor(seed);
-        if (seed < 256) {
-            seed |= seed << 8;
-        }
-
-        for (var i = 0; i < 256; i++) {
-            var v;
-            if (i & 1) {
-                v = p[i] ^ (seed & 255);
-            }
-            else {
-                v = p[i] ^ ((seed>>8) & 255);
-            }
-
-            perm[i] = perm[i + 256] = v;
-            gradP[i] = gradP[i + 256] = grad3[v % 12];
-        }
-    };
-
-    module.seed(Math.random());
-
-    // Skewing and unskewing factors for 2 and 3 dimensions
-    var F2 = 0.5*(Math.sqrt(3)-1),
-        G2 = (3-Math.sqrt(3))/6,
-        F3 = 1/3,
-        G3 = 1/6;
-
-    // 2D simplex noise
-    module.simplex = function(xin, yin) {
-        var n0, n1, n2; // Noise contributions from the three corners
-        // Skew the input space to determine which simplex cell we're in
-        var s = (xin+yin)*F2; // Hairy factor for 2D
-        var i = Math.floor(xin+s);
-        var j = Math.floor(yin+s);
-        var t = (i+j)*G2;
-        var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed
-        var y0 = yin-j+t;
-        // For the 2D case, the simplex shape is an equilateral triangle.
-        // Determine which simplex we are in.
-        var i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
-        if (x0 > y0) { // Lower triangle, XY order: (0,0)->(1,0)->(1,1)
-            i1 = 1; j1 = 0;
-        }
-        else { // Upper triangle, YX order: (0,0)->(0,1)->(1,1)
-            i1 = 0; j1 = 1;
-        }
-        // A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
-        // a step of (0,1) in (i,j) means a step of (-c,1-c) in (x,y), where
-        // c = (3-sqrt(3))/6
-        var x1 = x0 - i1 + G2; // Offsets for middle corner in (x,y) unskewed coords
-        var y1 = y0 - j1 + G2;
-        var x2 = x0 - 1 + 2 * G2; // Offsets for last corner in (x,y) unskewed coords
-        var y2 = y0 - 1 + 2 * G2;
-        // Work out the hashed gradient indices of the three simplex corners
-        i &= 255;
-        j &= 255;
-        var gi0 = gradP[i+perm[j]];
-        var gi1 = gradP[i+i1+perm[j+j1]];
-        var gi2 = gradP[i+1+perm[j+1]];
-        // Calculate the contribution from the three corners
-        var t0 = 0.5 - x0*x0-y0*y0;
-        if (t0 < 0) {
-            n0 = 0;
-        }
-        else {
-            t0 *= t0;
-            n0 = t0 * t0 * gi0.dot2(x0, y0); // (x,y) of grad3 used for 2D gradient
-        }
-        var t1 = 0.5 - x1*x1-y1*y1;
-        if (t1 < 0) {
-            n1 = 0;
-        }
-        else {
-            t1 *= t1;
-            n1 = t1 * t1 * gi1.dot2(x1, y1);
-        }
-        var t2 = 0.5 - x2*x2-y2*y2;
-        if (t2 < 0) {
-            n2 = 0;
-        }
-        else {
-            t2 *= t2;
-            n2 = t2 * t2 * gi2.dot2(x2, y2);
-        }
-        // Add contributions from each corner to get the final noise value.
-        // The result is scaled to return values in the interval [-1,1].
-        return 70 * (n0 + n1 + n2);
-    };
-
-    // ##### Perlin noise stuff
-
-    function fade(t) {
-        return t*t*t*(t*(t*6-15)+10);
-    }
-
-    function lerp(a, b, t) {
-        return (1-t)*a + t*b;
-    }
-
-    // 2D Perlin Noise
-    module.perlin = function(x, y) {
-        // Find unit grid cell containing point
-        var X = Math.floor(x),
-            Y = Math.floor(y);
-        // Get relative xy coordinates of point within that cell
-        x = x - X;
-        y = y - Y;
-        // Wrap the integer cells at 255 (smaller integer period can be introduced here)
-        X = X & 255;
-        Y = Y & 255;
-
-        // Calculate noise contributions from each of the four corners
-        var n00 = gradP[X+perm[Y]].dot2(x, y);
-        var n01 = gradP[X+perm[Y+1]].dot2(x, y-1);
-        var n10 = gradP[X+1+perm[Y]].dot2(x-1, y);
-        var n11 = gradP[X+1+perm[Y+1]].dot2(x-1, y-1);
-
-        // Compute the fade curve value for x
-        var u = fade(x);
-
-        // Interpolate the four results
-        return lerp(
-            lerp(n00, n10, u),
-            lerp(n01, n11, u),
-            fade(y)
-        );
-    };
-})(this);
-
-
-VG.Meshes.Terrain = function(options) {
-    var defaultOptions = {
-        after: null,
-        easing: VG.Meshes.Terrain.Linear,
-        heightmap: VG.Meshes.Terrain.DiamondSquare,
-        material: null,
-        maxHeight: 100,
-        minHeight: -100,
-        optimization: VG.Meshes.Terrain.NONE,
-        frequency: 2.5,
-        steps: 1,
-        stretch: true,
-        turbulent: false,
-        useBufferGeometry: false,
-        xSegments: 63,
-        xSize: 1024,
-        ySegments: 63,
-        ySize: 1024,
-        _mesh: null, // internal only
-    };
-    options = options || {};
-    for (var opt in defaultOptions) {
-        if (defaultOptions.hasOwnProperty(opt)) {
-            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
-        }
-    }
-    options.material = options.material || new THREE.MeshBasicMaterial({ color: 0xee6633 });
-
-    // Encapsulating the terrain in a parent object allows us the flexibility
-    // to more easily have multiple meshes for optimization purposes.
-    var scene = new THREE.Object3D();
-    // Planes are initialized on the XY plane, so rotate the plane to make it lie flat.
-    scene.rotation.x = -0.5 * Math.PI;
-
-    // Create the terrain mesh.
-    // To save memory, it is possible to re-use a pre-existing mesh.
-    var mesh = options._mesh;
-    if (mesh && mesh.geometry.type === 'PlaneGeometry' &&
-                mesh.geometry.parameters.widthSegments === options.xSegments &&
-                mesh.geometry.parameters.heightSegments === options.ySegments) {
-        mesh.material = options.material;
-        mesh.scale.x = options.xSize / mesh.geometry.parameters.width;
-        mesh.scale.y = options.ySize / mesh.geometry.parameters.height;
-        for (var i = 0, l = mesh.geometry.vertices.length; i < l; i++) {
-            mesh.geometry.vertices[i].z = 0;
-        }
-    }
-    else {
-        mesh = new THREE.Mesh(
-            new THREE.PlaneGeometry(options.xSize, options.ySize, options.xSegments, options.ySegments),
-            options.material
-        );
-    }
-    delete options._mesh; // Remove the reference for GC
-
-    // Assign elevation data to the terrain plane from a heightmap or function.
-    if (options.heightmap instanceof HTMLCanvasElement || options.heightmap instanceof Image) {
-        VG.Meshes.Terrain.fromHeightmap(mesh.geometry.vertices, options);
-    }
-    else if (typeof options.heightmap === 'function') {
-        options.heightmap(mesh.geometry.vertices, options);
-    }
-    else {
-        console.warn('An invalid value was passed for `options.heightmap`: ' + options.heightmap);
-    }
-    VG.Meshes.Terrain.Normalize(mesh, options);
-
-    if (options.useBufferGeometry) {
-        mesh.geometry = (new THREE.BufferGeometry()).fromGeometry(mesh.geometry);
-    }
-
-    // lod.addLevel(mesh, options.unit * 10 * Math.pow(2, lodLevel));
-
-    scene.add(mesh);
-    return scene;
-};
-
-
-VG.Meshes.Terrain.Normalize = function(mesh, options) {
-    var v = mesh.geometry.vertices;
-    if (options.turbulent) {
-        VG.Meshes.Terrain.Turbulence(v, options);
-    }
-    if (options.steps > 1) {
-        VG.Meshes.Terrain.Step(v, options.steps);
-        VG.Meshes.Terrain.Smooth(v, options);
-    }
-    // Keep the terrain within the allotted height range if necessary, and do easing.
-    VG.Meshes.Terrain.Clamp(v, options);
-    // Call the "after" callback
-    if (typeof options.after === 'function') {
-        options.after(v, options);
-    }
-    // Mark the geometry as having changed and needing updates.
-    mesh.geometry.verticesNeedUpdate = true;
-    mesh.geometry.normalsNeedUpdate = true;
-    mesh.geometry.computeBoundingSphere();
-    mesh.geometry.computeFaceNormals();
-    mesh.geometry.computeVertexNormals();
-};
-
-VG.Meshes.Terrain.NONE = 0;
-VG.Meshes.Terrain.GEOMIPMAP = 1;
-VG.Meshes.Terrain.GEOCLIPMAP = 2;
-VG.Meshes.Terrain.POLYGONREDUCTION = 3;
-
-
-VG.Meshes.Terrain.toArray2D = function(vertices, options) {
-    var tgt = new Array(options.xSegments),
-        xl = options.xSegments + 1,
-        yl = options.ySegments + 1,
-        i, j;
-    for (i = 0; i < xl; i++) {
-        tgt[i] = new Float64Array(options.ySegments);
-        for (j = 0; j < yl; j++) {
-            tgt[i][j] = vertices[j * xl + i].z;
-        }
-    }
-    return tgt;
-};
-
-
-VG.Meshes.Terrain.fromArray2D = function(vertices, src) {
-    for (var i = 0, xl = src.length; i < xl; i++) {
-        for (var j = 0, yl = src[i].length; j < yl; j++) {
-            vertices[j * xl + i].z = src[i][j];
-        }
-    }
-};
-
-
-VG.Meshes.Terrain.toArray1D = function(vertices) {
-    var tgt = new Float64Array(vertices.length);
-    for (var i = 0, l = tgt.length; i < l; i++) {
-        tgt[i] = vertices[i].z;
-    }
-    return tgt;
-};
-
-
-VG.Meshes.Terrain.fromArray1D = function(vertices, src) {
-    for (var i = 0, l = Math.min(vertices.length, src.length); i < l; i++) {
-        vertices[i].z = src[i];
-    }
-};
-
-
-VG.Meshes.Terrain.heightmapArray = function(method, options) {
-    var arr = new Array((options.xSegments+1) * (options.ySegments+1)),
-        l = arr.length,
-        i;
-    // The heightmap functions provided by this script operate on THREE.Vector3
-    // objects by changing the z field, so we need to make that available.
-    // Unfortunately that means creating a bunch of objects we're just going to
-    // throw away, but a conscious decision was made here to optimize for the
-    // vector case.
-    for (i = 0; i < l; i++) {
-        arr[i] = {z: 0};
-    }
-    options.minHeight = options.minHeight || 0;
-    options.maxHeight = typeof options.maxHeight === 'undefined' ? 1 : options.maxHeight;
-    options.stretch = options.stretch || false;
-    method(arr, options);
-    VG.Meshes.Terrain.Clamp(arr, options);
-    for (i = 0; i < l; i++) {
-        arr[i] = arr[i].z;
-    }
-    return arr;
-};
-
-/**
- * Randomness interpolation functions.
- */
-VG.Meshes.Terrain.Linear = function(x) {
-    return x;
-};
-
-// x = [0, 1], x^2
-VG.Meshes.Terrain.EaseIn = function(x) {
-    return x*x;
-};
-
-// x = [0, 1], -x(x-2)
-VG.Meshes.Terrain.EaseOut = function(x) {
-    return -x * (x - 2);
-};
-
-// x = [0, 1], x^2(3-2x)
-// Nearly identical alternatives: 0.5+0.5*cos(x*pi-pi), x^a/(x^a+(1-x)^a) (where a=1.6 seems nice)
-// For comparison: http://www.wolframalpha.com/input/?i=x^1.6%2F%28x^1.6%2B%281-x%29^1.6%29%2C+x^2%283-2x%29%2C+0.5%2B0.5*cos%28x*pi-pi%29+from+0+to+1
-VG.Meshes.Terrain.EaseInOut = function(x) {
-    return x*x*(3-2*x);
-};
-
-// x = [0, 1], 0.5*(2x-1)^3+0.5
-VG.Meshes.Terrain.InEaseOut = function(x) {
-    var y = 2*x-1;
-    return 0.5 * y*y*y + 0.5;
-};
-
-// x = [0, 1], x^1.55
-VG.Meshes.Terrain.EaseInWeak = function(x) {
-    return Math.pow(x, 1.55);
-};
-
-// x = [0, 1], x^7
-VG.Meshes.Terrain.EaseInStrong = function(x) {
-    return x*x*x*x*x*x*x;
-};
-
-
-VG.Meshes.Terrain.fromHeightmap = function(g, options) {
-    var canvas = document.createElement('canvas'),
-        context = canvas.getContext('2d'),
-        rows = options.ySegments + 1,
-        cols = options.xSegments + 1,
-        spread = options.maxHeight - options.minHeight;
-    canvas.width = cols;
-    canvas.height = rows;
-    context.drawImage(options.heightmap, 0, 0, canvas.width, canvas.height);
-    var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-    for (var row = 0; row < rows; row++) {
-        for (var col = 0; col < cols; col++) {
-            var i = row * cols + col,
-                idx = i * 4;
-            g[i].z = (data[idx] + data[idx+1] + data[idx+2]) / 765 * spread + options.minHeight;
-        }
-    }
-};
-
-
-VG.Meshes.Terrain.toHeightmap = function(g, options) {
-    var hasMax = typeof options.maxHeight === 'undefined',
-        hasMin = typeof options.minHeight === 'undefined',
-        max = hasMax ? options.maxHeight : -Infinity,
-        min = hasMin ? options.minHeight :  Infinity;
-    if (!hasMax || !hasMin) {
-        var max2 = max,
-            min2 = min;
-        for (var k = 0, l = g.length; k < l; k++) {
-            if (g[k].z > max2) max2 = g[k].z;
-            if (g[k].z < min2) min2 = g[k].z;
-        }
-        if (!hasMax) max = max2;
-        if (!hasMin) min = min2;
-    }
-    var canvas = options.heightmap instanceof HTMLCanvasElement ? options.heightmap : document.createElement('canvas'),
-        context = canvas.getContext('2d'),
-        rows = options.ySegments + 1,
-        cols = options.xSegments + 1,
-        spread = options.maxHeight - options.minHeight;
-    canvas.width = cols;
-    canvas.height = rows;
-    var d = context.createImageData(canvas.width, canvas.height),
-        data = d.data;
-    for (var row = 0; row < rows; row++) {
-        for (var col = 0; col < cols; col++) {
-            var i = row * cols + col,
-            idx = i * 4;
-            data[idx] = data[idx+1] = data[idx+2] = Math.round(((g[i].z - options.minHeight) / spread) * 255);
-            data[idx+3] = 255;
-        }
-    }
-    context.putImageData(d, 0, 0);
-    return canvas;
-};
-
-VG.Meshes.Terrain.Clamp = function(g, options) {
-    var min = Infinity,
-        max = -Infinity,
-        l = g.length,
-        i;
-    options.easing = options.easing || VG.Meshes.Terrain.Linear;
-    for (i = 0; i < l; i++) {
-        if (g[i].z < min) min = g[i].z;
-        if (g[i].z > max) max = g[i].z;
-    }
-    var actualRange = max - min,
-        optMax = typeof options.maxHeight !== 'number' ? max : options.maxHeight,
-        optMin = typeof options.minHeight !== 'number' ? min : options.minHeight,
-        targetMax = options.stretch ? optMax : (max < optMax ? max : optMax),
-        targetMin = options.stretch ? optMin : (min > optMin ? min : optMin),
-        range = targetMax - targetMin;
-    if (targetMax < targetMin) {
-        targetMax = optMax;
-        range = targetMax - targetMin;
-    }
-    for (i = 0; i < l; i++) {
-        g[i].z = options.easing((g[i].z - min) / actualRange) * range + optMin;
-    }
-};
-
-VG.Meshes.Terrain.Edges = function(g, options, direction, distance, easing, edges) {
-    var numXSegments = Math.floor(distance / (options.xSize / options.xSegments)) || 1,
-        numYSegments = Math.floor(distance / (options.ySize / options.ySegments)) || 1,
-        peak = direction ? options.maxHeight : options.minHeight,
-        max = direction ? Math.max : Math.min,
-        xl = options.xSegments + 1,
-        yl = options.ySegments + 1,
-        i, j, multiplier, k1, k2;
-    easing = easing || VG.Meshes.Terrain.EaseInOut;
-    if (typeof edges !== 'object') {
-        edges = {top: true, bottom: true, left: true, right: true};
-    }
-    for (i = 0; i < xl; i++) {
-        for (j = 0; j < numYSegments; j++) {
-            multiplier = easing(1 - j / numYSegments);
-            k1 = j*xl + i;
-            k2 = (options.ySegments-j)*xl + i;
-            if (edges.top) {
-                g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
-            }
-            if (edges.bottom) {
-                g[k2].z = max(g[k2].z, (peak - g[k2].z) * multiplier + g[k2].z);
-            }
-        }
-    }
-    for (i = 0; i < yl; i++) {
-        for (j = 0; j < numXSegments; j++) {
-            multiplier = easing(1 - j / numXSegments);
-            k1 = i*xl+j;
-            k2 = (options.ySegments-i)*xl + (options.xSegments-j);
-            if (edges.left) {
-                g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
-            }
-            if (edges.right) {
-                g[k2].z = max(g[k2].z, (peak - g[k2].z) * multiplier + g[k2].z);
-            }
-        }
-    }
-    VG.Meshes.Terrain.Clamp(g, {
-        maxHeight: options.maxHeight,
-        minHeight: options.minHeight,
-        stretch: true,
-    });
-};
-
-VG.Meshes.Terrain.RadialEdges = function(g, options, direction, distance, easing) {
-    var peak = direction ? options.maxHeight : options.minHeight,
-        max = direction ? Math.max : Math.min,
-        xl = (options.xSegments + 1),
-        yl = (options.ySegments + 1),
-        xl2 = xl * 0.5,
-        yl2 = yl * 0.5,
-        xSegmentSize = options.xSize / options.xSegments,
-        ySegmentSize = options.ySize / options.ySegments,
-        edgeRadius = Math.min(options.xSize, options.ySize) * 0.5 - distance,
-        i, j, multiplier, k, vertexDistance;
-    for (i = 0; i < xl; i++) {
-        for (j = 0; j < yl2; j++) {
-            k = j*xl + i;
-            vertexDistance = Math.min(edgeRadius, Math.sqrt((xl2-i)*xSegmentSize*(xl2-i)*xSegmentSize + (yl2-j)*ySegmentSize*(yl2-j)*ySegmentSize) - distance);
-            if (vertexDistance < 0) continue;
-            multiplier = easing(vertexDistance / edgeRadius);
-            g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
-            // Use symmetry to reduce the number of iterations.
-            k = (options.ySegments-j)*xl + i;
-            g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
-        }
-    }
-};
-
-VG.Meshes.Terrain.Smooth = function(g, options, weight) {
-    var heightmap = new Float64Array(g.length);
-    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
-        for (var j = 0; j < yl; j++) {
-            var sum = 0,
-                c = 0;
-            for (var n = -1; n <= 1; n++) {
-                for (var m = -1; m <= 1; m++) {
-                    var key = (j+n)*xl + i + m;
-                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
-                        sum += g[key].z;
-                        c++;
-                    }
-                }
-            }
-            heightmap[j*xl + i] = sum / c;
-        }
-    }
-    weight = weight || 0;
-    var w = 1 / (1 + weight);
-    for (var k = 0, l = g.length; k < l; k++) {
-        g[k].z = (heightmap[k] + g[k].z * weight) * w;
-    }
-};
-
-VG.Meshes.Terrain.SmoothMedian = function(g, options) {
-    var heightmap = new Float64Array(g.length),
-        neighborValues = [],
-        neighborKeys = [],
-        sortByValue = function(a, b) {
-            return neighborValues[a] - neighborValues[b];
-        };
-    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
-        for (var j = 0; j < yl; j++) {
-            neighborValues.length = 0;
-            neighborKeys.length = 0;
-            for (var n = -1; n <= 1; n++) {
-                for (var m = -1; m <= 1; m++) {
-                    var key = (j+n)*xl + i + m;
-                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
-                        neighborValues.push(g[key].z);
-                        neighborKeys.push(key);
-                    }
-                }
-            }
-            neighborKeys.sort(sortByValue);
-            var halfKey = Math.floor(neighborKeys.length*0.5),
-                median;
-            if (neighborKeys.length % 2 === 1) {
-                median = g[neighborKeys[halfKey]].z;
-            }
-            else {
-                median = (g[neighborKeys[halfKey-1]].z + g[neighborKeys[halfKey]].z) * 0.5;
-            }
-            heightmap[j*xl + i] = median;
-        }
-    }
-    for (var k = 0, l = g.length; k < l; k++) {
-        g[k].z = heightmap[k];
-    }
-};
-
-VG.Meshes.Terrain.SmoothConservative = function(g, options, multiplier) {
-    var heightmap = new Float64Array(g.length);
-    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
-        for (var j = 0; j < yl; j++) {
-            var max = -Infinity,
-                min = Infinity;
-            for (var n = -1; n <= 1; n++) {
-                for (var m = -1; m <= 1; m++) {
-                    var key = (j+n)*xl + i + m;
-                    if (typeof g[key] !== 'undefined' && n && m && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
-                        if (g[key].z < min) min = g[key].z;
-                        if (g[key].z > max) max = g[key].z;
-                    }
-                }
-            }
-            var kk = j*xl + i;
-            if (typeof multiplier === 'number') {
-                var halfdiff = (max - min) * 0.5,
-                    middle = min + halfdiff;
-                max = middle + halfdiff * multiplier;
-                min = middle - halfdiff * multiplier;
-            }
-            heightmap[kk] = g[kk].z > max ? max : (g[kk].z < min ? min : g[kk].z);
-        }
-    }
-    for (var k = 0, l = g.length; k < l; k++) {
-        g[k].z = heightmap[k];
-    }
-};
-
-VG.Meshes.Terrain.Step = function(g, levels) {
-    // Calculate the max, min, and avg values for each bucket
-    var i = 0,
-        j = 0,
-        l = g.length,
-        inc = Math.floor(l / levels),
-        heights = new Array(l),
-        buckets = new Array(levels);
-    if (typeof levels === 'undefined') {
-        levels = Math.floor(Math.pow(l*0.5, 0.25));
-    }
-    for (i = 0; i < l; i++) {
-        heights[i] = g[i].z;
-    }
-    heights.sort(function(a, b) { return a - b; });
-    for (i = 0; i < levels; i++) {
-        // Bucket by population (bucket size) not range size
-        var subset = heights.slice(i*inc, (i+1)*inc),
-            sum = 0,
-            bl = subset.length;
-        for (j = 0; j < bl; j++) {
-            sum += subset[j];
-        }
-        buckets[i] = {
-            min: subset[0],
-            max: subset[subset.length-1],
-            avg: sum / bl,
-        };
-    }
-
-    // Set the height of each vertex to the average height of its bucket
-    for (i = 0; i < l; i++) {
-        var startHeight = g[i].z;
-        for (j = 0; j < levels; j++) {
-            if (startHeight >= buckets[j].min && startHeight <= buckets[j].max) {
-                g[i].z = buckets[j].avg;
-                break;
-            }
-        }
-    }
-};
-
-
-VG.Meshes.Terrain.Turbulence = function(g, options) {
-    var range = options.maxHeight - options.minHeight;
-    for (var i = 0, l = g.length; i < l; i++) {
-        g[i].z = options.minHeight + Math.abs((g[i].z - options.minHeight) * 2 - range);
-    }
-};
-
-
-VG.Meshes.Terrain.MultiPass = function(g, options, passes) {
-    var clonedOptions = {};
-    for (var opt in options) {
-        if (options.hasOwnProperty(opt)) {
-            clonedOptions[opt] = options[opt];
-        }
-    }
-    var range = options.maxHeight - options.minHeight;
-    for (var i = 0, l = passes.length; i < l; i++) {
-        var amp = typeof passes[i].amplitude === 'undefined' ? 1 : passes[i].amplitude,
-            move = 0.5 * (range - range * amp);
-        clonedOptions.maxHeight = options.maxHeight - move;
-        clonedOptions.minHeight = options.minHeight + move;
-        clonedOptions.frequency = typeof passes[i].frequency === 'undefined' ? options.frequency : passes[i].frequency;
-        passes[i].method(g, clonedOptions);
-    }
-};
-
-
-VG.Meshes.Terrain.Curve = function(g, options, curve) {
-    var range = (options.maxHeight - options.minHeight) * 0.5,
-        scalar = options.frequency / (Math.min(options.xSegments, options.ySegments) + 1);
-    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
-        for (var j = 0; j < yl; j++) {
-            g[j * xl + i].z += curve(i * scalar, j * scalar) * range;
-        }
-    }
-};
-
-VG.Meshes.Terrain.Cosine = function(g, options) {
-    var amplitude = (options.maxHeight - options.minHeight) * 0.5,
-        frequencyScalar = options.frequency * Math.PI / (Math.min(options.xSegments, options.ySegments) + 1),
-        phase = Math.random() * Math.PI * 2;
-    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
-        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
-            g[j * xl + i].z += amplitude * (Math.cos(i * frequencyScalar + phase) + Math.cos(j * frequencyScalar + phase));
-        }
-    }
-};
-
-
-VG.Meshes.Terrain.CosineLayers = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Cosine,                   frequency:  2.5 },
-        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.1,   frequency:  12  },
-        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.05,  frequency:  15  },
-        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.025, frequency:  20  },
-    ]);
-};
-
-
-VG.Meshes.Terrain.DiamondSquare = function(g, options) {
-    // Set the segment length to the smallest power of 2 that is greater than
-    // the number of vertices in either dimension of the plane
-    var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
-
-    // Initialize heightmap
-    var size = segments + 1,
-        heightmap = [],
-        smoothing = (options.maxHeight - options.minHeight),
-        i,
-        j,
-        xl = options.xSegments + 1,
-        yl = options.ySegments + 1;
-    for (i = 0; i <= segments; i++) {
-        heightmap[i] = new Float64Array(segments+1);
-    }
-
-    // Generate heightmap
-    for (var l = segments; l >= 2; l /= 2) {
-        var half = Math.round(l*0.5),
-            whole = Math.round(l),
-            x,
-            y,
-            avg,
-            d,
-            e;
-        smoothing /= 2;
-        // square
-        for (x = 0; x < segments; x += whole) {
-            for (y = 0; y < segments; y += whole) {
-                d = Math.random() * smoothing * 2 - smoothing;
-                avg = heightmap[x][y] +            // top left
-                      heightmap[x+whole][y] +      // top right
-                      heightmap[x][y+whole] +      // bottom left
-                      heightmap[x+whole][y+whole]; // bottom right
-                avg *= 0.25;
-                heightmap[x+half][y+half] = avg + d;
-            }
-        }
-        // diamond
-        for (x = 0; x < segments; x += half) {
-            for (y = (x+half) % l; y < segments; y += l) {
-                d = Math.random() * smoothing * 2 - smoothing;
-                avg = heightmap[(x-half+size)%size][y] + // middle left
-                      heightmap[(x+half)%size][y] +      // middle right
-                      heightmap[x][(y+half)%size] +      // middle top
-                      heightmap[x][(y-half+size)%size];  // middle bottom
-                avg *= 0.25;
-                avg += d;
-                heightmap[x][y] = avg;
-                // top and right edges
-                if (x === 0) heightmap[segments][y] = avg;
-                if (y === 0) heightmap[x][segments] = avg;
-            }
-        }
-    }
-
-    // Apply heightmap
-    for (i = 0; i < xl; i++) {
-        for (j = 0; j < yl; j++) {
-            g[j * xl + i].z += heightmap[i][j];
-        }
-    }
-
-    // VG.Meshes.Terrain.SmoothConservative(g, options);
-};
-
-
-VG.Meshes.Terrain.Fault = function(g, options) {
-    var d = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments),
-        iterations = d * options.frequency,
-        range = (options.maxHeight - options.minHeight) * 0.5,
-        displacement = range / iterations,
-        smoothDistance = Math.min(options.xSize / options.xSegments, options.ySize / options.ySegments) * options.frequency;
-    for (var k = 0; k < iterations; k++) {
-        var v = Math.random(),
-            a = Math.sin(v * Math.PI * 2),
-            b = Math.cos(v * Math.PI * 2),
-            c = Math.random() * d - d*0.5;
-        for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
-            for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
-                var distance = a*i + b*j - c;
-                if (distance > smoothDistance) {
-                    g[j * xl + i].z += displacement;
-                }
-                else if (distance < -smoothDistance) {
-                    g[j * xl + i].z -= displacement;
-                }
-                else {
-                    g[j * xl + i].z += Math.cos(distance / smoothDistance * Math.PI * 2) * displacement;
-                }
-            }
-        }
-    }
-    // VG.Meshes.Terrain.Smooth(g, options);
-};
-
-
-VG.Meshes.Terrain.Hill = function(g, options, feature, shape) {
-    var frequency = options.frequency * 2,
-        numFeatures = frequency * frequency * 10,
-        heightRange = options.maxHeight - options.minHeight,
-        minHeight = heightRange / (frequency * frequency),
-        maxHeight = heightRange / frequency,
-        smallerSideLength = Math.min(options.xSize, options.ySize),
-        minRadius = smallerSideLength / (frequency * frequency),
-        maxRadius = smallerSideLength / frequency;
-    feature = feature || VG.Meshes.Terrain.Influences.Hill;
-
-    var coords = { x: 0, y: 0 };
-    for (var i = 0; i < numFeatures; i++) {
-        var radius = Math.random() * (maxRadius - minRadius) + minRadius,
-            height = Math.random() * (maxHeight - minHeight) + minHeight;
-        var min = 0 - radius,
-            maxX = options.xSize + radius,
-            maxY = options.ySize + radius;
-        coords.x = Math.random();
-        coords.y = Math.random();
-        if (typeof shape === 'function') shape(coords);
-        VG.Meshes.Terrain.Influence(
-            g, options,
-            feature,
-            coords.x, coords.y,
-            radius, height,
-            THREE.AdditiveBlending,
-            VG.Meshes.Terrain.EaseInStrong
-        );
-    }
-};
-
-VG.Meshes.Terrain.HillIsland = (function() {
-    var island = function(coords) {
-        var theta = Math.random() * Math.PI * 2;
-        coords.x = 0.5 + Math.cos(theta) * coords.x * 0.4;
-        coords.y = 0.5 + Math.sin(theta) * coords.y * 0.4;
-    };
-    return function(g, options, feature) {
-        VG.Meshes.Terrain.Hill(g, options, feature, island);
-    };
-})();
-
-(function() {
-    /**
-     * Deposit a particle at a vertex.
-     */
-    function deposit(g, i, j, xl, displacement) {
-        var currentKey = j * xl + i;
-        // Pick a random neighbor.
-        for (var k = 0; k < 3; k++) {
-            var r = Math.floor(Math.random() * 8);
-            switch (r) {
-                case 0: i++; break;
-                case 1: i--; break;
-                case 2: j++; break;
-                case 3: j--; break;
-                case 4: i++; j++; break;
-                case 5: i++; j--; break;
-                case 6: i--; j++; break;
-                case 7: i--; j--; break;
-            }
-            var neighborKey = j * xl + i;
-            // If the neighbor is lower, move the particle to that neighbor and re-evaluate.
-            if (typeof g[neighborKey] !== 'undefined') {
-                if (g[neighborKey].z < g[currentKey].z) {
-                    deposit(g, i, j, xl, displacement);
-                    return;
-                }
-            }
-            // Deposit some particles on the edge.
-            else if (Math.random() < 0.2) {
-                g[currentKey].z += displacement;
-                return;
-            }
-        }
-        g[currentKey].z += displacement;
-    }
-
-    VG.Meshes.Terrain.Particles = function(g, options) {
-        var iterations = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments) * options.frequency * 300,
-            xl = options.xSegments + 1,
-            displacement = (options.maxHeight - options.minHeight) / iterations * 1000,
-            i = Math.floor(Math.random() * options.xSegments),
-            j = Math.floor(Math.random() * options.ySegments),
-            xDeviation = Math.random() * 0.2 - 0.1,
-            yDeviation = Math.random() * 0.2 - 0.1;
-        for (var k = 0; k < iterations; k++) {
-            deposit(g, i, j, xl, displacement);
-            var d = Math.random() * Math.PI * 2;
-            if (k % 1000 === 0) {
-                xDeviation = Math.random() * 0.2 - 0.1;
-                yDeviation = Math.random() * 0.2 - 0.1;
-            }
-            if (k % 100 === 0) {
-                i = Math.floor(options.xSegments*(0.5+xDeviation) + Math.cos(d) * Math.random() * options.xSegments*(0.5-Math.abs(xDeviation)));
-                j = Math.floor(options.ySegments*(0.5+yDeviation) + Math.sin(d) * Math.random() * options.ySegments*(0.5-Math.abs(yDeviation)));
-            }
-        }
-        // VG.Meshes.Terrain.Smooth(g, options, 3);
-    };
-})();
-
-
-VG.Meshes.Terrain.Perlin = function(g, options) {
-    noise.seed(Math.random());
-    var range = (options.maxHeight - options.minHeight) * 0.5,
-        divisor = (Math.min(options.xSegments, options.ySegments) + 1) / options.frequency;
-    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
-        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
-            g[j * xl + i].z += noise.perlin(i / divisor, j / divisor) * range;
-        }
-    }
-};
-
-VG.Meshes.Terrain.PerlinDiamond = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Perlin },
-        { method: VG.Meshes.Terrain.DiamondSquare, amplitude: 0.75 },
-        { method: function(g, o) { return VG.Meshes.Terrain.SmoothMedian(g, o); } },
-    ]);
-};
-
-
-VG.Meshes.Terrain.PerlinLayers = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Perlin,                  frequency:  1.25 },
-        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.05, frequency:  2.5  },
-        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.35, frequency:  5    },
-        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.15, frequency: 10    },
-    ]);
-};
-
-VG.Meshes.Terrain.Simplex = function(g, options) {
-    noise.seed(Math.random());
-    var range = (options.maxHeight - options.minHeight) * 0.5,
-        divisor = (Math.min(options.xSegments, options.ySegments) + 1) * 2 / options.frequency;
-    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
-        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
-            g[j * xl + i].z += noise.simplex(i / divisor, j / divisor) * range;
-        }
-    }
-};
-
-VG.Meshes.Terrain.SimplexLayers = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Simplex,                    frequency:  1.25 },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.5,    frequency:  2.5  },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.25,   frequency:  5    },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.125,  frequency: 10    },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.0625, frequency: 20    },
-    ]);
-};
-
-(function() {
-
-    function WhiteNoise(g, options, scale, segments, range, data) {
-        if (scale > segments) return;
-        var i = 0,
-            j = 0,
-            xl = segments,
-            yl = segments,
-            inc = Math.floor(segments / scale),
-            lastX = -inc,
-            lastY = -inc;
-        // Walk over the target. For a target of size W and a resolution of N,
-        // set every W/N points (in both directions).
-        for (i = 0; i <= xl; i += inc) {
-            for (j = 0; j <= yl; j += inc) {
-                var k = j * xl + i;
-                data[k] = Math.random() * range;
-                if (lastX < 0 && lastY < 0) continue;
-                // jscs:disable disallowSpacesInsideBrackets
-                /* c b *
-                 * l t */
-                var t = data[k],
-                    l = data[ j      * xl + (i-inc)] || t, // left
-                    b = data[(j-inc) * xl +  i     ] || t, // bottom
-                    c = data[(j-inc) * xl + (i-inc)] || t; // corner
-                // jscs:enable disallowSpacesInsideBrackets
-                // Interpolate between adjacent points to set the height of
-                // higher-resolution target data.
-                for (var x = lastX; x < i; x++) {
-                    for (var y = lastY; y < j; y++) {
-                        if (x === lastX && y === lastY) continue;
-                        var z = y * xl + x;
-                        if (z < 0) continue;
-                        var px = ((x-lastX) / inc),
-                            py = ((y-lastY) / inc),
-                            r1 = px * b + (1-px) * c,
-                            r2 = px * t + (1-px) * l;
-                        data[z] = py * r2 + (1-py) * r1;
-                    }
-                }
-                lastY = j;
-            }
-            lastX = i;
-            lastY = -inc;
-        }
-        // Assign the temporary data back to the actual terrain heightmap.
-        for (i = 0, xl = options.xSegments + 1; i < xl; i++) {
-            for (j = 0, yl = options.ySegments + 1; j < yl; j++) {
-                // http://stackoverflow.com/q/23708306/843621
-                var kg = j * xl + i,
-                    kd = j * segments + i;
-                g[kg].z += data[kd];
-            }
-        }
-    }
-
-    VG.Meshes.Terrain.Value = function(g, options) {
-        // Set the segment length to the smallest power of 2 that is greater
-        // than the number of vertices in either dimension of the plane
-        var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
-
-        // Store the array of white noise outside of the WhiteNoise function to
-        // avoid allocating a bunch of unnecessary arrays; we can just
-        // overwrite old data each time WhiteNoise() is called.
-        var data = new Float64Array((segments+1)*(segments+1));
-
-        // Layer white noise at different resolutions.
-        var range = options.maxHeight - options.minHeight;
-        for (var i = 2; i < 7; i++) {
-            WhiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4-i*1.2), data);
-        }
-
-        // White noise creates some weird artifacts; fix them.
-        // VG.Meshes.Terrain.Smooth(g, options, 1);
-        VG.Meshes.Terrain.Clamp(g, {
-            maxHeight: options.maxHeight,
-            minHeight: options.minHeight,
-            stretch: true,
-        });
-    };
-})();
-
-VG.Meshes.Terrain.Weierstrass = function(g, options) {
-    var range = (options.maxHeight - options.minHeight) * 0.5,
-        dir1 = Math.random() < 0.5 ? 1 : -1,
-        dir2 = Math.random() < 0.5 ? 1 : -1,
-        r11  =  0.5   + Math.random() * 1.0,
-        r12  =  0.5   + Math.random() * 1.0,
-        r13  =  0.025 + Math.random() * 0.10,
-        r14  = -1.0   + Math.random() * 2.0,
-        r21  =  0.5   + Math.random() * 1.0,
-        r22  =  0.5   + Math.random() * 1.0,
-        r23  =  0.025 + Math.random() * 0.10,
-        r24  = -1.0   + Math.random() * 2.0;
-    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
-        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
-            var sum = 0;
-            for (var k = 0; k < 20; k++) {
-                var x = Math.pow(1+r11, -k) * Math.sin(Math.pow(1+r12, k) * (i + 0.25*Math.cos(j) + r14*j) * r13);
-                var y = Math.pow(1+r21, -k) * Math.sin(Math.pow(1+r22, k) * (j + 0.25*Math.cos(i) + r24*i) * r23);
-                sum -= Math.exp(dir1*x*x + dir2*y*y);
-            }
-            g[j * xl + i].z += sum * range;
-        }
-    }
-    VG.Meshes.Terrain.Clamp(g, options);
-};
-
-VG.Meshes.Terrain.glslifyNumber = function(n) {
-    return n === (n|0) ? n+'.0' : n+'';
-};
-
-VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
-    // Convert numbers to strings of floats so GLSL doesn't barf on "1" instead of "1.0"
-
-
-    var uniforms = THREE.UniformsUtils.merge([THREE.ShaderLib.lambert.uniforms]),
-        declare = '',
-        assign = '',
-        t0Repeat = textures[0].texture.repeat,
-        t0Offset = textures[0].texture.offset;
-    for (var i = 0, l = textures.length; i < l; i++) {
-        // Uniforms
-        textures[i].texture.wrapS = textures[i].texture.wrapT = THREE.RepeatWrapping;
-        textures[i].texture.needsUpdate = true;
-        uniforms['texture_' + i] = {
-            type: 't',
-            value: textures[i].texture,
-        };
-
-        // Shader fragments
-        // Declare each texture, then mix them together.
-        declare += 'uniform sampler2D texture_' + i + ';\n';
-        if (i !== 0) {
-            var v = textures[i].levels, // Vertex heights at which to blend textures in and out
-                p = textures[i].glsl, // Or specify a GLSL expression that evaluates to a float between 0.0 and 1.0 indicating how opaque the texture should be at this texel
-                useLevels = typeof v !== 'undefined', // Use levels if they exist; otherwise, use the GLSL expression
-                tiRepeat = textures[i].texture.repeat,
-                tiOffset = textures[i].texture.offset;
-            if (useLevels) {
-                // Must fade in; can't start and stop at the same point.
-                // So, if levels are too close, move one of them slightly.
-                if (v[1] - v[0] < 1) v[0] -= 1;
-                if (v[3] - v[2] < 1) v[3] += 1;
-                for (var j = 0; j < v.length; j++) {
-                    v[j] = VG.Meshes.Terrain.glslifyNumber(v[j]);
-                }
-            }
-            // The transparency of the new texture when it is layered on top of the existing color at this texel is
-            // (how far between the start-blending-in and fully-blended-in levels the current vertex is) +
-            // (how far between the start-blending-out and fully-blended-out levels the current vertex is)
-            // So the opacity is 1.0 minus that.
-            var blendAmount = !useLevels ? p :
-                '1.0 - smoothstep(' + v[0] + ', ' + v[1] + ', vPosition.z) + smoothstep(' + v[2] + ', ' + v[3] + ', vPosition.z)';
-            assign += '        color = mix( ' +
-                'texture2D( texture_' + i + ', MyvUv * vec2( ' + VG.Meshes.Terrain.glslifyNumber(tiRepeat.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(tiRepeat.y) + ' ) + vec2( ' + VG.Meshes.Terrain.glslifyNumber(tiOffset.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(tiOffset.y) + ' ) ), ' +
-                'color, ' +
-                'max(min(' + blendAmount + ', 1.0), 0.0)' +
-                ');\n';
-        }
-    }
-
-    var params = {
-        // I don't know which of these properties have any effect
-        fog: true,
-        lights: true,
-        // shading: THREE.SmoothShading,
-        // blending: THREE.NormalBlending,
-        // depthTest: <bool>,
-        // depthWrite: <bool>,
-        // wireframe: false,
-        // wireframeLinewidth: 1,
-        // vertexColors: THREE.NoColors,
-        // skinning: <bool>,
-        // morphTargets: <bool>,
-        // morphNormals: <bool>,
-        // opacity: 1.0,
-        // transparent: <bool>,
-        // side: THREE.FrontSide,
-
-        uniforms: uniforms,
-        vertexShader: THREE.ShaderLib.lambert.vertexShader.replace(
-            'void main() {',
-            'varying vec2 MyvUv;\nvarying vec3 vPosition;\nvarying vec3 myNormal; void main() {\nMyvUv = uv;\nvPosition = position;\nmyNormal = normal;'
-        ),
-        // This is mostly copied from THREE.ShaderLib.lambert.fragmentShader
-        fragmentShader: [
-            'uniform vec3 diffuse;',
-            'uniform vec3 emissive;',
-            'uniform float opacity;',
-            'varying vec3 vLightFront;',
-            '#ifdef DOUBLE_SIDED',
-            '    varying vec3 vLightBack;',
-            '#endif',
-
-            THREE.ShaderChunk.common,
-            THREE.ShaderChunk.packing,
-            THREE.ShaderChunk.dithering_pars_fragment,
-            THREE.ShaderChunk.color_pars_fragment,
-            THREE.ShaderChunk.uv_pars_fragment,
-            THREE.ShaderChunk.uv2_pars_fragment,
-            THREE.ShaderChunk.map_pars_fragment,
-            THREE.ShaderChunk.alphamap_pars_fragment,
-            THREE.ShaderChunk.aomap_pars_fragment,
-            THREE.ShaderChunk.lightmap_pars_fragment,
-            THREE.ShaderChunk.emissivemap_pars_fragment,
-            THREE.ShaderChunk.envmap_pars_fragment,
-            THREE.ShaderChunk.bsdfs,
-            THREE.ShaderChunk.lights_pars_begin,
-            THREE.ShaderChunk.lights_pars_maps,
-            THREE.ShaderChunk.fog_pars_fragment,
-            THREE.ShaderChunk.shadowmap_pars_fragment,
-            THREE.ShaderChunk.shadowmask_pars_fragment,
-            THREE.ShaderChunk.specularmap_pars_fragment,
-            THREE.ShaderChunk.logdepthbuf_pars_fragment,
-            THREE.ShaderChunk.clipping_planes_pars_fragment,
-
-            declare,
-            'varying vec2 MyvUv;',
-            'varying vec3 vPosition;',
-            'varying vec3 myNormal;',
-
-            'void main() {',
-
-            THREE.ShaderChunk.clipping_planes_fragment,
-
-	'ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );',
-	'vec3 totalEmissiveRadiance = emissive;',
-
-            // TODO: The second vector here is the object's "up" vector. Ideally we'd just pass it in directly.
-            'float slope = acos(max(min(dot(myNormal, vec3(0.0, 0.0, 1.0)), 1.0), -1.0));',
-
-            '    vec4 diffuseColor = vec4( diffuse, opacity );',
-            '    vec4 color = texture2D( texture_0, MyvUv * vec2( ' + VG.Meshes.Terrain.glslifyNumber(t0Repeat.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(t0Repeat.y) + ' ) + vec2( ' + VG.Meshes.Terrain.glslifyNumber(t0Offset.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(t0Offset.y) + ' ) ); // base',
-                assign,
-            '    diffuseColor = color;',
-            // '    gl_FragColor = color;',
-
-                THREE.ShaderChunk.logdepthbuf_fragment,
-                THREE.ShaderChunk.map_fragment,
-                THREE.ShaderChunk.color_fragment,
-                THREE.ShaderChunk.alphamap_fragment,
-                THREE.ShaderChunk.alphatest_fragment,
-                THREE.ShaderChunk.specularmap_fragment,
-                THREE.ShaderChunk.emissivemap_fragment,
-
-            // accumulation
-            '   reflectedLight.indirectDiffuse = getAmbientLightIrradiance( ambientLightColor );',
-
-                THREE.ShaderChunk.lightmap_fragment,
-
-            '    reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb );',
-            '    #ifdef DOUBLE_SIDED',
-            '            reflectedLight.directDiffuse = ( gl_FrontFacing ) ? vLightFront : vLightBack;',
-            '    #else',
-            '            reflectedLight.directDiffuse = vLightFront;',
-            '    #endif',
-            '    reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb ) * getShadowMask();',
-
-                // modulation
-                THREE.ShaderChunk.aomap_fragment,
-            '   vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;',
-                THREE.ShaderChunk.normal_flip,
-                THREE.ShaderChunk.envmap_fragment,
-            '   gl_FragColor = vec4( outgoingLight, diffuseColor.a );', // This will probably change in future three.js releases
-                THREE.ShaderChunk.tonemapping_fragment,
-                THREE.ShaderChunk.encodings_fragment,
-                THREE.ShaderChunk.fog_fragment,
-                THREE.ShaderChunk.premultiplied_alpha_fragment,
-                THREE.ShaderChunk.dithering_fragment,
-            '}'
-        ].join('\n'),
-    };
-    return new THREE.ShaderMaterial(params);
-};
-
-
-VG.Meshes.Terrain.ScatterMeshes = function(geometry, options) {
-    if (!options.mesh) {
-        console.error('options.mesh is required for VG.Meshes.Terrain.ScatterMeshes but was not passed');
-        return;
-    }
-    if (geometry instanceof THREE.BufferGeometry) {
-        console.warn('The terrain mesh is using BufferGeometry but VG.Meshes.Terrain.ScatterMeshes can only work with Geometry.');
-        return;
-    }
-    if (!options.scene) {
-        options.scene = new THREE.Object3D();
-    }
-    var defaultOptions = {
-        spread: 0.025,
-        smoothSpread: 0,
-        sizeVariance: 0.1,
-        randomness: Math.random,
-        maxSlope: 0.6283185307179586, // 36deg or 36 / 180 * Math.PI, about the angle of repose of earth
-        maxTilt: Infinity,
-        w: 0,
-        h: 0,
-    };
-    for (var opt in defaultOptions) {
-        if (defaultOptions.hasOwnProperty(opt)) {
-            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
-        }
-    }
-
-    var spreadIsNumber = typeof options.spread === 'number',
-        randomHeightmap,
-        randomness,
-        spreadRange = 1 / options.smoothSpread,
-        doubleSizeVariance = options.sizeVariance * 2,
-        v = geometry.vertices,
-        meshes = [],
-        up = options.mesh.up.clone().applyAxisAngle(new THREE.Vector3(1, 0, 0), 0.5*Math.PI);
-    if (spreadIsNumber) {
-        randomHeightmap = options.randomness();
-        randomness = typeof randomHeightmap === 'number' ? Math.random : function(k) { return randomHeightmap[k]; };
-    }
-    // geometry.computeFaceNormals();
-    for (var i = 0, w = options.w*2; i < w; i++) {
-        for (var j = 0, h = options.h; j < h; j++) {
-            var key = j*w + i,
-                f = geometry.faces[key],
-                place = false;
-            if (spreadIsNumber) {
-                var rv = randomness(key);
-                if (rv < options.spread) {
-                    place = true;
-                }
-                else if (rv < options.spread + options.smoothSpread) {
-                    // Interpolate rv between spread and spread + smoothSpread,
-                    // then multiply that "easing" value by the probability
-                    // that a mesh would get placed on a given face.
-                    place = VG.Meshes.Terrain.EaseInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
-                }
-            }
-            else {
-                place = options.spread(v[f.a], key, f, i, j);
-            }
-            if (place) {
-                // Don't place a mesh if the angle is too steep.
-                if (f.normal.angleTo(up) > options.maxSlope) {
-                    continue;
-                }
-                var mesh = options.mesh.clone();
-                // mesh.geometry.computeBoundingBox();
-                mesh.position.copy(v[f.a]).add(v[f.b]).add(v[f.c]).divideScalar(3);
-                // mesh.translateZ((mesh.geometry.boundingBox.max.z - mesh.geometry.boundingBox.min.z) * 0.5);
-                if (options.maxTilt > 0) {
-                    var normal = mesh.position.clone().add(f.normal);
-                    mesh.lookAt(normal);
-                    var tiltAngle = f.normal.angleTo(up);
-                    if (tiltAngle > options.maxTilt) {
-                        var ratio = options.maxTilt / tiltAngle;
-                        mesh.rotation.x *= ratio;
-                        mesh.rotation.y *= ratio;
-                        mesh.rotation.z *= ratio;
-                    }
-                }
-                mesh.rotation.x += 90 / 180 * Math.PI;
-                mesh.rotateY(Math.random() * 2 * Math.PI);
-                if (options.sizeVariance) {
-                    var variance = Math.random() * doubleSizeVariance - options.sizeVariance;
-                    mesh.scale.x = mesh.scale.z = 1 + variance;
-                    mesh.scale.y += variance;
-                }
-                meshes.push(mesh);
-            }
-        }
-    }
-
-    // Merge geometries.
-    var k, l;
-    if (options.mesh.geometry instanceof THREE.Geometry) {
-        var g = new THREE.Geometry();
-        for (k = 0, l = meshes.length; k < l; k++) {
-            var m = meshes[k];
-            m.updateMatrix();
-            g.merge(m.geometry, m.matrix);
-        }
-        /*
-        if (!(options.mesh.material instanceof THREE.MeshFaceMaterial)) {
-            g = THREE.BufferGeometryUtils.fromGeometry(g);
-        }
-        */
-        options.scene.add(new THREE.Mesh(g, options.mesh.material));
-    }
-    // There's no BufferGeometry merge method implemented yet.
-    else {
-        for (k = 0, l = meshes.length; k < l; k++) {
-            options.scene.add(meshes[k]);
-        }
-    }
-
-    return options.scene;
-};
-
-VG.Meshes.Terrain.ScatterHelper = function(method, options, skip, threshold) {
-    skip = skip || 1;
-    threshold = threshold || 0.25;
-    options.frequency = options.frequency || 2.5;
-
-    var clonedOptions = {};
-    for (var opt in options) {
-        if (options.hasOwnProperty(opt)) {
-            clonedOptions[opt] = options[opt];
-        }
-    }
-
-    clonedOptions.xSegments *= 2;
-    clonedOptions.stretch = true;
-    clonedOptions.maxHeight = 1;
-    clonedOptions.minHeight = 0;
-    var heightmap = VG.Meshes.Terrain.heightmapArray(method, clonedOptions);
-
-    for (var i = 0, l = heightmap.length; i < l; i++) {
-        if (i % skip || Math.random() > threshold) {
-            heightmap[i] = 1; // 0 = place, 1 = don't place
-        }
-    }
-    return function() {
-        return heightmap;
-    };
-};
-
-// Allows placing geometrically-described features on a terrain.
-// If you want these features to look a little less regular,
-// just apply them before a procedural pass.
-// If you want more complex influence, you can just composite heightmaps.
-
-VG.Meshes.Terrain.Influences = {
-    Mesa: function(x) {
-        return 1.25 * Math.min(0.8, Math.exp(-(x*x)));
-    },
-    Hole: function(x) {
-        return -VG.Meshes.Terrain.Influences.Mesa(x);
-    },
-    Hill: function(x) {
-        // Same curve as EaseInOut, but mirrored and translated.
-        return x < 0 ? (x+1)*(x+1)*(3-2*(x+1)) : 1-x*x*(3-2*x);
-    },
-    Valley: function(x) {
-        return -VG.Meshes.Terrain.Influences.Hill(x);
-    },
-    Dome: function(x) {
-        // Parabola
-        return -(x+1)*(x-1);
-    },
-    // Not meaningful in Additive or Subtractive mode
-    Flat: function(x) {
-        return 0;
-    },
-    Volcano: function(x) {
-        return 0.94 - 0.32 * (Math.abs(2 * x) + Math.cos(2 * Math.PI * Math.abs(x) + 0.4));
-    },
-};
-
-VG.Meshes.Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
-    f = f || VG.Meshes.Terrain.Influences.Hill; // feature shape
-    x = typeof x === 'undefined' ? 0.5 : x; // x-location %
-    y = typeof y === 'undefined' ? 0.5 : y; // y-location %
-    r = typeof r === 'undefined' ? 64  : r; // radius
-    h = typeof h === 'undefined' ? 64  : h; // height
-    t = typeof t === 'undefined' ? THREE.NormalBlending : t; // blending
-    e = e || VG.Meshes.Terrain.EaseIn; // falloff
-    // Find the vertex location of the feature origin
-    var xl = options.xSegments + 1, // # x-vertices
-        yl = options.ySegments + 1, // # y-vertices
-        vx = xl * x, // vertex x-location
-        vy = yl * y, // vertex y-location
-        xw = options.xSize / options.xSegments, // width of x-segments
-        yw = options.ySize / options.ySegments, // width of y-segments
-        rx = r / xw, // radius of the feature in vertices on the x-axis
-        ry = r / yw, // radius of the feature in vertices on the y-axis
-        r1 = 1 / r, // for speed
-        xs = Math.ceil(vx - rx),  // starting x-vertex index
-        xe = Math.floor(vx + rx), // ending x-vertex index
-        ys = Math.ceil(vy - ry),  // starting y-vertex index
-        ye = Math.floor(vy + ry); // ending y-vertex index
-    // Walk over the vertices within radius of origin
-    for (var i = xs; i < xe; i++) {
-        for (var j = ys; j < ye; j++) {
-            var k = j * xl + i,
-                // distance to the feature origin
-                fdx = (i - vx) * xw,
-                fdy = (j - vy) * yw,
-                fd = Math.sqrt(fdx*fdx + fdy*fdy),
-                fdr = fd * r1,
-                fdxr = fdx * r1,
-                fdyr = fdy * r1,
-                // Get the displacement according to f, multiply it by h,
-                // interpolate using e, then blend according to t.
-                d = f(fdr, fdxr, fdyr) * h * (1 - e(fdr, fdxr, fdyr));
-            if (fd > r || typeof g[k] == 'undefined') continue;
-            if      (t === THREE.AdditiveBlending)    g[k].z += d; // jscs:ignore requireSpaceAfterKeywords
-            else if (t === THREE.SubtractiveBlending) g[k].z -= d;
-            else if (t === THREE.MultiplyBlending)    g[k].z *= d;
-            else if (t === THREE.NoBlending)          g[k].z  = d;
-            else if (t === THREE.NormalBlending)      g[k].z  = e(fdr, fdxr, fdyr) * g[k].z + d;
-            else if (typeof t === 'function')         g[k].z  = t(g[k].z, d, fdr, fdxr, fdyr);
-        }
-    }
-};
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-VG.AnimatedSprite = function(image, tilesHoriz, tilesVert, tileDispDuration) {
-
-    this.texture = new THREE.Texture(image);
-    this.texture.needsUpdate = true;
-
-    var spriteMaterial = new THREE.SpriteMaterial({ map: this.texture});
-
-	this.tilesHorizontal = tilesHoriz;
-	this.tilesVertical = tilesVert;
-
-	this.numberOfTiles = tilesHoriz * tilesVert;
-	this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping; 
-	this.texture.repeat.set( 1 / this.tilesHorizontal, 1 / this.tilesVertical );
-
-	this.view = new THREE.Sprite(spriteMaterial);
-
-	this.scale = 1;
-
-	this.tileDisplayDuration = tileDispDuration;
-
-	this.currentDisplayTime = 0;
-
-	this.currentTile = 0;
-};
-
-VG.AnimatedSprite.prototype = {
-
-	constructor: VG.AnimatedSprite,
-
-	currentTile: 0,
-
-	currentDisplayTime: 0,
-
-    update: function(dt) {
-
-		this.currentDisplayTime += dt;
-
-		if (this.currentDisplayTime > this.tileDisplayDuration)
-		{
-			//this.currentDisplayTime -= this.tileDisplayDuration;
-			this.currentDisplayTime = 0;
-
-			this.currentTile++;
-			if (this.currentTile == this.numberOfTiles)
-				this.currentTile = 0;
-
-			var currentColumn = this.currentTile % this.tilesHorizontal ;
-
-			this.texture.offset.x = currentColumn / this.tilesHorizontal;
-			var currentRow = this.tilesVertical - Math.floor( this.currentTile / this.tilesHorizontal);
-		
-
-			this.texture.offset.y = currentRow / this.tilesVertical;
-		}
-    },
-
-    get position () {
-
-  		return this.view.position;
-
-	},
-	set position(val) {
-
-		this.view.position.copy(val);
-
-	},
-
-    get scale() {
-
-  		return this.scale;
-
-	},
-	set scale(val) {
-
-		var x = (this.texture.image.width / this.tilesHorizontal) / 100;
-		var y = (this.texture.image.height / this.tilesVertical) / 100;
-
-		this.view.scale.set(x * val, y * val, 1);
-	}
-};
 
 /***/ }),
 /* 15 */
@@ -9797,9 +8223,16 @@ THREE.ColladaLoader = function () {
 
 /***/ }),
 /* 18 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.AssetsLoader = function (assetPath) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AssetsLoader; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__meshes_AnimatedMeshMorph_js__ = __webpack_require__(27);
+
+
+
+function AssetsLoader(assetPath) {
 
     var context = this;
 
@@ -9863,11 +8296,11 @@ VG.AssetsLoader = function (assetPath) {
             }
         }
     }
-    VG.EventDispatcher.bind('AssetsLoader.getAsset', this, this.getAsset);
+    __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('AssetsLoader.getAsset', this, this.getAsset);
 }
 
-VG.AssetsLoader.prototype = {
-    constructor: VG.AssetsLoader,
+AssetsLoader.prototype = {
+    constructor: AssetsLoader,
 
     assetPath: '/',
 
@@ -9941,7 +8374,7 @@ VG.AssetsLoader.prototype = {
                 for (var i = materials.length - 1; i >= 0; i--) {
                     materials[i].morphTargets = true;
                 }
-                mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
+                mesh = new __WEBPACK_IMPORTED_MODULE_1__meshes_AnimatedMeshMorph_js__["a" /* AnimatedMeshMorph */](geometry, materials);
             } else {
                 mesh = new THREE.Mesh(geometry, materials);
             }
@@ -9984,13 +8417,20 @@ VG.AssetsLoader.prototype = {
     	if (this.assets[name])
     		return this.assets[name];
     }
-}
+};
+
+
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.KeyboardEventsHandler = function(domElement) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KeyboardEventsHandler; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__ = __webpack_require__(0);
+
+
+function KeyboardEventsHandler (domElement) {
 
     var container = domElement;
 
@@ -10003,7 +8443,7 @@ VG.KeyboardEventsHandler = function(domElement) {
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
 
-            VG.EventDispatcher.send('keyboard.keydown.' + event.key, event);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('keyboard.keydown.' + event.key, event);
 
             return false;
         }, false);
@@ -10017,7 +8457,7 @@ VG.KeyboardEventsHandler = function(domElement) {
             if (lastKey && lastKey == event.keyCode) {
                 clearTimeout(timeout);
                 lastKey = null;
-                VG.EventDispatcher.send('keyboard.doublekey.' + event.key, event);
+                __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('keyboard.doublekey.' + event.key, event);
                 
 
             } else {
@@ -10027,7 +8467,7 @@ VG.KeyboardEventsHandler = function(domElement) {
                 }, 600);
             };
 
-            VG.EventDispatcher.send('keyboard.keyup.' + event.key, event);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('keyboard.keyup.' + event.key, event);
             return false;
         }, false);
 
@@ -10036,16 +8476,25 @@ VG.KeyboardEventsHandler = function(domElement) {
 
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
-            VG.EventDispatcher.send('keyboard.keypress.' + event.key, event);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('keyboard.keypress.' + event.key, event);
         }, false);
 
 };
 
+
+
 /***/ }),
 /* 20 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.MouseEventsHandler = function(domElement) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MouseEventsHandler; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_js__ = __webpack_require__(2);
+
+
+
+function MouseEventsHandler (domElement) {
 
     var context = this;
 
@@ -10085,24 +8534,24 @@ VG.MouseEventsHandler = function(domElement) {
     }
 
     function onSelectorUp(event) {
-        if (VG.MOBILE_CLIENT) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
             event.preventDefault();
             event.stopPropagation();
         }
 
         var pt = getPointerCoord(event, context.lastMouseX, context.lastMouseY);
 
-        VG.EventDispatcher.send('mouse.up', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('mouse.up', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
 
         if (context.mouseCaptured && !context.mouseMoved)
-            VG.EventDispatcher.send('mouse.click', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('mouse.click', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
 
         context.mouseMoved = false;
         context.mouseCaptured = false;
     }
 
     function onSelectorDown(event) {
-        if (VG.MOBILE_CLIENT) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -10114,11 +8563,11 @@ VG.MouseEventsHandler = function(domElement) {
         context.mouseCaptured = true;
         context.mouseMoved = false;
 
-        VG.EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1], event: event });
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('mouse.down', { button: event.button, x: pt[0], y: pt[1], event: event });
     }
 
     function onSelectorMove(event) {
-        if (VG.MOBILE_CLIENT)
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */])
             event.stopPropagation();
 
         event.preventDefault();
@@ -10128,7 +8577,7 @@ VG.MouseEventsHandler = function(domElement) {
         context.lastMouseY = pt[1];
 
         var sendEvent = false;
-        if (VG.MOBILE_CLIENT)
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */])
             sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
         else
             sendEvent = (pt[2] || pt[3]);
@@ -10140,9 +8589,9 @@ VG.MouseEventsHandler = function(domElement) {
 
         if (sendEvent) {
             if (context.mouseCaptured)
-                VG.EventDispatcher.send('mouse.view', { view: true, x: pt[2], y: pt[3], event: event });
+                __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('mouse.view', { view: true, x: pt[2], y: pt[3], event: event });
 
-            VG.EventDispatcher.send('mouse.move', {
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('mouse.move', {
                 move: true,
                 x: pt[0],
                 y: pt[1],
@@ -10158,11 +8607,11 @@ VG.MouseEventsHandler = function(domElement) {
         var e = event || window.event;
         var delta = e.deltaY || e.detail || e.wheelDelta;
         e.preventDefault();
-        VG.EventDispatcher.send('mouse.scroll', Math.sign(delta));
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send('mouse.scroll', Math.sign(delta));
 
     }
 
-    if (VG.MOBILE_CLIENT) {
+    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
 
         container.addEventListener("touchstart", onSelectorDown, false);
         container.addEventListener("touchmove", onSelectorMove, false);
@@ -10190,13 +8639,1609 @@ VG.MouseEventsHandler = function(domElement) {
         }, false);
 };
 
+
+
 /***/ }),
 /* 21 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.CameraControllerTopDown = function (options) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Terrain; });
+(function(global) {
+    var module = global.noise = {};
 
-    VG.BaseEntity.call(this);
+    function Grad(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    Grad.prototype.dot2 = function(x, y) {
+        return this.x*x + this.y*y;
+    };
+
+    Grad.prototype.dot3 = function(x, y, z) {
+        return this.x*x + this.y*y + this.z*z;
+    };
+
+    var grad3 = [
+        new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
+        new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
+        new Grad(0,1,1),new Grad(0,-1,1),new Grad(0,1,-1),new Grad(0,-1,-1),
+    ];
+
+    var p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,
+        30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,
+        252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,
+        168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,
+        60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,
+        1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,
+        86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,
+        118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,
+        170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,
+        22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,
+        251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,
+        107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,
+        150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,
+        61,156,180];
+    // To avoid the need for index wrapping, double the permutation table length
+    var perm = new Array(512),
+        gradP = new Array(512);
+
+    // This isn't a very good seeding function, but it works okay. It supports
+    // 2^16 different seed values. Write your own if you need more seeds.
+    module.seed = function(seed) {
+        if (seed > 0 && seed < 1) {
+            // Scale the seed out
+            seed *= 65536;
+        }
+
+        seed = Math.floor(seed);
+        if (seed < 256) {
+            seed |= seed << 8;
+        }
+
+        for (var i = 0; i < 256; i++) {
+            var v;
+            if (i & 1) {
+                v = p[i] ^ (seed & 255);
+            }
+            else {
+                v = p[i] ^ ((seed>>8) & 255);
+            }
+
+            perm[i] = perm[i + 256] = v;
+            gradP[i] = gradP[i + 256] = grad3[v % 12];
+        }
+    };
+
+    module.seed(Math.random());
+
+    // Skewing and unskewing factors for 2 and 3 dimensions
+    var F2 = 0.5*(Math.sqrt(3)-1),
+        G2 = (3-Math.sqrt(3))/6,
+        F3 = 1/3,
+        G3 = 1/6;
+
+    // 2D simplex noise
+    module.simplex = function(xin, yin) {
+        var n0, n1, n2; // Noise contributions from the three corners
+        // Skew the input space to determine which simplex cell we're in
+        var s = (xin+yin)*F2; // Hairy factor for 2D
+        var i = Math.floor(xin+s);
+        var j = Math.floor(yin+s);
+        var t = (i+j)*G2;
+        var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed
+        var y0 = yin-j+t;
+        // For the 2D case, the simplex shape is an equilateral triangle.
+        // Determine which simplex we are in.
+        var i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
+        if (x0 > y0) { // Lower triangle, XY order: (0,0)->(1,0)->(1,1)
+            i1 = 1; j1 = 0;
+        }
+        else { // Upper triangle, YX order: (0,0)->(0,1)->(1,1)
+            i1 = 0; j1 = 1;
+        }
+        // A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
+        // a step of (0,1) in (i,j) means a step of (-c,1-c) in (x,y), where
+        // c = (3-sqrt(3))/6
+        var x1 = x0 - i1 + G2; // Offsets for middle corner in (x,y) unskewed coords
+        var y1 = y0 - j1 + G2;
+        var x2 = x0 - 1 + 2 * G2; // Offsets for last corner in (x,y) unskewed coords
+        var y2 = y0 - 1 + 2 * G2;
+        // Work out the hashed gradient indices of the three simplex corners
+        i &= 255;
+        j &= 255;
+        var gi0 = gradP[i+perm[j]];
+        var gi1 = gradP[i+i1+perm[j+j1]];
+        var gi2 = gradP[i+1+perm[j+1]];
+        // Calculate the contribution from the three corners
+        var t0 = 0.5 - x0*x0-y0*y0;
+        if (t0 < 0) {
+            n0 = 0;
+        }
+        else {
+            t0 *= t0;
+            n0 = t0 * t0 * gi0.dot2(x0, y0); // (x,y) of grad3 used for 2D gradient
+        }
+        var t1 = 0.5 - x1*x1-y1*y1;
+        if (t1 < 0) {
+            n1 = 0;
+        }
+        else {
+            t1 *= t1;
+            n1 = t1 * t1 * gi1.dot2(x1, y1);
+        }
+        var t2 = 0.5 - x2*x2-y2*y2;
+        if (t2 < 0) {
+            n2 = 0;
+        }
+        else {
+            t2 *= t2;
+            n2 = t2 * t2 * gi2.dot2(x2, y2);
+        }
+        // Add contributions from each corner to get the final noise value.
+        // The result is scaled to return values in the interval [-1,1].
+        return 70 * (n0 + n1 + n2);
+    };
+
+    // ##### Perlin noise stuff
+
+    function fade(t) {
+        return t*t*t*(t*(t*6-15)+10);
+    }
+
+    function lerp(a, b, t) {
+        return (1-t)*a + t*b;
+    }
+
+    // 2D Perlin Noise
+    module.perlin = function(x, y) {
+        // Find unit grid cell containing point
+        var X = Math.floor(x),
+            Y = Math.floor(y);
+        // Get relative xy coordinates of point within that cell
+        x = x - X;
+        y = y - Y;
+        // Wrap the integer cells at 255 (smaller integer period can be introduced here)
+        X = X & 255;
+        Y = Y & 255;
+
+        // Calculate noise contributions from each of the four corners
+        var n00 = gradP[X+perm[Y]].dot2(x, y);
+        var n01 = gradP[X+perm[Y+1]].dot2(x, y-1);
+        var n10 = gradP[X+1+perm[Y]].dot2(x-1, y);
+        var n11 = gradP[X+1+perm[Y+1]].dot2(x-1, y-1);
+
+        // Compute the fade curve value for x
+        var u = fade(x);
+
+        // Interpolate the four results
+        return lerp(
+            lerp(n00, n10, u),
+            lerp(n01, n11, u),
+            fade(y)
+        );
+    };
+})(this);
+
+
+function Terrain (options) {
+    var defaultOptions = {
+        after: null,
+        easing: Terrain.Linear,
+        heightmap: Terrain.DiamondSquare,
+        material: null,
+        maxHeight: 100,
+        minHeight: -100,
+        optimization: Terrain.NONE,
+        frequency: 2.5,
+        steps: 1,
+        stretch: true,
+        turbulent: false,
+        useBufferGeometry: false,
+        xSegments: 63,
+        xSize: 1024,
+        ySegments: 63,
+        ySize: 1024,
+        _mesh: null, // internal only
+    };
+    options = options || {};
+    for (var opt in defaultOptions) {
+        if (defaultOptions.hasOwnProperty(opt)) {
+            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
+        }
+    }
+    options.material = options.material || new THREE.MeshBasicMaterial({ color: 0xee6633 });
+
+    // Encapsulating the terrain in a parent object allows us the flexibility
+    // to more easily have multiple meshes for optimization purposes.
+    var scene = new THREE.Object3D();
+    // Planes are initialized on the XY plane, so rotate the plane to make it lie flat.
+    scene.rotation.x = -0.5 * Math.PI;
+
+    // Create the terrain mesh.
+    // To save memory, it is possible to re-use a pre-existing mesh.
+    var mesh = options._mesh;
+    if (mesh && mesh.geometry.type === 'PlaneGeometry' &&
+                mesh.geometry.parameters.widthSegments === options.xSegments &&
+                mesh.geometry.parameters.heightSegments === options.ySegments) {
+        mesh.material = options.material;
+        mesh.scale.x = options.xSize / mesh.geometry.parameters.width;
+        mesh.scale.y = options.ySize / mesh.geometry.parameters.height;
+        for (var i = 0, l = mesh.geometry.vertices.length; i < l; i++) {
+            mesh.geometry.vertices[i].z = 0;
+        }
+    }
+    else {
+        mesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(options.xSize, options.ySize, options.xSegments, options.ySegments),
+            options.material
+        );
+    }
+    delete options._mesh; // Remove the reference for GC
+
+    // Assign elevation data to the terrain plane from a heightmap or function.
+    if (options.heightmap instanceof HTMLCanvasElement || options.heightmap instanceof Image) {
+        Terrain.fromHeightmap(mesh.geometry.vertices, options);
+    }
+    else if (typeof options.heightmap === 'function') {
+        options.heightmap(mesh.geometry.vertices, options);
+    }
+    else {
+        console.warn('An invalid value was passed for `options.heightmap`: ' + options.heightmap);
+    }
+    Terrain.Normalize(mesh, options);
+
+    if (options.useBufferGeometry) {
+        mesh.geometry = (new THREE.BufferGeometry()).fromGeometry(mesh.geometry);
+    }
+
+    // lod.addLevel(mesh, options.unit * 10 * Math.pow(2, lodLevel));
+
+    scene.add(mesh);
+    return scene;
+};
+
+
+Terrain.Normalize = function(mesh, options) {
+    var v = mesh.geometry.vertices;
+    if (options.turbulent) {
+        Terrain.Turbulence(v, options);
+    }
+    if (options.steps > 1) {
+        Terrain.Step(v, options.steps);
+        Terrain.Smooth(v, options);
+    }
+    // Keep the terrain within the allotted height range if necessary, and do easing.
+    Terrain.Clamp(v, options);
+    // Call the "after" callback
+    if (typeof options.after === 'function') {
+        options.after(v, options);
+    }
+    // Mark the geometry as having changed and needing updates.
+    mesh.geometry.verticesNeedUpdate = true;
+    mesh.geometry.normalsNeedUpdate = true;
+    mesh.geometry.computeBoundingSphere();
+    mesh.geometry.computeFaceNormals();
+    mesh.geometry.computeVertexNormals();
+};
+
+Terrain.NONE = 0;
+Terrain.GEOMIPMAP = 1;
+Terrain.GEOCLIPMAP = 2;
+Terrain.POLYGONREDUCTION = 3;
+
+
+Terrain.toArray2D = function(vertices, options) {
+    var tgt = new Array(options.xSegments),
+        xl = options.xSegments + 1,
+        yl = options.ySegments + 1,
+        i, j;
+    for (i = 0; i < xl; i++) {
+        tgt[i] = new Float64Array(options.ySegments);
+        for (j = 0; j < yl; j++) {
+            tgt[i][j] = vertices[j * xl + i].z;
+        }
+    }
+    return tgt;
+};
+
+
+Terrain.fromArray2D = function(vertices, src) {
+    for (var i = 0, xl = src.length; i < xl; i++) {
+        for (var j = 0, yl = src[i].length; j < yl; j++) {
+            vertices[j * xl + i].z = src[i][j];
+        }
+    }
+};
+
+
+Terrain.toArray1D = function(vertices) {
+    var tgt = new Float64Array(vertices.length);
+    for (var i = 0, l = tgt.length; i < l; i++) {
+        tgt[i] = vertices[i].z;
+    }
+    return tgt;
+};
+
+
+Terrain.fromArray1D = function(vertices, src) {
+    for (var i = 0, l = Math.min(vertices.length, src.length); i < l; i++) {
+        vertices[i].z = src[i];
+    }
+};
+
+
+Terrain.heightmapArray = function(method, options) {
+    var arr = new Array((options.xSegments+1) * (options.ySegments+1)),
+        l = arr.length,
+        i;
+    // The heightmap functions provided by this script operate on THREE.Vector3
+    // objects by changing the z field, so we need to make that available.
+    // Unfortunately that means creating a bunch of objects we're just going to
+    // throw away, but a conscious decision was made here to optimize for the
+    // vector case.
+    for (i = 0; i < l; i++) {
+        arr[i] = {z: 0};
+    }
+    options.minHeight = options.minHeight || 0;
+    options.maxHeight = typeof options.maxHeight === 'undefined' ? 1 : options.maxHeight;
+    options.stretch = options.stretch || false;
+    method(arr, options);
+    Terrain.Clamp(arr, options);
+    for (i = 0; i < l; i++) {
+        arr[i] = arr[i].z;
+    }
+    return arr;
+};
+
+/**
+ * Randomness interpolation functions.
+ */
+Terrain.Linear = function(x) {
+    return x;
+};
+
+// x = [0, 1], x^2
+Terrain.EaseIn = function(x) {
+    return x*x;
+};
+
+// x = [0, 1], -x(x-2)
+Terrain.EaseOut = function(x) {
+    return -x * (x - 2);
+};
+
+// x = [0, 1], x^2(3-2x)
+// Nearly identical alternatives: 0.5+0.5*cos(x*pi-pi), x^a/(x^a+(1-x)^a) (where a=1.6 seems nice)
+// For comparison: http://www.wolframalpha.com/input/?i=x^1.6%2F%28x^1.6%2B%281-x%29^1.6%29%2C+x^2%283-2x%29%2C+0.5%2B0.5*cos%28x*pi-pi%29+from+0+to+1
+Terrain.EaseInOut = function(x) {
+    return x*x*(3-2*x);
+};
+
+// x = [0, 1], 0.5*(2x-1)^3+0.5
+Terrain.InEaseOut = function(x) {
+    var y = 2*x-1;
+    return 0.5 * y*y*y + 0.5;
+};
+
+// x = [0, 1], x^1.55
+Terrain.EaseInWeak = function(x) {
+    return Math.pow(x, 1.55);
+};
+
+// x = [0, 1], x^7
+Terrain.EaseInStrong = function(x) {
+    return x*x*x*x*x*x*x;
+};
+
+
+Terrain.fromHeightmap = function(g, options) {
+    var canvas = document.createElement('canvas'),
+        context = canvas.getContext('2d'),
+        rows = options.ySegments + 1,
+        cols = options.xSegments + 1,
+        spread = options.maxHeight - options.minHeight;
+    canvas.width = cols;
+    canvas.height = rows;
+    context.drawImage(options.heightmap, 0, 0, canvas.width, canvas.height);
+    var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < cols; col++) {
+            var i = row * cols + col,
+                idx = i * 4;
+            g[i].z = (data[idx] + data[idx+1] + data[idx+2]) / 765 * spread + options.minHeight;
+        }
+    }
+};
+
+
+Terrain.toHeightmap = function(g, options) {
+    var hasMax = typeof options.maxHeight === 'undefined',
+        hasMin = typeof options.minHeight === 'undefined',
+        max = hasMax ? options.maxHeight : -Infinity,
+        min = hasMin ? options.minHeight :  Infinity;
+    if (!hasMax || !hasMin) {
+        var max2 = max,
+            min2 = min;
+        for (var k = 0, l = g.length; k < l; k++) {
+            if (g[k].z > max2) max2 = g[k].z;
+            if (g[k].z < min2) min2 = g[k].z;
+        }
+        if (!hasMax) max = max2;
+        if (!hasMin) min = min2;
+    }
+    var canvas = options.heightmap instanceof HTMLCanvasElement ? options.heightmap : document.createElement('canvas'),
+        context = canvas.getContext('2d'),
+        rows = options.ySegments + 1,
+        cols = options.xSegments + 1,
+        spread = options.maxHeight - options.minHeight;
+    canvas.width = cols;
+    canvas.height = rows;
+    var d = context.createImageData(canvas.width, canvas.height),
+        data = d.data;
+    for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < cols; col++) {
+            var i = row * cols + col,
+            idx = i * 4;
+            data[idx] = data[idx+1] = data[idx+2] = Math.round(((g[i].z - options.minHeight) / spread) * 255);
+            data[idx+3] = 255;
+        }
+    }
+    context.putImageData(d, 0, 0);
+    return canvas;
+};
+
+Terrain.Clamp = function(g, options) {
+    var min = Infinity,
+        max = -Infinity,
+        l = g.length,
+        i;
+    options.easing = options.easing || Terrain.Linear;
+    for (i = 0; i < l; i++) {
+        if (g[i].z < min) min = g[i].z;
+        if (g[i].z > max) max = g[i].z;
+    }
+    var actualRange = max - min,
+        optMax = typeof options.maxHeight !== 'number' ? max : options.maxHeight,
+        optMin = typeof options.minHeight !== 'number' ? min : options.minHeight,
+        targetMax = options.stretch ? optMax : (max < optMax ? max : optMax),
+        targetMin = options.stretch ? optMin : (min > optMin ? min : optMin),
+        range = targetMax - targetMin;
+    if (targetMax < targetMin) {
+        targetMax = optMax;
+        range = targetMax - targetMin;
+    }
+    for (i = 0; i < l; i++) {
+        g[i].z = options.easing((g[i].z - min) / actualRange) * range + optMin;
+    }
+};
+
+Terrain.Edges = function(g, options, direction, distance, easing, edges) {
+    var numXSegments = Math.floor(distance / (options.xSize / options.xSegments)) || 1,
+        numYSegments = Math.floor(distance / (options.ySize / options.ySegments)) || 1,
+        peak = direction ? options.maxHeight : options.minHeight,
+        max = direction ? Math.max : Math.min,
+        xl = options.xSegments + 1,
+        yl = options.ySegments + 1,
+        i, j, multiplier, k1, k2;
+    easing = easing || Terrain.EaseInOut;
+    if (typeof edges !== 'object') {
+        edges = {top: true, bottom: true, left: true, right: true};
+    }
+    for (i = 0; i < xl; i++) {
+        for (j = 0; j < numYSegments; j++) {
+            multiplier = easing(1 - j / numYSegments);
+            k1 = j*xl + i;
+            k2 = (options.ySegments-j)*xl + i;
+            if (edges.top) {
+                g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
+            }
+            if (edges.bottom) {
+                g[k2].z = max(g[k2].z, (peak - g[k2].z) * multiplier + g[k2].z);
+            }
+        }
+    }
+    for (i = 0; i < yl; i++) {
+        for (j = 0; j < numXSegments; j++) {
+            multiplier = easing(1 - j / numXSegments);
+            k1 = i*xl+j;
+            k2 = (options.ySegments-i)*xl + (options.xSegments-j);
+            if (edges.left) {
+                g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
+            }
+            if (edges.right) {
+                g[k2].z = max(g[k2].z, (peak - g[k2].z) * multiplier + g[k2].z);
+            }
+        }
+    }
+    Terrain.Clamp(g, {
+        maxHeight: options.maxHeight,
+        minHeight: options.minHeight,
+        stretch: true,
+    });
+};
+
+Terrain.RadialEdges = function(g, options, direction, distance, easing) {
+    var peak = direction ? options.maxHeight : options.minHeight,
+        max = direction ? Math.max : Math.min,
+        xl = (options.xSegments + 1),
+        yl = (options.ySegments + 1),
+        xl2 = xl * 0.5,
+        yl2 = yl * 0.5,
+        xSegmentSize = options.xSize / options.xSegments,
+        ySegmentSize = options.ySize / options.ySegments,
+        edgeRadius = Math.min(options.xSize, options.ySize) * 0.5 - distance,
+        i, j, multiplier, k, vertexDistance;
+    for (i = 0; i < xl; i++) {
+        for (j = 0; j < yl2; j++) {
+            k = j*xl + i;
+            vertexDistance = Math.min(edgeRadius, Math.sqrt((xl2-i)*xSegmentSize*(xl2-i)*xSegmentSize + (yl2-j)*ySegmentSize*(yl2-j)*ySegmentSize) - distance);
+            if (vertexDistance < 0) continue;
+            multiplier = easing(vertexDistance / edgeRadius);
+            g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
+            // Use symmetry to reduce the number of iterations.
+            k = (options.ySegments-j)*xl + i;
+            g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
+        }
+    }
+};
+
+Terrain.Smooth = function(g, options, weight) {
+    var heightmap = new Float64Array(g.length);
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            var sum = 0,
+                c = 0;
+            for (var n = -1; n <= 1; n++) {
+                for (var m = -1; m <= 1; m++) {
+                    var key = (j+n)*xl + i + m;
+                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                        sum += g[key].z;
+                        c++;
+                    }
+                }
+            }
+            heightmap[j*xl + i] = sum / c;
+        }
+    }
+    weight = weight || 0;
+    var w = 1 / (1 + weight);
+    for (var k = 0, l = g.length; k < l; k++) {
+        g[k].z = (heightmap[k] + g[k].z * weight) * w;
+    }
+};
+
+Terrain.SmoothMedian = function(g, options) {
+    var heightmap = new Float64Array(g.length),
+        neighborValues = [],
+        neighborKeys = [],
+        sortByValue = function(a, b) {
+            return neighborValues[a] - neighborValues[b];
+        };
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            neighborValues.length = 0;
+            neighborKeys.length = 0;
+            for (var n = -1; n <= 1; n++) {
+                for (var m = -1; m <= 1; m++) {
+                    var key = (j+n)*xl + i + m;
+                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                        neighborValues.push(g[key].z);
+                        neighborKeys.push(key);
+                    }
+                }
+            }
+            neighborKeys.sort(sortByValue);
+            var halfKey = Math.floor(neighborKeys.length*0.5),
+                median;
+            if (neighborKeys.length % 2 === 1) {
+                median = g[neighborKeys[halfKey]].z;
+            }
+            else {
+                median = (g[neighborKeys[halfKey-1]].z + g[neighborKeys[halfKey]].z) * 0.5;
+            }
+            heightmap[j*xl + i] = median;
+        }
+    }
+    for (var k = 0, l = g.length; k < l; k++) {
+        g[k].z = heightmap[k];
+    }
+};
+
+Terrain.SmoothConservative = function(g, options, multiplier) {
+    var heightmap = new Float64Array(g.length);
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            var max = -Infinity,
+                min = Infinity;
+            for (var n = -1; n <= 1; n++) {
+                for (var m = -1; m <= 1; m++) {
+                    var key = (j+n)*xl + i + m;
+                    if (typeof g[key] !== 'undefined' && n && m && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                        if (g[key].z < min) min = g[key].z;
+                        if (g[key].z > max) max = g[key].z;
+                    }
+                }
+            }
+            var kk = j*xl + i;
+            if (typeof multiplier === 'number') {
+                var halfdiff = (max - min) * 0.5,
+                    middle = min + halfdiff;
+                max = middle + halfdiff * multiplier;
+                min = middle - halfdiff * multiplier;
+            }
+            heightmap[kk] = g[kk].z > max ? max : (g[kk].z < min ? min : g[kk].z);
+        }
+    }
+    for (var k = 0, l = g.length; k < l; k++) {
+        g[k].z = heightmap[k];
+    }
+};
+
+Terrain.Step = function(g, levels) {
+    // Calculate the max, min, and avg values for each bucket
+    var i = 0,
+        j = 0,
+        l = g.length,
+        inc = Math.floor(l / levels),
+        heights = new Array(l),
+        buckets = new Array(levels);
+    if (typeof levels === 'undefined') {
+        levels = Math.floor(Math.pow(l*0.5, 0.25));
+    }
+    for (i = 0; i < l; i++) {
+        heights[i] = g[i].z;
+    }
+    heights.sort(function(a, b) { return a - b; });
+    for (i = 0; i < levels; i++) {
+        // Bucket by population (bucket size) not range size
+        var subset = heights.slice(i*inc, (i+1)*inc),
+            sum = 0,
+            bl = subset.length;
+        for (j = 0; j < bl; j++) {
+            sum += subset[j];
+        }
+        buckets[i] = {
+            min: subset[0],
+            max: subset[subset.length-1],
+            avg: sum / bl,
+        };
+    }
+
+    // Set the height of each vertex to the average height of its bucket
+    for (i = 0; i < l; i++) {
+        var startHeight = g[i].z;
+        for (j = 0; j < levels; j++) {
+            if (startHeight >= buckets[j].min && startHeight <= buckets[j].max) {
+                g[i].z = buckets[j].avg;
+                break;
+            }
+        }
+    }
+};
+
+
+Terrain.Turbulence = function(g, options) {
+    var range = options.maxHeight - options.minHeight;
+    for (var i = 0, l = g.length; i < l; i++) {
+        g[i].z = options.minHeight + Math.abs((g[i].z - options.minHeight) * 2 - range);
+    }
+};
+
+
+Terrain.MultiPass = function(g, options, passes) {
+    var clonedOptions = {};
+    for (var opt in options) {
+        if (options.hasOwnProperty(opt)) {
+            clonedOptions[opt] = options[opt];
+        }
+    }
+    var range = options.maxHeight - options.minHeight;
+    for (var i = 0, l = passes.length; i < l; i++) {
+        var amp = typeof passes[i].amplitude === 'undefined' ? 1 : passes[i].amplitude,
+            move = 0.5 * (range - range * amp);
+        clonedOptions.maxHeight = options.maxHeight - move;
+        clonedOptions.minHeight = options.minHeight + move;
+        clonedOptions.frequency = typeof passes[i].frequency === 'undefined' ? options.frequency : passes[i].frequency;
+        passes[i].method(g, clonedOptions);
+    }
+};
+
+
+Terrain.Curve = function(g, options, curve) {
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        scalar = options.frequency / (Math.min(options.xSegments, options.ySegments) + 1);
+    for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
+        for (var j = 0; j < yl; j++) {
+            g[j * xl + i].z += curve(i * scalar, j * scalar) * range;
+        }
+    }
+};
+
+Terrain.Cosine = function(g, options) {
+    var amplitude = (options.maxHeight - options.minHeight) * 0.5,
+        frequencyScalar = options.frequency * Math.PI / (Math.min(options.xSegments, options.ySegments) + 1),
+        phase = Math.random() * Math.PI * 2;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            g[j * xl + i].z += amplitude * (Math.cos(i * frequencyScalar + phase) + Math.cos(j * frequencyScalar + phase));
+        }
+    }
+};
+
+
+Terrain.CosineLayers = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Cosine,                   frequency:  2.5 },
+        { method: Terrain.Cosine, amplitude: 0.1,   frequency:  12  },
+        { method: Terrain.Cosine, amplitude: 0.05,  frequency:  15  },
+        { method: Terrain.Cosine, amplitude: 0.025, frequency:  20  },
+    ]);
+};
+
+
+Terrain.DiamondSquare = function(g, options) {
+    // Set the segment length to the smallest power of 2 that is greater than
+    // the number of vertices in either dimension of the plane
+    var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
+
+    // Initialize heightmap
+    var size = segments + 1,
+        heightmap = [],
+        smoothing = (options.maxHeight - options.minHeight),
+        i,
+        j,
+        xl = options.xSegments + 1,
+        yl = options.ySegments + 1;
+    for (i = 0; i <= segments; i++) {
+        heightmap[i] = new Float64Array(segments+1);
+    }
+
+    // Generate heightmap
+    for (var l = segments; l >= 2; l /= 2) {
+        var half = Math.round(l*0.5),
+            whole = Math.round(l),
+            x,
+            y,
+            avg,
+            d,
+            e;
+        smoothing /= 2;
+        // square
+        for (x = 0; x < segments; x += whole) {
+            for (y = 0; y < segments; y += whole) {
+                d = Math.random() * smoothing * 2 - smoothing;
+                avg = heightmap[x][y] +            // top left
+                      heightmap[x+whole][y] +      // top right
+                      heightmap[x][y+whole] +      // bottom left
+                      heightmap[x+whole][y+whole]; // bottom right
+                avg *= 0.25;
+                heightmap[x+half][y+half] = avg + d;
+            }
+        }
+        // diamond
+        for (x = 0; x < segments; x += half) {
+            for (y = (x+half) % l; y < segments; y += l) {
+                d = Math.random() * smoothing * 2 - smoothing;
+                avg = heightmap[(x-half+size)%size][y] + // middle left
+                      heightmap[(x+half)%size][y] +      // middle right
+                      heightmap[x][(y+half)%size] +      // middle top
+                      heightmap[x][(y-half+size)%size];  // middle bottom
+                avg *= 0.25;
+                avg += d;
+                heightmap[x][y] = avg;
+                // top and right edges
+                if (x === 0) heightmap[segments][y] = avg;
+                if (y === 0) heightmap[x][segments] = avg;
+            }
+        }
+    }
+
+    // Apply heightmap
+    for (i = 0; i < xl; i++) {
+        for (j = 0; j < yl; j++) {
+            g[j * xl + i].z += heightmap[i][j];
+        }
+    }
+
+    // Terrain.SmoothConservative(g, options);
+};
+
+
+Terrain.Fault = function(g, options) {
+    var d = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments),
+        iterations = d * options.frequency,
+        range = (options.maxHeight - options.minHeight) * 0.5,
+        displacement = range / iterations,
+        smoothDistance = Math.min(options.xSize / options.xSegments, options.ySize / options.ySegments) * options.frequency;
+    for (var k = 0; k < iterations; k++) {
+        var v = Math.random(),
+            a = Math.sin(v * Math.PI * 2),
+            b = Math.cos(v * Math.PI * 2),
+            c = Math.random() * d - d*0.5;
+        for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+            for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+                var distance = a*i + b*j - c;
+                if (distance > smoothDistance) {
+                    g[j * xl + i].z += displacement;
+                }
+                else if (distance < -smoothDistance) {
+                    g[j * xl + i].z -= displacement;
+                }
+                else {
+                    g[j * xl + i].z += Math.cos(distance / smoothDistance * Math.PI * 2) * displacement;
+                }
+            }
+        }
+    }
+    // Terrain.Smooth(g, options);
+};
+
+
+Terrain.Hill = function(g, options, feature, shape) {
+    var frequency = options.frequency * 2,
+        numFeatures = frequency * frequency * 10,
+        heightRange = options.maxHeight - options.minHeight,
+        minHeight = heightRange / (frequency * frequency),
+        maxHeight = heightRange / frequency,
+        smallerSideLength = Math.min(options.xSize, options.ySize),
+        minRadius = smallerSideLength / (frequency * frequency),
+        maxRadius = smallerSideLength / frequency;
+    feature = feature || Terrain.Influences.Hill;
+
+    var coords = { x: 0, y: 0 };
+    for (var i = 0; i < numFeatures; i++) {
+        var radius = Math.random() * (maxRadius - minRadius) + minRadius,
+            height = Math.random() * (maxHeight - minHeight) + minHeight;
+        var min = 0 - radius,
+            maxX = options.xSize + radius,
+            maxY = options.ySize + radius;
+        coords.x = Math.random();
+        coords.y = Math.random();
+        if (typeof shape === 'function') shape(coords);
+        Terrain.Influence(
+            g, options,
+            feature,
+            coords.x, coords.y,
+            radius, height,
+            THREE.AdditiveBlending,
+            Terrain.EaseInStrong
+        );
+    }
+};
+
+Terrain.HillIsland = (function() {
+    var island = function(coords) {
+        var theta = Math.random() * Math.PI * 2;
+        coords.x = 0.5 + Math.cos(theta) * coords.x * 0.4;
+        coords.y = 0.5 + Math.sin(theta) * coords.y * 0.4;
+    };
+    return function(g, options, feature) {
+        Terrain.Hill(g, options, feature, island);
+    };
+})();
+
+(function() {
+    /**
+     * Deposit a particle at a vertex.
+     */
+    function deposit(g, i, j, xl, displacement) {
+        var currentKey = j * xl + i;
+        // Pick a random neighbor.
+        for (var k = 0; k < 3; k++) {
+            var r = Math.floor(Math.random() * 8);
+            switch (r) {
+                case 0: i++; break;
+                case 1: i--; break;
+                case 2: j++; break;
+                case 3: j--; break;
+                case 4: i++; j++; break;
+                case 5: i++; j--; break;
+                case 6: i--; j++; break;
+                case 7: i--; j--; break;
+            }
+            var neighborKey = j * xl + i;
+            // If the neighbor is lower, move the particle to that neighbor and re-evaluate.
+            if (typeof g[neighborKey] !== 'undefined') {
+                if (g[neighborKey].z < g[currentKey].z) {
+                    deposit(g, i, j, xl, displacement);
+                    return;
+                }
+            }
+            // Deposit some particles on the edge.
+            else if (Math.random() < 0.2) {
+                g[currentKey].z += displacement;
+                return;
+            }
+        }
+        g[currentKey].z += displacement;
+    }
+
+    Terrain.Particles = function(g, options) {
+        var iterations = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments) * options.frequency * 300,
+            xl = options.xSegments + 1,
+            displacement = (options.maxHeight - options.minHeight) / iterations * 1000,
+            i = Math.floor(Math.random() * options.xSegments),
+            j = Math.floor(Math.random() * options.ySegments),
+            xDeviation = Math.random() * 0.2 - 0.1,
+            yDeviation = Math.random() * 0.2 - 0.1;
+        for (var k = 0; k < iterations; k++) {
+            deposit(g, i, j, xl, displacement);
+            var d = Math.random() * Math.PI * 2;
+            if (k % 1000 === 0) {
+                xDeviation = Math.random() * 0.2 - 0.1;
+                yDeviation = Math.random() * 0.2 - 0.1;
+            }
+            if (k % 100 === 0) {
+                i = Math.floor(options.xSegments*(0.5+xDeviation) + Math.cos(d) * Math.random() * options.xSegments*(0.5-Math.abs(xDeviation)));
+                j = Math.floor(options.ySegments*(0.5+yDeviation) + Math.sin(d) * Math.random() * options.ySegments*(0.5-Math.abs(yDeviation)));
+            }
+        }
+        // Terrain.Smooth(g, options, 3);
+    };
+})();
+
+
+Terrain.Perlin = function(g, options) {
+    noise.seed(Math.random());
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        divisor = (Math.min(options.xSegments, options.ySegments) + 1) / options.frequency;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            g[j * xl + i].z += noise.perlin(i / divisor, j / divisor) * range;
+        }
+    }
+};
+
+Terrain.PerlinDiamond = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Perlin },
+        { method: Terrain.DiamondSquare, amplitude: 0.75 },
+        { method: function(g, o) { return Terrain.SmoothMedian(g, o); } },
+    ]);
+};
+
+
+Terrain.PerlinLayers = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Perlin,                  frequency:  1.25 },
+        { method: Terrain.Perlin, amplitude: 0.05, frequency:  2.5  },
+        { method: Terrain.Perlin, amplitude: 0.35, frequency:  5    },
+        { method: Terrain.Perlin, amplitude: 0.15, frequency: 10    },
+    ]);
+};
+
+Terrain.Simplex = function(g, options) {
+    noise.seed(Math.random());
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        divisor = (Math.min(options.xSegments, options.ySegments) + 1) * 2 / options.frequency;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            g[j * xl + i].z += noise.simplex(i / divisor, j / divisor) * range;
+        }
+    }
+};
+
+Terrain.SimplexLayers = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Simplex,                    frequency:  1.25 },
+        { method: Terrain.Simplex, amplitude: 0.5,    frequency:  2.5  },
+        { method: Terrain.Simplex, amplitude: 0.25,   frequency:  5    },
+        { method: Terrain.Simplex, amplitude: 0.125,  frequency: 10    },
+        { method: Terrain.Simplex, amplitude: 0.0625, frequency: 20    },
+    ]);
+};
+
+(function() {
+
+    function WhiteNoise(g, options, scale, segments, range, data) {
+        if (scale > segments) return;
+        var i = 0,
+            j = 0,
+            xl = segments,
+            yl = segments,
+            inc = Math.floor(segments / scale),
+            lastX = -inc,
+            lastY = -inc;
+        // Walk over the target. For a target of size W and a resolution of N,
+        // set every W/N points (in both directions).
+        for (i = 0; i <= xl; i += inc) {
+            for (j = 0; j <= yl; j += inc) {
+                var k = j * xl + i;
+                data[k] = Math.random() * range;
+                if (lastX < 0 && lastY < 0) continue;
+                // jscs:disable disallowSpacesInsideBrackets
+                /* c b *
+                 * l t */
+                var t = data[k],
+                    l = data[ j      * xl + (i-inc)] || t, // left
+                    b = data[(j-inc) * xl +  i     ] || t, // bottom
+                    c = data[(j-inc) * xl + (i-inc)] || t; // corner
+                // jscs:enable disallowSpacesInsideBrackets
+                // Interpolate between adjacent points to set the height of
+                // higher-resolution target data.
+                for (var x = lastX; x < i; x++) {
+                    for (var y = lastY; y < j; y++) {
+                        if (x === lastX && y === lastY) continue;
+                        var z = y * xl + x;
+                        if (z < 0) continue;
+                        var px = ((x-lastX) / inc),
+                            py = ((y-lastY) / inc),
+                            r1 = px * b + (1-px) * c,
+                            r2 = px * t + (1-px) * l;
+                        data[z] = py * r2 + (1-py) * r1;
+                    }
+                }
+                lastY = j;
+            }
+            lastX = i;
+            lastY = -inc;
+        }
+        // Assign the temporary data back to the actual terrain heightmap.
+        for (i = 0, xl = options.xSegments + 1; i < xl; i++) {
+            for (j = 0, yl = options.ySegments + 1; j < yl; j++) {
+                // http://stackoverflow.com/q/23708306/843621
+                var kg = j * xl + i,
+                    kd = j * segments + i;
+                g[kg].z += data[kd];
+            }
+        }
+    }
+
+    Terrain.Value = function(g, options) {
+        // Set the segment length to the smallest power of 2 that is greater
+        // than the number of vertices in either dimension of the plane
+        var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
+
+        // Store the array of white noise outside of the WhiteNoise function to
+        // avoid allocating a bunch of unnecessary arrays; we can just
+        // overwrite old data each time WhiteNoise() is called.
+        var data = new Float64Array((segments+1)*(segments+1));
+
+        // Layer white noise at different resolutions.
+        var range = options.maxHeight - options.minHeight;
+        for (var i = 2; i < 7; i++) {
+            WhiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4-i*1.2), data);
+        }
+
+        // White noise creates some weird artifacts; fix them.
+        // Terrain.Smooth(g, options, 1);
+        Terrain.Clamp(g, {
+            maxHeight: options.maxHeight,
+            minHeight: options.minHeight,
+            stretch: true,
+        });
+    };
+})();
+
+Terrain.Weierstrass = function(g, options) {
+    var range = (options.maxHeight - options.minHeight) * 0.5,
+        dir1 = Math.random() < 0.5 ? 1 : -1,
+        dir2 = Math.random() < 0.5 ? 1 : -1,
+        r11  =  0.5   + Math.random() * 1.0,
+        r12  =  0.5   + Math.random() * 1.0,
+        r13  =  0.025 + Math.random() * 0.10,
+        r14  = -1.0   + Math.random() * 2.0,
+        r21  =  0.5   + Math.random() * 1.0,
+        r22  =  0.5   + Math.random() * 1.0,
+        r23  =  0.025 + Math.random() * 0.10,
+        r24  = -1.0   + Math.random() * 2.0;
+    for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
+        for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
+            var sum = 0;
+            for (var k = 0; k < 20; k++) {
+                var x = Math.pow(1+r11, -k) * Math.sin(Math.pow(1+r12, k) * (i + 0.25*Math.cos(j) + r14*j) * r13);
+                var y = Math.pow(1+r21, -k) * Math.sin(Math.pow(1+r22, k) * (j + 0.25*Math.cos(i) + r24*i) * r23);
+                sum -= Math.exp(dir1*x*x + dir2*y*y);
+            }
+            g[j * xl + i].z += sum * range;
+        }
+    }
+    Terrain.Clamp(g, options);
+};
+
+Terrain.glslifyNumber = function(n) {
+    return n === (n|0) ? n+'.0' : n+'';
+};
+
+Terrain.generateBlendedMaterial = function(textures) {
+    // Convert numbers to strings of floats so GLSL doesn't barf on "1" instead of "1.0"
+
+
+    var uniforms = THREE.UniformsUtils.merge([THREE.ShaderLib.lambert.uniforms]),
+        declare = '',
+        assign = '',
+        t0Repeat = textures[0].texture.repeat,
+        t0Offset = textures[0].texture.offset;
+    for (var i = 0, l = textures.length; i < l; i++) {
+        // Uniforms
+        textures[i].texture.wrapS = textures[i].texture.wrapT = THREE.RepeatWrapping;
+        textures[i].texture.needsUpdate = true;
+        uniforms['texture_' + i] = {
+            type: 't',
+            value: textures[i].texture,
+        };
+
+        // Shader fragments
+        // Declare each texture, then mix them together.
+        declare += 'uniform sampler2D texture_' + i + ';\n';
+        if (i !== 0) {
+            var v = textures[i].levels, // Vertex heights at which to blend textures in and out
+                p = textures[i].glsl, // Or specify a GLSL expression that evaluates to a float between 0.0 and 1.0 indicating how opaque the texture should be at this texel
+                useLevels = typeof v !== 'undefined', // Use levels if they exist; otherwise, use the GLSL expression
+                tiRepeat = textures[i].texture.repeat,
+                tiOffset = textures[i].texture.offset;
+            if (useLevels) {
+                // Must fade in; can't start and stop at the same point.
+                // So, if levels are too close, move one of them slightly.
+                if (v[1] - v[0] < 1) v[0] -= 1;
+                if (v[3] - v[2] < 1) v[3] += 1;
+                for (var j = 0; j < v.length; j++) {
+                    v[j] = Terrain.glslifyNumber(v[j]);
+                }
+            }
+            // The transparency of the new texture when it is layered on top of the existing color at this texel is
+            // (how far between the start-blending-in and fully-blended-in levels the current vertex is) +
+            // (how far between the start-blending-out and fully-blended-out levels the current vertex is)
+            // So the opacity is 1.0 minus that.
+            var blendAmount = !useLevels ? p :
+                '1.0 - smoothstep(' + v[0] + ', ' + v[1] + ', vPosition.z) + smoothstep(' + v[2] + ', ' + v[3] + ', vPosition.z)';
+            assign += '        color = mix( ' +
+                'texture2D( texture_' + i + ', MyvUv * vec2( ' + Terrain.glslifyNumber(tiRepeat.x) + ', ' + Terrain.glslifyNumber(tiRepeat.y) + ' ) + vec2( ' + Terrain.glslifyNumber(tiOffset.x) + ', ' + Terrain.glslifyNumber(tiOffset.y) + ' ) ), ' +
+                'color, ' +
+                'max(min(' + blendAmount + ', 1.0), 0.0)' +
+                ');\n';
+        }
+    }
+
+    var params = {
+        // I don't know which of these properties have any effect
+        fog: true,
+        lights: true,
+        // shading: THREE.SmoothShading,
+        // blending: THREE.NormalBlending,
+        // depthTest: <bool>,
+        // depthWrite: <bool>,
+        // wireframe: false,
+        // wireframeLinewidth: 1,
+        // vertexColors: THREE.NoColors,
+        // skinning: <bool>,
+        // morphTargets: <bool>,
+        // morphNormals: <bool>,
+        // opacity: 1.0,
+        // transparent: <bool>,
+        // side: THREE.FrontSide,
+
+        uniforms: uniforms,
+        vertexShader: THREE.ShaderLib.lambert.vertexShader.replace(
+            'void main() {',
+            'varying vec2 MyvUv;\nvarying vec3 vPosition;\nvarying vec3 myNormal; void main() {\nMyvUv = uv;\nvPosition = position;\nmyNormal = normal;'
+        ),
+        // This is mostly copied from THREE.ShaderLib.lambert.fragmentShader
+        fragmentShader: [
+            'uniform vec3 diffuse;',
+            'uniform vec3 emissive;',
+            'uniform float opacity;',
+            'varying vec3 vLightFront;',
+            '#ifdef DOUBLE_SIDED',
+            '    varying vec3 vLightBack;',
+            '#endif',
+
+            THREE.ShaderChunk.common,
+            THREE.ShaderChunk.packing,
+            THREE.ShaderChunk.dithering_pars_fragment,
+            THREE.ShaderChunk.color_pars_fragment,
+            THREE.ShaderChunk.uv_pars_fragment,
+            THREE.ShaderChunk.uv2_pars_fragment,
+            THREE.ShaderChunk.map_pars_fragment,
+            THREE.ShaderChunk.alphamap_pars_fragment,
+            THREE.ShaderChunk.aomap_pars_fragment,
+            THREE.ShaderChunk.lightmap_pars_fragment,
+            THREE.ShaderChunk.emissivemap_pars_fragment,
+            THREE.ShaderChunk.envmap_pars_fragment,
+            THREE.ShaderChunk.bsdfs,
+            THREE.ShaderChunk.lights_pars_begin,
+            THREE.ShaderChunk.lights_pars_maps,
+            THREE.ShaderChunk.fog_pars_fragment,
+            THREE.ShaderChunk.shadowmap_pars_fragment,
+            THREE.ShaderChunk.shadowmask_pars_fragment,
+            THREE.ShaderChunk.specularmap_pars_fragment,
+            THREE.ShaderChunk.logdepthbuf_pars_fragment,
+            THREE.ShaderChunk.clipping_planes_pars_fragment,
+
+            declare,
+            'varying vec2 MyvUv;',
+            'varying vec3 vPosition;',
+            'varying vec3 myNormal;',
+
+            'void main() {',
+
+            THREE.ShaderChunk.clipping_planes_fragment,
+
+	'ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );',
+	'vec3 totalEmissiveRadiance = emissive;',
+
+            // TODO: The second vector here is the object's "up" vector. Ideally we'd just pass it in directly.
+            'float slope = acos(max(min(dot(myNormal, vec3(0.0, 0.0, 1.0)), 1.0), -1.0));',
+
+            '    vec4 diffuseColor = vec4( diffuse, opacity );',
+            '    vec4 color = texture2D( texture_0, MyvUv * vec2( ' + Terrain.glslifyNumber(t0Repeat.x) + ', ' + Terrain.glslifyNumber(t0Repeat.y) + ' ) + vec2( ' + Terrain.glslifyNumber(t0Offset.x) + ', ' + Terrain.glslifyNumber(t0Offset.y) + ' ) ); // base',
+                assign,
+            '    diffuseColor = color;',
+            // '    gl_FragColor = color;',
+
+                THREE.ShaderChunk.logdepthbuf_fragment,
+                THREE.ShaderChunk.map_fragment,
+                THREE.ShaderChunk.color_fragment,
+                THREE.ShaderChunk.alphamap_fragment,
+                THREE.ShaderChunk.alphatest_fragment,
+                THREE.ShaderChunk.specularmap_fragment,
+                THREE.ShaderChunk.emissivemap_fragment,
+
+            // accumulation
+            '   reflectedLight.indirectDiffuse = getAmbientLightIrradiance( ambientLightColor );',
+
+                THREE.ShaderChunk.lightmap_fragment,
+
+            '    reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb );',
+            '    #ifdef DOUBLE_SIDED',
+            '            reflectedLight.directDiffuse = ( gl_FrontFacing ) ? vLightFront : vLightBack;',
+            '    #else',
+            '            reflectedLight.directDiffuse = vLightFront;',
+            '    #endif',
+            '    reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb ) * getShadowMask();',
+
+                // modulation
+                THREE.ShaderChunk.aomap_fragment,
+            '   vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;',
+                THREE.ShaderChunk.normal_flip,
+                THREE.ShaderChunk.envmap_fragment,
+            '   gl_FragColor = vec4( outgoingLight, diffuseColor.a );', // This will probably change in future three.js releases
+                THREE.ShaderChunk.tonemapping_fragment,
+                THREE.ShaderChunk.encodings_fragment,
+                THREE.ShaderChunk.fog_fragment,
+                THREE.ShaderChunk.premultiplied_alpha_fragment,
+                THREE.ShaderChunk.dithering_fragment,
+            '}'
+        ].join('\n'),
+    };
+    return new THREE.ShaderMaterial(params);
+};
+
+
+Terrain.ScatterMeshes = function(geometry, options) {
+    if (!options.mesh) {
+        console.error('options.mesh is required for Terrain.ScatterMeshes but was not passed');
+        return;
+    }
+    if (geometry instanceof THREE.BufferGeometry) {
+        console.warn('The terrain mesh is using BufferGeometry but Terrain.ScatterMeshes can only work with Geometry.');
+        return;
+    }
+    if (!options.scene) {
+        options.scene = new THREE.Object3D();
+    }
+    var defaultOptions = {
+        spread: 0.025,
+        smoothSpread: 0,
+        sizeVariance: 0.1,
+        randomness: Math.random,
+        maxSlope: 0.6283185307179586, // 36deg or 36 / 180 * Math.PI, about the angle of repose of earth
+        maxTilt: Infinity,
+        w: 0,
+        h: 0,
+    };
+    for (var opt in defaultOptions) {
+        if (defaultOptions.hasOwnProperty(opt)) {
+            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
+        }
+    }
+
+    var spreadIsNumber = typeof options.spread === 'number',
+        randomHeightmap,
+        randomness,
+        spreadRange = 1 / options.smoothSpread,
+        doubleSizeVariance = options.sizeVariance * 2,
+        v = geometry.vertices,
+        meshes = [],
+        up = options.mesh.up.clone().applyAxisAngle(new THREE.Vector3(1, 0, 0), 0.5*Math.PI);
+    if (spreadIsNumber) {
+        randomHeightmap = options.randomness();
+        randomness = typeof randomHeightmap === 'number' ? Math.random : function(k) { return randomHeightmap[k]; };
+    }
+    // geometry.computeFaceNormals();
+    for (var i = 0, w = options.w*2; i < w; i++) {
+        for (var j = 0, h = options.h; j < h; j++) {
+            var key = j*w + i,
+                f = geometry.faces[key],
+                place = false;
+            if (spreadIsNumber) {
+                var rv = randomness(key);
+                if (rv < options.spread) {
+                    place = true;
+                }
+                else if (rv < options.spread + options.smoothSpread) {
+                    // Interpolate rv between spread and spread + smoothSpread,
+                    // then multiply that "easing" value by the probability
+                    // that a mesh would get placed on a given face.
+                    place = Terrain.EaseInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
+                }
+            }
+            else {
+                place = options.spread(v[f.a], key, f, i, j);
+            }
+            if (place) {
+                // Don't place a mesh if the angle is too steep.
+                if (f.normal.angleTo(up) > options.maxSlope) {
+                    continue;
+                }
+                var mesh = options.mesh.clone();
+                // mesh.geometry.computeBoundingBox();
+                mesh.position.copy(v[f.a]).add(v[f.b]).add(v[f.c]).divideScalar(3);
+                // mesh.translateZ((mesh.geometry.boundingBox.max.z - mesh.geometry.boundingBox.min.z) * 0.5);
+                if (options.maxTilt > 0) {
+                    var normal = mesh.position.clone().add(f.normal);
+                    mesh.lookAt(normal);
+                    var tiltAngle = f.normal.angleTo(up);
+                    if (tiltAngle > options.maxTilt) {
+                        var ratio = options.maxTilt / tiltAngle;
+                        mesh.rotation.x *= ratio;
+                        mesh.rotation.y *= ratio;
+                        mesh.rotation.z *= ratio;
+                    }
+                }
+                mesh.rotation.x += 90 / 180 * Math.PI;
+                mesh.rotateY(Math.random() * 2 * Math.PI);
+                if (options.sizeVariance) {
+                    var variance = Math.random() * doubleSizeVariance - options.sizeVariance;
+                    mesh.scale.x = mesh.scale.z = 1 + variance;
+                    mesh.scale.y += variance;
+                }
+                meshes.push(mesh);
+            }
+        }
+    }
+
+    // Merge geometries.
+    var k, l;
+    if (options.mesh.geometry instanceof THREE.Geometry) {
+        var g = new THREE.Geometry();
+        for (k = 0, l = meshes.length; k < l; k++) {
+            var m = meshes[k];
+            m.updateMatrix();
+            g.merge(m.geometry, m.matrix);
+        }
+        /*
+        if (!(options.mesh.material instanceof THREE.MeshFaceMaterial)) {
+            g = THREE.BufferGeometryUtils.fromGeometry(g);
+        }
+        */
+        options.scene.add(new THREE.Mesh(g, options.mesh.material));
+    }
+    // There's no BufferGeometry merge method implemented yet.
+    else {
+        for (k = 0, l = meshes.length; k < l; k++) {
+            options.scene.add(meshes[k]);
+        }
+    }
+
+    return options.scene;
+};
+
+Terrain.ScatterHelper = function(method, options, skip, threshold) {
+    skip = skip || 1;
+    threshold = threshold || 0.25;
+    options.frequency = options.frequency || 2.5;
+
+    var clonedOptions = {};
+    for (var opt in options) {
+        if (options.hasOwnProperty(opt)) {
+            clonedOptions[opt] = options[opt];
+        }
+    }
+
+    clonedOptions.xSegments *= 2;
+    clonedOptions.stretch = true;
+    clonedOptions.maxHeight = 1;
+    clonedOptions.minHeight = 0;
+    var heightmap = Terrain.heightmapArray(method, clonedOptions);
+
+    for (var i = 0, l = heightmap.length; i < l; i++) {
+        if (i % skip || Math.random() > threshold) {
+            heightmap[i] = 1; // 0 = place, 1 = don't place
+        }
+    }
+    return function() {
+        return heightmap;
+    };
+};
+
+// Allows placing geometrically-described features on a terrain.
+// If you want these features to look a little less regular,
+// just apply them before a procedural pass.
+// If you want more complex influence, you can just composite heightmaps.
+
+Terrain.Influences = {
+    Mesa: function(x) {
+        return 1.25 * Math.min(0.8, Math.exp(-(x*x)));
+    },
+    Hole: function(x) {
+        return -Terrain.Influences.Mesa(x);
+    },
+    Hill: function(x) {
+        // Same curve as EaseInOut, but mirrored and translated.
+        return x < 0 ? (x+1)*(x+1)*(3-2*(x+1)) : 1-x*x*(3-2*x);
+    },
+    Valley: function(x) {
+        return -Terrain.Influences.Hill(x);
+    },
+    Dome: function(x) {
+        // Parabola
+        return -(x+1)*(x-1);
+    },
+    // Not meaningful in Additive or Subtractive mode
+    Flat: function(x) {
+        return 0;
+    },
+    Volcano: function(x) {
+        return 0.94 - 0.32 * (Math.abs(2 * x) + Math.cos(2 * Math.PI * Math.abs(x) + 0.4));
+    },
+};
+
+Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
+    f = f || Terrain.Influences.Hill; // feature shape
+    x = typeof x === 'undefined' ? 0.5 : x; // x-location %
+    y = typeof y === 'undefined' ? 0.5 : y; // y-location %
+    r = typeof r === 'undefined' ? 64  : r; // radius
+    h = typeof h === 'undefined' ? 64  : h; // height
+    t = typeof t === 'undefined' ? THREE.NormalBlending : t; // blending
+    e = e || Terrain.EaseIn; // falloff
+    // Find the vertex location of the feature origin
+    var xl = options.xSegments + 1, // # x-vertices
+        yl = options.ySegments + 1, // # y-vertices
+        vx = xl * x, // vertex x-location
+        vy = yl * y, // vertex y-location
+        xw = options.xSize / options.xSegments, // width of x-segments
+        yw = options.ySize / options.ySegments, // width of y-segments
+        rx = r / xw, // radius of the feature in vertices on the x-axis
+        ry = r / yw, // radius of the feature in vertices on the y-axis
+        r1 = 1 / r, // for speed
+        xs = Math.ceil(vx - rx),  // starting x-vertex index
+        xe = Math.floor(vx + rx), // ending x-vertex index
+        ys = Math.ceil(vy - ry),  // starting y-vertex index
+        ye = Math.floor(vy + ry); // ending y-vertex index
+    // Walk over the vertices within radius of origin
+    for (var i = xs; i < xe; i++) {
+        for (var j = ys; j < ye; j++) {
+            var k = j * xl + i,
+                // distance to the feature origin
+                fdx = (i - vx) * xw,
+                fdy = (j - vy) * yw,
+                fd = Math.sqrt(fdx*fdx + fdy*fdy),
+                fdr = fd * r1,
+                fdxr = fdx * r1,
+                fdyr = fdy * r1,
+                // Get the displacement according to f, multiply it by h,
+                // interpolate using e, then blend according to t.
+                d = f(fdr, fdxr, fdyr) * h * (1 - e(fdr, fdxr, fdyr));
+            if (fd > r || typeof g[k] == 'undefined') continue;
+            if      (t === THREE.AdditiveBlending)    g[k].z += d; // jscs:ignore requireSpaceAfterKeywords
+            else if (t === THREE.SubtractiveBlending) g[k].z -= d;
+            else if (t === THREE.MultiplyBlending)    g[k].z *= d;
+            else if (t === THREE.NoBlending)          g[k].z  = d;
+            else if (t === THREE.NormalBlending)      g[k].z  = e(fdr, fdxr, fdyr) * g[k].z + d;
+            else if (typeof t === 'function')         g[k].z  = t(g[k].z, d, fdr, fdxr, fdyr);
+        }
+    }
+};
+
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedSprite; });
+function AnimatedSprite (image, tilesHoriz, tilesVert, tileDispDuration) {
+
+    this.texture = new THREE.Texture(image);
+    this.texture.needsUpdate = true;
+
+    var spriteMaterial = new THREE.SpriteMaterial({ map: this.texture});
+
+	this.tilesHorizontal = tilesHoriz;
+	this.tilesVertical = tilesVert;
+
+	this.numberOfTiles = tilesHoriz * tilesVert;
+	this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping; 
+	this.texture.repeat.set( 1 / this.tilesHorizontal, 1 / this.tilesVertical );
+
+	this.view = new THREE.Sprite(spriteMaterial);
+
+	this.scale = 1;
+
+	this.tileDisplayDuration = tileDispDuration;
+
+	this.currentDisplayTime = 0;
+
+	this.currentTile = 0;
+};
+
+AnimatedSprite.prototype = {
+
+	constructor: AnimatedSprite,
+
+	currentTile: 0,
+
+	currentDisplayTime: 0,
+
+    update: function(dt) {
+
+		this.currentDisplayTime += dt;
+
+		if (this.currentDisplayTime > this.tileDisplayDuration)
+		{
+			//this.currentDisplayTime -= this.tileDisplayDuration;
+			this.currentDisplayTime = 0;
+
+			this.currentTile++;
+			if (this.currentTile == this.numberOfTiles)
+				this.currentTile = 0;
+
+			var currentColumn = this.currentTile % this.tilesHorizontal ;
+
+			this.texture.offset.x = currentColumn / this.tilesHorizontal;
+			var currentRow = this.tilesVertical - Math.floor( this.currentTile / this.tilesHorizontal);
+		
+
+			this.texture.offset.y = currentRow / this.tilesVertical;
+		}
+    },
+
+    get position () {
+
+  		return this.view.position;
+
+	},
+	set position(val) {
+
+		this.view.position.copy(val);
+
+	},
+
+    get scale() {
+
+  		return this.scale;
+
+	},
+	set scale(val) {
+
+		var x = (this.texture.image.width / this.tilesHorizontal) / 100;
+		var y = (this.texture.image.height / this.tilesVertical) / 100;
+
+		this.view.scale.set(x * val, y * val, 1);
+	}
+};
+
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CameraControllerTopDown; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BaseEntity_js__ = __webpack_require__(3);
+
+
+
+function CameraControllerTopDown (options) {
+
+    __WEBPACK_IMPORTED_MODULE_1__BaseEntity_js__["a" /* BaseEntity */].call(this);
     this.autoUpdate = true;
 
     options = options || {}
@@ -10214,14 +10259,14 @@ VG.CameraControllerTopDown = function (options) {
 
     this.camera = options.camera || console.error('options.camera is undefind');
 
-    VG.EventDispatcher.bind('mouse.move', this, this.mouseMove);
+    __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.move', this, this.mouseMove);
 
 };
 
-VG.CameraControllerTopDown.prototype = Object.create(VG.BaseEntity.prototype);
-VG.CameraControllerTopDown.constructor = VG.SceneEntity;
+CameraControllerTopDown.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_1__BaseEntity_js__["a" /* BaseEntity */].prototype);
+CameraControllerTopDown.constructor = CameraControllerTopDown;
 
-VG.CameraControllerTopDown.prototype.update = function () {
+CameraControllerTopDown.prototype.update = function () {
 
 	var position = new THREE.Vector3();
 	var look = new THREE.Vector3();
@@ -10243,13 +10288,13 @@ VG.CameraControllerTopDown.prototype.update = function () {
 	}
 }();
 
-VG.CameraControllerTopDown.prototype.setTarget = function (view) {
+CameraControllerTopDown.prototype.setTarget = function (view) {
 
     this.target = view;
 
 };
 
-VG.CameraControllerTopDown.prototype.mouseMove = function (event) {
+CameraControllerTopDown.prototype.mouseMove = function (event) {
 
 	this.mousePosition.x = event.sx * this.dxoffset - event.sy * this.dzoffset;
 	this.mousePosition.y = event.sx * this.dzoffset + event.sy * this.dxoffset;
@@ -10259,10 +10304,16 @@ VG.CameraControllerTopDown.prototype.mouseMove = function (event) {
 
 
 
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
 
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CameraControllerOrbit; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_js__ = __webpack_require__(2);
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -10272,7 +10323,9 @@ VG.CameraControllerTopDown.prototype.mouseMove = function (event) {
  * @author vgaidukov / https://github.com/vladgaidukov
  */
 
-VG.CameraControllerOrbit = function(object, domElement) {
+
+
+function CameraControllerOrbit (object, domElement) {
 
     this.object = object;
 
@@ -10457,14 +10510,14 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     this.deactivate = function() {
 
-        if (VG.MOBILE_CLIENT) {
-            VG.EventDispatcher.unbind('mouse.down', onTouchStart);
-            VG.EventDispatcher.unbind('mouse.up', onTouchEnd);
-            VG.EventDispatcher.unbind('mouse.move', onTouchMove);
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.down', onTouchStart);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.up', onTouchEnd);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.move', onTouchMove);
         } else {
 
-            VG.EventDispatcher.unbind('mouse.down', onMouseDown);
-            VG.EventDispatcher.unbind('mouse.scroll', onMouseWheel);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.down', onMouseDown);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.scroll', onMouseWheel);
         }
 
     };
@@ -10837,8 +10890,8 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
         if (state !== STATE.NONE) {
 
-        	VG.EventDispatcher.bind('mouse.move', this, onMouseMove);
-        	VG.EventDispatcher.bind('mouse.up', this, onMouseUp);
+        	__WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.move', this, onMouseMove);
+        	__WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.up', this, onMouseUp);
 
         }
 
@@ -10882,8 +10935,8 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
         if (scope.enabled === false) return;
 
-    	VG.EventDispatcher.unbind('mouse.move', onMouseMove);
-    	VG.EventDispatcher.unbind('mouse.up', onMouseUp);
+    	__WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.move', onMouseMove);
+    	__WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind('mouse.up', onMouseUp);
 
         state = STATE.NONE;
 
@@ -11001,29 +11054,29 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
     }
 
-    if (VG.MOBILE_CLIENT) {
-        VG.EventDispatcher.bind('mouse.down', this, onTouchStart);
-        VG.EventDispatcher.bind('mouse.up', this, onTouchEnd);
-        VG.EventDispatcher.bind('mouse.move', this, onTouchMove);
+    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.down', this, onTouchStart);
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.up', this, onTouchEnd);
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.move', this, onTouchMove);
     } else {
-        VG.EventDispatcher.bind('mouse.down', this, onMouseDown);
-        VG.EventDispatcher.bind('mouse.scroll', this, onMouseWheel);
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.UP, this, function() {
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.down', this, onMouseDown);
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('mouse.scroll', this, onMouseWheel);
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('keyboard.keydown.' + scope.keys.UP, this, function() {
             pan(0, scope.keyPanSpeed);
             scope.update();
         });
 
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.BOTTOM, this, function() {
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('keyboard.keydown.' + scope.keys.BOTTOM, this, function() {
             pan(0, -scope.keyPanSpeed);
             scope.update();
         });
 
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.LEFT, this, function() {
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('keyboard.keydown.' + scope.keys.LEFT, this, function() {
             pan(scope.keyPanSpeed, 0);
             scope.update();
         });
 
-        VG.EventDispatcher.bind('keyboard.keydown.' + scope.keys.RIGHT, this, function() {
+        __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind('keyboard.keydown.' + scope.keys.RIGHT, this, function() {
             pan(-scope.keyPanSpeed, 0);
             scope.update();
         });
@@ -11033,7 +11086,7 @@ VG.CameraControllerOrbit = function(object, domElement) {
 
 };
 
-VG.CameraControllerOrbit.prototype = {
+CameraControllerOrbit.prototype = {
     center: {
 
         get: function() {
@@ -11152,125 +11205,17 @@ VG.CameraControllerOrbit.prototype = {
         }
 
     }
-}
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-VG.SceneController = function () {
-
-    VG.SceneEntity.call(this, name);
-    this.matrixAutoUpdate = false;
-
-    this.scenes = {};
-    this.activeScene = null;
-
-    VG.EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
-};
-
-VG.SceneController.prototype = Object.create(VG.SceneEntity.prototype);
-VG.SceneController.constructor = VG.SceneController;
-
-VG.SceneController.prototype.add = function (scene) {
-    if (scene instanceof VG.Scene) {
-        if (this.scenes[scene.name]) {
-            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
-            return;
-        }
-
-        this.scenes[scene.name] = scene;
-    } else {
-        console.log('Error: Object is not instanceof VG.GameScene');
-    }
-};
-
-VG.SceneController.prototype.remove = function (scene) {
-    if (scene instanceof VG.Scene) {
-        if (this.scenes[scene.name]) {
-            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
-            return;
-        }
-
-        this.scenes[scene.name] = scene;
-    } else {
-        console.log('Error: Object is not instanceof VG.GameScene');
-    }
-};
-VG.SceneController.prototype.activateScene = function (name, data) {
-
-    if (name instanceof VG.Scene)
-        name = name.name
-
-    if (!this.scenes[name]) {
-        console.log('Error: Scene with name >>>' + name + '<<< is not exist');
-        return;
-    }
-
-    if (this.activeScene && this.activeScene.name == name)
-        return
-
-    if (this.activeScene) {
-
-        this.activeScene.deactivate();
-        
-        VG.SceneEntity.prototype.remove.call(this, this.activeScene.view);
-    }
-
-    this.activeScene = this.scenes[name];
-
-    VG.SceneEntity.prototype.add.call(this, this.activeScene.view);
-
-    this.activeScene.activate(data);
-};
-
-VG.SceneController.prototype.update = function (dt) {
-    if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
-        this.activeScene.update(dt)
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-VG.Scene = function (data) {
-	VG.SceneEntity.call(this);
-
-	this.name = 'default';
-	this.matrixAutoUpdate = false;
-
-	this.ui = null;
-
-}
-
-VG.Scene.prototype = Object.create(VG.SceneEntity.prototype);
-VG.Scene.constructor = VG.Scene;
-
-VG.Scene.prototype.activate = function (data) {
-
-	VG.SceneEntity.prototype.activate.apply(this, arguments);
-
-    if (this.ui)
-        this.ui.show();
-
-};
-
-VG.Scene.prototype.deactivate = function (data) {
-
-	VG.SceneEntity.prototype.deactivate.apply(this, arguments);
-
-    if (this.ui)
-        this.ui.hide();
-
 };
 
 
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.LevelMatrix2D = function (sizeX, sizeY, array) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Matrix2D; });
+function Matrix2D (sizeX, sizeY, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
@@ -11279,8 +11224,9 @@ VG.LevelMatrix2D = function (sizeX, sizeY, array) {
 
 }
 
-VG.LevelMatrix2D.prototype = {
-	constructor: VG.LevelMatrix2D,
+Matrix2D.prototype = {
+
+	constructor: Matrix2D,
 
 	cellExist: function (x, y){
 		if (x < 0 || y < 0 || x > this.sizeX - 1 || y > this.sizeY - 1)
@@ -11305,15 +11251,19 @@ VG.LevelMatrix2D.prototype = {
 		var index = x * this.sizeX + y;
 		this.matrix[index] = value;
 	},
-}
+};
+
+
 
 
 
 /***/ }),
 /* 26 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Matrix3D; });
+function Matrix3D (sizeX, sizeY, sizeZ, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
@@ -11323,8 +11273,8 @@ VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
 
 }
 
-VG.LevelMatrix3D.prototype = {
-	constructor: VG.LevelMatrix3D,
+Matrix3D.prototype = {
+	constructor: Matrix3D,
 
 	cellExist: function (x, y, z){
 		if (x < 0 || y < 0 || z < 0 || x > this.sizeX - 1 || y > this.sizeY - 1 || z > this.sizeZ - 1 )
@@ -11346,29 +11296,237 @@ VG.LevelMatrix3D.prototype = {
 		
 		var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
 		this.matrix[index] = value;
-	},
-}
+	}
+};
+
+
 
 /***/ }),
 /* 27 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.UI.BaseUIObject = function () {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedMeshMorph; });
+function AnimatedMeshMorph(geometry, material) {
+
+    THREE.Mesh.call(this, geometry, material);
+
+    this.fps = 10;
+    this.direction = 1;
+    this.animationList = [];
+
+    this.currentAnimation = '';
 
 }
 
-VG.UI.BaseUIObject.prototype = {
-    constructor: VG.UI.BaseUIObject,
+AnimatedMeshMorph.prototype = Object.create(THREE.Mesh.prototype);
+AnimatedMeshMorph.prototype.constructor = AnimatedMeshMorph;
+
+AnimatedMeshMorph.prototype.playAnimations = function (animations) {
+
+    //TODO: переписать по нормальному ))
+
+    var animation;
+
+    if (animations instanceof Array) {
+
+        this.animationList = animations.slice();
+        animation = this.animationList.shift();
+
+    } else if (typeof animations === "string") {
+        this.animationList = [];
+        animation = animations;
+
+    } else {
+
+        animation = this.animationList.shift();
+    }
+
+    if (animation == this.currentAnimation)
+        return
+    else
+        this.currentAnimation = animation;
+
+    animation = this.geometry.animations[this.currentAnimation];
+
+    if (animation) {
+
+        this.setFrameRange(animation.start, animation.end);
+        this.duration = 1000 * ((animation.end - animation.start) / this.fps);
+        this.time = 0;
+
+    } else {
+
+        console.warn('animation[' + this.currentAnimation + '] undefined');
+
+    }
+
+};
+AnimatedMeshMorph.prototype.parseAnimations = function (fps) {
+
+    this.fps = fps
+
+    var geometry = this.geometry;
+
+    if (!geometry.animations) geometry.animations = {};
+
+    var firstAnimation, animations = geometry.animations;
+
+    var pattern = /([a-z]+)_?(\d+)/;
+
+    for (var i = 0, il = geometry.morphTargets.length; i < il; i++) {
+
+        var morph = geometry.morphTargets[i];
+        var parts = morph.name.match(pattern);
+
+        if (parts && parts.length > 1) {
+
+            var label = parts[1];
+            var num = parts[2];
+
+            if (!animations[label]) animations[label] = { start: Infinity, end: -Infinity };
+
+            var animation = animations[label];
+
+            if (i < animation.start) animation.start = i;
+            if (i > animation.end) animation.end = i;
+
+            if (!firstAnimation) firstAnimation = label;
+
+        }
+
+    }
+
+    geometry.firstAnimation = firstAnimation;
+
+};
+AnimatedMeshMorph.prototype.setFrameRange = function (start, end) {
+
+    this.startKeyframe = start;
+    this.endKeyframe = end;
+
+    this.length = this.endKeyframe - this.startKeyframe + 1;
+
+};
+AnimatedMeshMorph.prototype.update = function (delta) {
+
+    if (this.animationList.length > 0)
+        if (this.lastKeyframe > this.currentKeyframe)
+            this.playAnimations();
+
+    var frameTime = this.duration / this.length;
+
+    this.time += this.direction * delta * 1000;
+
+    if (this.mirroredLoop) {
+
+        if (this.time > this.duration || this.time < 0) {
+
+            this.direction *= -1;
+
+            if (this.time > this.duration) {
+
+                this.time = this.duration;
+                this.directionBackwards = true;
+
+            }
+
+            if (this.time < 0) {
+
+                this.time = 0;
+                this.directionBackwards = false;
+
+            }
+
+        }
+
+    } else {
+
+        this.time = this.time % this.duration;
+
+        if (this.time < 0) this.time += this.duration;
+
+    }
+
+    var keyframe = this.startKeyframe + THREE.Math.clamp(Math.floor(this.time / frameTime), 0, this.length - 1);
+
+    if (keyframe !== this.currentKeyframe) {
+
+        this.morphTargetInfluences[this.lastKeyframe] = 0;
+        this.morphTargetInfluences[this.currentKeyframe] = 1;
+
+        this.morphTargetInfluences[keyframe] = 0;
+
+        this.lastKeyframe = this.currentKeyframe;
+        this.currentKeyframe = keyframe;
+
+    }
+
+    var mix = (this.time % frameTime) / frameTime;
+
+    if (this.directionBackwards) {
+
+        mix = 1 - mix;
+
+    }
+
+    this.morphTargetInfluences[this.currentKeyframe] = mix;
+    this.morphTargetInfluences[this.lastKeyframe] = 1 - mix;
+
+};
+
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UI; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseUIObject__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Button__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Container__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Panel__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__TextElement__ = __webpack_require__(33);
+
+
+
+
+
+
+var UI = {
+	BaseUIObject: __WEBPACK_IMPORTED_MODULE_0__BaseUIObject__["a" /* BaseUIObject */],
+	Button: __WEBPACK_IMPORTED_MODULE_1__Button__["a" /* Button */],
+	Container: __WEBPACK_IMPORTED_MODULE_2__Container__["a" /* Container */],
+	Panel: __WEBPACK_IMPORTED_MODULE_3__Panel__["a" /* Panel */],
+	TextElement: __WEBPACK_IMPORTED_MODULE_4__TextElement__["a" /* TextElement */]
+};
+
+
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseUIObject; });
+function BaseUIObject () {
+
+};
+
+BaseUIObject.prototype = {
+    constructor: BaseUIObject,
 
     add: function (object) {
-        if (object instanceof VG.UI.BaseUIObject)
+        if (object instanceof BaseUIObject)
             this.view.appendChild(object.view)
         else
             this.view.appendChild(object)
     },
 
     remove: function (object) {
-        if (object instanceof VG.UI.BaseUIObject)
+        if (object instanceof BaseUIObject)
             this.view.removeChild(object.view)
         else
             this.view.removeChild(object)
@@ -11392,74 +11550,78 @@ VG.UI.BaseUIObject.prototype = {
             this.view.removeChild(this.view.firstChild);
         };
     }
-}
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-VG.UI.TextElement = function (text, cssfont, csscolor) {
-
-	VG.UI.BaseUIObject.call(this);
-
-    this.view = document.createElement('span');
-    this.view.style.position = 'absolute';
-    this.view.style.left = '0px';
-    this.view.style.bottom = '0px';
-    this.view.style.userSelect = 'none';
-    this.view.style.font = cssfont;
-    this.view.innerText = text;
-    this.view.style.color = csscolor || 'black';
-
-    this.position = {x: 0, y: 0};
-
 };
 
-VG.UI.TextElement.prototype = Object.create(VG.UI.BaseUIObject.prototype);
-VG.UI.TextElement.constructor = VG.UI.TextElement;
 
-Object.defineProperty (VG.UI.TextElement.prototype, 'value', {
-
-    get: function () {
-        return this.view.innerText;
-    },
-
-    set: function (value) {
-        this.view.innerText = value;
-    }
-})
-
-Object.defineProperty (VG.UI.TextElement.prototype, 'position', {
-
-    get: function () {
-        return this._position;
-    },
-
-    set: function (value) {
-        this._position = value
-        this.view.style.left = typeof value.x == "string" ? 
-        	'calc(' + value.x + ' - ' + parseFloat(this.view.clientWidth) / 2 + 'px)' : value.x + 'px';
-        this.view.style.bottom = typeof value.y == "string" ? 
-        	'calc(' + value.y + ' - ' + parseFloat(this.view.clientHeight) / 2 + 'px)' : value.y + 'px';
-    },
-})
-
-VG.UI.TextElement.prototype.clone = function (){
-
-	var clone = new VG.UI.TextElement.constructor();
-	clone.position = this.position;
-	clone.view = this.view.cloneNode();
-
-	return clone;
-} 
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports) {
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.UI.Container = function(container) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Button; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Panel_js__ = __webpack_require__(32);
 
-	VG.UI.BaseUIObject.call(this);
+
+function Button (normal, active, action) {
+    __WEBPACK_IMPORTED_MODULE_0__Panel_js__["a" /* Panel */].call(this, normal);
+
+    var context = this;
+
+    this.activeImg = active ? active.cloneNode() : null;
+    if (this.activeImg) {
+        this.add(this.activeImg);
+        this.activeImg.style.display = 'none';
+        this.activeImg.style.position = 'relative';
+        this.activeImg.style.width = '100%';
+        this.activeImg.style.height = '100%';
+    };
+
+    this.action = action || function () {};
+
+    this.view.addEventListener('mousedown', function (e) { context.mousedown(e) }, false);
+    this.view.addEventListener('mouseup', function (e) { context.mouseup(e) }, false);
+    this.view.addEventListener('mouseout', function (e) { context.normal(e) }, false);
+};
+
+Button.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__Panel_js__["a" /* Panel */].prototype);
+Button.constructor = Button;
+
+Button.prototype.normal = function () {
+    if (!this.activeImg)
+        return
+
+    this.activeImg.style.display = 'none';
+    this.image.style.display = 'inline-block'
+};
+
+Button.prototype.mousedown = function () {
+    if (!this.activeImg)
+        return
+
+    this.activeImg.style.display = 'inline-block';
+    this.image.style.display = 'none'
+};
+
+Button.prototype.mouseup = function () {
+	this.normal();
+	this.action();
+};
+
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Container; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__ = __webpack_require__(29);
+
+
+function Container (container) {
+
+	__WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].call(this);
 
     this.inited = false;
 
@@ -11478,33 +11640,40 @@ VG.UI.Container = function(container) {
     }
 };
 
-VG.UI.Container.prototype = Object.create(VG.UI.BaseUIObject.prototype);
-VG.UI.Container.constructor = VG.UI.Container;
+Container.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].prototype);
+Container.constructor = Container;
 
-VG.UI.Container.prototype.init = function(data) {
+Container.prototype.init = function(data) {
 
     this.inited = true;
 
 };
 
-VG.UI.Container.prototype.show = function(data) {
+Container.prototype.show = function(data) {
 
     if (!this.inited)
         this.init(data);
 
-    VG.UI.BaseUIObject.prototype.show.apply(this, arguments);
+    __WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].prototype.show.apply(this, arguments);
 
 };
 
 
 
+
+
 /***/ }),
-/* 30 */
-/***/ (function(module, exports) {
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.UI.Panel = function (image) {
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Panel; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__ = __webpack_require__(29);
 
-	VG.UI.BaseUIObject.call(this);
+
+function Panel (image) {
+
+	__WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].call(this);
 
     this.view = document.createElement('div');
     this.view.style.position = 'absolute';
@@ -11527,10 +11696,10 @@ VG.UI.Panel = function (image) {
 
 };
 
-VG.UI.Panel.prototype = Object.create(VG.UI.BaseUIObject.prototype);
-VG.UI.Panel.constructor = VG.UI.Panel;
+Panel.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].prototype);
+Panel.constructor = Panel;
 
-Object.defineProperty (VG.UI.Panel.prototype, 'scale', {
+Object.defineProperty (Panel.prototype, 'scale', {
 
     get: function () {
         return this._scale;
@@ -11541,9 +11710,9 @@ Object.defineProperty (VG.UI.Panel.prototype, 'scale', {
         this.view.style.width = (this.image.naturalWidth * this.scale) + 'px';
         this.view.style.height = (this.image.naturalHeight * this.scale) + 'px';
     },
-})
+});
 
-Object.defineProperty (VG.UI.Panel.prototype, 'position', {
+Object.defineProperty (Panel.prototype, 'position', {
 
     get: function () {
         return this._position;
@@ -11556,64 +11725,84 @@ Object.defineProperty (VG.UI.Panel.prototype, 'position', {
         this.view.style.bottom = typeof value.y == "string" ? 
         	'calc(' + value.y + ' - ' + parseFloat(this.view.style.height) / 2 + 'px)' : value.y + 'px';
     },
-})
+});
 
-VG.UI.Panel.prototype.clone = function (){
-	var clone = new VG.UI.Panel.constructor(this.image);
+Panel.prototype.clone = function (){
+	var clone = new Panel.constructor(this.image);
 	clone.position = this.position;
 	clone.scale = this.scale;
 
 	return clone;
-} 
+};
+
+
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports) {
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-VG.UI.Button = function (normal, active, action) {
-    VG.UI.Panel.call(this, normal);
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TextElement; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__ = __webpack_require__(29);
 
-    var context = this;
 
-    this.activeImg = active ? active.cloneNode() : null;
-    if (this.activeImg) {
-        this.add(this.activeImg);
-        this.activeImg.style.display = 'none';
-        this.activeImg.style.position = 'relative';
-        this.activeImg.style.width = '100%';
-        this.activeImg.style.height = '100%';
+function TextElement (text, cssfont, csscolor) {
+
+	__WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].call(this);
+
+    this.view = document.createElement('span');
+    this.view.style.position = 'absolute';
+    this.view.style.left = '0px';
+    this.view.style.bottom = '0px';
+    this.view.style.userSelect = 'none';
+    this.view.style.font = cssfont;
+    this.view.innerText = text;
+    this.view.style.color = csscolor || 'black';
+
+    this.position = {x: 0, y: 0};
+
+};
+
+TextElement.prototype = Object.create(__WEBPACK_IMPORTED_MODULE_0__BaseUIObject_js__["a" /* BaseUIObject */].prototype);
+TextElement.constructor = TextElement;
+
+Object.defineProperty (TextElement.prototype, 'value', {
+
+    get: function () {
+        return this.view.innerText;
+    },
+
+    set: function (value) {
+        this.view.innerText = value;
     }
+});
 
-    this.action = action || function () {};
+Object.defineProperty (TextElement.prototype, 'position', {
 
-    this.view.addEventListener('mousedown', function (e) { context.mousedown(e) }, false);
-    this.view.addEventListener('mouseup', function (e) { context.mouseup(e) }, false);
-    this.view.addEventListener('mouseout', function (e) { context.normal(e) }, false);
-}
+    get: function () {
+        return this._position;
+    },
 
-VG.UI.Button.prototype = Object.create(VG.UI.Panel.prototype);
-VG.UI.Button.constructor = VG.UI.Button;
+    set: function (value) {
+        this._position = value
+        this.view.style.left = typeof value.x == "string" ? 
+        	'calc(' + value.x + ' - ' + parseFloat(this.view.clientWidth) / 2 + 'px)' : value.x + 'px';
+        this.view.style.bottom = typeof value.y == "string" ? 
+        	'calc(' + value.y + ' - ' + parseFloat(this.view.clientHeight) / 2 + 'px)' : value.y + 'px';
+    },
+});
 
-VG.UI.Button.prototype.normal = function () {
-    if (!this.activeImg)
-        return
+TextElement.prototype.clone = function (){
 
-    this.activeImg.style.display = 'none';
-    this.image.style.display = 'inline-block'
-}
+	var clone = new TextElement.constructor();
+	clone.position = this.position;
+	clone.view = this.view.cloneNode();
 
-VG.UI.Button.prototype.mousedown = function () {
-    if (!this.activeImg)
-        return
+	return clone;
+};
 
-    this.activeImg.style.display = 'inline-block';
-    this.image.style.display = 'none'
-}
 
-VG.UI.Button.prototype.mouseup = function () {
-	this.normal();
-	this.action();
-}
 
 /***/ })
 /******/ ]);
+});

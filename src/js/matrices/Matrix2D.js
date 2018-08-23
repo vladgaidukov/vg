@@ -1,4 +1,4 @@
-VG.LevelMatrix2D = function (sizeX, sizeY, array) {
+function Matrix2D (sizeX, sizeY, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
@@ -7,8 +7,9 @@ VG.LevelMatrix2D = function (sizeX, sizeY, array) {
 
 }
 
-VG.LevelMatrix2D.prototype = {
-	constructor: VG.LevelMatrix2D,
+Matrix2D.prototype = {
+
+	constructor: Matrix2D,
 
 	cellExist: function (x, y){
 		if (x < 0 || y < 0 || x > this.sizeX - 1 || y > this.sizeY - 1)
@@ -33,5 +34,7 @@ VG.LevelMatrix2D.prototype = {
 		var index = x * this.sizeX + y;
 		this.matrix[index] = value;
 	},
-}
+};
+
+export { Matrix2D };
 

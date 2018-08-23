@@ -4,6 +4,8 @@ module.exports = [{
         entry: './src/app.js',
         output: {
             path: path.resolve(__dirname, 'dist'),
+            libraryTarget: "umd",
+            library: "VG",
             filename: 'vg.js',
         },
         devServer: {

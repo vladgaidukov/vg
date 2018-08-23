@@ -1,4 +1,6 @@
-VG.KeyboardEventsHandler = function(domElement) {
+import { EventDispatcher } from '../EventDispatcher.js';
+
+function KeyboardEventsHandler (domElement) {
 
     var container = domElement;
 
@@ -11,7 +13,7 @@ VG.KeyboardEventsHandler = function(domElement) {
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
 
-            VG.EventDispatcher.send('keyboard.keydown.' + event.key, event);
+            EventDispatcher.send('keyboard.keydown.' + event.key, event);
 
             return false;
         }, false);
@@ -25,7 +27,7 @@ VG.KeyboardEventsHandler = function(domElement) {
             if (lastKey && lastKey == event.keyCode) {
                 clearTimeout(timeout);
                 lastKey = null;
-                VG.EventDispatcher.send('keyboard.doublekey.' + event.key, event);
+                EventDispatcher.send('keyboard.doublekey.' + event.key, event);
                 
 
             } else {
@@ -35,7 +37,7 @@ VG.KeyboardEventsHandler = function(domElement) {
                 }, 600);
             };
 
-            VG.EventDispatcher.send('keyboard.keyup.' + event.key, event);
+            EventDispatcher.send('keyboard.keyup.' + event.key, event);
             return false;
         }, false);
 
@@ -44,7 +46,9 @@ VG.KeyboardEventsHandler = function(domElement) {
 
             if (!event.key)
                 event.key = String.fromCharCode(event.keyCode).toLowerCase();
-            VG.EventDispatcher.send('keyboard.keypress.' + event.key, event);
+            EventDispatcher.send('keyboard.keypress.' + event.key, event);
         }, false);
 
 };
+
+export { KeyboardEventsHandler };

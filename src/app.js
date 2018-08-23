@@ -6,40 +6,40 @@ import './js/postprocessing/MaskPass.js';
 
 import './js/postprocessing/ShaderPass.js';
 
-import './js/VG.js';
-import './js/BaseEntity.js';
-import './js/SceneEntity.js';
-
-import './js/Engine.js';
-
-import './js/EventDispatcher.js';
-
-import './js/meshes/MorphBlendMesh.js';
-import './js/meshes/Terrain.js';
-import './js/meshes/AnimatedSprite.js';
-
 import './js/loaders/MTLLoader.js';
 import './js/loaders/OBJLoader.js';
 import './js/loaders/ColladaLoader.js';
-import './js/AssetsLoader.js';
 
-import './js/controls/KeyboardEventsHandler.js';
-import './js/controls/MouseEventsHandler.js';
+export { EventDispatcher } from './js/EventDispatcher';
+export { BaseEntity } from './js/BaseEntity';
+export { SceneEntity } from './js/SceneEntity';
 
-import './js/cameras/CameraControllerTopDown.js';
-import './js/cameras/CameraControllerOrbit.js';
+export { SceneController } from './js/scene/SceneController';
+export { Scene } from './js/scene/Scene';
 
-import './js/scene/SceneController.js';
-import './js/scene/Scene.js';
 
-import './js/matrices/LevelMatrix2D.js';
-import './js/matrices/LevelMatrix3D.js';
+export { Engine } from './js/Engine';
 
-import './js/ui/BaseUIObject.js';
-import './js/ui/TextElement.js';
-import './js/ui/Container.js';
-import './js/ui/Panel.js';
-import './js/ui/Button.js';
+
+export { AssetsLoader } from './js/AssetsLoader';
+
+export { KeyboardEventsHandler } from './js/controls/KeyboardEventsHandler';
+export { MouseEventsHandler } from './js/controls/MouseEventsHandler';
+
+export { Terrain } from './js/meshes/Terrain';
+export { AnimatedSprite } from './js/meshes/AnimatedSprite';
+export { AnimatedMeshMorph } from './js/meshes/AnimatedMeshMorph';
+
+
+export { CameraControllerTopDown } from './js/cameras/CameraControllerTopDown';
+export { CameraControllerOrbit } from './js/cameras/CameraControllerOrbit';
+
+export { Matrix2D } from './js/matrices/Matrix2D';
+export { Matrix3D } from './js/matrices/Matrix3D';
+
+export { UI } from './js/ui/UI';
+
+export * from './js/settings';
 
 
 

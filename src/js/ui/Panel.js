@@ -1,6 +1,8 @@
-VG.UI.Panel = function (image) {
+import { BaseUIObject } from './BaseUIObject.js';
 
-	VG.UI.BaseUIObject.call(this);
+function Panel (image) {
+
+	BaseUIObject.call(this);
 
     this.view = document.createElement('div');
     this.view.style.position = 'absolute';
@@ -23,10 +25,10 @@ VG.UI.Panel = function (image) {
 
 };
 
-VG.UI.Panel.prototype = Object.create(VG.UI.BaseUIObject.prototype);
-VG.UI.Panel.constructor = VG.UI.Panel;
+Panel.prototype = Object.create(BaseUIObject.prototype);
+Panel.constructor = Panel;
 
-Object.defineProperty (VG.UI.Panel.prototype, 'scale', {
+Object.defineProperty (Panel.prototype, 'scale', {
 
     get: function () {
         return this._scale;
@@ -37,9 +39,9 @@ Object.defineProperty (VG.UI.Panel.prototype, 'scale', {
         this.view.style.width = (this.image.naturalWidth * this.scale) + 'px';
         this.view.style.height = (this.image.naturalHeight * this.scale) + 'px';
     },
-})
+});
 
-Object.defineProperty (VG.UI.Panel.prototype, 'position', {
+Object.defineProperty (Panel.prototype, 'position', {
 
     get: function () {
         return this._position;
@@ -52,12 +54,14 @@ Object.defineProperty (VG.UI.Panel.prototype, 'position', {
         this.view.style.bottom = typeof value.y == "string" ? 
         	'calc(' + value.y + ' - ' + parseFloat(this.view.style.height) / 2 + 'px)' : value.y + 'px';
     },
-})
+});
 
-VG.UI.Panel.prototype.clone = function (){
-	var clone = new VG.UI.Panel.constructor(this.image);
+Panel.prototype.clone = function (){
+	var clone = new Panel.constructor(this.image);
 	clone.position = this.position;
 	clone.scale = this.scale;
 
 	return clone;
-} 
+};
+
+export { Panel };

@@ -1,4 +1,4 @@
-VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
+function Matrix3D (sizeX, sizeY, sizeZ, array) {
 
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
@@ -8,8 +8,8 @@ VG.LevelMatrix3D = function (sizeX, sizeY, sizeZ, array) {
 
 }
 
-VG.LevelMatrix3D.prototype = {
-	constructor: VG.LevelMatrix3D,
+Matrix3D.prototype = {
+	constructor: Matrix3D,
 
 	cellExist: function (x, y, z){
 		if (x < 0 || y < 0 || z < 0 || x > this.sizeX - 1 || y > this.sizeY - 1 || z > this.sizeZ - 1 )
@@ -31,5 +31,7 @@ VG.LevelMatrix3D.prototype = {
 		
 		var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
 		this.matrix[index] = value;
-	},
-}
+	}
+};
+
+export { Matrix3D };

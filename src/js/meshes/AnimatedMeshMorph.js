@@ -1,4 +1,4 @@
-VG.Meshes.MorphBlendMesh = function (geometry, material) {
+function AnimatedMeshMorph(geometry, material) {
 
     THREE.Mesh.call(this, geometry, material);
 
@@ -10,10 +10,10 @@ VG.Meshes.MorphBlendMesh = function (geometry, material) {
 
 }
 
-VG.Meshes.MorphBlendMesh.prototype = Object.create(THREE.Mesh.prototype);
-VG.Meshes.MorphBlendMesh.prototype.constructor = VG.Meshes.MorphBlendMesh;
+AnimatedMeshMorph.prototype = Object.create(THREE.Mesh.prototype);
+AnimatedMeshMorph.prototype.constructor = AnimatedMeshMorph;
 
-VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (animations) {
+AnimatedMeshMorph.prototype.playAnimations = function (animations) {
 
     //TODO: переписать по нормальному ))
 
@@ -53,7 +53,7 @@ VG.Meshes.MorphBlendMesh.prototype.playAnimations = function (animations) {
     }
 
 };
-VG.Meshes.MorphBlendMesh.prototype.parseAnimations = function (fps) {
+AnimatedMeshMorph.prototype.parseAnimations = function (fps) {
 
     this.fps = fps
 
@@ -91,7 +91,7 @@ VG.Meshes.MorphBlendMesh.prototype.parseAnimations = function (fps) {
     geometry.firstAnimation = firstAnimation;
 
 };
-VG.Meshes.MorphBlendMesh.prototype.setFrameRange = function (start, end) {
+AnimatedMeshMorph.prototype.setFrameRange = function (start, end) {
 
     this.startKeyframe = start;
     this.endKeyframe = end;
@@ -99,7 +99,7 @@ VG.Meshes.MorphBlendMesh.prototype.setFrameRange = function (start, end) {
     this.length = this.endKeyframe - this.startKeyframe + 1;
 
 };
-VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
+AnimatedMeshMorph.prototype.update = function (delta) {
 
     if (this.animationList.length > 0)
         if (this.lastKeyframe > this.currentKeyframe)
@@ -165,3 +165,5 @@ VG.Meshes.MorphBlendMesh.prototype.update = function (delta) {
     this.morphTargetInfluences[this.lastKeyframe] = 1 - mix;
 
 };
+
+export { AnimatedMeshMorph };

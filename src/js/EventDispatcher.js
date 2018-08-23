@@ -1,4 +1,4 @@
-VG.EventDispatcher = {
+var EventDispatcher = {
     listeners: {},
 
     bind: function (type, listener, callback) {
@@ -140,3 +140,5 @@ VG.EventDispatcher = {
     }
 
 };
+
+export { EventDispatcher };

@@ -1,6 +1,8 @@
-VG.UI.TextElement = function (text, cssfont, csscolor) {
+import { BaseUIObject } from './BaseUIObject.js';
 
-	VG.UI.BaseUIObject.call(this);
+function TextElement (text, cssfont, csscolor) {
+
+	BaseUIObject.call(this);
 
     this.view = document.createElement('span');
     this.view.style.position = 'absolute';
@@ -15,10 +17,10 @@ VG.UI.TextElement = function (text, cssfont, csscolor) {
 
 };
 
-VG.UI.TextElement.prototype = Object.create(VG.UI.BaseUIObject.prototype);
-VG.UI.TextElement.constructor = VG.UI.TextElement;
+TextElement.prototype = Object.create(BaseUIObject.prototype);
+TextElement.constructor = TextElement;
 
-Object.defineProperty (VG.UI.TextElement.prototype, 'value', {
+Object.defineProperty (TextElement.prototype, 'value', {
 
     get: function () {
         return this.view.innerText;
@@ -27,9 +29,9 @@ Object.defineProperty (VG.UI.TextElement.prototype, 'value', {
     set: function (value) {
         this.view.innerText = value;
     }
-})
+});
 
-Object.defineProperty (VG.UI.TextElement.prototype, 'position', {
+Object.defineProperty (TextElement.prototype, 'position', {
 
     get: function () {
         return this._position;
@@ -42,13 +44,15 @@ Object.defineProperty (VG.UI.TextElement.prototype, 'position', {
         this.view.style.bottom = typeof value.y == "string" ? 
         	'calc(' + value.y + ' - ' + parseFloat(this.view.clientHeight) / 2 + 'px)' : value.y + 'px';
     },
-})
+});
 
-VG.UI.TextElement.prototype.clone = function (){
+TextElement.prototype.clone = function (){
 
-	var clone = new VG.UI.TextElement.constructor();
+	var clone = new TextElement.constructor();
 	clone.position = this.position;
 	clone.view = this.view.cloneNode();
 
 	return clone;
-} 
+};
+
+export { TextElement };

@@ -1,4 +1,4 @@
-VG.AnimatedSprite = function(image, tilesHoriz, tilesVert, tileDispDuration) {
+function AnimatedSprite (image, tilesHoriz, tilesVert, tileDispDuration) {
 
     this.texture = new THREE.Texture(image);
     this.texture.needsUpdate = true;
@@ -23,9 +23,9 @@ VG.AnimatedSprite = function(image, tilesHoriz, tilesVert, tileDispDuration) {
 	this.currentTile = 0;
 };
 
-VG.AnimatedSprite.prototype = {
+AnimatedSprite.prototype = {
 
-	constructor: VG.AnimatedSprite,
+	constructor: AnimatedSprite,
 
 	currentTile: 0,
 
@@ -78,3 +78,5 @@ VG.AnimatedSprite.prototype = {
 		this.view.scale.set(x * val, y * val, 1);
 	}
 };
+
+export { AnimatedSprite };

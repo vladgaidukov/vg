@@ -1,5 +1,5 @@
 {
-  "name": "vge",
+  "name": "vg",
   "version": "1.0.0",
   "description": "Simple Game Framework based on Three.js",
   "main": "vg.js",

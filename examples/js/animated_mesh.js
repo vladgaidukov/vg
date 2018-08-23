@@ -18,7 +18,7 @@ var Scene2 = function() {
         for (var i = materials.length - 1; i >= 0; i--) {
             materials[i].morphTargets = true;
         }
-        mesh = new VG.Meshes.MorphBlendMesh(geometry, materials);
+        mesh = new VG.AnimatedMeshMorph(geometry, materials);
         //mesh.scale.set(0.02, 0.02, 0.02)
 
         for (var i = 100; i >= 0; i--) {

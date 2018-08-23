@@ -1,16 +1,18 @@
-VG.SceneEntity = function () {
+import { BaseEntity } from './BaseEntity.js';
 
-    VG.BaseEntity.call(this);
+function SceneEntity() {
+
+    BaseEntity.call(this);
 
     this.view = new THREE.Object3D;
     this.animated = [];
     this.autoUpdate = true;
 };
 
-VG.SceneEntity.prototype = Object.create(VG.BaseEntity.prototype);
-VG.SceneEntity.constructor = VG.SceneEntity;
+SceneEntity.prototype = Object.create(BaseEntity.prototype);
+SceneEntity.constructor = SceneEntity;
 
-Object.defineProperty(VG.SceneEntity.prototype, 'matrixAutoUpdate', {
+Object.defineProperty(SceneEntity.prototype, 'matrixAutoUpdate', {
 
     get: function () {
         return this.view.matrixAutoUpdate;
@@ -22,7 +24,7 @@ Object.defineProperty(VG.SceneEntity.prototype, 'matrixAutoUpdate', {
     },
 });
 
-VG.SceneEntity.prototype.add = function (object) {
+SceneEntity.prototype.add = function (object) {
     if (!object)
         return;
 
@@ -30,7 +32,7 @@ VG.SceneEntity.prototype.add = function (object) {
     if (view)
         this.view.add(view);
 
-    if (object instanceof VG.BaseEntity && !object.autoUpdate)
+    if (object instanceof BaseEntity && !object.autoUpdate)
         return
 
     var animated = typeof object.update == 'function' ? object : typeof view.update == 'function' ? view : false;
@@ -38,7 +40,7 @@ VG.SceneEntity.prototype.add = function (object) {
         this.animated.push(animated);
 };
 
-VG.SceneEntity.prototype.remove = function (object) {
+SceneEntity.prototype.remove = function (object) {
     if (!object)
         return;
 
@@ -51,13 +53,13 @@ VG.SceneEntity.prototype.remove = function (object) {
         this.animated.splice(this.animated.indexOf(animated), 1);
 };
 
-VG.SceneEntity.prototype.update = function (dt) {
+SceneEntity.prototype.update = function (dt) {
     for (var i = 0; i < this.animated.length; i++) {
         this.animated[i].update(dt);
     }
 };
 
-VG.SceneEntity.prototype.clear = function () {
+SceneEntity.prototype.clear = function () {
 
     for (var i = this.view.children.length - 1; i >= 0; i--) {
         this.view.remove(this.view.children[i]);
@@ -66,7 +68,7 @@ VG.SceneEntity.prototype.clear = function () {
     this.animated = [];
 };
 
-Object.defineProperty(VG.SceneEntity.prototype, 'position', {
+Object.defineProperty(SceneEntity.prototype, 'position', {
 
     get: function () {
         return this.view.position;
@@ -77,7 +79,7 @@ Object.defineProperty(VG.SceneEntity.prototype, 'position', {
     },
 });
 
-Object.defineProperty(VG.SceneEntity.prototype, 'rotation', {
+Object.defineProperty(SceneEntity.prototype, 'rotation', {
 
     get: function () {
         return this.view.rotation;
@@ -87,3 +89,5 @@ Object.defineProperty(VG.SceneEntity.prototype, 'rotation', {
         this.view.rotation.set(value.x, value.y, value.z);
     },
 });
+
+export { SceneEntity };

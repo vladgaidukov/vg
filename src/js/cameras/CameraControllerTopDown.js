@@ -1,6 +1,9 @@
-VG.CameraControllerTopDown = function (options) {
+import { EventDispatcher } from '../EventDispatcher.js';
+import { BaseEntity } from './../BaseEntity.js';
 
-    VG.BaseEntity.call(this);
+function CameraControllerTopDown (options) {
+
+    BaseEntity.call(this);
     this.autoUpdate = true;
 
     options = options || {}
@@ -18,14 +21,14 @@ VG.CameraControllerTopDown = function (options) {
 
     this.camera = options.camera || console.error('options.camera is undefind');
 
-    VG.EventDispatcher.bind('mouse.move', this, this.mouseMove);
+    EventDispatcher.bind('mouse.move', this, this.mouseMove);
 
 };
 
-VG.CameraControllerTopDown.prototype = Object.create(VG.BaseEntity.prototype);
-VG.CameraControllerTopDown.constructor = VG.SceneEntity;
+CameraControllerTopDown.prototype = Object.create(BaseEntity.prototype);
+CameraControllerTopDown.constructor = CameraControllerTopDown;
 
-VG.CameraControllerTopDown.prototype.update = function () {
+CameraControllerTopDown.prototype.update = function () {
 
 	var position = new THREE.Vector3();
 	var look = new THREE.Vector3();
@@ -47,17 +50,19 @@ VG.CameraControllerTopDown.prototype.update = function () {
 	}
 }();
 
-VG.CameraControllerTopDown.prototype.setTarget = function (view) {
+CameraControllerTopDown.prototype.setTarget = function (view) {
 
     this.target = view;
 
 };
 
-VG.CameraControllerTopDown.prototype.mouseMove = function (event) {
+CameraControllerTopDown.prototype.mouseMove = function (event) {
 
 	this.mousePosition.x = event.sx * this.dxoffset - event.sy * this.dzoffset;
 	this.mousePosition.y = event.sx * this.dzoffset + event.sy * this.dxoffset;
 
 };
+
+export { CameraControllerTopDown };
 
 

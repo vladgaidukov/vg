@@ -1,19 +1,32 @@
-VG.Engine = function (container) {
-    VG.SceneEntity.call(this, name);
+import { SceneEntity } from './SceneEntity.js';
+import { EventDispatcher } from './EventDispatcher.js';
+import {
+    CAMERA_FOV,
+    CAMERA_NEAR,
+    CAMERA_FAR,
+    CAMERA_POSITION,
+    ANTIALIAS,
+    CLEAR_COLOR,
+    DETAIL,
+} from './settings.js';
+
+function Engine (container) {
+    SceneEntity.call(this, name);
+
     var self = this;
 
     this.domelement = document.getElementById(container);
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(VG.CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, VG.CAMERA_NEAR, VG.CAMERA_FAR);
-    this.camera.position.copy(VG.CAMERA_POSITION);
+    this.camera = new THREE.PerspectiveCamera(CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, CAMERA_NEAR, CAMERA_FAR);
+    this.camera.position.copy(CAMERA_POSITION);
     this.view.add(this.camera);
 
     this.renderer = new THREE.WebGLRenderer({
-        antialias: VG.ANTIALIAS || false
+        antialias: ANTIALIAS || false
     });
-    this.renderer.setClearColor(VG.CLEAR_COLOR);
+    this.renderer.setClearColor(CLEAR_COLOR);
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
     this.domelement.append(this.renderer.domElement);
 
@@ -21,13 +34,13 @@ VG.Engine = function (container) {
 
     composer.addPass(new THREE.RenderPass(this.view, this.camera));
 
-    pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(this.domelement.clientWidth, this.domelement.clientHeight));
+    var pass = new THREE.BloomBlendPass(2, 1, new THREE.Vector2(this.domelement.clientWidth, this.domelement.clientHeight));
     pass.renderToScreen = true;
     composer.addPass(pass);
 
     var clock = new THREE.Clock();
 
-    this.renderer.setPixelRatio(window.devicePixelRatio * VG.DETAIL);
+    this.renderer.setPixelRatio(window.devicePixelRatio * DETAIL);
 
     window.addEventListener('resize', function () {
         self.resize();
@@ -51,18 +64,20 @@ VG.Engine = function (container) {
 
     render();
 
-    VG.EventDispatcher.bind('Engine.get.camera', this, function () { return this.camera });
-    VG.EventDispatcher.bind('Engine.get.renderer', this, function () { return this.renderer });
-    VG.EventDispatcher.bind('Engine.add', this, this.add);
-    VG.EventDispatcher.bind('Engine.remove', this, this.remove);
-    VG.EventDispatcher.bind('Engine.resize', this, this.resize);
+    EventDispatcher.bind('Engine.get.camera', this, function () { return this.camera });
+    EventDispatcher.bind('Engine.get.renderer', this, function () { return this.renderer });
+    EventDispatcher.bind('Engine.add', this, this.add);
+    EventDispatcher.bind('Engine.remove', this, this.remove);
+    EventDispatcher.bind('Engine.resize', this, this.resize);
 };
 
-VG.Engine.prototype = Object.create(VG.SceneEntity.prototype);
-VG.Engine.constructor = VG.Engine;
+Engine.prototype = Object.create(SceneEntity.prototype);
+Engine.constructor = Engine;
 
-VG.Engine.prototype.resize = function () {
+Engine.prototype.resize = function () {
     this.camera.aspect = this.domelement.clientWidth / this.domelement.clientHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
 }
+
+export { Engine };

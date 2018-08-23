@@ -1,6 +1,8 @@
-VG.UI.Container = function(container) {
+import { BaseUIObject } from './BaseUIObject.js';
 
-	VG.UI.BaseUIObject.call(this);
+function Container (container) {
+
+	BaseUIObject.call(this);
 
     this.inited = false;
 
@@ -19,21 +21,23 @@ VG.UI.Container = function(container) {
     }
 };
 
-VG.UI.Container.prototype = Object.create(VG.UI.BaseUIObject.prototype);
-VG.UI.Container.constructor = VG.UI.Container;
+Container.prototype = Object.create(BaseUIObject.prototype);
+Container.constructor = Container;
 
-VG.UI.Container.prototype.init = function(data) {
+Container.prototype.init = function(data) {
 
     this.inited = true;
 
 };
 
-VG.UI.Container.prototype.show = function(data) {
+Container.prototype.show = function(data) {
 
     if (!this.inited)
         this.init(data);
 
-    VG.UI.BaseUIObject.prototype.show.apply(this, arguments);
+    BaseUIObject.prototype.show.apply(this, arguments);
 
 };
+
+export { Container };
 

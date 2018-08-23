@@ -177,15 +177,15 @@
 })(this);
 
 
-VG.Meshes.Terrain = function(options) {
+function Terrain (options) {
     var defaultOptions = {
         after: null,
-        easing: VG.Meshes.Terrain.Linear,
-        heightmap: VG.Meshes.Terrain.DiamondSquare,
+        easing: Terrain.Linear,
+        heightmap: Terrain.DiamondSquare,
         material: null,
         maxHeight: 100,
         minHeight: -100,
-        optimization: VG.Meshes.Terrain.NONE,
+        optimization: Terrain.NONE,
         frequency: 2.5,
         steps: 1,
         stretch: true,
@@ -234,7 +234,7 @@ VG.Meshes.Terrain = function(options) {
 
     // Assign elevation data to the terrain plane from a heightmap or function.
     if (options.heightmap instanceof HTMLCanvasElement || options.heightmap instanceof Image) {
-        VG.Meshes.Terrain.fromHeightmap(mesh.geometry.vertices, options);
+        Terrain.fromHeightmap(mesh.geometry.vertices, options);
     }
     else if (typeof options.heightmap === 'function') {
         options.heightmap(mesh.geometry.vertices, options);
@@ -242,7 +242,7 @@ VG.Meshes.Terrain = function(options) {
     else {
         console.warn('An invalid value was passed for `options.heightmap`: ' + options.heightmap);
     }
-    VG.Meshes.Terrain.Normalize(mesh, options);
+    Terrain.Normalize(mesh, options);
 
     if (options.useBufferGeometry) {
         mesh.geometry = (new THREE.BufferGeometry()).fromGeometry(mesh.geometry);
@@ -255,17 +255,17 @@ VG.Meshes.Terrain = function(options) {
 };
 
 
-VG.Meshes.Terrain.Normalize = function(mesh, options) {
+Terrain.Normalize = function(mesh, options) {
     var v = mesh.geometry.vertices;
     if (options.turbulent) {
-        VG.Meshes.Terrain.Turbulence(v, options);
+        Terrain.Turbulence(v, options);
     }
     if (options.steps > 1) {
-        VG.Meshes.Terrain.Step(v, options.steps);
-        VG.Meshes.Terrain.Smooth(v, options);
+        Terrain.Step(v, options.steps);
+        Terrain.Smooth(v, options);
     }
     // Keep the terrain within the allotted height range if necessary, and do easing.
-    VG.Meshes.Terrain.Clamp(v, options);
+    Terrain.Clamp(v, options);
     // Call the "after" callback
     if (typeof options.after === 'function') {
         options.after(v, options);
@@ -278,13 +278,13 @@ VG.Meshes.Terrain.Normalize = function(mesh, options) {
     mesh.geometry.computeVertexNormals();
 };
 
-VG.Meshes.Terrain.NONE = 0;
-VG.Meshes.Terrain.GEOMIPMAP = 1;
-VG.Meshes.Terrain.GEOCLIPMAP = 2;
-VG.Meshes.Terrain.POLYGONREDUCTION = 3;
+Terrain.NONE = 0;
+Terrain.GEOMIPMAP = 1;
+Terrain.GEOCLIPMAP = 2;
+Terrain.POLYGONREDUCTION = 3;
 
 
-VG.Meshes.Terrain.toArray2D = function(vertices, options) {
+Terrain.toArray2D = function(vertices, options) {
     var tgt = new Array(options.xSegments),
         xl = options.xSegments + 1,
         yl = options.ySegments + 1,
@@ -299,7 +299,7 @@ VG.Meshes.Terrain.toArray2D = function(vertices, options) {
 };
 
 
-VG.Meshes.Terrain.fromArray2D = function(vertices, src) {
+Terrain.fromArray2D = function(vertices, src) {
     for (var i = 0, xl = src.length; i < xl; i++) {
         for (var j = 0, yl = src[i].length; j < yl; j++) {
             vertices[j * xl + i].z = src[i][j];
@@ -308,7 +308,7 @@ VG.Meshes.Terrain.fromArray2D = function(vertices, src) {
 };
 
 
-VG.Meshes.Terrain.toArray1D = function(vertices) {
+Terrain.toArray1D = function(vertices) {
     var tgt = new Float64Array(vertices.length);
     for (var i = 0, l = tgt.length; i < l; i++) {
         tgt[i] = vertices[i].z;
@@ -317,14 +317,14 @@ VG.Meshes.Terrain.toArray1D = function(vertices) {
 };
 
 
-VG.Meshes.Terrain.fromArray1D = function(vertices, src) {
+Terrain.fromArray1D = function(vertices, src) {
     for (var i = 0, l = Math.min(vertices.length, src.length); i < l; i++) {
         vertices[i].z = src[i];
     }
 };
 
 
-VG.Meshes.Terrain.heightmapArray = function(method, options) {
+Terrain.heightmapArray = function(method, options) {
     var arr = new Array((options.xSegments+1) * (options.ySegments+1)),
         l = arr.length,
         i;
@@ -340,7 +340,7 @@ VG.Meshes.Terrain.heightmapArray = function(method, options) {
     options.maxHeight = typeof options.maxHeight === 'undefined' ? 1 : options.maxHeight;
     options.stretch = options.stretch || false;
     method(arr, options);
-    VG.Meshes.Terrain.Clamp(arr, options);
+    Terrain.Clamp(arr, options);
     for (i = 0; i < l; i++) {
         arr[i] = arr[i].z;
     }
@@ -350,45 +350,45 @@ VG.Meshes.Terrain.heightmapArray = function(method, options) {
 /**
  * Randomness interpolation functions.
  */
-VG.Meshes.Terrain.Linear = function(x) {
+Terrain.Linear = function(x) {
     return x;
 };
 
 // x = [0, 1], x^2
-VG.Meshes.Terrain.EaseIn = function(x) {
+Terrain.EaseIn = function(x) {
     return x*x;
 };
 
 // x = [0, 1], -x(x-2)
-VG.Meshes.Terrain.EaseOut = function(x) {
+Terrain.EaseOut = function(x) {
     return -x * (x - 2);
 };
 
 // x = [0, 1], x^2(3-2x)
 // Nearly identical alternatives: 0.5+0.5*cos(x*pi-pi), x^a/(x^a+(1-x)^a) (where a=1.6 seems nice)
 // For comparison: http://www.wolframalpha.com/input/?i=x^1.6%2F%28x^1.6%2B%281-x%29^1.6%29%2C+x^2%283-2x%29%2C+0.5%2B0.5*cos%28x*pi-pi%29+from+0+to+1
-VG.Meshes.Terrain.EaseInOut = function(x) {
+Terrain.EaseInOut = function(x) {
     return x*x*(3-2*x);
 };
 
 // x = [0, 1], 0.5*(2x-1)^3+0.5
-VG.Meshes.Terrain.InEaseOut = function(x) {
+Terrain.InEaseOut = function(x) {
     var y = 2*x-1;
     return 0.5 * y*y*y + 0.5;
 };
 
 // x = [0, 1], x^1.55
-VG.Meshes.Terrain.EaseInWeak = function(x) {
+Terrain.EaseInWeak = function(x) {
     return Math.pow(x, 1.55);
 };
 
 // x = [0, 1], x^7
-VG.Meshes.Terrain.EaseInStrong = function(x) {
+Terrain.EaseInStrong = function(x) {
     return x*x*x*x*x*x*x;
 };
 
 
-VG.Meshes.Terrain.fromHeightmap = function(g, options) {
+Terrain.fromHeightmap = function(g, options) {
     var canvas = document.createElement('canvas'),
         context = canvas.getContext('2d'),
         rows = options.ySegments + 1,
@@ -408,7 +408,7 @@ VG.Meshes.Terrain.fromHeightmap = function(g, options) {
 };
 
 
-VG.Meshes.Terrain.toHeightmap = function(g, options) {
+Terrain.toHeightmap = function(g, options) {
     var hasMax = typeof options.maxHeight === 'undefined',
         hasMin = typeof options.minHeight === 'undefined',
         max = hasMax ? options.maxHeight : -Infinity,
@@ -444,12 +444,12 @@ VG.Meshes.Terrain.toHeightmap = function(g, options) {
     return canvas;
 };
 
-VG.Meshes.Terrain.Clamp = function(g, options) {
+Terrain.Clamp = function(g, options) {
     var min = Infinity,
         max = -Infinity,
         l = g.length,
         i;
-    options.easing = options.easing || VG.Meshes.Terrain.Linear;
+    options.easing = options.easing || Terrain.Linear;
     for (i = 0; i < l; i++) {
         if (g[i].z < min) min = g[i].z;
         if (g[i].z > max) max = g[i].z;
@@ -469,7 +469,7 @@ VG.Meshes.Terrain.Clamp = function(g, options) {
     }
 };
 
-VG.Meshes.Terrain.Edges = function(g, options, direction, distance, easing, edges) {
+Terrain.Edges = function(g, options, direction, distance, easing, edges) {
     var numXSegments = Math.floor(distance / (options.xSize / options.xSegments)) || 1,
         numYSegments = Math.floor(distance / (options.ySize / options.ySegments)) || 1,
         peak = direction ? options.maxHeight : options.minHeight,
@@ -477,7 +477,7 @@ VG.Meshes.Terrain.Edges = function(g, options, direction, distance, easing, edge
         xl = options.xSegments + 1,
         yl = options.ySegments + 1,
         i, j, multiplier, k1, k2;
-    easing = easing || VG.Meshes.Terrain.EaseInOut;
+    easing = easing || Terrain.EaseInOut;
     if (typeof edges !== 'object') {
         edges = {top: true, bottom: true, left: true, right: true};
     }
@@ -507,14 +507,14 @@ VG.Meshes.Terrain.Edges = function(g, options, direction, distance, easing, edge
             }
         }
     }
-    VG.Meshes.Terrain.Clamp(g, {
+    Terrain.Clamp(g, {
         maxHeight: options.maxHeight,
         minHeight: options.minHeight,
         stretch: true,
     });
 };
 
-VG.Meshes.Terrain.RadialEdges = function(g, options, direction, distance, easing) {
+Terrain.RadialEdges = function(g, options, direction, distance, easing) {
     var peak = direction ? options.maxHeight : options.minHeight,
         max = direction ? Math.max : Math.min,
         xl = (options.xSegments + 1),
@@ -539,7 +539,7 @@ VG.Meshes.Terrain.RadialEdges = function(g, options, direction, distance, easing
     }
 };
 
-VG.Meshes.Terrain.Smooth = function(g, options, weight) {
+Terrain.Smooth = function(g, options, weight) {
     var heightmap = new Float64Array(g.length);
     for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
         for (var j = 0; j < yl; j++) {
@@ -564,7 +564,7 @@ VG.Meshes.Terrain.Smooth = function(g, options, weight) {
     }
 };
 
-VG.Meshes.Terrain.SmoothMedian = function(g, options) {
+Terrain.SmoothMedian = function(g, options) {
     var heightmap = new Float64Array(g.length),
         neighborValues = [],
         neighborKeys = [],
@@ -601,7 +601,7 @@ VG.Meshes.Terrain.SmoothMedian = function(g, options) {
     }
 };
 
-VG.Meshes.Terrain.SmoothConservative = function(g, options, multiplier) {
+Terrain.SmoothConservative = function(g, options, multiplier) {
     var heightmap = new Float64Array(g.length);
     for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
         for (var j = 0; j < yl; j++) {
@@ -631,7 +631,7 @@ VG.Meshes.Terrain.SmoothConservative = function(g, options, multiplier) {
     }
 };
 
-VG.Meshes.Terrain.Step = function(g, levels) {
+Terrain.Step = function(g, levels) {
     // Calculate the max, min, and avg values for each bucket
     var i = 0,
         j = 0,
@@ -674,7 +674,7 @@ VG.Meshes.Terrain.Step = function(g, levels) {
 };
 
 
-VG.Meshes.Terrain.Turbulence = function(g, options) {
+Terrain.Turbulence = function(g, options) {
     var range = options.maxHeight - options.minHeight;
     for (var i = 0, l = g.length; i < l; i++) {
         g[i].z = options.minHeight + Math.abs((g[i].z - options.minHeight) * 2 - range);
@@ -682,7 +682,7 @@ VG.Meshes.Terrain.Turbulence = function(g, options) {
 };
 
 
-VG.Meshes.Terrain.MultiPass = function(g, options, passes) {
+Terrain.MultiPass = function(g, options, passes) {
     var clonedOptions = {};
     for (var opt in options) {
         if (options.hasOwnProperty(opt)) {
@@ -701,7 +701,7 @@ VG.Meshes.Terrain.MultiPass = function(g, options, passes) {
 };
 
 
-VG.Meshes.Terrain.Curve = function(g, options, curve) {
+Terrain.Curve = function(g, options, curve) {
     var range = (options.maxHeight - options.minHeight) * 0.5,
         scalar = options.frequency / (Math.min(options.xSegments, options.ySegments) + 1);
     for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
@@ -711,7 +711,7 @@ VG.Meshes.Terrain.Curve = function(g, options, curve) {
     }
 };
 
-VG.Meshes.Terrain.Cosine = function(g, options) {
+Terrain.Cosine = function(g, options) {
     var amplitude = (options.maxHeight - options.minHeight) * 0.5,
         frequencyScalar = options.frequency * Math.PI / (Math.min(options.xSegments, options.ySegments) + 1),
         phase = Math.random() * Math.PI * 2;
@@ -723,17 +723,17 @@ VG.Meshes.Terrain.Cosine = function(g, options) {
 };
 
 
-VG.Meshes.Terrain.CosineLayers = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Cosine,                   frequency:  2.5 },
-        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.1,   frequency:  12  },
-        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.05,  frequency:  15  },
-        { method: VG.Meshes.Terrain.Cosine, amplitude: 0.025, frequency:  20  },
+Terrain.CosineLayers = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Cosine,                   frequency:  2.5 },
+        { method: Terrain.Cosine, amplitude: 0.1,   frequency:  12  },
+        { method: Terrain.Cosine, amplitude: 0.05,  frequency:  15  },
+        { method: Terrain.Cosine, amplitude: 0.025, frequency:  20  },
     ]);
 };
 
 
-VG.Meshes.Terrain.DiamondSquare = function(g, options) {
+Terrain.DiamondSquare = function(g, options) {
     // Set the segment length to the smallest power of 2 that is greater than
     // the number of vertices in either dimension of the plane
     var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
@@ -797,11 +797,11 @@ VG.Meshes.Terrain.DiamondSquare = function(g, options) {
         }
     }
 
-    // VG.Meshes.Terrain.SmoothConservative(g, options);
+    // Terrain.SmoothConservative(g, options);
 };
 
 
-VG.Meshes.Terrain.Fault = function(g, options) {
+Terrain.Fault = function(g, options) {
     var d = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments),
         iterations = d * options.frequency,
         range = (options.maxHeight - options.minHeight) * 0.5,
@@ -827,11 +827,11 @@ VG.Meshes.Terrain.Fault = function(g, options) {
             }
         }
     }
-    // VG.Meshes.Terrain.Smooth(g, options);
+    // Terrain.Smooth(g, options);
 };
 
 
-VG.Meshes.Terrain.Hill = function(g, options, feature, shape) {
+Terrain.Hill = function(g, options, feature, shape) {
     var frequency = options.frequency * 2,
         numFeatures = frequency * frequency * 10,
         heightRange = options.maxHeight - options.minHeight,
@@ -840,7 +840,7 @@ VG.Meshes.Terrain.Hill = function(g, options, feature, shape) {
         smallerSideLength = Math.min(options.xSize, options.ySize),
         minRadius = smallerSideLength / (frequency * frequency),
         maxRadius = smallerSideLength / frequency;
-    feature = feature || VG.Meshes.Terrain.Influences.Hill;
+    feature = feature || Terrain.Influences.Hill;
 
     var coords = { x: 0, y: 0 };
     for (var i = 0; i < numFeatures; i++) {
@@ -852,25 +852,25 @@ VG.Meshes.Terrain.Hill = function(g, options, feature, shape) {
         coords.x = Math.random();
         coords.y = Math.random();
         if (typeof shape === 'function') shape(coords);
-        VG.Meshes.Terrain.Influence(
+        Terrain.Influence(
             g, options,
             feature,
             coords.x, coords.y,
             radius, height,
             THREE.AdditiveBlending,
-            VG.Meshes.Terrain.EaseInStrong
+            Terrain.EaseInStrong
         );
     }
 };
 
-VG.Meshes.Terrain.HillIsland = (function() {
+Terrain.HillIsland = (function() {
     var island = function(coords) {
         var theta = Math.random() * Math.PI * 2;
         coords.x = 0.5 + Math.cos(theta) * coords.x * 0.4;
         coords.y = 0.5 + Math.sin(theta) * coords.y * 0.4;
     };
     return function(g, options, feature) {
-        VG.Meshes.Terrain.Hill(g, options, feature, island);
+        Terrain.Hill(g, options, feature, island);
     };
 })();
 
@@ -910,7 +910,7 @@ VG.Meshes.Terrain.HillIsland = (function() {
         g[currentKey].z += displacement;
     }
 
-    VG.Meshes.Terrain.Particles = function(g, options) {
+    Terrain.Particles = function(g, options) {
         var iterations = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments) * options.frequency * 300,
             xl = options.xSegments + 1,
             displacement = (options.maxHeight - options.minHeight) / iterations * 1000,
@@ -930,12 +930,12 @@ VG.Meshes.Terrain.HillIsland = (function() {
                 j = Math.floor(options.ySegments*(0.5+yDeviation) + Math.sin(d) * Math.random() * options.ySegments*(0.5-Math.abs(yDeviation)));
             }
         }
-        // VG.Meshes.Terrain.Smooth(g, options, 3);
+        // Terrain.Smooth(g, options, 3);
     };
 })();
 
 
-VG.Meshes.Terrain.Perlin = function(g, options) {
+Terrain.Perlin = function(g, options) {
     noise.seed(Math.random());
     var range = (options.maxHeight - options.minHeight) * 0.5,
         divisor = (Math.min(options.xSegments, options.ySegments) + 1) / options.frequency;
@@ -946,25 +946,25 @@ VG.Meshes.Terrain.Perlin = function(g, options) {
     }
 };
 
-VG.Meshes.Terrain.PerlinDiamond = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Perlin },
-        { method: VG.Meshes.Terrain.DiamondSquare, amplitude: 0.75 },
-        { method: function(g, o) { return VG.Meshes.Terrain.SmoothMedian(g, o); } },
+Terrain.PerlinDiamond = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Perlin },
+        { method: Terrain.DiamondSquare, amplitude: 0.75 },
+        { method: function(g, o) { return Terrain.SmoothMedian(g, o); } },
     ]);
 };
 
 
-VG.Meshes.Terrain.PerlinLayers = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Perlin,                  frequency:  1.25 },
-        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.05, frequency:  2.5  },
-        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.35, frequency:  5    },
-        { method: VG.Meshes.Terrain.Perlin, amplitude: 0.15, frequency: 10    },
+Terrain.PerlinLayers = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Perlin,                  frequency:  1.25 },
+        { method: Terrain.Perlin, amplitude: 0.05, frequency:  2.5  },
+        { method: Terrain.Perlin, amplitude: 0.35, frequency:  5    },
+        { method: Terrain.Perlin, amplitude: 0.15, frequency: 10    },
     ]);
 };
 
-VG.Meshes.Terrain.Simplex = function(g, options) {
+Terrain.Simplex = function(g, options) {
     noise.seed(Math.random());
     var range = (options.maxHeight - options.minHeight) * 0.5,
         divisor = (Math.min(options.xSegments, options.ySegments) + 1) * 2 / options.frequency;
@@ -975,13 +975,13 @@ VG.Meshes.Terrain.Simplex = function(g, options) {
     }
 };
 
-VG.Meshes.Terrain.SimplexLayers = function(g, options) {
-    VG.Meshes.Terrain.MultiPass(g, options, [
-        { method: VG.Meshes.Terrain.Simplex,                    frequency:  1.25 },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.5,    frequency:  2.5  },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.25,   frequency:  5    },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.125,  frequency: 10    },
-        { method: VG.Meshes.Terrain.Simplex, amplitude: 0.0625, frequency: 20    },
+Terrain.SimplexLayers = function(g, options) {
+    Terrain.MultiPass(g, options, [
+        { method: Terrain.Simplex,                    frequency:  1.25 },
+        { method: Terrain.Simplex, amplitude: 0.5,    frequency:  2.5  },
+        { method: Terrain.Simplex, amplitude: 0.25,   frequency:  5    },
+        { method: Terrain.Simplex, amplitude: 0.125,  frequency: 10    },
+        { method: Terrain.Simplex, amplitude: 0.0625, frequency: 20    },
     ]);
 };
 
@@ -1041,7 +1041,7 @@ VG.Meshes.Terrain.SimplexLayers = function(g, options) {
         }
     }
 
-    VG.Meshes.Terrain.Value = function(g, options) {
+    Terrain.Value = function(g, options) {
         // Set the segment length to the smallest power of 2 that is greater
         // than the number of vertices in either dimension of the plane
         var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
@@ -1058,8 +1058,8 @@ VG.Meshes.Terrain.SimplexLayers = function(g, options) {
         }
 
         // White noise creates some weird artifacts; fix them.
-        // VG.Meshes.Terrain.Smooth(g, options, 1);
-        VG.Meshes.Terrain.Clamp(g, {
+        // Terrain.Smooth(g, options, 1);
+        Terrain.Clamp(g, {
             maxHeight: options.maxHeight,
             minHeight: options.minHeight,
             stretch: true,
@@ -1067,7 +1067,7 @@ VG.Meshes.Terrain.SimplexLayers = function(g, options) {
     };
 })();
 
-VG.Meshes.Terrain.Weierstrass = function(g, options) {
+Terrain.Weierstrass = function(g, options) {
     var range = (options.maxHeight - options.minHeight) * 0.5,
         dir1 = Math.random() < 0.5 ? 1 : -1,
         dir2 = Math.random() < 0.5 ? 1 : -1,
@@ -1090,14 +1090,14 @@ VG.Meshes.Terrain.Weierstrass = function(g, options) {
             g[j * xl + i].z += sum * range;
         }
     }
-    VG.Meshes.Terrain.Clamp(g, options);
+    Terrain.Clamp(g, options);
 };
 
-VG.Meshes.Terrain.glslifyNumber = function(n) {
+Terrain.glslifyNumber = function(n) {
     return n === (n|0) ? n+'.0' : n+'';
 };
 
-VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
+Terrain.generateBlendedMaterial = function(textures) {
     // Convert numbers to strings of floats so GLSL doesn't barf on "1" instead of "1.0"
 
 
@@ -1130,7 +1130,7 @@ VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
                 if (v[1] - v[0] < 1) v[0] -= 1;
                 if (v[3] - v[2] < 1) v[3] += 1;
                 for (var j = 0; j < v.length; j++) {
-                    v[j] = VG.Meshes.Terrain.glslifyNumber(v[j]);
+                    v[j] = Terrain.glslifyNumber(v[j]);
                 }
             }
             // The transparency of the new texture when it is layered on top of the existing color at this texel is
@@ -1140,7 +1140,7 @@ VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
             var blendAmount = !useLevels ? p :
                 '1.0 - smoothstep(' + v[0] + ', ' + v[1] + ', vPosition.z) + smoothstep(' + v[2] + ', ' + v[3] + ', vPosition.z)';
             assign += '        color = mix( ' +
-                'texture2D( texture_' + i + ', MyvUv * vec2( ' + VG.Meshes.Terrain.glslifyNumber(tiRepeat.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(tiRepeat.y) + ' ) + vec2( ' + VG.Meshes.Terrain.glslifyNumber(tiOffset.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(tiOffset.y) + ' ) ), ' +
+                'texture2D( texture_' + i + ', MyvUv * vec2( ' + Terrain.glslifyNumber(tiRepeat.x) + ', ' + Terrain.glslifyNumber(tiRepeat.y) + ' ) + vec2( ' + Terrain.glslifyNumber(tiOffset.x) + ', ' + Terrain.glslifyNumber(tiOffset.y) + ' ) ), ' +
                 'color, ' +
                 'max(min(' + blendAmount + ', 1.0), 0.0)' +
                 ');\n';
@@ -1218,7 +1218,7 @@ VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
             'float slope = acos(max(min(dot(myNormal, vec3(0.0, 0.0, 1.0)), 1.0), -1.0));',
 
             '    vec4 diffuseColor = vec4( diffuse, opacity );',
-            '    vec4 color = texture2D( texture_0, MyvUv * vec2( ' + VG.Meshes.Terrain.glslifyNumber(t0Repeat.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(t0Repeat.y) + ' ) + vec2( ' + VG.Meshes.Terrain.glslifyNumber(t0Offset.x) + ', ' + VG.Meshes.Terrain.glslifyNumber(t0Offset.y) + ' ) ); // base',
+            '    vec4 color = texture2D( texture_0, MyvUv * vec2( ' + Terrain.glslifyNumber(t0Repeat.x) + ', ' + Terrain.glslifyNumber(t0Repeat.y) + ' ) + vec2( ' + Terrain.glslifyNumber(t0Offset.x) + ', ' + Terrain.glslifyNumber(t0Offset.y) + ' ) ); // base',
                 assign,
             '    diffuseColor = color;',
             // '    gl_FragColor = color;',
@@ -1262,13 +1262,13 @@ VG.Meshes.Terrain.generateBlendedMaterial = function(textures) {
 };
 
 
-VG.Meshes.Terrain.ScatterMeshes = function(geometry, options) {
+Terrain.ScatterMeshes = function(geometry, options) {
     if (!options.mesh) {
-        console.error('options.mesh is required for VG.Meshes.Terrain.ScatterMeshes but was not passed');
+        console.error('options.mesh is required for Terrain.ScatterMeshes but was not passed');
         return;
     }
     if (geometry instanceof THREE.BufferGeometry) {
-        console.warn('The terrain mesh is using BufferGeometry but VG.Meshes.Terrain.ScatterMeshes can only work with Geometry.');
+        console.warn('The terrain mesh is using BufferGeometry but Terrain.ScatterMeshes can only work with Geometry.');
         return;
     }
     if (!options.scene) {
@@ -1317,7 +1317,7 @@ VG.Meshes.Terrain.ScatterMeshes = function(geometry, options) {
                     // Interpolate rv between spread and spread + smoothSpread,
                     // then multiply that "easing" value by the probability
                     // that a mesh would get placed on a given face.
-                    place = VG.Meshes.Terrain.EaseInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
+                    place = Terrain.EaseInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
                 }
             }
             else {
@@ -1381,7 +1381,7 @@ VG.Meshes.Terrain.ScatterMeshes = function(geometry, options) {
     return options.scene;
 };
 
-VG.Meshes.Terrain.ScatterHelper = function(method, options, skip, threshold) {
+Terrain.ScatterHelper = function(method, options, skip, threshold) {
     skip = skip || 1;
     threshold = threshold || 0.25;
     options.frequency = options.frequency || 2.5;
@@ -1397,7 +1397,7 @@ VG.Meshes.Terrain.ScatterHelper = function(method, options, skip, threshold) {
     clonedOptions.stretch = true;
     clonedOptions.maxHeight = 1;
     clonedOptions.minHeight = 0;
-    var heightmap = VG.Meshes.Terrain.heightmapArray(method, clonedOptions);
+    var heightmap = Terrain.heightmapArray(method, clonedOptions);
 
     for (var i = 0, l = heightmap.length; i < l; i++) {
         if (i % skip || Math.random() > threshold) {
@@ -1414,19 +1414,19 @@ VG.Meshes.Terrain.ScatterHelper = function(method, options, skip, threshold) {
 // just apply them before a procedural pass.
 // If you want more complex influence, you can just composite heightmaps.
 
-VG.Meshes.Terrain.Influences = {
+Terrain.Influences = {
     Mesa: function(x) {
         return 1.25 * Math.min(0.8, Math.exp(-(x*x)));
     },
     Hole: function(x) {
-        return -VG.Meshes.Terrain.Influences.Mesa(x);
+        return -Terrain.Influences.Mesa(x);
     },
     Hill: function(x) {
         // Same curve as EaseInOut, but mirrored and translated.
         return x < 0 ? (x+1)*(x+1)*(3-2*(x+1)) : 1-x*x*(3-2*x);
     },
     Valley: function(x) {
-        return -VG.Meshes.Terrain.Influences.Hill(x);
+        return -Terrain.Influences.Hill(x);
     },
     Dome: function(x) {
         // Parabola
@@ -1441,14 +1441,14 @@ VG.Meshes.Terrain.Influences = {
     },
 };
 
-VG.Meshes.Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
-    f = f || VG.Meshes.Terrain.Influences.Hill; // feature shape
+Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
+    f = f || Terrain.Influences.Hill; // feature shape
     x = typeof x === 'undefined' ? 0.5 : x; // x-location %
     y = typeof y === 'undefined' ? 0.5 : y; // y-location %
     r = typeof r === 'undefined' ? 64  : r; // radius
     h = typeof h === 'undefined' ? 64  : h; // height
     t = typeof t === 'undefined' ? THREE.NormalBlending : t; // blending
-    e = e || VG.Meshes.Terrain.EaseIn; // falloff
+    e = e || Terrain.EaseIn; // falloff
     // Find the vertex location of the feature origin
     var xl = options.xSegments + 1, // # x-vertices
         yl = options.ySegments + 1, // # y-vertices
@@ -1487,3 +1487,5 @@ VG.Meshes.Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
         }
     }
 };
+
+export { Terrain };

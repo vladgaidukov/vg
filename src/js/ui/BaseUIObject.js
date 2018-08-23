@@ -1,19 +1,19 @@
-VG.UI.BaseUIObject = function () {
+function BaseUIObject () {
 
-}
+};
 
-VG.UI.BaseUIObject.prototype = {
-    constructor: VG.UI.BaseUIObject,
+BaseUIObject.prototype = {
+    constructor: BaseUIObject,
 
     add: function (object) {
-        if (object instanceof VG.UI.BaseUIObject)
+        if (object instanceof BaseUIObject)
             this.view.appendChild(object.view)
         else
             this.view.appendChild(object)
     },
 
     remove: function (object) {
-        if (object instanceof VG.UI.BaseUIObject)
+        if (object instanceof BaseUIObject)
             this.view.removeChild(object.view)
         else
             this.view.removeChild(object)
@@ -37,4 +37,6 @@ VG.UI.BaseUIObject.prototype = {
             this.view.removeChild(this.view.firstChild);
         };
     }
-}
+};
+
+export { BaseUIObject };

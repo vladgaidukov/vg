@@ -4,6 +4,7 @@ var Scene6 = function () {
 
     var context = this;
 };
+
 Scene6.prototype = Object.create(VG.Scene.prototype);
 Scene6.constructor = Scene6;
 
@@ -31,17 +32,17 @@ Scene6.prototype.activate = function (data) {
     t3.repeat.set(5, 5);
     var t4 = new THREE.Texture(data.assets["rock02"]);
     t4.repeat.set(20, 20);
-    var material = VG.Meshes.Terrain.generateBlendedMaterial([
+    var material = VG.Terrain.generateBlendedMaterial([
         { texture: t1 },
         { texture: t2, levels: [blendVal * 0.05, blendVal * 0.3, blendVal * 0.7, blendVal] },
         { texture: t3, glsl: 'slope > 0.7853981633974483 ? 0.2 : 1.0 - smoothstep(0.47123889803846897, 0.7853981633974483, slope) + 0.2' },
-        { texture: t4, glsl: '1.0 - smoothstep(' + VG.Meshes.Terrain.glslifyNumber(blendVal * 0.3) + ' + smoothstep(-256.0, 256.0, vPosition.x) * 10.0, ' + VG.Meshes.Terrain.glslifyNumber(blendVal * 0.7) + ', vPosition.z)' },
+        { texture: t4, glsl: '1.0 - smoothstep(' + VG.Terrain.glslifyNumber(blendVal * 0.3) + ' + smoothstep(-256.0, 256.0, vPosition.x) * 10.0, ' + VG.Terrain.glslifyNumber(blendVal * 0.7) + ', vPosition.z)' },
     ]);
 
     var xS = 128,
         yS = 128;
-    terrainScene = VG.Meshes.Terrain({
-        easing: VG.Meshes.Terrain.Linear,
+    terrainScene = VG.Terrain({
+        easing: VG.Terrain.Linear,
         heightmap: data.assets["heightmap"],
         material: material,
         maxHeight: maxHeight,
@@ -54,7 +55,4 @@ Scene6.prototype.activate = function (data) {
         ySize: 2048,
     });
     this.add(terrainScene);
-
-
-
-}
+};

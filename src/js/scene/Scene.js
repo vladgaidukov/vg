@@ -1,5 +1,7 @@
-VG.Scene = function (data) {
-	VG.SceneEntity.call(this);
+import { SceneEntity } from './../SceneEntity.js';
+
+function Scene(data) {
+	SceneEntity.call(this);
 
 	this.name = 'default';
 	this.matrixAutoUpdate = false;
@@ -8,24 +10,25 @@ VG.Scene = function (data) {
 
 }
 
-VG.Scene.prototype = Object.create(VG.SceneEntity.prototype);
-VG.Scene.constructor = VG.Scene;
+Scene.prototype = Object.create(SceneEntity.prototype);
+Scene.constructor = Scene;
 
-VG.Scene.prototype.activate = function (data) {
+Scene.prototype.activate = function (data) {
 
-	VG.SceneEntity.prototype.activate.apply(this, arguments);
+	SceneEntity.prototype.activate.apply(this, arguments);
 
     if (this.ui)
         this.ui.show();
 
 };
 
-VG.Scene.prototype.deactivate = function (data) {
+Scene.prototype.deactivate = function (data) {
 
-	VG.SceneEntity.prototype.deactivate.apply(this, arguments);
+	SceneEntity.prototype.deactivate.apply(this, arguments);
 
     if (this.ui)
         this.ui.hide();
 
 };
 
+export { Scene };

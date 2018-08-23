@@ -52,8 +52,8 @@ Scene5.prototype.activate = function (data) {
     mesh.position.set(100 * Math.random() - 50, 0, 100 * Math.random() - 50);
     this.add(mesh);
 
-
     var ui = new VG.UI.Container();
+    document.body.appendChild(ui.view);
 
     var testPanel = new VG.UI.Panel(data.assets['dialog'])
     ui.add(testPanel)
@@ -77,4 +77,4 @@ Scene5.prototype.activate = function (data) {
         testText.value = parseInt(testText.value) + 1;
     }, 150)
 
-}
+};

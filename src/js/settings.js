@@ -1,20 +1,19 @@
-VG = {}
 
-VG.UI = {};
-VG.Meshes = {};
+export var UI = {};
+export var Meshes = {};
 
-VG.DEBUG = false;
+export var DEBUG = false;
 
-VG.DETAIL = 1;
-VG.ANTIALIAS = false;
-VG.CLEAR_COLOR = 'gray'
+export var DETAIL = 1;
+export var ANTIALIAS = false;
+export var CLEAR_COLOR = 'gray'
 
-VG.CAMERA_FOV = 45;
-VG.CAMERA_NEAR = 0.1;
-VG.CAMERA_FAR = 100000;
-VG.CAMERA_POSITION = new THREE.Vector3(0, 0, 5);
+export var CAMERA_FOV = 45;
+export var CAMERA_NEAR = 0.1;
+export var CAMERA_FAR = 100000;
+export var CAMERA_POSITION = new THREE.Vector3(0, 0, 5);
 
-VG.MOBILE_CLIENT = (function() {
+export var MOBILE_CLIENT = (function() {
     var mobileKeys = [
         "android",
         "bb",

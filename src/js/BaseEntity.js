@@ -1,12 +1,12 @@
-VG.BaseEntity = function () {
+function BaseEntity () {
 
     this.autoUpdate = false;
 
 };
 
-VG.BaseEntity.prototype = {
+BaseEntity.prototype = {
 
-    constructor: VG.BaseEntity,
+    constructor: BaseEntity,
 
     activate: function () {
 
@@ -20,3 +20,5 @@ VG.BaseEntity.prototype = {
 
     }
 };
+
+export { BaseEntity };
