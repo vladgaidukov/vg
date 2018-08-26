@@ -1,8 +1,8 @@
-import { SceneEntity } from './../SceneEntity.js';
-import { Scene } from './Scene.js';
-import { EventDispatcher } from '../EventDispatcher.js';
+import {SceneEntity} from "./../SceneEntity.js";
+import {Scene} from "./Scene.js";
+import {EventDispatcher} from "../EventDispatcher.js";
 
-function SceneController () {
+function SceneController() {
 
     SceneEntity.call(this, name);
     this.matrixAutoUpdate = false;
@@ -10,54 +10,54 @@ function SceneController () {
     this.scenes = {};
     this.activeScene = null;
 
-    EventDispatcher.bind('SceneController.activateScene', this, this.activateScene);
-};
+    EventDispatcher.bind("SceneController.activateScene", this, this.activateScene);
+}
 
 SceneController.prototype = Object.create(SceneEntity.prototype);
 SceneController.constructor = SceneController;
 
-SceneController.prototype.add = function (scene) {
+SceneController.prototype.add = function(scene) {
     if (scene instanceof Scene) {
         if (this.scenes[scene.name]) {
-            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
+            console.log("Error: Scene with name >>>" + scene.name + "<<< alreade exist");
             return;
         }
 
         this.scenes[scene.name] = scene;
-    } else {
-        console.log('Error: Object is not instanceof VG.GameScene');
+    }
+    else {
+        console.log("Error: Object is not instanceof VG.GameScene");
     }
 };
 
-SceneController.prototype.remove = function (scene) {
+SceneController.prototype.remove = function(scene) {
     if (scene instanceof Scene) {
         if (this.scenes[scene.name]) {
-            console.log('Error: Scene with name >>>' + scene.name + '<<< alreade exist');
+            console.log("Error: Scene with name >>>" + scene.name + "<<< alreade exist");
             return;
         }
 
         this.scenes[scene.name] = scene;
-    } else {
-        console.log('Error: Object is not instanceof VG.GameScene');
+    }
+    else {
+        console.log("Error: Object is not instanceof VG.GameScene");
     }
 };
-SceneController.prototype.activateScene = function (name, data) {
+SceneController.prototype.activateScene = function(name, data) {
 
-    if (name instanceof Scene)
-        name = name.name
+    if (name instanceof Scene) name = name.name;
 
     if (!this.scenes[name]) {
-        console.log('Error: Scene with name >>>' + name + '<<< is not exist');
+        console.log("Error: Scene with name >>>" + name + "<<< is not exist");
         return;
     }
 
-    if (this.activeScene && this.activeScene.name == name)
-        return
+    if (this.activeScene && this.activeScene.name == name) return;
 
     if (this.activeScene) {
 
         this.activeScene.deactivate();
-        
+
         SceneEntity.prototype.remove.call(this, this.activeScene.view);
     }
 
@@ -68,9 +68,8 @@ SceneController.prototype.activateScene = function (name, data) {
     this.activeScene.activate(data);
 };
 
-SceneController.prototype.update = function (dt) {
-    if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate)
-        this.activeScene.update(dt)
+SceneController.prototype.update = function(dt) {
+    if (this.activeScene && this.activeScene.update && this.activeScene.autoUpdate) this.activeScene.update(dt);
 };
 
-export { SceneController };
+export {SceneController};

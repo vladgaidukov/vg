@@ -1,37 +1,34 @@
-function Matrix3D (sizeX, sizeY, sizeZ, array) {
+function Matrix3D(sizeX, sizeY, sizeZ, array) {
 
-	this.sizeX = sizeX;
-	this.sizeY = sizeY;
-	this.sizeZ = sizeZ;
-	this.length = this.sizeX * this.sizeY * this.sizeZ;
-	this.matrix = new Uint16Array(array || this.length);
+    this.sizeX = sizeX;
+    this.sizeY = sizeY;
+    this.sizeZ = sizeZ;
+    this.length = this.sizeX * this.sizeY * this.sizeZ;
+    this.matrix = new Uint16Array(array || this.length);
 
 }
 
 Matrix3D.prototype = {
-	constructor: Matrix3D,
+    constructor: Matrix3D,
 
-	cellExist: function (x, y, z){
-		if (x < 0 || y < 0 || z < 0 || x > this.sizeX - 1 || y > this.sizeY - 1 || z > this.sizeZ - 1 )
-			return false
-		return true
-	},
+    cellExist: function(x, y, z) {
+        if (x < 0 || y < 0 || z < 0 || x > this.sizeX - 1 || y > this.sizeY - 1 || z > this.sizeZ - 1) return false;
+        return true;
+    },
 
-	getCell: function (x, y, z) {
-		if (!this.cellExist(x, y, z))
-			return
+    getCell: function(x, y, z) {
+        if (!this.cellExist(x, y, z)) return;
 
-		var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
-		return this.matrix[index];
-	},
+        var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
+        return this.matrix[index];
+    },
 
-	setCell: function (x, y, z, value) {
-		if (!this.cellExist(x, y, z))
-			return
-		
-		var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
-		this.matrix[index] = value;
-	}
+    setCell: function(x, y, z, value) {
+        if (!this.cellExist(x, y, z)) return;
+
+        var index = x * this.matrix.length / this.sizeX + y * (this.matrix.length / this.sizeX / this.sizeY) + z;
+        this.matrix[index] = value;
+    }
 };
 
-export { Matrix3D };
+export {Matrix3D};

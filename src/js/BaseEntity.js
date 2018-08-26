@@ -1,24 +1,24 @@
-function BaseEntity () {
+function BaseEntity() {
 
     this.autoUpdate = false;
 
-};
+}
 
 BaseEntity.prototype = {
 
     constructor: BaseEntity,
 
-    activate: function () {
+    activate: function() {
 
     },
 
-    deactivate: function () {
+    deactivate: function() {
 
     },
 
-    update: function () {
+    update: function() {
 
     }
 };
 
-export { BaseEntity };
+export {BaseEntity};

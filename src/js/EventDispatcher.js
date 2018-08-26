@@ -1,7 +1,7 @@
 var EventDispatcher = {
     listeners: {},
 
-    bind: function (type, listener, callback) {
+    bind: function(type, listener, callback) {
         if (typeof (type) !== "string") {
             console.error("EventDispatcher.bind -> 'type' should be string constant");
             return;
@@ -22,8 +22,7 @@ var EventDispatcher = {
             return;
         }
 
-        if (this.listeners[type] == undefined)
-            this.listeners[type] = [];
+        if (this.listeners[type] == undefined) this.listeners[type] = [];
 
         var listeners = this.listeners[type];
 
@@ -37,7 +36,7 @@ var EventDispatcher = {
         }
     },
 
-    unbind: function (type, callback) {
+    unbind: function(type, callback) {
         if (typeof (type) !== "string") {
             console.error("EventDispatcher.unbind -> 'type' should be string constant");
             return;
@@ -53,8 +52,7 @@ var EventDispatcher = {
             return;
         }
 
-        if (this.listeners[type] == undefined)
-            this.listeners[type] = [];
+        if (this.listeners[type] == undefined) this.listeners[type] = [];
 
         var listeners = this.listeners[type];
 
@@ -65,14 +63,13 @@ var EventDispatcher = {
         }
     },
 
-    send: function (eventName) {
+    send: function(eventName) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
         }
 
-        if (this.listeners[eventName] == undefined)
-            return;
+        if (this.listeners[eventName] == undefined) return;
 
         var listeners = this.listeners[eventName];
 
@@ -82,20 +79,20 @@ var EventDispatcher = {
             try {
                 var listener = listeners[i];
                 listener.func.apply(listener.object, args);
-            } catch (err) {
+            }
+            catch (err) {
                 console.error("EventDispatcher.send -> " + eventName + " Exception thrown in event handler -> " + err);
             }
         }
     },
 
-    query: function (eventName) {
+    query: function(eventName) {
         if (typeof (eventName) !== "string") {
             console.error("EventDispatcher.send -> 'event.type' should be string constant");
             return;
         }
 
-        if (this.listeners[eventName] == undefined)
-            return undefined;
+        if (this.listeners[eventName] == undefined) return undefined;
 
         var listeners = this.listeners[eventName];
         if (listeners > 1) {
@@ -110,14 +107,15 @@ var EventDispatcher = {
 
         try {
             result = listener.func.apply(listener.object, args);
-        } catch (err) {
+        }
+        catch (err) {
             console.error("EventDispatcher.query -> " + eventName + " Exception thrown in event handler -> " + err);
         }
 
         return result;
     },
 
-    release: function () {
+    release: function() {
         for (var event_name in this.listeners) {
             this.listeners[event_name].splice();
             delete this.listeners[event_name];
@@ -125,15 +123,13 @@ var EventDispatcher = {
         this.listeners = null;
     },
 
-    getListenerIndex: function (listeners, callback) {
+    getListenerIndex: function(listeners, callback) {
         for (var i = 0; i < listeners.length; i++) {
             var obj = listeners[i];
-            if (typeof obj.func === "function" && (callback === obj.func))
-                return i;
+            if (typeof obj.func === "function" && (callback === obj.func)) return i;
             else if ((obj.func.method !== null) && (obj.func.method !== undefined) &&
                 (obj.func.context !== null) && (obj.func.context !== undefined) &&
-                (callback.method === obj.func.method) && (callback.context === obj.func.context))
-                return i;
+                (callback.method === obj.func.method) && (callback.context === obj.func.context)) return i;
         }
 
         return -1;
@@ -141,4 +137,4 @@ var EventDispatcher = {
 
 };
 
-export { EventDispatcher };
+export {EventDispatcher};

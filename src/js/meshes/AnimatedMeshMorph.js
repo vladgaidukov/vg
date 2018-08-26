@@ -6,14 +6,14 @@ function AnimatedMeshMorph(geometry, material) {
     this.direction = 1;
     this.animationList = [];
 
-    this.currentAnimation = '';
+    this.currentAnimation = "";
 
 }
 
 AnimatedMeshMorph.prototype = Object.create(THREE.Mesh.prototype);
 AnimatedMeshMorph.prototype.constructor = AnimatedMeshMorph;
 
-AnimatedMeshMorph.prototype.playAnimations = function (animations) {
+AnimatedMeshMorph.prototype.playAnimations = function(animations) {
 
     //TODO: переписать по нормальному ))
 
@@ -24,19 +24,19 @@ AnimatedMeshMorph.prototype.playAnimations = function (animations) {
         this.animationList = animations.slice();
         animation = this.animationList.shift();
 
-    } else if (typeof animations === "string") {
+    }
+    else if (typeof animations === "string") {
         this.animationList = [];
         animation = animations;
 
-    } else {
+    }
+    else {
 
         animation = this.animationList.shift();
     }
 
-    if (animation == this.currentAnimation)
-        return
-    else
-        this.currentAnimation = animation;
+    if (animation == this.currentAnimation) return;
+    else this.currentAnimation = animation;
 
     animation = this.geometry.animations[this.currentAnimation];
 
@@ -46,16 +46,17 @@ AnimatedMeshMorph.prototype.playAnimations = function (animations) {
         this.duration = 1000 * ((animation.end - animation.start) / this.fps);
         this.time = 0;
 
-    } else {
+    }
+    else {
 
-        console.warn('animation[' + this.currentAnimation + '] undefined');
+        console.warn("animation[" + this.currentAnimation + "] undefined");
 
     }
 
 };
-AnimatedMeshMorph.prototype.parseAnimations = function (fps) {
+AnimatedMeshMorph.prototype.parseAnimations = function(fps) {
 
-    this.fps = fps
+    this.fps = fps;
 
     var geometry = this.geometry;
 
@@ -75,7 +76,7 @@ AnimatedMeshMorph.prototype.parseAnimations = function (fps) {
             var label = parts[1];
             var num = parts[2];
 
-            if (!animations[label]) animations[label] = { start: Infinity, end: -Infinity };
+            if (!animations[label]) animations[label] = {start: Infinity, end: -Infinity};
 
             var animation = animations[label];
 
@@ -91,7 +92,7 @@ AnimatedMeshMorph.prototype.parseAnimations = function (fps) {
     geometry.firstAnimation = firstAnimation;
 
 };
-AnimatedMeshMorph.prototype.setFrameRange = function (start, end) {
+AnimatedMeshMorph.prototype.setFrameRange = function(start, end) {
 
     this.startKeyframe = start;
     this.endKeyframe = end;
@@ -99,11 +100,9 @@ AnimatedMeshMorph.prototype.setFrameRange = function (start, end) {
     this.length = this.endKeyframe - this.startKeyframe + 1;
 
 };
-AnimatedMeshMorph.prototype.update = function (delta) {
+AnimatedMeshMorph.prototype.update = function(delta) {
 
-    if (this.animationList.length > 0)
-        if (this.lastKeyframe > this.currentKeyframe)
-            this.playAnimations();
+    if (this.animationList.length > 0) if (this.lastKeyframe > this.currentKeyframe) this.playAnimations();
 
     var frameTime = this.duration / this.length;
 
@@ -131,7 +130,8 @@ AnimatedMeshMorph.prototype.update = function (delta) {
 
         }
 
-    } else {
+    }
+    else {
 
         this.time = this.time % this.duration;
 
@@ -166,4 +166,4 @@ AnimatedMeshMorph.prototype.update = function (delta) {
 
 };
 
-export { AnimatedMeshMorph };
+export {AnimatedMeshMorph};

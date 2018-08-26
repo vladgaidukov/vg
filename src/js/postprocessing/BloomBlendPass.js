@@ -2,19 +2,19 @@
  * @author mattatz / http://mattatz.github.io/
  */
 
-THREE.BloomBlendPass = function ( amount, opacity, resolution ) {
+THREE.BloomBlendPass = function(amount, opacity, resolution) {
     THREE.RenderPass.call(this);
 
-    this.amount = ( amount !== undefined ) ? amount : 1.0;
-    this.opacity = ( opacity !== undefined ) ? opacity : 1.0;
-    this.resolution = ( resolution !== undefined ) ? resolution : new THREE.Vector2(1024, 1024);
+    this.amount = (amount !== undefined) ? amount : 1.0;
+    this.opacity = (opacity !== undefined) ? opacity : 1.0;
+    this.resolution = (resolution !== undefined) ? resolution : new THREE.Vector2(1024, 1024);
 
     // render targets
 
-    var pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat };
+    var pars = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat};
 
-    this.renderTargetX = new THREE.WebGLRenderTarget( this.resolution.x, this.resolution.y, pars );
-    this.renderTargetY = new THREE.WebGLRenderTarget( this.resolution.x, this.resolution.y, pars );
+    this.renderTargetX = new THREE.WebGLRenderTarget(this.resolution.x, this.resolution.y, pars);
+    this.renderTargetY = new THREE.WebGLRenderTarget(this.resolution.x, this.resolution.y, pars);
 
     var kernel = [
 
@@ -27,12 +27,12 @@ THREE.BloomBlendPass = function ( amount, opacity, resolution ) {
 
         "}"
 
-    ].join( "\n" );
+    ].join("\n");
 
-    this.blurMaterial = new THREE.ShaderMaterial( {
+    this.blurMaterial = new THREE.ShaderMaterial({
         uniforms: {
-            "tDiffuse" : { type : "t", value : null },
-            "increment" : { type : "v2", value : new THREE.Vector2() }
+            "tDiffuse" : {type : "t", value : null},
+            "increment" : {type : "v2", value : new THREE.Vector2()}
         },
         vertexShader: kernel,
         fragmentShader: [
@@ -44,37 +44,36 @@ THREE.BloomBlendPass = function ( amount, opacity, resolution ) {
             "varying vec2 vUv;",
 
             "vec4 sampleTexture (sampler2D sampler, vec2 tc){",
-                "vec4 c = texture2D (sampler, tc);",
-                "return vec4 (c.rgb * pow (length (c.rgb), 2.2), c.a);",
+            "vec4 c = texture2D (sampler, tc);",
+            "return vec4 (c.rgb * pow (length (c.rgb), 2.2), c.a);",
             "}",
 
             "void main() {",
 
-                "vec4 color = vec4(0.0);",
+            "vec4 color = vec4(0.0);",
 
-                "color += sampleTexture(tDiffuse, (vUv - increment * 4.0)) * 0.051;",
-                "color += sampleTexture(tDiffuse, (vUv - increment * 3.0)) * 0.0918;",
-                "color += sampleTexture(tDiffuse, (vUv - increment * 2.0)) * 0.12245;",
-                "color += sampleTexture(tDiffuse, (vUv - increment * 1.0)) * 0.1531;",
-                "color += sampleTexture(tDiffuse, (vUv + increment * 0.0)) * 0.1633;",
-                "color += sampleTexture(tDiffuse, (vUv + increment * 1.0)) * 0.1531;",
-                "color += sampleTexture(tDiffuse, (vUv + increment * 2.0)) * 0.12245;",
-                "color += sampleTexture(tDiffuse, (vUv + increment * 3.0)) * 0.0918;",
-                "color += sampleTexture(tDiffuse, (vUv + increment * 4.0)) * 0.051;",
+            "color += sampleTexture(tDiffuse, (vUv - increment * 4.0)) * 0.051;",
+            "color += sampleTexture(tDiffuse, (vUv - increment * 3.0)) * 0.0918;",
+            "color += sampleTexture(tDiffuse, (vUv - increment * 2.0)) * 0.12245;",
+            "color += sampleTexture(tDiffuse, (vUv - increment * 1.0)) * 0.1531;",
+            "color += sampleTexture(tDiffuse, (vUv + increment * 0.0)) * 0.1633;",
+            "color += sampleTexture(tDiffuse, (vUv + increment * 1.0)) * 0.1531;",
+            "color += sampleTexture(tDiffuse, (vUv + increment * 2.0)) * 0.12245;",
+            "color += sampleTexture(tDiffuse, (vUv + increment * 3.0)) * 0.0918;",
+            "color += sampleTexture(tDiffuse, (vUv + increment * 4.0)) * 0.051;",
 
-                "gl_FragColor = color;",
+            "gl_FragColor = color;",
 
             "}"
-            
 
-        ].join( "\n" ),
-    } );
+        ].join("\n")
+    });
 
-    this.blendMaterial = new THREE.ShaderMaterial( {
+    this.blendMaterial = new THREE.ShaderMaterial({
         uniforms : {
-            "tDiffuse" : { type : "t", value : null },
-            "tBlend" : { type : "t", value : null },
-            "opacity" : { type : "f", value : this.opacity },
+            "tDiffuse" : {type : "t", value : null},
+            "tBlend" : {type : "t", value : null},
+            "opacity" : {type : "f", value : this.opacity}
         },
         vertexShader : kernel,
         fragmentShader : [
@@ -96,18 +95,18 @@ THREE.BloomBlendPass = function ( amount, opacity, resolution ) {
 
             "}"
 
-        ].join( "\n" )
-    } );
+        ].join("\n")
+    });
 
     this.enabled = true;
     this.needsSwap = true;
     this.clear = false;
 
-    this.camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
-    this.scene  = new THREE.Scene();
+    this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    this.scene = new THREE.Scene();
 
-    this.quad = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), null );
-    this.scene.add( this.quad );
+    this.quad = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2), null);
+    this.scene.add(this.quad);
 
 };
 
@@ -115,23 +114,23 @@ THREE.BloomBlendPass.prototype = Object.assign(Object.create(THREE.RenderPass.pr
 
     constructor: THREE.BloomBlendPass,
 
-    render: function ( renderer, writeBuffer, readBuffer, delta, maskActive ) {
+    render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
 
-        if ( maskActive ) renderer.context.disable( renderer.context.STENCIL_TEST );
+        if (maskActive) renderer.context.disable(renderer.context.STENCIL_TEST);
 
         this.quad.material = this.blurMaterial;
 
         // horizontal blur
         this.blurMaterial.uniforms[ "tDiffuse" ].value = readBuffer;
-        this.blurMaterial.uniforms[ "increment" ].value.set( this.amount / readBuffer.width, 0.0 );
+        this.blurMaterial.uniforms[ "increment" ].value.set(this.amount / readBuffer.width, 0.0);
 
-        renderer.render( this.scene, this.camera, this.renderTargetX, false);
+        renderer.render(this.scene, this.camera, this.renderTargetX, false);
 
         // vertical blur
         this.blurMaterial.uniforms[ "tDiffuse" ].value = this.renderTargetX;
-        this.blurMaterial.uniforms[ "increment" ].value.set( 0.0, this.amount / this.renderTargetX.height);
+        this.blurMaterial.uniforms[ "increment" ].value.set(0.0, this.amount / this.renderTargetX.height);
 
-        renderer.render( this.scene, this.camera, this.renderTargetY, false);
+        renderer.render(this.scene, this.camera, this.renderTargetY, false);
 
         // screen blending original buffer and blurred buffer
 
@@ -141,12 +140,13 @@ THREE.BloomBlendPass.prototype = Object.assign(Object.create(THREE.RenderPass.pr
         this.blendMaterial.uniforms[ "tBlend" ].value = this.renderTargetY;
         this.blendMaterial.uniforms[ "opacity" ].value = this.opacity;
 
-        if ( maskActive ) renderer.context.enable( renderer.context.STENCIL_TEST );
+        if (maskActive) renderer.context.enable(renderer.context.STENCIL_TEST);
 
-        if( this.renderToScreen ) {
-            renderer.render( this.scene, this.camera );
-        } else {
-            renderer.render( this.scene, this.camera, writeBuffer, this.clear );
+        if (this.renderToScreen) {
+            renderer.render(this.scene, this.camera);
+        }
+        else {
+            renderer.render(this.scene, this.camera, writeBuffer, this.clear);
         }
     }
 

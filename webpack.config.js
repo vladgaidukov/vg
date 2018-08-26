@@ -15,11 +15,12 @@ module.exports = [{
             host: '0.0.0.0'
         }
     },
-    {
-        entry: './src/app.js',
-        output: {
-            path: path.resolve(__dirname, '../arena-game/static/js/vendor/'),
-            filename: 'vg.js',
-        },
-    }
+    // for my local game project
+    // {
+    //     entry: './src/app.js',
+    //     output: {
+    //         path: path.resolve(__dirname, '../arena-game/static/js/vendor/'),
+    //         filename: 'vg.js',
+    //     },
+    // }
 ];

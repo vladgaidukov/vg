@@ -1,9 +1,9 @@
-import { EventDispatcher } from '../EventDispatcher.js';
+import {EventDispatcher} from "../EventDispatcher.js";
 import {
     MOBILE_CLIENT
-} from '../settings.js';
+} from "../settings.js";
 
-function MouseEventsHandler (domElement) {
+function MouseEventsHandler(domElement) {
 
     var context = this;
 
@@ -21,10 +21,10 @@ function MouseEventsHandler (domElement) {
         context.mousePosition.x = ((pointerCoords[0] / container.clientWidth) * 2 - 1);
         context.mousePosition.y = (-(pointerCoords[1] / container.clientHeight) * 2 + 1);
 
-    };
+    }
 
     function getPointerCoord(event, prevX, prevY) {
-        var coord = [0, 0, 0, 0];
+        var coord = [ 0, 0, 0, 0 ];
 
         var cx = event.clientX;
         var cy = event.clientY;
@@ -50,10 +50,9 @@ function MouseEventsHandler (domElement) {
 
         var pt = getPointerCoord(event, context.lastMouseX, context.lastMouseY);
 
-        EventDispatcher.send('mouse.up', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+        EventDispatcher.send("mouse.up", {event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1]});
 
-        if (context.mouseCaptured && !context.mouseMoved)
-            EventDispatcher.send('mouse.click', { event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1] })
+        if (context.mouseCaptured && !context.mouseMoved) EventDispatcher.send("mouse.click", {event: event, button: event.changedTouches ? 0 : event.button, x: pt[0], y: pt[1]});
 
         context.mouseMoved = false;
         context.mouseCaptured = false;
@@ -72,12 +71,11 @@ function MouseEventsHandler (domElement) {
         context.mouseCaptured = true;
         context.mouseMoved = false;
 
-        EventDispatcher.send('mouse.down', { button: event.button, x: pt[0], y: pt[1], event: event });
+        EventDispatcher.send("mouse.down", {button: event.button, x: pt[0], y: pt[1], event: event});
     }
 
     function onSelectorMove(event) {
-        if (MOBILE_CLIENT)
-            event.stopPropagation();
+        if (MOBILE_CLIENT) event.stopPropagation();
 
         event.preventDefault();
 
@@ -86,21 +84,17 @@ function MouseEventsHandler (domElement) {
         context.lastMouseY = pt[1];
 
         var sendEvent = false;
-        if (MOBILE_CLIENT)
-            sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
-        else
-            sendEvent = (pt[2] || pt[3]);
+        if (MOBILE_CLIENT) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
+        else sendEvent = (pt[2] || pt[3]);
 
-        if (!context.mouseMoved && sendEvent)
-            context.mouseMoved = true;
+        if (!context.mouseMoved && sendEvent) context.mouseMoved = true;
 
         updateMouseScreenPosition(pt);
 
         if (sendEvent) {
-            if (context.mouseCaptured)
-                EventDispatcher.send('mouse.view', { view: true, x: pt[2], y: pt[3], event: event });
+            if (context.mouseCaptured) EventDispatcher.send("mouse.view", {view: true, x: pt[2], y: pt[3], event: event});
 
-            EventDispatcher.send('mouse.move', {
+            EventDispatcher.send("mouse.move", {
                 move: true,
                 x: pt[0],
                 y: pt[1],
@@ -116,7 +110,7 @@ function MouseEventsHandler (domElement) {
         var e = event || window.event;
         var delta = e.deltaY || e.detail || e.wheelDelta;
         e.preventDefault();
-        EventDispatcher.send('mouse.scroll', Math.sign(delta));
+        EventDispatcher.send("mouse.scroll", Math.sign(delta));
 
     }
 
@@ -127,25 +121,28 @@ function MouseEventsHandler (domElement) {
         container.addEventListener("touchcancel", onSelectorUp, false);
         container.addEventListener("touchend", onSelectorUp, false);
 
-    } else {
+    }
+    else {
 
-        container.addEventListener('mousedown', onSelectorDown, false);
-        container.addEventListener('mouseup', onSelectorUp, false);
-        container.addEventListener('mousemove', onSelectorMove, false);
+        container.addEventListener("mousedown", onSelectorDown, false);
+        container.addEventListener("mouseup", onSelectorUp, false);
+        container.addEventListener("mousemove", onSelectorMove, false);
 
-        if ('onwheel' in document) {
+        if ("onwheel" in document) {
             container.addEventListener("wheel", onSelectorScroll, false);
-        } else if ('onmousewheel' in document) {
+        }
+        else if ("onmousewheel" in document) {
             container.addEventListener("mousewheel", onSelectorScroll, false);
-        } else {
+        }
+        else {
             container.addEventListener("MozMousePixelScroll", onSelectorScroll, false);
         }
     }
 
-    container.addEventListener('contextmenu',
+    container.addEventListener("contextmenu",
         function(event) {
             event.preventDefault();
         }, false);
-};
+}
 
-export { MouseEventsHandler };
+export {MouseEventsHandler};

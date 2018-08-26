@@ -8,33 +8,33 @@
     }
 
     Grad.prototype.dot2 = function(x, y) {
-        return this.x*x + this.y*y;
+        return this.x * x + this.y * y;
     };
 
     Grad.prototype.dot3 = function(x, y, z) {
-        return this.x*x + this.y*y + this.z*z;
+        return this.x * x + this.y * y + this.z * z;
     };
 
     var grad3 = [
-        new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
-        new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
-        new Grad(0,1,1),new Grad(0,-1,1),new Grad(0,1,-1),new Grad(0,-1,-1),
+        new Grad(1, 1, 0), new Grad(-1, 1, 0), new Grad(1, -1, 0), new Grad(-1, -1, 0),
+        new Grad(1, 0, 1), new Grad(-1, 0, 1), new Grad(1, 0, -1), new Grad(-1, 0, -1),
+        new Grad(0, 1, 1), new Grad(0, -1, 1), new Grad(0, 1, -1), new Grad(0, -1, -1)
     ];
 
-    var p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,
-        30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,
-        252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,
-        168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,
-        60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,
-        1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,
-        86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,
-        118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,
-        170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,
-        22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,
-        251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,
-        107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,
-        150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,
-        61,156,180];
+    var p = [ 151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103,
+        30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94,
+        252, 219, 203, 117, 35, 11, 32, 57, 177, 33, 88, 237, 149, 56, 87, 174, 20, 125, 136, 171,
+        168, 68, 175, 74, 165, 71, 134, 139, 48, 27, 166, 77, 146, 158, 231, 83, 111, 229, 122,
+        60, 211, 133, 230, 220, 105, 92, 41, 55, 46, 245, 40, 244, 102, 143, 54, 65, 25, 63, 161,
+        1, 216, 80, 73, 209, 76, 132, 187, 208, 89, 18, 169, 200, 196, 135, 130, 116, 188, 159,
+        86, 164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123, 5, 202, 38, 147,
+        118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182, 189, 28, 42, 223, 183,
+        170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101, 155, 167, 43, 172, 9, 129,
+        22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232, 178, 185, 112, 104, 218, 246, 97, 228,
+        251, 34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239,
+        107, 49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4,
+        150, 254, 138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215,
+        61, 156, 180 ];
     // To avoid the need for index wrapping, double the permutation table length
     var perm = new Array(512),
         gradP = new Array(512);
@@ -58,7 +58,7 @@
                 v = p[i] ^ (seed & 255);
             }
             else {
-                v = p[i] ^ ((seed>>8) & 255);
+                v = p[i] ^ ((seed >> 8) & 255);
             }
 
             perm[i] = perm[i + 256] = v;
@@ -69,21 +69,21 @@
     module.seed(Math.random());
 
     // Skewing and unskewing factors for 2 and 3 dimensions
-    var F2 = 0.5*(Math.sqrt(3)-1),
-        G2 = (3-Math.sqrt(3))/6,
-        F3 = 1/3,
-        G3 = 1/6;
+    var F2 = 0.5 * (Math.sqrt(3) - 1),
+        G2 = (3 - Math.sqrt(3)) / 6,
+        F3 = 1 / 3,
+        G3 = 1 / 6;
 
     // 2D simplex noise
     module.simplex = function(xin, yin) {
         var n0, n1, n2; // Noise contributions from the three corners
         // Skew the input space to determine which simplex cell we're in
-        var s = (xin+yin)*F2; // Hairy factor for 2D
-        var i = Math.floor(xin+s);
-        var j = Math.floor(yin+s);
-        var t = (i+j)*G2;
-        var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed
-        var y0 = yin-j+t;
+        var s = (xin + yin) * F2; // Hairy factor for 2D
+        var i = Math.floor(xin + s);
+        var j = Math.floor(yin + s);
+        var t = (i + j) * G2;
+        var x0 = xin - i + t; // The x,y distances from the cell origin, unskewed
+        var y0 = yin - j + t;
         // For the 2D case, the simplex shape is an equilateral triangle.
         // Determine which simplex we are in.
         var i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
@@ -103,11 +103,11 @@
         // Work out the hashed gradient indices of the three simplex corners
         i &= 255;
         j &= 255;
-        var gi0 = gradP[i+perm[j]];
-        var gi1 = gradP[i+i1+perm[j+j1]];
-        var gi2 = gradP[i+1+perm[j+1]];
+        var gi0 = gradP[i + perm[j]];
+        var gi1 = gradP[i + i1 + perm[j + j1]];
+        var gi2 = gradP[i + 1 + perm[j + 1]];
         // Calculate the contribution from the three corners
-        var t0 = 0.5 - x0*x0-y0*y0;
+        var t0 = 0.5 - x0 * x0 - y0 * y0;
         if (t0 < 0) {
             n0 = 0;
         }
@@ -115,7 +115,7 @@
             t0 *= t0;
             n0 = t0 * t0 * gi0.dot2(x0, y0); // (x,y) of grad3 used for 2D gradient
         }
-        var t1 = 0.5 - x1*x1-y1*y1;
+        var t1 = 0.5 - x1 * x1 - y1 * y1;
         if (t1 < 0) {
             n1 = 0;
         }
@@ -123,7 +123,7 @@
             t1 *= t1;
             n1 = t1 * t1 * gi1.dot2(x1, y1);
         }
-        var t2 = 0.5 - x2*x2-y2*y2;
+        var t2 = 0.5 - x2 * x2 - y2 * y2;
         if (t2 < 0) {
             n2 = 0;
         }
@@ -139,11 +139,11 @@
     // ##### Perlin noise stuff
 
     function fade(t) {
-        return t*t*t*(t*(t*6-15)+10);
+        return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
     function lerp(a, b, t) {
-        return (1-t)*a + t*b;
+        return (1 - t) * a + t * b;
     }
 
     // 2D Perlin Noise
@@ -152,17 +152,17 @@
         var X = Math.floor(x),
             Y = Math.floor(y);
         // Get relative xy coordinates of point within that cell
-        x = x - X;
-        y = y - Y;
+        x -= X;
+        y -= Y;
         // Wrap the integer cells at 255 (smaller integer period can be introduced here)
-        X = X & 255;
-        Y = Y & 255;
+        X &= 255;
+        Y &= 255;
 
         // Calculate noise contributions from each of the four corners
-        var n00 = gradP[X+perm[Y]].dot2(x, y);
-        var n01 = gradP[X+perm[Y+1]].dot2(x, y-1);
-        var n10 = gradP[X+1+perm[Y]].dot2(x-1, y);
-        var n11 = gradP[X+1+perm[Y+1]].dot2(x-1, y-1);
+        var n00 = gradP[X + perm[Y]].dot2(x, y);
+        var n01 = gradP[X + perm[Y + 1]].dot2(x, y - 1);
+        var n10 = gradP[X + 1 + perm[Y]].dot2(x - 1, y);
+        var n11 = gradP[X + 1 + perm[Y + 1]].dot2(x - 1, y - 1);
 
         // Compute the fade curve value for x
         var u = fade(x);
@@ -176,8 +176,7 @@
     };
 })(this);
 
-
-function Terrain (options) {
+function Terrain(options) {
     var defaultOptions = {
         after: null,
         easing: Terrain.Linear,
@@ -195,15 +194,15 @@ function Terrain (options) {
         xSize: 1024,
         ySegments: 63,
         ySize: 1024,
-        _mesh: null, // internal only
+        _mesh: null // internal only
     };
     options = options || {};
     for (var opt in defaultOptions) {
         if (defaultOptions.hasOwnProperty(opt)) {
-            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
+            options[opt] = typeof options[opt] === "undefined" ? defaultOptions[opt] : options[opt];
         }
     }
-    options.material = options.material || new THREE.MeshBasicMaterial({ color: 0xee6633 });
+    options.material = options.material || new THREE.MeshBasicMaterial({color: 0xee6633});
 
     // Encapsulating the terrain in a parent object allows us the flexibility
     // to more easily have multiple meshes for optimization purposes.
@@ -214,7 +213,7 @@ function Terrain (options) {
     // Create the terrain mesh.
     // To save memory, it is possible to re-use a pre-existing mesh.
     var mesh = options._mesh;
-    if (mesh && mesh.geometry.type === 'PlaneGeometry' &&
+    if (mesh && mesh.geometry.type === "PlaneGeometry" &&
                 mesh.geometry.parameters.widthSegments === options.xSegments &&
                 mesh.geometry.parameters.heightSegments === options.ySegments) {
         mesh.material = options.material;
@@ -236,11 +235,11 @@ function Terrain (options) {
     if (options.heightmap instanceof HTMLCanvasElement || options.heightmap instanceof Image) {
         Terrain.fromHeightmap(mesh.geometry.vertices, options);
     }
-    else if (typeof options.heightmap === 'function') {
+    else if (typeof options.heightmap === "function") {
         options.heightmap(mesh.geometry.vertices, options);
     }
     else {
-        console.warn('An invalid value was passed for `options.heightmap`: ' + options.heightmap);
+        console.warn("An invalid value was passed for `options.heightmap`: " + options.heightmap);
     }
     Terrain.Normalize(mesh, options);
 
@@ -252,8 +251,7 @@ function Terrain (options) {
 
     scene.add(mesh);
     return scene;
-};
-
+}
 
 Terrain.Normalize = function(mesh, options) {
     var v = mesh.geometry.vertices;
@@ -267,7 +265,7 @@ Terrain.Normalize = function(mesh, options) {
     // Keep the terrain within the allotted height range if necessary, and do easing.
     Terrain.Clamp(v, options);
     // Call the "after" callback
-    if (typeof options.after === 'function') {
+    if (typeof options.after === "function") {
         options.after(v, options);
     }
     // Mark the geometry as having changed and needing updates.
@@ -283,7 +281,6 @@ Terrain.GEOMIPMAP = 1;
 Terrain.GEOCLIPMAP = 2;
 Terrain.POLYGONREDUCTION = 3;
 
-
 Terrain.toArray2D = function(vertices, options) {
     var tgt = new Array(options.xSegments),
         xl = options.xSegments + 1,
@@ -298,7 +295,6 @@ Terrain.toArray2D = function(vertices, options) {
     return tgt;
 };
 
-
 Terrain.fromArray2D = function(vertices, src) {
     for (var i = 0, xl = src.length; i < xl; i++) {
         for (var j = 0, yl = src[i].length; j < yl; j++) {
@@ -306,7 +302,6 @@ Terrain.fromArray2D = function(vertices, src) {
         }
     }
 };
-
 
 Terrain.toArray1D = function(vertices) {
     var tgt = new Float64Array(vertices.length);
@@ -316,16 +311,14 @@ Terrain.toArray1D = function(vertices) {
     return tgt;
 };
 
-
 Terrain.fromArray1D = function(vertices, src) {
     for (var i = 0, l = Math.min(vertices.length, src.length); i < l; i++) {
         vertices[i].z = src[i];
     }
 };
 
-
 Terrain.heightmapArray = function(method, options) {
-    var arr = new Array((options.xSegments+1) * (options.ySegments+1)),
+    var arr = new Array((options.xSegments + 1) * (options.ySegments + 1)),
         l = arr.length,
         i;
     // The heightmap functions provided by this script operate on THREE.Vector3
@@ -337,7 +330,7 @@ Terrain.heightmapArray = function(method, options) {
         arr[i] = {z: 0};
     }
     options.minHeight = options.minHeight || 0;
-    options.maxHeight = typeof options.maxHeight === 'undefined' ? 1 : options.maxHeight;
+    options.maxHeight = typeof options.maxHeight === "undefined" ? 1 : options.maxHeight;
     options.stretch = options.stretch || false;
     method(arr, options);
     Terrain.Clamp(arr, options);
@@ -356,7 +349,7 @@ Terrain.Linear = function(x) {
 
 // x = [0, 1], x^2
 Terrain.EaseIn = function(x) {
-    return x*x;
+    return x * x;
 };
 
 // x = [0, 1], -x(x-2)
@@ -368,13 +361,13 @@ Terrain.EaseOut = function(x) {
 // Nearly identical alternatives: 0.5+0.5*cos(x*pi-pi), x^a/(x^a+(1-x)^a) (where a=1.6 seems nice)
 // For comparison: http://www.wolframalpha.com/input/?i=x^1.6%2F%28x^1.6%2B%281-x%29^1.6%29%2C+x^2%283-2x%29%2C+0.5%2B0.5*cos%28x*pi-pi%29+from+0+to+1
 Terrain.EaseInOut = function(x) {
-    return x*x*(3-2*x);
+    return x * x * (3 - 2 * x);
 };
 
 // x = [0, 1], 0.5*(2x-1)^3+0.5
 Terrain.InEaseOut = function(x) {
-    var y = 2*x-1;
-    return 0.5 * y*y*y + 0.5;
+    var y = 2 * x - 1;
+    return 0.5 * y * y * y + 0.5;
 };
 
 // x = [0, 1], x^1.55
@@ -384,13 +377,12 @@ Terrain.EaseInWeak = function(x) {
 
 // x = [0, 1], x^7
 Terrain.EaseInStrong = function(x) {
-    return x*x*x*x*x*x*x;
+    return x * x * x * x * x * x * x;
 };
 
-
 Terrain.fromHeightmap = function(g, options) {
-    var canvas = document.createElement('canvas'),
-        context = canvas.getContext('2d'),
+    var canvas = document.createElement("canvas"),
+        context = canvas.getContext("2d"),
         rows = options.ySegments + 1,
         cols = options.xSegments + 1,
         spread = options.maxHeight - options.minHeight;
@@ -402,17 +394,16 @@ Terrain.fromHeightmap = function(g, options) {
         for (var col = 0; col < cols; col++) {
             var i = row * cols + col,
                 idx = i * 4;
-            g[i].z = (data[idx] + data[idx+1] + data[idx+2]) / 765 * spread + options.minHeight;
+            g[i].z = (data[idx] + data[idx + 1] + data[idx + 2]) / 765 * spread + options.minHeight;
         }
     }
 };
 
-
 Terrain.toHeightmap = function(g, options) {
-    var hasMax = typeof options.maxHeight === 'undefined',
-        hasMin = typeof options.minHeight === 'undefined',
+    var hasMax = typeof options.maxHeight === "undefined",
+        hasMin = typeof options.minHeight === "undefined",
         max = hasMax ? options.maxHeight : -Infinity,
-        min = hasMin ? options.minHeight :  Infinity;
+        min = hasMin ? options.minHeight : Infinity;
     if (!hasMax || !hasMin) {
         var max2 = max,
             min2 = min;
@@ -423,8 +414,8 @@ Terrain.toHeightmap = function(g, options) {
         if (!hasMax) max = max2;
         if (!hasMin) min = min2;
     }
-    var canvas = options.heightmap instanceof HTMLCanvasElement ? options.heightmap : document.createElement('canvas'),
-        context = canvas.getContext('2d'),
+    var canvas = options.heightmap instanceof HTMLCanvasElement ? options.heightmap : document.createElement("canvas"),
+        context = canvas.getContext("2d"),
         rows = options.ySegments + 1,
         cols = options.xSegments + 1,
         spread = options.maxHeight - options.minHeight;
@@ -435,9 +426,9 @@ Terrain.toHeightmap = function(g, options) {
     for (var row = 0; row < rows; row++) {
         for (var col = 0; col < cols; col++) {
             var i = row * cols + col,
-            idx = i * 4;
-            data[idx] = data[idx+1] = data[idx+2] = Math.round(((g[i].z - options.minHeight) / spread) * 255);
-            data[idx+3] = 255;
+                idx = i * 4;
+            data[idx] = data[idx + 1] = data[idx + 2] = Math.round(((g[i].z - options.minHeight) / spread) * 255);
+            data[idx + 3] = 255;
         }
     }
     context.putImageData(d, 0, 0);
@@ -455,8 +446,8 @@ Terrain.Clamp = function(g, options) {
         if (g[i].z > max) max = g[i].z;
     }
     var actualRange = max - min,
-        optMax = typeof options.maxHeight !== 'number' ? max : options.maxHeight,
-        optMin = typeof options.minHeight !== 'number' ? min : options.minHeight,
+        optMax = typeof options.maxHeight !== "number" ? max : options.maxHeight,
+        optMin = typeof options.minHeight !== "number" ? min : options.minHeight,
         targetMax = options.stretch ? optMax : (max < optMax ? max : optMax),
         targetMin = options.stretch ? optMin : (min > optMin ? min : optMin),
         range = targetMax - targetMin;
@@ -478,14 +469,14 @@ Terrain.Edges = function(g, options, direction, distance, easing, edges) {
         yl = options.ySegments + 1,
         i, j, multiplier, k1, k2;
     easing = easing || Terrain.EaseInOut;
-    if (typeof edges !== 'object') {
+    if (typeof edges !== "object") {
         edges = {top: true, bottom: true, left: true, right: true};
     }
     for (i = 0; i < xl; i++) {
         for (j = 0; j < numYSegments; j++) {
             multiplier = easing(1 - j / numYSegments);
-            k1 = j*xl + i;
-            k2 = (options.ySegments-j)*xl + i;
+            k1 = j * xl + i;
+            k2 = (options.ySegments - j) * xl + i;
             if (edges.top) {
                 g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
             }
@@ -497,8 +488,8 @@ Terrain.Edges = function(g, options, direction, distance, easing, edges) {
     for (i = 0; i < yl; i++) {
         for (j = 0; j < numXSegments; j++) {
             multiplier = easing(1 - j / numXSegments);
-            k1 = i*xl+j;
-            k2 = (options.ySegments-i)*xl + (options.xSegments-j);
+            k1 = i * xl + j;
+            k2 = (options.ySegments - i) * xl + (options.xSegments - j);
             if (edges.left) {
                 g[k1].z = max(g[k1].z, (peak - g[k1].z) * multiplier + g[k1].z);
             }
@@ -510,7 +501,7 @@ Terrain.Edges = function(g, options, direction, distance, easing, edges) {
     Terrain.Clamp(g, {
         maxHeight: options.maxHeight,
         minHeight: options.minHeight,
-        stretch: true,
+        stretch: true
     });
 };
 
@@ -527,13 +518,13 @@ Terrain.RadialEdges = function(g, options, direction, distance, easing) {
         i, j, multiplier, k, vertexDistance;
     for (i = 0; i < xl; i++) {
         for (j = 0; j < yl2; j++) {
-            k = j*xl + i;
-            vertexDistance = Math.min(edgeRadius, Math.sqrt((xl2-i)*xSegmentSize*(xl2-i)*xSegmentSize + (yl2-j)*ySegmentSize*(yl2-j)*ySegmentSize) - distance);
+            k = j * xl + i;
+            vertexDistance = Math.min(edgeRadius, Math.sqrt((xl2 - i) * xSegmentSize * (xl2 - i) * xSegmentSize + (yl2 - j) * ySegmentSize * (yl2 - j) * ySegmentSize) - distance);
             if (vertexDistance < 0) continue;
             multiplier = easing(vertexDistance / edgeRadius);
             g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
             // Use symmetry to reduce the number of iterations.
-            k = (options.ySegments-j)*xl + i;
+            k = (options.ySegments - j) * xl + i;
             g[k].z = max(g[k].z, (peak - g[k].z) * multiplier + g[k].z);
         }
     }
@@ -547,14 +538,14 @@ Terrain.Smooth = function(g, options, weight) {
                 c = 0;
             for (var n = -1; n <= 1; n++) {
                 for (var m = -1; m <= 1; m++) {
-                    var key = (j+n)*xl + i + m;
-                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                    var key = (j + n) * xl + i + m;
+                    if (typeof g[key] !== "undefined" && i + m >= 0 && j + n >= 0 && i + m < xl && j + n < yl) {
                         sum += g[key].z;
                         c++;
                     }
                 }
             }
-            heightmap[j*xl + i] = sum / c;
+            heightmap[j * xl + i] = sum / c;
         }
     }
     weight = weight || 0;
@@ -577,23 +568,23 @@ Terrain.SmoothMedian = function(g, options) {
             neighborKeys.length = 0;
             for (var n = -1; n <= 1; n++) {
                 for (var m = -1; m <= 1; m++) {
-                    var key = (j+n)*xl + i + m;
-                    if (typeof g[key] !== 'undefined' && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                    var key = (j + n) * xl + i + m;
+                    if (typeof g[key] !== "undefined" && i + m >= 0 && j + n >= 0 && i + m < xl && j + n < yl) {
                         neighborValues.push(g[key].z);
                         neighborKeys.push(key);
                     }
                 }
             }
             neighborKeys.sort(sortByValue);
-            var halfKey = Math.floor(neighborKeys.length*0.5),
+            var halfKey = Math.floor(neighborKeys.length * 0.5),
                 median;
             if (neighborKeys.length % 2 === 1) {
                 median = g[neighborKeys[halfKey]].z;
             }
             else {
-                median = (g[neighborKeys[halfKey-1]].z + g[neighborKeys[halfKey]].z) * 0.5;
+                median = (g[neighborKeys[halfKey - 1]].z + g[neighborKeys[halfKey]].z) * 0.5;
             }
-            heightmap[j*xl + i] = median;
+            heightmap[j * xl + i] = median;
         }
     }
     for (var k = 0, l = g.length; k < l; k++) {
@@ -609,15 +600,15 @@ Terrain.SmoothConservative = function(g, options, multiplier) {
                 min = Infinity;
             for (var n = -1; n <= 1; n++) {
                 for (var m = -1; m <= 1; m++) {
-                    var key = (j+n)*xl + i + m;
-                    if (typeof g[key] !== 'undefined' && n && m && i+m >= 0 && j+n >= 0 && i+m < xl && j+n < yl) {
+                    var key = (j + n) * xl + i + m;
+                    if (typeof g[key] !== "undefined" && n && m && i + m >= 0 && j + n >= 0 && i + m < xl && j + n < yl) {
                         if (g[key].z < min) min = g[key].z;
                         if (g[key].z > max) max = g[key].z;
                     }
                 }
             }
-            var kk = j*xl + i;
-            if (typeof multiplier === 'number') {
+            var kk = j * xl + i;
+            if (typeof multiplier === "number") {
                 var halfdiff = (max - min) * 0.5,
                     middle = min + halfdiff;
                 max = middle + halfdiff * multiplier;
@@ -639,8 +630,8 @@ Terrain.Step = function(g, levels) {
         inc = Math.floor(l / levels),
         heights = new Array(l),
         buckets = new Array(levels);
-    if (typeof levels === 'undefined') {
-        levels = Math.floor(Math.pow(l*0.5, 0.25));
+    if (typeof levels === "undefined") {
+        levels = Math.floor(Math.pow(l * 0.5, 0.25));
     }
     for (i = 0; i < l; i++) {
         heights[i] = g[i].z;
@@ -648,7 +639,7 @@ Terrain.Step = function(g, levels) {
     heights.sort(function(a, b) { return a - b; });
     for (i = 0; i < levels; i++) {
         // Bucket by population (bucket size) not range size
-        var subset = heights.slice(i*inc, (i+1)*inc),
+        var subset = heights.slice(i * inc, (i + 1) * inc),
             sum = 0,
             bl = subset.length;
         for (j = 0; j < bl; j++) {
@@ -656,8 +647,8 @@ Terrain.Step = function(g, levels) {
         }
         buckets[i] = {
             min: subset[0],
-            max: subset[subset.length-1],
-            avg: sum / bl,
+            max: subset[subset.length - 1],
+            avg: sum / bl
         };
     }
 
@@ -673,14 +664,12 @@ Terrain.Step = function(g, levels) {
     }
 };
 
-
 Terrain.Turbulence = function(g, options) {
     var range = options.maxHeight - options.minHeight;
     for (var i = 0, l = g.length; i < l; i++) {
         g[i].z = options.minHeight + Math.abs((g[i].z - options.minHeight) * 2 - range);
     }
 };
-
 
 Terrain.MultiPass = function(g, options, passes) {
     var clonedOptions = {};
@@ -691,15 +680,14 @@ Terrain.MultiPass = function(g, options, passes) {
     }
     var range = options.maxHeight - options.minHeight;
     for (var i = 0, l = passes.length; i < l; i++) {
-        var amp = typeof passes[i].amplitude === 'undefined' ? 1 : passes[i].amplitude,
+        var amp = typeof passes[i].amplitude === "undefined" ? 1 : passes[i].amplitude,
             move = 0.5 * (range - range * amp);
         clonedOptions.maxHeight = options.maxHeight - move;
         clonedOptions.minHeight = options.minHeight + move;
-        clonedOptions.frequency = typeof passes[i].frequency === 'undefined' ? options.frequency : passes[i].frequency;
+        clonedOptions.frequency = typeof passes[i].frequency === "undefined" ? options.frequency : passes[i].frequency;
         passes[i].method(g, clonedOptions);
     }
 };
-
 
 Terrain.Curve = function(g, options, curve) {
     var range = (options.maxHeight - options.minHeight) * 0.5,
@@ -722,16 +710,14 @@ Terrain.Cosine = function(g, options) {
     }
 };
 
-
 Terrain.CosineLayers = function(g, options) {
     Terrain.MultiPass(g, options, [
-        { method: Terrain.Cosine,                   frequency:  2.5 },
-        { method: Terrain.Cosine, amplitude: 0.1,   frequency:  12  },
-        { method: Terrain.Cosine, amplitude: 0.05,  frequency:  15  },
-        { method: Terrain.Cosine, amplitude: 0.025, frequency:  20  },
+        {method: Terrain.Cosine, frequency: 2.5},
+        {method: Terrain.Cosine, amplitude: 0.1, frequency: 12},
+        {method: Terrain.Cosine, amplitude: 0.05, frequency: 15},
+        {method: Terrain.Cosine, amplitude: 0.025, frequency: 20}
     ]);
 };
-
 
 Terrain.DiamondSquare = function(g, options) {
     // Set the segment length to the smallest power of 2 that is greater than
@@ -747,12 +733,12 @@ Terrain.DiamondSquare = function(g, options) {
         xl = options.xSegments + 1,
         yl = options.ySegments + 1;
     for (i = 0; i <= segments; i++) {
-        heightmap[i] = new Float64Array(segments+1);
+        heightmap[i] = new Float64Array(segments + 1);
     }
 
     // Generate heightmap
     for (var l = segments; l >= 2; l /= 2) {
-        var half = Math.round(l*0.5),
+        var half = Math.round(l * 0.5),
             whole = Math.round(l),
             x,
             y,
@@ -764,22 +750,22 @@ Terrain.DiamondSquare = function(g, options) {
         for (x = 0; x < segments; x += whole) {
             for (y = 0; y < segments; y += whole) {
                 d = Math.random() * smoothing * 2 - smoothing;
-                avg = heightmap[x][y] +            // top left
-                      heightmap[x+whole][y] +      // top right
-                      heightmap[x][y+whole] +      // bottom left
-                      heightmap[x+whole][y+whole]; // bottom right
+                avg = heightmap[x][y] + // top left
+                      heightmap[x + whole][y] + // top right
+                      heightmap[x][y + whole] + // bottom left
+                      heightmap[x + whole][y + whole]; // bottom right
                 avg *= 0.25;
-                heightmap[x+half][y+half] = avg + d;
+                heightmap[x + half][y + half] = avg + d;
             }
         }
         // diamond
         for (x = 0; x < segments; x += half) {
-            for (y = (x+half) % l; y < segments; y += l) {
+            for (y = (x + half) % l; y < segments; y += l) {
                 d = Math.random() * smoothing * 2 - smoothing;
-                avg = heightmap[(x-half+size)%size][y] + // middle left
-                      heightmap[(x+half)%size][y] +      // middle right
-                      heightmap[x][(y+half)%size] +      // middle top
-                      heightmap[x][(y-half+size)%size];  // middle bottom
+                avg = heightmap[(x - half + size) % size][y] + // middle left
+                      heightmap[(x + half) % size][y] + // middle right
+                      heightmap[x][(y + half) % size] + // middle top
+                      heightmap[x][(y - half + size) % size]; // middle bottom
                 avg *= 0.25;
                 avg += d;
                 heightmap[x][y] = avg;
@@ -800,9 +786,8 @@ Terrain.DiamondSquare = function(g, options) {
     // Terrain.SmoothConservative(g, options);
 };
 
-
 Terrain.Fault = function(g, options) {
-    var d = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments),
+    var d = Math.sqrt(options.xSegments * options.xSegments + options.ySegments * options.ySegments),
         iterations = d * options.frequency,
         range = (options.maxHeight - options.minHeight) * 0.5,
         displacement = range / iterations,
@@ -811,10 +796,10 @@ Terrain.Fault = function(g, options) {
         var v = Math.random(),
             a = Math.sin(v * Math.PI * 2),
             b = Math.cos(v * Math.PI * 2),
-            c = Math.random() * d - d*0.5;
+            c = Math.random() * d - d * 0.5;
         for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
             for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
-                var distance = a*i + b*j - c;
+                var distance = a * i + b * j - c;
                 if (distance > smoothDistance) {
                     g[j * xl + i].z += displacement;
                 }
@@ -830,7 +815,6 @@ Terrain.Fault = function(g, options) {
     // Terrain.Smooth(g, options);
 };
 
-
 Terrain.Hill = function(g, options, feature, shape) {
     var frequency = options.frequency * 2,
         numFeatures = frequency * frequency * 10,
@@ -842,7 +826,7 @@ Terrain.Hill = function(g, options, feature, shape) {
         maxRadius = smallerSideLength / frequency;
     feature = feature || Terrain.Influences.Hill;
 
-    var coords = { x: 0, y: 0 };
+    var coords = {x: 0, y: 0};
     for (var i = 0; i < numFeatures; i++) {
         var radius = Math.random() * (maxRadius - minRadius) + minRadius,
             height = Math.random() * (maxHeight - minHeight) + minHeight;
@@ -851,7 +835,7 @@ Terrain.Hill = function(g, options, feature, shape) {
             maxY = options.ySize + radius;
         coords.x = Math.random();
         coords.y = Math.random();
-        if (typeof shape === 'function') shape(coords);
+        if (typeof shape === "function") shape(coords);
         Terrain.Influence(
             g, options,
             feature,
@@ -884,18 +868,18 @@ Terrain.HillIsland = (function() {
         for (var k = 0; k < 3; k++) {
             var r = Math.floor(Math.random() * 8);
             switch (r) {
-                case 0: i++; break;
-                case 1: i--; break;
-                case 2: j++; break;
-                case 3: j--; break;
-                case 4: i++; j++; break;
-                case 5: i++; j--; break;
-                case 6: i--; j++; break;
-                case 7: i--; j--; break;
+            case 0: i++; break;
+            case 1: i--; break;
+            case 2: j++; break;
+            case 3: j--; break;
+            case 4: i++; j++; break;
+            case 5: i++; j--; break;
+            case 6: i--; j++; break;
+            case 7: i--; j--; break;
             }
             var neighborKey = j * xl + i;
             // If the neighbor is lower, move the particle to that neighbor and re-evaluate.
-            if (typeof g[neighborKey] !== 'undefined') {
+            if (typeof g[neighborKey] !== "undefined") {
                 if (g[neighborKey].z < g[currentKey].z) {
                     deposit(g, i, j, xl, displacement);
                     return;
@@ -911,7 +895,7 @@ Terrain.HillIsland = (function() {
     }
 
     Terrain.Particles = function(g, options) {
-        var iterations = Math.sqrt(options.xSegments*options.xSegments + options.ySegments*options.ySegments) * options.frequency * 300,
+        var iterations = Math.sqrt(options.xSegments * options.xSegments + options.ySegments * options.ySegments) * options.frequency * 300,
             xl = options.xSegments + 1,
             displacement = (options.maxHeight - options.minHeight) / iterations * 1000,
             i = Math.floor(Math.random() * options.xSegments),
@@ -926,14 +910,13 @@ Terrain.HillIsland = (function() {
                 yDeviation = Math.random() * 0.2 - 0.1;
             }
             if (k % 100 === 0) {
-                i = Math.floor(options.xSegments*(0.5+xDeviation) + Math.cos(d) * Math.random() * options.xSegments*(0.5-Math.abs(xDeviation)));
-                j = Math.floor(options.ySegments*(0.5+yDeviation) + Math.sin(d) * Math.random() * options.ySegments*(0.5-Math.abs(yDeviation)));
+                i = Math.floor(options.xSegments * (0.5 + xDeviation) + Math.cos(d) * Math.random() * options.xSegments * (0.5 - Math.abs(xDeviation)));
+                j = Math.floor(options.ySegments * (0.5 + yDeviation) + Math.sin(d) * Math.random() * options.ySegments * (0.5 - Math.abs(yDeviation)));
             }
         }
         // Terrain.Smooth(g, options, 3);
     };
 })();
-
 
 Terrain.Perlin = function(g, options) {
     noise.seed(Math.random());
@@ -948,19 +931,18 @@ Terrain.Perlin = function(g, options) {
 
 Terrain.PerlinDiamond = function(g, options) {
     Terrain.MultiPass(g, options, [
-        { method: Terrain.Perlin },
-        { method: Terrain.DiamondSquare, amplitude: 0.75 },
-        { method: function(g, o) { return Terrain.SmoothMedian(g, o); } },
+        {method: Terrain.Perlin},
+        {method: Terrain.DiamondSquare, amplitude: 0.75},
+        {method: function(g, o) { return Terrain.SmoothMedian(g, o); }}
     ]);
 };
 
-
 Terrain.PerlinLayers = function(g, options) {
     Terrain.MultiPass(g, options, [
-        { method: Terrain.Perlin,                  frequency:  1.25 },
-        { method: Terrain.Perlin, amplitude: 0.05, frequency:  2.5  },
-        { method: Terrain.Perlin, amplitude: 0.35, frequency:  5    },
-        { method: Terrain.Perlin, amplitude: 0.15, frequency: 10    },
+        {method: Terrain.Perlin, frequency: 1.25},
+        {method: Terrain.Perlin, amplitude: 0.05, frequency: 2.5},
+        {method: Terrain.Perlin, amplitude: 0.35, frequency: 5},
+        {method: Terrain.Perlin, amplitude: 0.15, frequency: 10}
     ]);
 };
 
@@ -977,11 +959,11 @@ Terrain.Simplex = function(g, options) {
 
 Terrain.SimplexLayers = function(g, options) {
     Terrain.MultiPass(g, options, [
-        { method: Terrain.Simplex,                    frequency:  1.25 },
-        { method: Terrain.Simplex, amplitude: 0.5,    frequency:  2.5  },
-        { method: Terrain.Simplex, amplitude: 0.25,   frequency:  5    },
-        { method: Terrain.Simplex, amplitude: 0.125,  frequency: 10    },
-        { method: Terrain.Simplex, amplitude: 0.0625, frequency: 20    },
+        {method: Terrain.Simplex, frequency: 1.25},
+        {method: Terrain.Simplex, amplitude: 0.5, frequency: 2.5},
+        {method: Terrain.Simplex, amplitude: 0.25, frequency: 5},
+        {method: Terrain.Simplex, amplitude: 0.125, frequency: 10},
+        {method: Terrain.Simplex, amplitude: 0.0625, frequency: 20}
     ]);
 };
 
@@ -1007,9 +989,9 @@ Terrain.SimplexLayers = function(g, options) {
                 /* c b *
                  * l t */
                 var t = data[k],
-                    l = data[ j      * xl + (i-inc)] || t, // left
-                    b = data[(j-inc) * xl +  i     ] || t, // bottom
-                    c = data[(j-inc) * xl + (i-inc)] || t; // corner
+                    l = data[ j * xl + (i - inc)] || t, // left
+                    b = data[(j - inc) * xl + i ] || t, // bottom
+                    c = data[(j - inc) * xl + (i - inc)] || t; // corner
                 // jscs:enable disallowSpacesInsideBrackets
                 // Interpolate between adjacent points to set the height of
                 // higher-resolution target data.
@@ -1018,11 +1000,11 @@ Terrain.SimplexLayers = function(g, options) {
                         if (x === lastX && y === lastY) continue;
                         var z = y * xl + x;
                         if (z < 0) continue;
-                        var px = ((x-lastX) / inc),
-                            py = ((y-lastY) / inc),
-                            r1 = px * b + (1-px) * c,
-                            r2 = px * t + (1-px) * l;
-                        data[z] = py * r2 + (1-py) * r1;
+                        var px = ((x - lastX) / inc),
+                            py = ((y - lastY) / inc),
+                            r1 = px * b + (1 - px) * c,
+                            r2 = px * t + (1 - px) * l;
+                        data[z] = py * r2 + (1 - py) * r1;
                     }
                 }
                 lastY = j;
@@ -1049,12 +1031,12 @@ Terrain.SimplexLayers = function(g, options) {
         // Store the array of white noise outside of the WhiteNoise function to
         // avoid allocating a bunch of unnecessary arrays; we can just
         // overwrite old data each time WhiteNoise() is called.
-        var data = new Float64Array((segments+1)*(segments+1));
+        var data = new Float64Array((segments + 1) * (segments + 1));
 
         // Layer white noise at different resolutions.
         var range = options.maxHeight - options.minHeight;
         for (var i = 2; i < 7; i++) {
-            WhiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4-i*1.2), data);
+            WhiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4 - i * 1.2), data);
         }
 
         // White noise creates some weird artifacts; fix them.
@@ -1062,7 +1044,7 @@ Terrain.SimplexLayers = function(g, options) {
         Terrain.Clamp(g, {
             maxHeight: options.maxHeight,
             minHeight: options.minHeight,
-            stretch: true,
+            stretch: true
         });
     };
 })();
@@ -1071,21 +1053,21 @@ Terrain.Weierstrass = function(g, options) {
     var range = (options.maxHeight - options.minHeight) * 0.5,
         dir1 = Math.random() < 0.5 ? 1 : -1,
         dir2 = Math.random() < 0.5 ? 1 : -1,
-        r11  =  0.5   + Math.random() * 1.0,
-        r12  =  0.5   + Math.random() * 1.0,
-        r13  =  0.025 + Math.random() * 0.10,
-        r14  = -1.0   + Math.random() * 2.0,
-        r21  =  0.5   + Math.random() * 1.0,
-        r22  =  0.5   + Math.random() * 1.0,
-        r23  =  0.025 + Math.random() * 0.10,
-        r24  = -1.0   + Math.random() * 2.0;
+        r11 = 0.5 + Math.random() * 1.0,
+        r12 = 0.5 + Math.random() * 1.0,
+        r13 = 0.025 + Math.random() * 0.10,
+        r14 = -1.0 + Math.random() * 2.0,
+        r21 = 0.5 + Math.random() * 1.0,
+        r22 = 0.5 + Math.random() * 1.0,
+        r23 = 0.025 + Math.random() * 0.10,
+        r24 = -1.0 + Math.random() * 2.0;
     for (var i = 0, xl = options.xSegments + 1; i < xl; i++) {
         for (var j = 0, yl = options.ySegments + 1; j < yl; j++) {
             var sum = 0;
             for (var k = 0; k < 20; k++) {
-                var x = Math.pow(1+r11, -k) * Math.sin(Math.pow(1+r12, k) * (i + 0.25*Math.cos(j) + r14*j) * r13);
-                var y = Math.pow(1+r21, -k) * Math.sin(Math.pow(1+r22, k) * (j + 0.25*Math.cos(i) + r24*i) * r23);
-                sum -= Math.exp(dir1*x*x + dir2*y*y);
+                var x = Math.pow(1 + r11, -k) * Math.sin(Math.pow(1 + r12, k) * (i + 0.25 * Math.cos(j) + r14 * j) * r13);
+                var y = Math.pow(1 + r21, -k) * Math.sin(Math.pow(1 + r22, k) * (j + 0.25 * Math.cos(i) + r24 * i) * r23);
+                sum -= Math.exp(dir1 * x * x + dir2 * y * y);
             }
             g[j * xl + i].z += sum * range;
         }
@@ -1094,34 +1076,33 @@ Terrain.Weierstrass = function(g, options) {
 };
 
 Terrain.glslifyNumber = function(n) {
-    return n === (n|0) ? n+'.0' : n+'';
+    return n === (n | 0) ? n + ".0" : n + "";
 };
 
 Terrain.generateBlendedMaterial = function(textures) {
     // Convert numbers to strings of floats so GLSL doesn't barf on "1" instead of "1.0"
 
-
-    var uniforms = THREE.UniformsUtils.merge([THREE.ShaderLib.lambert.uniforms]),
-        declare = '',
-        assign = '',
+    var uniforms = THREE.UniformsUtils.merge([ THREE.ShaderLib.lambert.uniforms ]),
+        declare = "",
+        assign = "",
         t0Repeat = textures[0].texture.repeat,
         t0Offset = textures[0].texture.offset;
     for (var i = 0, l = textures.length; i < l; i++) {
         // Uniforms
         textures[i].texture.wrapS = textures[i].texture.wrapT = THREE.RepeatWrapping;
         textures[i].texture.needsUpdate = true;
-        uniforms['texture_' + i] = {
-            type: 't',
-            value: textures[i].texture,
+        uniforms["texture_" + i] = {
+            type: "t",
+            value: textures[i].texture
         };
 
         // Shader fragments
         // Declare each texture, then mix them together.
-        declare += 'uniform sampler2D texture_' + i + ';\n';
+        declare += "uniform sampler2D texture_" + i + ";\n";
         if (i !== 0) {
             var v = textures[i].levels, // Vertex heights at which to blend textures in and out
                 p = textures[i].glsl, // Or specify a GLSL expression that evaluates to a float between 0.0 and 1.0 indicating how opaque the texture should be at this texel
-                useLevels = typeof v !== 'undefined', // Use levels if they exist; otherwise, use the GLSL expression
+                useLevels = typeof v !== "undefined", // Use levels if they exist; otherwise, use the GLSL expression
                 tiRepeat = textures[i].texture.repeat,
                 tiOffset = textures[i].texture.offset;
             if (useLevels) {
@@ -1138,12 +1119,12 @@ Terrain.generateBlendedMaterial = function(textures) {
             // (how far between the start-blending-out and fully-blended-out levels the current vertex is)
             // So the opacity is 1.0 minus that.
             var blendAmount = !useLevels ? p :
-                '1.0 - smoothstep(' + v[0] + ', ' + v[1] + ', vPosition.z) + smoothstep(' + v[2] + ', ' + v[3] + ', vPosition.z)';
-            assign += '        color = mix( ' +
-                'texture2D( texture_' + i + ', MyvUv * vec2( ' + Terrain.glslifyNumber(tiRepeat.x) + ', ' + Terrain.glslifyNumber(tiRepeat.y) + ' ) + vec2( ' + Terrain.glslifyNumber(tiOffset.x) + ', ' + Terrain.glslifyNumber(tiOffset.y) + ' ) ), ' +
-                'color, ' +
-                'max(min(' + blendAmount + ', 1.0), 0.0)' +
-                ');\n';
+                "1.0 - smoothstep(" + v[0] + ", " + v[1] + ", vPosition.z) + smoothstep(" + v[2] + ", " + v[3] + ", vPosition.z)";
+            assign += "        color = mix( " +
+                "texture2D( texture_" + i + ", MyvUv * vec2( " + Terrain.glslifyNumber(tiRepeat.x) + ", " + Terrain.glslifyNumber(tiRepeat.y) + " ) + vec2( " + Terrain.glslifyNumber(tiOffset.x) + ", " + Terrain.glslifyNumber(tiOffset.y) + " ) ), " +
+                "color, " +
+                "max(min(" + blendAmount + ", 1.0), 0.0)" +
+                ");\n";
         }
     }
 
@@ -1167,18 +1148,18 @@ Terrain.generateBlendedMaterial = function(textures) {
 
         uniforms: uniforms,
         vertexShader: THREE.ShaderLib.lambert.vertexShader.replace(
-            'void main() {',
-            'varying vec2 MyvUv;\nvarying vec3 vPosition;\nvarying vec3 myNormal; void main() {\nMyvUv = uv;\nvPosition = position;\nmyNormal = normal;'
+            "void main() {",
+            "varying vec2 MyvUv;\nvarying vec3 vPosition;\nvarying vec3 myNormal; void main() {\nMyvUv = uv;\nvPosition = position;\nmyNormal = normal;"
         ),
         // This is mostly copied from THREE.ShaderLib.lambert.fragmentShader
         fragmentShader: [
-            'uniform vec3 diffuse;',
-            'uniform vec3 emissive;',
-            'uniform float opacity;',
-            'varying vec3 vLightFront;',
-            '#ifdef DOUBLE_SIDED',
-            '    varying vec3 vLightBack;',
-            '#endif',
+            "uniform vec3 diffuse;",
+            "uniform vec3 emissive;",
+            "uniform float opacity;",
+            "varying vec3 vLightFront;",
+            "#ifdef DOUBLE_SIDED",
+            "    varying vec3 vLightBack;",
+            "#endif",
 
             THREE.ShaderChunk.common,
             THREE.ShaderChunk.packing,
@@ -1203,72 +1184,71 @@ Terrain.generateBlendedMaterial = function(textures) {
             THREE.ShaderChunk.clipping_planes_pars_fragment,
 
             declare,
-            'varying vec2 MyvUv;',
-            'varying vec3 vPosition;',
-            'varying vec3 myNormal;',
+            "varying vec2 MyvUv;",
+            "varying vec3 vPosition;",
+            "varying vec3 myNormal;",
 
-            'void main() {',
+            "void main() {",
 
             THREE.ShaderChunk.clipping_planes_fragment,
 
-	'ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );',
-	'vec3 totalEmissiveRadiance = emissive;',
+            "ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );",
+            "vec3 totalEmissiveRadiance = emissive;",
 
             // TODO: The second vector here is the object's "up" vector. Ideally we'd just pass it in directly.
-            'float slope = acos(max(min(dot(myNormal, vec3(0.0, 0.0, 1.0)), 1.0), -1.0));',
+            "float slope = acos(max(min(dot(myNormal, vec3(0.0, 0.0, 1.0)), 1.0), -1.0));",
 
-            '    vec4 diffuseColor = vec4( diffuse, opacity );',
-            '    vec4 color = texture2D( texture_0, MyvUv * vec2( ' + Terrain.glslifyNumber(t0Repeat.x) + ', ' + Terrain.glslifyNumber(t0Repeat.y) + ' ) + vec2( ' + Terrain.glslifyNumber(t0Offset.x) + ', ' + Terrain.glslifyNumber(t0Offset.y) + ' ) ); // base',
-                assign,
-            '    diffuseColor = color;',
+            "    vec4 diffuseColor = vec4( diffuse, opacity );",
+            "    vec4 color = texture2D( texture_0, MyvUv * vec2( " + Terrain.glslifyNumber(t0Repeat.x) + ", " + Terrain.glslifyNumber(t0Repeat.y) + " ) + vec2( " + Terrain.glslifyNumber(t0Offset.x) + ", " + Terrain.glslifyNumber(t0Offset.y) + " ) ); // base",
+            assign,
+            "    diffuseColor = color;",
             // '    gl_FragColor = color;',
 
-                THREE.ShaderChunk.logdepthbuf_fragment,
-                THREE.ShaderChunk.map_fragment,
-                THREE.ShaderChunk.color_fragment,
-                THREE.ShaderChunk.alphamap_fragment,
-                THREE.ShaderChunk.alphatest_fragment,
-                THREE.ShaderChunk.specularmap_fragment,
-                THREE.ShaderChunk.emissivemap_fragment,
+            THREE.ShaderChunk.logdepthbuf_fragment,
+            THREE.ShaderChunk.map_fragment,
+            THREE.ShaderChunk.color_fragment,
+            THREE.ShaderChunk.alphamap_fragment,
+            THREE.ShaderChunk.alphatest_fragment,
+            THREE.ShaderChunk.specularmap_fragment,
+            THREE.ShaderChunk.emissivemap_fragment,
 
             // accumulation
-            '   reflectedLight.indirectDiffuse = getAmbientLightIrradiance( ambientLightColor );',
+            "   reflectedLight.indirectDiffuse = getAmbientLightIrradiance( ambientLightColor );",
 
-                THREE.ShaderChunk.lightmap_fragment,
+            THREE.ShaderChunk.lightmap_fragment,
 
-            '    reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb );',
-            '    #ifdef DOUBLE_SIDED',
-            '            reflectedLight.directDiffuse = ( gl_FrontFacing ) ? vLightFront : vLightBack;',
-            '    #else',
-            '            reflectedLight.directDiffuse = vLightFront;',
-            '    #endif',
-            '    reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb ) * getShadowMask();',
+            "    reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb );",
+            "    #ifdef DOUBLE_SIDED",
+            "            reflectedLight.directDiffuse = ( gl_FrontFacing ) ? vLightFront : vLightBack;",
+            "    #else",
+            "            reflectedLight.directDiffuse = vLightFront;",
+            "    #endif",
+            "    reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb ) * getShadowMask();",
 
-                // modulation
-                THREE.ShaderChunk.aomap_fragment,
-            '   vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;',
-                THREE.ShaderChunk.normal_flip,
-                THREE.ShaderChunk.envmap_fragment,
-            '   gl_FragColor = vec4( outgoingLight, diffuseColor.a );', // This will probably change in future three.js releases
-                THREE.ShaderChunk.tonemapping_fragment,
-                THREE.ShaderChunk.encodings_fragment,
-                THREE.ShaderChunk.fog_fragment,
-                THREE.ShaderChunk.premultiplied_alpha_fragment,
-                THREE.ShaderChunk.dithering_fragment,
-            '}'
-        ].join('\n'),
+            // modulation
+            THREE.ShaderChunk.aomap_fragment,
+            "   vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;",
+            THREE.ShaderChunk.normal_flip,
+            THREE.ShaderChunk.envmap_fragment,
+            "   gl_FragColor = vec4( outgoingLight, diffuseColor.a );", // This will probably change in future three.js releases
+            THREE.ShaderChunk.tonemapping_fragment,
+            THREE.ShaderChunk.encodings_fragment,
+            THREE.ShaderChunk.fog_fragment,
+            THREE.ShaderChunk.premultiplied_alpha_fragment,
+            THREE.ShaderChunk.dithering_fragment,
+            "}"
+        ].join("\n")
     };
     return new THREE.ShaderMaterial(params);
 };
 
-
 Terrain.ScatterMeshes = function(geometry, options) {
     if (!options.mesh) {
-        console.error('options.mesh is required for Terrain.ScatterMeshes but was not passed');
+        console.error("options.mesh is required for Terrain.ScatterMeshes but was not passed");
         return;
     }
     if (geometry instanceof THREE.BufferGeometry) {
-        console.warn('The terrain mesh is using BufferGeometry but Terrain.ScatterMeshes can only work with Geometry.');
+        console.warn("The terrain mesh is using BufferGeometry but Terrain.ScatterMeshes can only work with Geometry.");
         return;
     }
     if (!options.scene) {
@@ -1282,30 +1262,30 @@ Terrain.ScatterMeshes = function(geometry, options) {
         maxSlope: 0.6283185307179586, // 36deg or 36 / 180 * Math.PI, about the angle of repose of earth
         maxTilt: Infinity,
         w: 0,
-        h: 0,
+        h: 0
     };
     for (var opt in defaultOptions) {
         if (defaultOptions.hasOwnProperty(opt)) {
-            options[opt] = typeof options[opt] === 'undefined' ? defaultOptions[opt] : options[opt];
+            options[opt] = typeof options[opt] === "undefined" ? defaultOptions[opt] : options[opt];
         }
     }
 
-    var spreadIsNumber = typeof options.spread === 'number',
+    var spreadIsNumber = typeof options.spread === "number",
         randomHeightmap,
         randomness,
         spreadRange = 1 / options.smoothSpread,
         doubleSizeVariance = options.sizeVariance * 2,
         v = geometry.vertices,
         meshes = [],
-        up = options.mesh.up.clone().applyAxisAngle(new THREE.Vector3(1, 0, 0), 0.5*Math.PI);
+        up = options.mesh.up.clone().applyAxisAngle(new THREE.Vector3(1, 0, 0), 0.5 * Math.PI);
     if (spreadIsNumber) {
         randomHeightmap = options.randomness();
-        randomness = typeof randomHeightmap === 'number' ? Math.random : function(k) { return randomHeightmap[k]; };
+        randomness = typeof randomHeightmap === "number" ? Math.random : function(k) { return randomHeightmap[k]; };
     }
     // geometry.computeFaceNormals();
-    for (var i = 0, w = options.w*2; i < w; i++) {
+    for (var i = 0, w = options.w * 2; i < w; i++) {
         for (var j = 0, h = options.h; j < h; j++) {
-            var key = j*w + i,
+            var key = j * w + i,
                 f = geometry.faces[key],
                 place = false;
             if (spreadIsNumber) {
@@ -1416,21 +1396,21 @@ Terrain.ScatterHelper = function(method, options, skip, threshold) {
 
 Terrain.Influences = {
     Mesa: function(x) {
-        return 1.25 * Math.min(0.8, Math.exp(-(x*x)));
+        return 1.25 * Math.min(0.8, Math.exp(-(x * x)));
     },
     Hole: function(x) {
         return -Terrain.Influences.Mesa(x);
     },
     Hill: function(x) {
         // Same curve as EaseInOut, but mirrored and translated.
-        return x < 0 ? (x+1)*(x+1)*(3-2*(x+1)) : 1-x*x*(3-2*x);
+        return x < 0 ? (x + 1) * (x + 1) * (3 - 2 * (x + 1)) : 1 - x * x * (3 - 2 * x);
     },
     Valley: function(x) {
         return -Terrain.Influences.Hill(x);
     },
     Dome: function(x) {
         // Parabola
-        return -(x+1)*(x-1);
+        return -(x + 1) * (x - 1);
     },
     // Not meaningful in Additive or Subtractive mode
     Flat: function(x) {
@@ -1438,16 +1418,16 @@ Terrain.Influences = {
     },
     Volcano: function(x) {
         return 0.94 - 0.32 * (Math.abs(2 * x) + Math.cos(2 * Math.PI * Math.abs(x) + 0.4));
-    },
+    }
 };
 
 Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
     f = f || Terrain.Influences.Hill; // feature shape
-    x = typeof x === 'undefined' ? 0.5 : x; // x-location %
-    y = typeof y === 'undefined' ? 0.5 : y; // y-location %
-    r = typeof r === 'undefined' ? 64  : r; // radius
-    h = typeof h === 'undefined' ? 64  : h; // height
-    t = typeof t === 'undefined' ? THREE.NormalBlending : t; // blending
+    x = typeof x === "undefined" ? 0.5 : x; // x-location %
+    y = typeof y === "undefined" ? 0.5 : y; // y-location %
+    r = typeof r === "undefined" ? 64 : r; // radius
+    h = typeof h === "undefined" ? 64 : h; // height
+    t = typeof t === "undefined" ? THREE.NormalBlending : t; // blending
     e = e || Terrain.EaseIn; // falloff
     // Find the vertex location of the feature origin
     var xl = options.xSegments + 1, // # x-vertices
@@ -1459,9 +1439,9 @@ Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
         rx = r / xw, // radius of the feature in vertices on the x-axis
         ry = r / yw, // radius of the feature in vertices on the y-axis
         r1 = 1 / r, // for speed
-        xs = Math.ceil(vx - rx),  // starting x-vertex index
+        xs = Math.ceil(vx - rx), // starting x-vertex index
         xe = Math.floor(vx + rx), // ending x-vertex index
-        ys = Math.ceil(vy - ry),  // starting y-vertex index
+        ys = Math.ceil(vy - ry), // starting y-vertex index
         ye = Math.floor(vy + ry); // ending y-vertex index
     // Walk over the vertices within radius of origin
     for (var i = xs; i < xe; i++) {
@@ -1470,22 +1450,22 @@ Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
                 // distance to the feature origin
                 fdx = (i - vx) * xw,
                 fdy = (j - vy) * yw,
-                fd = Math.sqrt(fdx*fdx + fdy*fdy),
+                fd = Math.sqrt(fdx * fdx + fdy * fdy),
                 fdr = fd * r1,
                 fdxr = fdx * r1,
                 fdyr = fdy * r1,
                 // Get the displacement according to f, multiply it by h,
                 // interpolate using e, then blend according to t.
                 d = f(fdr, fdxr, fdyr) * h * (1 - e(fdr, fdxr, fdyr));
-            if (fd > r || typeof g[k] == 'undefined') continue;
-            if      (t === THREE.AdditiveBlending)    g[k].z += d; // jscs:ignore requireSpaceAfterKeywords
+            if (fd > r || typeof g[k] == "undefined") continue;
+            if (t === THREE.AdditiveBlending) g[k].z += d; // jscs:ignore requireSpaceAfterKeywords
             else if (t === THREE.SubtractiveBlending) g[k].z -= d;
-            else if (t === THREE.MultiplyBlending)    g[k].z *= d;
-            else if (t === THREE.NoBlending)          g[k].z  = d;
-            else if (t === THREE.NormalBlending)      g[k].z  = e(fdr, fdxr, fdyr) * g[k].z + d;
-            else if (typeof t === 'function')         g[k].z  = t(g[k].z, d, fdr, fdxr, fdyr);
+            else if (t === THREE.MultiplyBlending) g[k].z *= d;
+            else if (t === THREE.NoBlending) g[k].z = d;
+            else if (t === THREE.NormalBlending) g[k].z = e(fdr, fdxr, fdyr) * g[k].z + d;
+            else if (typeof t === "function") g[k].z = t(g[k].z, d, fdr, fdxr, fdyr);
         }
     }
 };
 
-export { Terrain };
+export {Terrain};

@@ -6,12 +6,12 @@
  * @author erich666 / http://erichaines.com
  * @author vgaidukov / https://github.com/vladgaidukov
  */
-import { EventDispatcher } from '../EventDispatcher.js';
+import {EventDispatcher} from "../EventDispatcher.js";
 import {
     MOBILE_CLIENT
-} from '../settings.js';
+} from "../settings.js";
 
-function CameraControllerOrbit (object, domElement) {
+function CameraControllerOrbit(object, domElement) {
 
     this.object = object;
 
@@ -68,10 +68,10 @@ function CameraControllerOrbit (object, domElement) {
     this.enableKeys = true;
 
     // The four arrow keys
-    this.keys = { LEFT: 'a', UP: 'w', RIGHT: 'd', BOTTOM: 's' };
+    this.keys = {LEFT: "a", UP: "w", RIGHT: "d", BOTTOM: "s"};
 
     // Mouse buttons
-    this.mouseButtons = { ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT };
+    this.mouseButtons = {ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT};
 
     // for reset
     this.target0 = this.target.clone();
@@ -147,7 +147,6 @@ function CameraControllerOrbit (object, domElement) {
 
             spherical.makeSafe();
 
-
             spherical.radius *= scale;
 
             spherical.radius = Math.max(scope.minDistance, Math.min(scope.maxDistance, spherical.radius));
@@ -167,7 +166,8 @@ function CameraControllerOrbit (object, domElement) {
                 sphericalDelta.theta *= (1 - scope.dampingFactor);
                 sphericalDelta.phi *= (1 - scope.dampingFactor);
 
-            } else {
+            }
+            else {
 
                 sphericalDelta.set(0, 0, 0);
 
@@ -197,24 +197,25 @@ function CameraControllerOrbit (object, domElement) {
     this.deactivate = function() {
 
         if (MOBILE_CLIENT) {
-            EventDispatcher.unbind('mouse.down', onTouchStart);
-            EventDispatcher.unbind('mouse.up', onTouchEnd);
-            EventDispatcher.unbind('mouse.move', onTouchMove);
-        } else {
+            EventDispatcher.unbind("mouse.down", onTouchStart);
+            EventDispatcher.unbind("mouse.up", onTouchEnd);
+            EventDispatcher.unbind("mouse.move", onTouchMove);
+        }
+        else {
 
-            EventDispatcher.unbind('mouse.down', onMouseDown);
-            EventDispatcher.unbind('mouse.scroll', onMouseWheel);
+            EventDispatcher.unbind("mouse.down", onMouseDown);
+            EventDispatcher.unbind("mouse.scroll", onMouseWheel);
         }
 
     };
 
     var scope = this;
 
-    var changeEvent = { type: 'change' };
-    var startEvent = { type: 'start' };
-    var endEvent = { type: 'end' };
+    var changeEvent = {type: "change"};
+    var startEvent = {type: "start"};
+    var endEvent = {type: "end"};
 
-    var STATE = { NONE: -1, ROTATE: 0, DOLLY: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_DOLLY: 4, TOUCH_PAN: 5 };
+    var STATE = {NONE: -1, ROTATE: 0, DOLLY: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_DOLLY: 4, TOUCH_PAN: 5};
 
     var state = STATE.NONE;
 
@@ -308,18 +309,20 @@ function CameraControllerOrbit (object, domElement) {
                 var targetDistance = offset.length();
 
                 targetDistance *= Math.tan((scope.object.fov / 2) * Math.PI / 180.0);
-				
-				panLeft(2 * deltaX * targetDistance / element.clientHeight, scope.object.matrix);
+
+                panLeft(2 * deltaX * targetDistance / element.clientHeight, scope.object.matrix);
                 panUp(2 * deltaY * targetDistance / element.clientHeight, scope.object.matrix);
 
-            } else if (scope.object instanceof THREE.OrthographicCamera) {
+            }
+            else if (scope.object instanceof THREE.OrthographicCamera) {
 
                 panLeft(deltaX * (scope.object.right - scope.object.left) / scope.object.zoom / element.clientWidth, scope.object.matrix);
                 panUp(deltaY * (scope.object.top - scope.object.bottom) / scope.object.zoom / element.clientHeight, scope.object.matrix);
 
-            } else {
+            }
+            else {
 
-                console.warn('WARNING: CameraControllerOrbit.js encountered an unknown camera type - pan disabled.');
+                console.warn("WARNING: CameraControllerOrbit.js encountered an unknown camera type - pan disabled.");
                 scope.enablePan = false;
 
             }
@@ -334,15 +337,17 @@ function CameraControllerOrbit (object, domElement) {
 
             scale /= dollyScale;
 
-        } else if (scope.object instanceof THREE.OrthographicCamera) {
+        }
+        else if (scope.object instanceof THREE.OrthographicCamera) {
 
             scope.object.zoom = Math.max(scope.minZoom, Math.min(scope.maxZoom, scope.object.zoom * dollyScale));
             scope.object.updateProjectionMatrix();
             zoomChanged = true;
 
-        } else {
+        }
+        else {
 
-            console.warn('WARNING: CameraControllerOrbit.js encountered an unknown camera type - dolly/zoom disabled.');
+            console.warn("WARNING: CameraControllerOrbit.js encountered an unknown camera type - dolly/zoom disabled.");
             scope.enableZoom = false;
 
         }
@@ -355,15 +360,17 @@ function CameraControllerOrbit (object, domElement) {
 
             scale *= dollyScale;
 
-        } else if (scope.object instanceof THREE.OrthographicCamera) {
+        }
+        else if (scope.object instanceof THREE.OrthographicCamera) {
 
             scope.object.zoom = Math.max(scope.minZoom, Math.min(scope.maxZoom, scope.object.zoom / dollyScale));
             scope.object.updateProjectionMatrix();
             zoomChanged = true;
 
-        } else {
+        }
+        else {
 
-            console.warn('WARNING: CameraControllerOrbit.js encountered an unknown camera type - dolly/zoom disabled.');
+            console.warn("WARNING: CameraControllerOrbit.js encountered an unknown camera type - dolly/zoom disabled.");
             scope.enableZoom = false;
 
         }
@@ -415,7 +422,8 @@ function CameraControllerOrbit (object, domElement) {
 
             dollyIn(getZoomScale());
 
-        } else if (dollyDelta.y < 0) {
+        }
+        else if (dollyDelta.y < 0) {
 
             dollyOut(getZoomScale());
 
@@ -447,7 +455,8 @@ function CameraControllerOrbit (object, domElement) {
 
             dollyOut(getZoomScale());
 
-        } else if (dir > 0) {
+        }
+        else if (dir > 0) {
 
             dollyIn(getZoomScale());
 
@@ -459,7 +468,7 @@ function CameraControllerOrbit (object, domElement) {
 
     function handleTouchStartRotate(event) {
 
-        rotateStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+        rotateStart.set(event.touches[ 0 ].pageX, event.touches[ 0 ].pageY);
 
     }
 
@@ -468,40 +477,40 @@ function CameraControllerOrbit (object, domElement) {
         var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
         var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 
-        var distance = Math.sqrt( dx * dx + dy * dy );
+        var distance = Math.sqrt(dx * dx + dy * dy);
 
-        dollyStart.set( 0, distance );
+        dollyStart.set(0, distance);
 
     }
 
     function handleTouchStartPan(event) {
 
-        panStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+        panStart.set(event.touches[ 0 ].pageX, event.touches[ 0 ].pageY);
 
     }
 
     function handleTouchMoveRotate(event) {
 
-        rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
-        rotateDelta.subVectors( rotateEnd, rotateStart );
+        rotateEnd.set(event.touches[ 0 ].pageX, event.touches[ 0 ].pageY);
+        rotateDelta.subVectors(rotateEnd, rotateStart);
 
         var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
-        rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed );
+        rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed);
 
-        rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
+        rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed);
 
-        rotateStart.copy( rotateEnd );
+        rotateStart.copy(rotateEnd);
 
         scope.update();
 
     }
 
     function handleTouchMoveDolly(event) {
-        
+
         var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
         var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 
-        var distance = Math.sqrt( dx * dx + dy * dy );
+        var distance = Math.sqrt(dx * dx + dy * dy);
         dollyEnd.set(0, distance);
 
         dollyDelta.subVectors(dollyEnd, dollyStart);
@@ -510,7 +519,8 @@ function CameraControllerOrbit (object, domElement) {
 
             dollyOut(getZoomScale());
 
-        } else if (dollyDelta.y < 0) {
+        }
+        else if (dollyDelta.y < 0) {
 
             dollyIn(getZoomScale());
 
@@ -524,7 +534,7 @@ function CameraControllerOrbit (object, domElement) {
 
     function handleTouchMovePan(event) {
 
-        panEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+        panEnd.set(event.touches[ 0 ].pageX, event.touches[ 0 ].pageY);
 
         panDelta.subVectors(panEnd, panStart);
 
@@ -542,42 +552,42 @@ function CameraControllerOrbit (object, domElement) {
 
         switch (event.button) {
 
-            case scope.mouseButtons.ORBIT:
+        case scope.mouseButtons.ORBIT:
 
-                if (scope.enableRotate === false) return;
+            if (scope.enableRotate === false) return;
 
-                handleMouseDownRotate(event);
+            handleMouseDownRotate(event);
 
-                state = STATE.ROTATE;
+            state = STATE.ROTATE;
 
-                break;
+            break;
 
-            case scope.mouseButtons.ZOOM:
+        case scope.mouseButtons.ZOOM:
 
-                if (scope.enableZoom === false) return;
+            if (scope.enableZoom === false) return;
 
-                handleMouseDownDolly(event);
+            handleMouseDownDolly(event);
 
-                state = STATE.DOLLY;
+            state = STATE.DOLLY;
 
-                break;
+            break;
 
-            case scope.mouseButtons.PAN:
+        case scope.mouseButtons.PAN:
 
-                if (scope.enablePan === false) return;
+            if (scope.enablePan === false) return;
 
-                handleMouseDownPan(event);
+            handleMouseDownPan(event);
 
-                state = STATE.PAN;
+            state = STATE.PAN;
 
-                break;
+            break;
 
         }
 
         if (state !== STATE.NONE) {
 
-        	EventDispatcher.bind('mouse.move', this, onMouseMove);
-        	EventDispatcher.bind('mouse.up', this, onMouseUp);
+        	EventDispatcher.bind("mouse.move", this, onMouseMove);
+        	EventDispatcher.bind("mouse.up", this, onMouseUp);
 
         }
 
@@ -589,29 +599,29 @@ function CameraControllerOrbit (object, domElement) {
 
         switch (state) {
 
-            case STATE.ROTATE:
+        case STATE.ROTATE:
 
-                if (scope.enableRotate === false) return;
+            if (scope.enableRotate === false) return;
 
-                handleMouseMoveRotate(event);
+            handleMouseMoveRotate(event);
 
-                break;
+            break;
 
-            case STATE.DOLLY:
+        case STATE.DOLLY:
 
-                if (scope.enableZoom === false) return;
+            if (scope.enableZoom === false) return;
 
-                handleMouseMoveDolly(event);
+            handleMouseMoveDolly(event);
 
-                break;
+            break;
 
-            case STATE.PAN:
+        case STATE.PAN:
 
-                if (scope.enablePan === false) return;
+            if (scope.enablePan === false) return;
 
-                handleMouseMovePan(event);
+            handleMouseMovePan(event);
 
-                break;
+            break;
 
         }
 
@@ -621,8 +631,8 @@ function CameraControllerOrbit (object, domElement) {
 
         if (scope.enabled === false) return;
 
-    	EventDispatcher.unbind('mouse.move', onMouseMove);
-    	EventDispatcher.unbind('mouse.up', onMouseUp);
+    	EventDispatcher.unbind("mouse.move", onMouseMove);
+    	EventDispatcher.unbind("mouse.up", onMouseUp);
 
         state = STATE.NONE;
 
@@ -651,39 +661,39 @@ function CameraControllerOrbit (object, domElement) {
 
         switch (event.touches.length) {
 
-            case 1:
+        case 1:
 
-                if (scope.enableRotate === false) return;
+            if (scope.enableRotate === false) return;
 
-                handleTouchStartRotate(event);
+            handleTouchStartRotate(event);
 
-                state = STATE.TOUCH_ROTATE;
+            state = STATE.TOUCH_ROTATE;
 
-                break;
+            break;
 
-            case 2:
+        case 2:
 
-                if (scope.enableZoom === false) return;
+            if (scope.enableZoom === false) return;
 
-                handleTouchStartDolly(event);
+            handleTouchStartDolly(event);
 
-                state = STATE.TOUCH_DOLLY;
+            state = STATE.TOUCH_DOLLY;
 
-                break;
+            break;
 
-            case 3:
+        case 3:
 
-                if (scope.enablePan === false) return;
+            if (scope.enablePan === false) return;
 
-                handleTouchStartPan(event);
+            handleTouchStartPan(event);
 
-                state = STATE.TOUCH_PAN;
+            state = STATE.TOUCH_PAN;
 
-                break;
+            break;
 
-            default:
+        default:
 
-                state = STATE.NONE;
+            state = STATE.NONE;
 
         }
 
@@ -697,36 +707,36 @@ function CameraControllerOrbit (object, domElement) {
 
         switch (event.touches.length) {
 
-            case 1:
+        case 1:
 
-                if (scope.enableRotate === false) return;
-                if (state !== STATE.TOUCH_ROTATE) return;
+            if (scope.enableRotate === false) return;
+            if (state !== STATE.TOUCH_ROTATE) return;
 
-                handleTouchMoveRotate(event);
+            handleTouchMoveRotate(event);
 
-                break;
+            break;
 
-            case 2:
+        case 2:
 
-                if (scope.enableZoom === false) return;
-                if (state !== STATE.TOUCH_DOLLY) return;
+            if (scope.enableZoom === false) return;
+            if (state !== STATE.TOUCH_DOLLY) return;
 
-                handleTouchMoveDolly(event);
+            handleTouchMoveDolly(event);
 
-                break;
+            break;
 
-            case 3:
+        case 3:
 
-                if (scope.enablePan === false) return;
-                if (state !== STATE.TOUCH_PAN) return;
+            if (scope.enablePan === false) return;
+            if (state !== STATE.TOUCH_PAN) return;
 
-                handleTouchMovePan(event);
+            handleTouchMovePan(event);
 
-                break;
+            break;
 
-            default:
+        default:
 
-                state = STATE.NONE;
+            state = STATE.NONE;
 
         }
 
@@ -741,28 +751,29 @@ function CameraControllerOrbit (object, domElement) {
     }
 
     if (MOBILE_CLIENT) {
-        EventDispatcher.bind('mouse.down', this, onTouchStart);
-        EventDispatcher.bind('mouse.up', this, onTouchEnd);
-        EventDispatcher.bind('mouse.move', this, onTouchMove);
-    } else {
-        EventDispatcher.bind('mouse.down', this, onMouseDown);
-        EventDispatcher.bind('mouse.scroll', this, onMouseWheel);
-        EventDispatcher.bind('keyboard.keydown.' + scope.keys.UP, this, function() {
+        EventDispatcher.bind("mouse.down", this, onTouchStart);
+        EventDispatcher.bind("mouse.up", this, onTouchEnd);
+        EventDispatcher.bind("mouse.move", this, onTouchMove);
+    }
+    else {
+        EventDispatcher.bind("mouse.down", this, onMouseDown);
+        EventDispatcher.bind("mouse.scroll", this, onMouseWheel);
+        EventDispatcher.bind("keyboard.keydown." + scope.keys.UP, this, function() {
             pan(0, scope.keyPanSpeed);
             scope.update();
         });
 
-        EventDispatcher.bind('keyboard.keydown.' + scope.keys.BOTTOM, this, function() {
+        EventDispatcher.bind("keyboard.keydown." + scope.keys.BOTTOM, this, function() {
             pan(0, -scope.keyPanSpeed);
             scope.update();
         });
 
-        EventDispatcher.bind('keyboard.keydown.' + scope.keys.LEFT, this, function() {
+        EventDispatcher.bind("keyboard.keydown." + scope.keys.LEFT, this, function() {
             pan(scope.keyPanSpeed, 0);
             scope.update();
         });
 
-        EventDispatcher.bind('keyboard.keydown.' + scope.keys.RIGHT, this, function() {
+        EventDispatcher.bind("keyboard.keydown." + scope.keys.RIGHT, this, function() {
             pan(-scope.keyPanSpeed, 0);
             scope.update();
         });
@@ -770,14 +781,14 @@ function CameraControllerOrbit (object, domElement) {
 
     this.update();
 
-};
+}
 
 CameraControllerOrbit.prototype = {
     center: {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .center has been renamed to .target');
+            console.warn("VG.CameraControllerOrbit: .center has been renamed to .target");
             return this.target;
 
         }
@@ -788,14 +799,14 @@ CameraControllerOrbit.prototype = {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .noZoom has been deprecated. Use .enableZoom instead.');
+            console.warn("VG.CameraControllerOrbit: .noZoom has been deprecated. Use .enableZoom instead.");
             return !this.enableZoom;
 
         },
 
         set: function(value) {
 
-            console.warn('VG.CameraControllerOrbit: .noZoom has been deprecated. Use .enableZoom instead.');
+            console.warn("VG.CameraControllerOrbit: .noZoom has been deprecated. Use .enableZoom instead.");
             this.enableZoom = !value;
 
         }
@@ -806,14 +817,14 @@ CameraControllerOrbit.prototype = {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .noRotate has been deprecated. Use .enableRotate instead.');
+            console.warn("VG.CameraControllerOrbit: .noRotate has been deprecated. Use .enableRotate instead.");
             return !this.enableRotate;
 
         },
 
         set: function(value) {
 
-            console.warn('VG.CameraControllerOrbit: .noRotate has been deprecated. Use .enableRotate instead.');
+            console.warn("VG.CameraControllerOrbit: .noRotate has been deprecated. Use .enableRotate instead.");
             this.enableRotate = !value;
 
         }
@@ -824,14 +835,14 @@ CameraControllerOrbit.prototype = {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .noPan has been deprecated. Use .enablePan instead.');
+            console.warn("VG.CameraControllerOrbit: .noPan has been deprecated. Use .enablePan instead.");
             return !this.enablePan;
 
         },
 
         set: function(value) {
 
-            console.warn('VG.CameraControllerOrbit: .noPan has been deprecated. Use .enablePan instead.');
+            console.warn("VG.CameraControllerOrbit: .noPan has been deprecated. Use .enablePan instead.");
             this.enablePan = !value;
 
         }
@@ -842,14 +853,14 @@ CameraControllerOrbit.prototype = {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .noKeys has been deprecated. Use .enableKeys instead.');
+            console.warn("VG.CameraControllerOrbit: .noKeys has been deprecated. Use .enableKeys instead.");
             return !this.enableKeys;
 
         },
 
         set: function(value) {
 
-            console.warn('VG.CameraControllerOrbit: .noKeys has been deprecated. Use .enableKeys instead.');
+            console.warn("VG.CameraControllerOrbit: .noKeys has been deprecated. Use .enableKeys instead.");
             this.enableKeys = !value;
 
         }
@@ -860,14 +871,14 @@ CameraControllerOrbit.prototype = {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .staticMoving has been deprecated. Use .enableDamping instead.');
+            console.warn("VG.CameraControllerOrbit: .staticMoving has been deprecated. Use .enableDamping instead.");
             return !this.enableDamping;
 
         },
 
         set: function(value) {
 
-            console.warn('VG.CameraControllerOrbit: .staticMoving has been deprecated. Use .enableDamping instead.');
+            console.warn("VG.CameraControllerOrbit: .staticMoving has been deprecated. Use .enableDamping instead.");
             this.enableDamping = !value;
 
         }
@@ -878,14 +889,14 @@ CameraControllerOrbit.prototype = {
 
         get: function() {
 
-            console.warn('VG.CameraControllerOrbit: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.');
+            console.warn("VG.CameraControllerOrbit: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.");
             return this.dampingFactor;
 
         },
 
         set: function(value) {
 
-            console.warn('VG.CameraControllerOrbit: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.');
+            console.warn("VG.CameraControllerOrbit: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.");
             this.dampingFactor = value;
 
         }
@@ -893,4 +904,4 @@ CameraControllerOrbit.prototype = {
     }
 };
 
-export { CameraControllerOrbit };
+export {CameraControllerOrbit};

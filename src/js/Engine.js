@@ -1,5 +1,5 @@
-import { SceneEntity } from './SceneEntity.js';
-import { EventDispatcher } from './EventDispatcher.js';
+import {SceneEntity} from "./SceneEntity.js";
+import {EventDispatcher} from "./EventDispatcher.js";
 import {
     CAMERA_FOV,
     CAMERA_NEAR,
@@ -7,10 +7,10 @@ import {
     CAMERA_POSITION,
     ANTIALIAS,
     CLEAR_COLOR,
-    DETAIL,
-} from './settings.js';
+    DETAIL
+} from "./settings.js";
 
-function Engine (container) {
+function Engine(container) {
     SceneEntity.call(this, name);
 
     var self = this;
@@ -30,7 +30,7 @@ function Engine (container) {
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
     this.domelement.append(this.renderer.domElement);
 
-    var composer = new THREE.EffectComposer( this.renderer );
+    var composer = new THREE.EffectComposer(this.renderer);
 
     composer.addPass(new THREE.RenderPass(this.view, this.camera));
 
@@ -42,7 +42,7 @@ function Engine (container) {
 
     this.renderer.setPixelRatio(window.devicePixelRatio * DETAIL);
 
-    window.addEventListener('resize', function () {
+    window.addEventListener("resize", function() {
         self.resize();
     }, false);
 
@@ -64,20 +64,20 @@ function Engine (container) {
 
     render();
 
-    EventDispatcher.bind('Engine.get.camera', this, function () { return this.camera });
-    EventDispatcher.bind('Engine.get.renderer', this, function () { return this.renderer });
-    EventDispatcher.bind('Engine.add', this, this.add);
-    EventDispatcher.bind('Engine.remove', this, this.remove);
-    EventDispatcher.bind('Engine.resize', this, this.resize);
-};
+    EventDispatcher.bind("Engine.get.camera", this, function() { return this.camera; });
+    EventDispatcher.bind("Engine.get.renderer", this, function() { return this.renderer; });
+    EventDispatcher.bind("Engine.add", this, this.add);
+    EventDispatcher.bind("Engine.remove", this, this.remove);
+    EventDispatcher.bind("Engine.resize", this, this.resize);
+}
 
 Engine.prototype = Object.create(SceneEntity.prototype);
 Engine.constructor = Engine;
 
-Engine.prototype.resize = function () {
+Engine.prototype.resize = function() {
     this.camera.aspect = this.domelement.clientWidth / this.domelement.clientHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
-}
+};
 
-export { Engine };
+export {Engine};
