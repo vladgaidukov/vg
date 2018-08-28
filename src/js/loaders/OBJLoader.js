@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @author mrdoob / http://mrdoob.com/
  */
@@ -763,3 +764,4 @@ THREE.OBJLoader.prototype = {
     }
 
 };
+/* eslint-enable */

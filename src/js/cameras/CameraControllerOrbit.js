@@ -586,8 +586,8 @@ function CameraControllerOrbit(object, domElement) {
 
         if (state !== STATE.NONE) {
 
-        	EventDispatcher.bind("mouse.move", this, onMouseMove);
-        	EventDispatcher.bind("mouse.up", this, onMouseUp);
+            EventDispatcher.bind("mouse.move", this, onMouseMove);
+            EventDispatcher.bind("mouse.up", this, onMouseUp);
 
         }
 
@@ -631,8 +631,8 @@ function CameraControllerOrbit(object, domElement) {
 
         if (scope.enabled === false) return;
 
-    	EventDispatcher.unbind("mouse.move", onMouseMove);
-    	EventDispatcher.unbind("mouse.up", onMouseUp);
+        EventDispatcher.unbind("mouse.move", onMouseMove);
+        EventDispatcher.unbind("mouse.up", onMouseUp);
 
         state = STATE.NONE;
 
@@ -657,7 +657,7 @@ function CameraControllerOrbit(object, domElement) {
 
         if (scope.enabled === false) return;
 
-        var event = event.event;
+        event = event.event;
 
         switch (event.touches.length) {
 
@@ -703,7 +703,7 @@ function CameraControllerOrbit(object, domElement) {
 
         if (scope.enabled === false) return;
 
-        var event = event.event;
+        event = event.event;
 
         switch (event.touches.length) {
 

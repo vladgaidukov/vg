@@ -136,7 +136,7 @@
         return 70 * (n0 + n1 + n2);
     };
 
-    // ##### Perlin noise stuff
+    // ##### perlin noise stuff
 
     function fade(t) {
         return t * t * t * (t * (t * 6 - 15) + 10);
@@ -146,7 +146,7 @@
         return (1 - t) * a + t * b;
     }
 
-    // 2D Perlin Noise
+    // 2D perlin Noise
     module.perlin = function(x, y) {
         // Find unit grid cell containing point
         var X = Math.floor(x),
@@ -179,8 +179,8 @@
 function Terrain(options) {
     var defaultOptions = {
         after: null,
-        easing: Terrain.Linear,
-        heightmap: Terrain.DiamondSquare,
+        easing: Terrain.linear,
+        heightmap: Terrain.diamondSquare,
         material: null,
         maxHeight: 100,
         minHeight: -100,
@@ -241,7 +241,7 @@ function Terrain(options) {
     else {
         console.warn("An invalid value was passed for `options.heightmap`: " + options.heightmap);
     }
-    Terrain.Normalize(mesh, options);
+    Terrain.normalize(mesh, options);
 
     if (options.useBufferGeometry) {
         mesh.geometry = (new THREE.BufferGeometry()).fromGeometry(mesh.geometry);
@@ -253,17 +253,17 @@ function Terrain(options) {
     return scene;
 }
 
-Terrain.Normalize = function(mesh, options) {
+Terrain.normalize = function(mesh, options) {
     var v = mesh.geometry.vertices;
     if (options.turbulent) {
-        Terrain.Turbulence(v, options);
+        Terrain.turbulence(v, options);
     }
     if (options.steps > 1) {
-        Terrain.Step(v, options.steps);
-        Terrain.Smooth(v, options);
+        Terrain.step(v, options.steps);
+        Terrain.smooth(v, options);
     }
     // Keep the terrain within the allotted height range if necessary, and do easing.
-    Terrain.Clamp(v, options);
+    Terrain.clamp(v, options);
     // Call the "after" callback
     if (typeof options.after === "function") {
         options.after(v, options);
@@ -333,7 +333,7 @@ Terrain.heightmapArray = function(method, options) {
     options.maxHeight = typeof options.maxHeight === "undefined" ? 1 : options.maxHeight;
     options.stretch = options.stretch || false;
     method(arr, options);
-    Terrain.Clamp(arr, options);
+    Terrain.clamp(arr, options);
     for (i = 0; i < l; i++) {
         arr[i] = arr[i].z;
     }
@@ -343,40 +343,40 @@ Terrain.heightmapArray = function(method, options) {
 /**
  * Randomness interpolation functions.
  */
-Terrain.Linear = function(x) {
+Terrain.linear = function(x) {
     return x;
 };
 
 // x = [0, 1], x^2
-Terrain.EaseIn = function(x) {
+Terrain.easeIn = function(x) {
     return x * x;
 };
 
 // x = [0, 1], -x(x-2)
-Terrain.EaseOut = function(x) {
+Terrain.easeOut = function(x) {
     return -x * (x - 2);
 };
 
 // x = [0, 1], x^2(3-2x)
 // Nearly identical alternatives: 0.5+0.5*cos(x*pi-pi), x^a/(x^a+(1-x)^a) (where a=1.6 seems nice)
 // For comparison: http://www.wolframalpha.com/input/?i=x^1.6%2F%28x^1.6%2B%281-x%29^1.6%29%2C+x^2%283-2x%29%2C+0.5%2B0.5*cos%28x*pi-pi%29+from+0+to+1
-Terrain.EaseInOut = function(x) {
+Terrain.easeInOut = function(x) {
     return x * x * (3 - 2 * x);
 };
 
 // x = [0, 1], 0.5*(2x-1)^3+0.5
-Terrain.InEaseOut = function(x) {
+Terrain.inEaseOut = function(x) {
     var y = 2 * x - 1;
     return 0.5 * y * y * y + 0.5;
 };
 
 // x = [0, 1], x^1.55
-Terrain.EaseInWeak = function(x) {
+Terrain.easeInWeak = function(x) {
     return Math.pow(x, 1.55);
 };
 
 // x = [0, 1], x^7
-Terrain.EaseInStrong = function(x) {
+Terrain.easeInStrong = function(x) {
     return x * x * x * x * x * x * x;
 };
 
@@ -435,12 +435,12 @@ Terrain.toHeightmap = function(g, options) {
     return canvas;
 };
 
-Terrain.Clamp = function(g, options) {
+Terrain.clamp = function(g, options) {
     var min = Infinity,
         max = -Infinity,
         l = g.length,
         i;
-    options.easing = options.easing || Terrain.Linear;
+    options.easing = options.easing || Terrain.linear;
     for (i = 0; i < l; i++) {
         if (g[i].z < min) min = g[i].z;
         if (g[i].z > max) max = g[i].z;
@@ -460,7 +460,7 @@ Terrain.Clamp = function(g, options) {
     }
 };
 
-Terrain.Edges = function(g, options, direction, distance, easing, edges) {
+Terrain.edges = function(g, options, direction, distance, easing, edges) {
     var numXSegments = Math.floor(distance / (options.xSize / options.xSegments)) || 1,
         numYSegments = Math.floor(distance / (options.ySize / options.ySegments)) || 1,
         peak = direction ? options.maxHeight : options.minHeight,
@@ -468,7 +468,7 @@ Terrain.Edges = function(g, options, direction, distance, easing, edges) {
         xl = options.xSegments + 1,
         yl = options.ySegments + 1,
         i, j, multiplier, k1, k2;
-    easing = easing || Terrain.EaseInOut;
+    easing = easing || Terrain.easeInOut;
     if (typeof edges !== "object") {
         edges = {top: true, bottom: true, left: true, right: true};
     }
@@ -498,14 +498,14 @@ Terrain.Edges = function(g, options, direction, distance, easing, edges) {
             }
         }
     }
-    Terrain.Clamp(g, {
+    Terrain.clamp(g, {
         maxHeight: options.maxHeight,
         minHeight: options.minHeight,
         stretch: true
     });
 };
 
-Terrain.RadialEdges = function(g, options, direction, distance, easing) {
+Terrain.radialEdges = function(g, options, direction, distance, easing) {
     var peak = direction ? options.maxHeight : options.minHeight,
         max = direction ? Math.max : Math.min,
         xl = (options.xSegments + 1),
@@ -530,7 +530,7 @@ Terrain.RadialEdges = function(g, options, direction, distance, easing) {
     }
 };
 
-Terrain.Smooth = function(g, options, weight) {
+Terrain.smooth = function(g, options, weight) {
     var heightmap = new Float64Array(g.length);
     for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
         for (var j = 0; j < yl; j++) {
@@ -555,7 +555,7 @@ Terrain.Smooth = function(g, options, weight) {
     }
 };
 
-Terrain.SmoothMedian = function(g, options) {
+Terrain.smoothMedian = function(g, options) {
     var heightmap = new Float64Array(g.length),
         neighborValues = [],
         neighborKeys = [],
@@ -592,7 +592,7 @@ Terrain.SmoothMedian = function(g, options) {
     }
 };
 
-Terrain.SmoothConservative = function(g, options, multiplier) {
+Terrain.smoothConservative = function(g, options, multiplier) {
     var heightmap = new Float64Array(g.length);
     for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
         for (var j = 0; j < yl; j++) {
@@ -622,7 +622,7 @@ Terrain.SmoothConservative = function(g, options, multiplier) {
     }
 };
 
-Terrain.Step = function(g, levels) {
+Terrain.step = function(g, levels) {
     // Calculate the max, min, and avg values for each bucket
     var i = 0,
         j = 0,
@@ -664,14 +664,14 @@ Terrain.Step = function(g, levels) {
     }
 };
 
-Terrain.Turbulence = function(g, options) {
+Terrain.turbulence = function(g, options) {
     var range = options.maxHeight - options.minHeight;
     for (var i = 0, l = g.length; i < l; i++) {
         g[i].z = options.minHeight + Math.abs((g[i].z - options.minHeight) * 2 - range);
     }
 };
 
-Terrain.MultiPass = function(g, options, passes) {
+Terrain.multiPass = function(g, options, passes) {
     var clonedOptions = {};
     for (var opt in options) {
         if (options.hasOwnProperty(opt)) {
@@ -689,7 +689,7 @@ Terrain.MultiPass = function(g, options, passes) {
     }
 };
 
-Terrain.Curve = function(g, options, curve) {
+Terrain.curve = function(g, options, curve) {
     var range = (options.maxHeight - options.minHeight) * 0.5,
         scalar = options.frequency / (Math.min(options.xSegments, options.ySegments) + 1);
     for (var i = 0, xl = options.xSegments + 1, yl = options.ySegments + 1; i < xl; i++) {
@@ -699,7 +699,7 @@ Terrain.Curve = function(g, options, curve) {
     }
 };
 
-Terrain.Cosine = function(g, options) {
+Terrain.cosine = function(g, options) {
     var amplitude = (options.maxHeight - options.minHeight) * 0.5,
         frequencyScalar = options.frequency * Math.PI / (Math.min(options.xSegments, options.ySegments) + 1),
         phase = Math.random() * Math.PI * 2;
@@ -710,16 +710,16 @@ Terrain.Cosine = function(g, options) {
     }
 };
 
-Terrain.CosineLayers = function(g, options) {
-    Terrain.MultiPass(g, options, [
-        {method: Terrain.Cosine, frequency: 2.5},
-        {method: Terrain.Cosine, amplitude: 0.1, frequency: 12},
-        {method: Terrain.Cosine, amplitude: 0.05, frequency: 15},
-        {method: Terrain.Cosine, amplitude: 0.025, frequency: 20}
+Terrain.cosineLayers = function(g, options) {
+    Terrain.multiPass(g, options, [
+        {method: Terrain.cosine, frequency: 2.5},
+        {method: Terrain.cosine, amplitude: 0.1, frequency: 12},
+        {method: Terrain.cosine, amplitude: 0.05, frequency: 15},
+        {method: Terrain.cosine, amplitude: 0.025, frequency: 20}
     ]);
 };
 
-Terrain.DiamondSquare = function(g, options) {
+Terrain.diamondSquare = function(g, options) {
     // Set the segment length to the smallest power of 2 that is greater than
     // the number of vertices in either dimension of the plane
     var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
@@ -783,10 +783,10 @@ Terrain.DiamondSquare = function(g, options) {
         }
     }
 
-    // Terrain.SmoothConservative(g, options);
+    // Terrain.smoothConservative(g, options);
 };
 
-Terrain.Fault = function(g, options) {
+Terrain.fault = function(g, options) {
     var d = Math.sqrt(options.xSegments * options.xSegments + options.ySegments * options.ySegments),
         iterations = d * options.frequency,
         range = (options.maxHeight - options.minHeight) * 0.5,
@@ -812,10 +812,10 @@ Terrain.Fault = function(g, options) {
             }
         }
     }
-    // Terrain.Smooth(g, options);
+    // Terrain.smooth(g, options);
 };
 
-Terrain.Hill = function(g, options, feature, shape) {
+Terrain.hill = function(g, options, feature, shape) {
     var frequency = options.frequency * 2,
         numFeatures = frequency * frequency * 10,
         heightRange = options.maxHeight - options.minHeight,
@@ -824,7 +824,7 @@ Terrain.Hill = function(g, options, feature, shape) {
         smallerSideLength = Math.min(options.xSize, options.ySize),
         minRadius = smallerSideLength / (frequency * frequency),
         maxRadius = smallerSideLength / frequency;
-    feature = feature || Terrain.Influences.Hill;
+    feature = feature || Terrain.influences.hill;
 
     var coords = {x: 0, y: 0};
     for (var i = 0; i < numFeatures; i++) {
@@ -836,25 +836,25 @@ Terrain.Hill = function(g, options, feature, shape) {
         coords.x = Math.random();
         coords.y = Math.random();
         if (typeof shape === "function") shape(coords);
-        Terrain.Influence(
+        Terrain.influence(
             g, options,
             feature,
             coords.x, coords.y,
             radius, height,
             THREE.AdditiveBlending,
-            Terrain.EaseInStrong
+            Terrain.easeInStrong
         );
     }
 };
 
-Terrain.HillIsland = (function() {
+Terrain.hillIsland = (function() {
     var island = function(coords) {
         var theta = Math.random() * Math.PI * 2;
         coords.x = 0.5 + Math.cos(theta) * coords.x * 0.4;
         coords.y = 0.5 + Math.sin(theta) * coords.y * 0.4;
     };
     return function(g, options, feature) {
-        Terrain.Hill(g, options, feature, island);
+        Terrain.hill(g, options, feature, island);
     };
 })();
 
@@ -894,7 +894,7 @@ Terrain.HillIsland = (function() {
         g[currentKey].z += displacement;
     }
 
-    Terrain.Particles = function(g, options) {
+    Terrain.particles = function(g, options) {
         var iterations = Math.sqrt(options.xSegments * options.xSegments + options.ySegments * options.ySegments) * options.frequency * 300,
             xl = options.xSegments + 1,
             displacement = (options.maxHeight - options.minHeight) / iterations * 1000,
@@ -914,11 +914,11 @@ Terrain.HillIsland = (function() {
                 j = Math.floor(options.ySegments * (0.5 + yDeviation) + Math.sin(d) * Math.random() * options.ySegments * (0.5 - Math.abs(yDeviation)));
             }
         }
-        // Terrain.Smooth(g, options, 3);
+        // Terrain.smooth(g, options, 3);
     };
 })();
 
-Terrain.Perlin = function(g, options) {
+Terrain.perlin = function(g, options) {
     noise.seed(Math.random());
     var range = (options.maxHeight - options.minHeight) * 0.5,
         divisor = (Math.min(options.xSegments, options.ySegments) + 1) / options.frequency;
@@ -929,24 +929,24 @@ Terrain.Perlin = function(g, options) {
     }
 };
 
-Terrain.PerlinDiamond = function(g, options) {
-    Terrain.MultiPass(g, options, [
-        {method: Terrain.Perlin},
-        {method: Terrain.DiamondSquare, amplitude: 0.75},
-        {method: function(g, o) { return Terrain.SmoothMedian(g, o); }}
+Terrain.perlinDiamond = function(g, options) {
+    Terrain.multiPass(g, options, [
+        {method: Terrain.perlin},
+        {method: Terrain.diamondSquare, amplitude: 0.75},
+        {method: function(g, o) { return Terrain.smoothMedian(g, o); }}
     ]);
 };
 
-Terrain.PerlinLayers = function(g, options) {
-    Terrain.MultiPass(g, options, [
-        {method: Terrain.Perlin, frequency: 1.25},
-        {method: Terrain.Perlin, amplitude: 0.05, frequency: 2.5},
-        {method: Terrain.Perlin, amplitude: 0.35, frequency: 5},
-        {method: Terrain.Perlin, amplitude: 0.15, frequency: 10}
+Terrain.perlinLayers = function(g, options) {
+    Terrain.multiPass(g, options, [
+        {method: Terrain.perlin, frequency: 1.25},
+        {method: Terrain.perlin, amplitude: 0.05, frequency: 2.5},
+        {method: Terrain.perlin, amplitude: 0.35, frequency: 5},
+        {method: Terrain.perlin, amplitude: 0.15, frequency: 10}
     ]);
 };
 
-Terrain.Simplex = function(g, options) {
+Terrain.simplex = function(g, options) {
     noise.seed(Math.random());
     var range = (options.maxHeight - options.minHeight) * 0.5,
         divisor = (Math.min(options.xSegments, options.ySegments) + 1) * 2 / options.frequency;
@@ -957,19 +957,19 @@ Terrain.Simplex = function(g, options) {
     }
 };
 
-Terrain.SimplexLayers = function(g, options) {
-    Terrain.MultiPass(g, options, [
-        {method: Terrain.Simplex, frequency: 1.25},
-        {method: Terrain.Simplex, amplitude: 0.5, frequency: 2.5},
-        {method: Terrain.Simplex, amplitude: 0.25, frequency: 5},
-        {method: Terrain.Simplex, amplitude: 0.125, frequency: 10},
-        {method: Terrain.Simplex, amplitude: 0.0625, frequency: 20}
+Terrain.simplexLayers = function(g, options) {
+    Terrain.multiPass(g, options, [
+        {method: Terrain.simplex, frequency: 1.25},
+        {method: Terrain.simplex, amplitude: 0.5, frequency: 2.5},
+        {method: Terrain.simplex, amplitude: 0.25, frequency: 5},
+        {method: Terrain.simplex, amplitude: 0.125, frequency: 10},
+        {method: Terrain.simplex, amplitude: 0.0625, frequency: 20}
     ]);
 };
 
 (function() {
 
-    function WhiteNoise(g, options, scale, segments, range, data) {
+    function whiteNoise(g, options, scale, segments, range, data) {
         if (scale > segments) return;
         var i = 0,
             j = 0,
@@ -1023,25 +1023,25 @@ Terrain.SimplexLayers = function(g, options) {
         }
     }
 
-    Terrain.Value = function(g, options) {
+    Terrain.value = function(g, options) {
         // Set the segment length to the smallest power of 2 that is greater
         // than the number of vertices in either dimension of the plane
         var segments = THREE.Math.nextPowerOfTwo(Math.max(options.xSegments, options.ySegments) + 1);
 
-        // Store the array of white noise outside of the WhiteNoise function to
+        // Store the array of white noise outside of the whiteNoise function to
         // avoid allocating a bunch of unnecessary arrays; we can just
-        // overwrite old data each time WhiteNoise() is called.
+        // overwrite old data each time whiteNoise() is called.
         var data = new Float64Array((segments + 1) * (segments + 1));
 
         // Layer white noise at different resolutions.
         var range = options.maxHeight - options.minHeight;
         for (var i = 2; i < 7; i++) {
-            WhiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4 - i * 1.2), data);
+            whiteNoise(g, options, Math.pow(2, i), segments, range * Math.pow(2, 2.4 - i * 1.2), data);
         }
 
         // White noise creates some weird artifacts; fix them.
-        // Terrain.Smooth(g, options, 1);
-        Terrain.Clamp(g, {
+        // Terrain.smooth(g, options, 1);
+        Terrain.clamp(g, {
             maxHeight: options.maxHeight,
             minHeight: options.minHeight,
             stretch: true
@@ -1049,7 +1049,7 @@ Terrain.SimplexLayers = function(g, options) {
     };
 })();
 
-Terrain.Weierstrass = function(g, options) {
+Terrain.weierstrass = function(g, options) {
     var range = (options.maxHeight - options.minHeight) * 0.5,
         dir1 = Math.random() < 0.5 ? 1 : -1,
         dir2 = Math.random() < 0.5 ? 1 : -1,
@@ -1072,7 +1072,7 @@ Terrain.Weierstrass = function(g, options) {
             g[j * xl + i].z += sum * range;
         }
     }
-    Terrain.Clamp(g, options);
+    Terrain.clamp(g, options);
 };
 
 Terrain.glslifyNumber = function(n) {
@@ -1297,7 +1297,7 @@ Terrain.ScatterMeshes = function(geometry, options) {
                     // Interpolate rv between spread and spread + smoothSpread,
                     // then multiply that "easing" value by the probability
                     // that a mesh would get placed on a given face.
-                    place = Terrain.EaseInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
+                    place = Terrain.easeInOut((rv - options.spread) * spreadRange) * options.spread > Math.random();
                 }
             }
             else {
@@ -1394,41 +1394,41 @@ Terrain.ScatterHelper = function(method, options, skip, threshold) {
 // just apply them before a procedural pass.
 // If you want more complex influence, you can just composite heightmaps.
 
-Terrain.Influences = {
-    Mesa: function(x) {
+Terrain.influences = {
+    mesa: function(x) {
         return 1.25 * Math.min(0.8, Math.exp(-(x * x)));
     },
-    Hole: function(x) {
-        return -Terrain.Influences.Mesa(x);
+    hole: function(x) {
+        return -Terrain.influences.mesa(x);
     },
-    Hill: function(x) {
+    hill: function(x) {
         // Same curve as EaseInOut, but mirrored and translated.
         return x < 0 ? (x + 1) * (x + 1) * (3 - 2 * (x + 1)) : 1 - x * x * (3 - 2 * x);
     },
-    Valley: function(x) {
-        return -Terrain.Influences.Hill(x);
+    valley: function(x) {
+        return -Terrain.influences.hill(x);
     },
-    Dome: function(x) {
+    dome: function(x) {
         // Parabola
         return -(x + 1) * (x - 1);
     },
     // Not meaningful in Additive or Subtractive mode
-    Flat: function(x) {
+    flat: function(x) {
         return 0;
     },
-    Volcano: function(x) {
+    volcano: function(x) {
         return 0.94 - 0.32 * (Math.abs(2 * x) + Math.cos(2 * Math.PI * Math.abs(x) + 0.4));
     }
 };
 
-Terrain.Influence = function(g, options, f, x, y, r, h, t, e) {
-    f = f || Terrain.Influences.Hill; // feature shape
+Terrain.influence = function(g, options, f, x, y, r, h, t, e) {
+    f = f || Terrain.influences.hill; // feature shape
     x = typeof x === "undefined" ? 0.5 : x; // x-location %
     y = typeof y === "undefined" ? 0.5 : y; // y-location %
     r = typeof r === "undefined" ? 64 : r; // radius
     h = typeof h === "undefined" ? 64 : h; // height
     t = typeof t === "undefined" ? THREE.NormalBlending : t; // blending
-    e = e || Terrain.EaseIn; // falloff
+    e = e || Terrain.easeIn; // falloff
     // Find the vertex location of the feature origin
     var xl = options.xSegments + 1, // # x-vertices
         yl = options.ySegments + 1, // # y-vertices

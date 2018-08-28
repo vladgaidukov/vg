@@ -13,7 +13,6 @@
     },
     "rules": {
         /* Stylistic Issues */
-        "array-bracket-spacing": ["error", "always"], // fixable
         "block-spacing": ["error", "always"], // fixable
         "brace-style": ["error", "stroustrup", { "allowSingleLine": true }], // fixable
         "comma-dangle": ["error", "never"], // fixable
@@ -48,7 +47,7 @@
         "space-in-parens": ["error", "never"], // fixable
         "space-infix-ops": ["error", {"int32Hint": false}], // fixable
         "space-unary-ops": "warn",
-        
+
         // Best Practices
         "complexity": ["warn", 50],
         "no-div-regex": "error",
@@ -65,24 +64,24 @@
         "no-sequences": "error",
         "no-unmodified-loop-condition": "error",
         "no-unused-vars": "warn",
-        
+
         // Possible Errors
-        "no-console": ["error", { "allow": ["warn", "error", "info", "table"] }],
+        "no-console": ["error", { "allow": ["log", "warn", "error", "info", "table"] }],
         "no-cond-assign": ["error", "except-parens"],
         "no-debugger": "error", // fixable
         "no-inner-declarations": ["error", "functions"],
         "no-irregular-whitespace": "error",
-        
+
         // ECMAScript 6
         "arrow-body-style": ["error", "as-needed"], // fixable
         "arrow-parens": ["error", "as-needed"], // fixable
         "arrow-spacing": "error",
         "no-confusing-arrow": "error",
         "no-duplicate-imports": "error",
-        
+
         // Node.js and CommonJS
         "global-require": "error",
-        
+
         "array-bracket-newline": "off",
         "array-element-newline": "off",
         "camelcase": "off",
@@ -144,7 +143,7 @@
         "template-tag-spacing": "off",
         "unicode-bom": "off",
         "wrap-regex": "off",
-        
+
         "accessor-pairs": "off",
         "array-callback-return": "off",
         "block-scoped-var": "off",

@@ -1,20 +1,28 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = [{
-        entry: './src/app.js',
-        output: {
-            path: path.resolve(__dirname, 'dist'),
-            libraryTarget: "umd",
-            library: "VG",
-            filename: 'vg.js',
-        },
-        devServer: {
-            inline: true,
-            port: 10001,
-            hot: true,
-            host: '0.0.0.0'
-        }
+    entry: "./src/app.js",
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        libraryTarget: "umd",
+        library: "VG",
+        filename: "vg.js"
     },
+    devServer: {
+        inline: true,
+        port: 10001,
+        hot: true,
+        host: "0.0.0.0"
+    },
+    module: {
+        rules: [{
+            enforce: "pre",
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "eslint-loader"
+        }]
+    }
+}
     // for my local game project
     // {
     //     entry: './src/app.js',
