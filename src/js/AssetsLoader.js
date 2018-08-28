@@ -95,7 +95,7 @@ AssetsLoader.prototype = {
 
     objLoad: function(context, path, name) {
 
-        var path = context.assetPath + path;
+        path = context.assetPath + path;
 
         var mtlLoader = new THREE.MTLLoader();
         mtlLoader.setPath(path);
@@ -117,7 +117,7 @@ AssetsLoader.prototype = {
     },
     daeLoad: function(context, path, name) {
 
-        var path = context.assetPath + path;
+        path = context.assetPath + path;
 
         var loader = new THREE.ColladaLoader();
         loader.options.convertUpAxis = true;
@@ -131,7 +131,7 @@ AssetsLoader.prototype = {
     },
     jsonLoad: function(context, path, name) {
 
-        var path = context.assetPath + path;
+        path = context.assetPath + path;
 
         var loader = context.loaders.json;
         loader.load(path + name + ".json", function(geometry, materials) {
@@ -155,7 +155,7 @@ AssetsLoader.prototype = {
     },
     imageLoad: function(context, path, name, extension) {
 
-        var path = context.assetPath + path + name + "." + extension;
+        path = context.assetPath + path + name + "." + extension;
 
         var image = new Image();
         image.src = path;
@@ -183,7 +183,7 @@ AssetsLoader.prototype = {
 
     },
     getAsset: function(name) {
-    	if (this.assets[name]) return this.assets[name];
+        if (this.assets[name]) return this.assets[name];
     }
 };
 

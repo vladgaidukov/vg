@@ -40,9 +40,9 @@ Object.defineProperty(TextElement.prototype, "position", {
     set: function(value) {
         this._position = value;
         this.view.style.left = typeof value.x == "string" ?
-        	"calc(" + value.x + " - " + parseFloat(this.view.clientWidth) / 2 + "px)" : value.x + "px";
+            "calc(" + value.x + " - " + parseFloat(this.view.clientWidth) / 2 + "px)" : value.x + "px";
         this.view.style.bottom = typeof value.y == "string" ?
-        	"calc(" + value.y + " - " + parseFloat(this.view.clientHeight) / 2 + "px)" : value.y + "px";
+            "calc(" + value.y + " - " + parseFloat(this.view.clientHeight) / 2 + "px)" : value.y + "px";
     }
 });
 

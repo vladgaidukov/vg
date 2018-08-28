@@ -53,7 +53,7 @@ AnimatedSprite.prototype = {
 
     get position() {
 
-  		return this.view.position;
+        return this.view.position;
 
     },
     set position(val) {
@@ -64,7 +64,7 @@ AnimatedSprite.prototype = {
 
     get scale() {
 
-  		return this.scale;
+        return this.scale;
 
     },
     set scale(val) {

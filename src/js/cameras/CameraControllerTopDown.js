@@ -45,7 +45,7 @@ CameraControllerTopDown.prototype.update = function() {
 
         this.camera.position.copy(position);
 
-	    this.camera.lookAt(look);
+        this.camera.lookAt(look);
     };
 }();
 
@@ -63,4 +63,3 @@ CameraControllerTopDown.prototype.mouseMove = function(event) {
 };
 
 export {CameraControllerTopDown};
-
