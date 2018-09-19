@@ -322,82 +322,73 @@ Object.defineProperty(SceneEntity.prototype, "rotation", {
 
 "use strict";
 /* unused harmony export UI */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return Meshes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DEBUG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return DETAIL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ANTIALIAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CLEAR_COLOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMERA_FOV; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CAMERA_NEAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMERA_FAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CAMERA_POSITION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return MOBILE_CLIENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Meshes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SETTINGS; });
 
 var UI = {};
 var Meshes = {};
 
-var DEBUG = false;
+var SETTINGS = {
+    DEBUG: false,
+    DETAIL: 1,
+    ANTIALIAS: false,
+    CLEAR_COLOR: "gray",
+    CAMERA_FOV: 45,
+    CAMERA_NEAR: 0.1,
+    CAMERA_FAR: 100000,
+    CAMERA_POSITION: new THREE.Vector3(0, 0, 5),
+    MOBILE_CLIENT: (function() {
+        var mobileKeys = [
+            "android",
+            "bb",
+            "meego",
+            "mobile",
+            "avantgo",
+            "bada",
+            "blackberry",
+            "blazer",
+            "compal",
+            "elaine",
+            "fennec",
+            "hiptop",
+            "iemobile",
+            "iphone",
+            "ipod",
+            "iris",
+            "kindle",
+            "lge",
+            "maemo",
+            "midp",
+            "mmp",
+            "netfront",
+            "opera mob",
+            "opera min",
+            "palm",
+            "phone pixi",
+            "phone pre",
+            "plucker",
+            "pocket",
+            "psp",
+            "series40",
+            "series60",
+            "symbian",
+            "treo",
+            "vodafone",
+            "wap",
+            "windows ce",
+            "windows phone",
+            "xda",
+            "xiino"
+        ];
 
-var DETAIL = 1;
-var ANTIALIAS = false;
-var CLEAR_COLOR = "gray";
+        var agent = navigator.userAgent.toLowerCase();
+        for (var i = 0; i < mobileKeys.length; i++) {
+            if (agent.indexOf(mobileKeys[i]) >= 0) return true;
+        }
 
-var CAMERA_FOV = 45;
-var CAMERA_NEAR = 0.1;
-var CAMERA_FAR = 100000;
-var CAMERA_POSITION = new THREE.Vector3(0, 0, 5);
-
-var MOBILE_CLIENT = (function() {
-    var mobileKeys = [
-        "android",
-        "bb",
-        "meego",
-        "mobile",
-        "avantgo",
-        "bada",
-        "blackberry",
-        "blazer",
-        "compal",
-        "elaine",
-        "fennec",
-        "hiptop",
-        "iemobile",
-        "iphone",
-        "ipod",
-        "iris",
-        "kindle",
-        "lge",
-        "maemo",
-        "midp",
-        "mmp",
-        "netfront",
-        "opera mob",
-        "opera min",
-        "palm",
-        "phone pixi",
-        "phone pre",
-        "plucker",
-        "pocket",
-        "psp",
-        "series40",
-        "series60",
-        "symbian",
-        "treo",
-        "vodafone",
-        "wap",
-        "windows ce",
-        "windows phone",
-        "xda",
-        "xiino"
-    ];
-
-    var agent = navigator.userAgent.toLowerCase();
-    for (var i = 0; i < mobileKeys.length; i++) {
-        if (agent.indexOf(mobileKeys[i]) >= 0) return true;
-    }
-
-    return false;
-})();
+        return false;
+    })()
+};
 
 
 /***/ }),
@@ -830,16 +821,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__js_ui_UI__ = __webpack_require__(29);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "UI", function() { return __WEBPACK_IMPORTED_MODULE_25__js_ui_UI__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__js_settings__ = __webpack_require__(2);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Meshes", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["j"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DEBUG", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["g"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DETAIL", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["h"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ANTIALIAS", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CLEAR_COLOR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["f"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_FOV", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_NEAR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["d"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_FAR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_POSITION", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["e"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MOBILE_CLIENT", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["i"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Meshes", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SETTINGS", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["b"]; });
 
 
 
@@ -8515,14 +8498,14 @@ function Engine(container) {
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(__WEBPACK_IMPORTED_MODULE_2__settings_js__["c" /* CAMERA_FOV */] || 45, this.domelement.clientWidth / this.domelement.clientHeight, __WEBPACK_IMPORTED_MODULE_2__settings_js__["d" /* CAMERA_NEAR */], __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* CAMERA_FAR */]);
-    this.camera.position.copy(__WEBPACK_IMPORTED_MODULE_2__settings_js__["e" /* CAMERA_POSITION */]);
+    this.camera = new THREE.PerspectiveCamera(__WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].CAMERA_NEAR, __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].CAMERA_FAR);
+    this.camera.position.copy(__WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].CAMERA_POSITION);
     this.view.add(this.camera);
 
     this.renderer = new THREE.WebGLRenderer({
-        antialias: __WEBPACK_IMPORTED_MODULE_2__settings_js__["a" /* ANTIALIAS */] || false
+        antialias: __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].ANTIALIAS || false
     });
-    this.renderer.setClearColor(__WEBPACK_IMPORTED_MODULE_2__settings_js__["f" /* CLEAR_COLOR */]);
+    this.renderer.setClearColor(__WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].CLEAR_COLOR);
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
     this.domelement.append(this.renderer.domElement);
 
@@ -8536,7 +8519,7 @@ function Engine(container) {
 
     var clock = new THREE.Clock();
 
-    this.renderer.setPixelRatio(window.devicePixelRatio * __WEBPACK_IMPORTED_MODULE_2__settings_js__["h" /* DETAIL */]);
+    this.renderer.setPixelRatio(window.devicePixelRatio * __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* SETTINGS */].DETAIL);
 
     window.addEventListener("resize", function() {
         self.resize();
@@ -8890,7 +8873,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorUp(event) {
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -8906,7 +8889,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorDown(event) {
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -8922,7 +8905,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorMove(event) {
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) event.stopPropagation();
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) event.stopPropagation();
 
         event.preventDefault();
 
@@ -8931,7 +8914,7 @@ function MouseEventsHandler(domElement) {
         context.lastMouseY = pt[1];
 
         var sendEvent = false;
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
         else sendEvent = (pt[2] || pt[3]);
 
         if (!context.mouseMoved && sendEvent) context.mouseMoved = true;
@@ -8961,7 +8944,7 @@ function MouseEventsHandler(domElement) {
 
     }
 
-    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) {
 
         container.addEventListener("touchstart", onSelectorDown, false);
         container.addEventListener("touchmove", onSelectorMove, false);
@@ -10840,7 +10823,7 @@ function CameraControllerOrbit(object, domElement) {
 
     this.deactivate = function() {
 
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) {
             __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind("mouse.down", onTouchStart);
             __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind("mouse.up", onTouchEnd);
             __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind("mouse.move", onTouchMove);
@@ -11394,7 +11377,7 @@ function CameraControllerOrbit(object, domElement) {
 
     }
 
-    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["b" /* SETTINGS */].MOBILE_CLIENT) {
         __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind("mouse.down", this, onTouchStart);
         __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind("mouse.up", this, onTouchEnd);
         __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind("mouse.move", this, onTouchMove);
