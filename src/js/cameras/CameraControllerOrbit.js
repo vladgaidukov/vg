@@ -7,7 +7,9 @@
  * @author vgaidukov / https://github.com/vladgaidukov
  */
 import {EventDispatcher} from "../EventDispatcher.js";
-import {SETTINGS} from "../settings.js";
+import {
+    MOBILE_CLIENT
+} from "../settings.js";
 
 function CameraControllerOrbit(object, domElement) {
 
@@ -194,7 +196,7 @@ function CameraControllerOrbit(object, domElement) {
 
     this.deactivate = function() {
 
-        if (SETTINGS.MOBILE_CLIENT) {
+        if (MOBILE_CLIENT) {
             EventDispatcher.unbind("mouse.down", onTouchStart);
             EventDispatcher.unbind("mouse.up", onTouchEnd);
             EventDispatcher.unbind("mouse.move", onTouchMove);
@@ -748,7 +750,7 @@ function CameraControllerOrbit(object, domElement) {
 
     }
 
-    if (SETTINGS.MOBILE_CLIENT) {
+    if (MOBILE_CLIENT) {
         EventDispatcher.bind("mouse.down", this, onTouchStart);
         EventDispatcher.bind("mouse.up", this, onTouchEnd);
         EventDispatcher.bind("mouse.move", this, onTouchMove);

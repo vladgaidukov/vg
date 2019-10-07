@@ -20,9 +20,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/vgaydukov/vge#readme",
   "devDependencies": {
-    "eslint": "^5.4.0",
-    "eslint-loader": "^2.1.0",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.3"
+    "webpack-dev-server": "^2.11.5"
   }
 }
