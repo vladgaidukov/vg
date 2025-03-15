@@ -12,15 +12,15 @@ module.exports = [{
         inline: true,
         port: 10001,
         hot: true,
-        host: "0.0.0.0"
+        host: "127.0.0.1"
     }
-}
-    // for my local game project
-    // {
-    //     entry: './src/app.js',
-    //     output: {
-    //         path: path.resolve(__dirname, '../arena-game/static/js/vendor/'),
-    //         filename: 'vg.js',
-    //     },
-    // }
-];
+}, {
+    entry: "./src/app.js",
+    output: {
+        path: path.resolve(__dirname, "../arena-game/static/js/vendor"),
+        libraryTarget: "umd",
+        library: "VG",
+        filename: "vg.js"
+    }
+}];
+

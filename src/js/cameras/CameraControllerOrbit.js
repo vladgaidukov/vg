@@ -8,7 +8,7 @@
  */
 import {EventDispatcher} from "../EventDispatcher.js";
 import {
-    MOBILE_CLIENT
+    SETTINGS
 } from "../settings.js";
 
 function CameraControllerOrbit(object, domElement) {
@@ -68,7 +68,7 @@ function CameraControllerOrbit(object, domElement) {
     this.enableKeys = true;
 
     // The four arrow keys
-    this.keys = {LEFT: "a", UP: "w", RIGHT: "d", BOTTOM: "s"};
+    this.keys = {LEFT: "KeyA", UP: "KeyW", RIGHT: "KeyD", BOTTOM: "KeyS"};
 
     // Mouse buttons
     this.mouseButtons = {ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT};
@@ -196,7 +196,7 @@ function CameraControllerOrbit(object, domElement) {
 
     this.deactivate = function() {
 
-        if (MOBILE_CLIENT) {
+        if (SETTINGS.MOBILE_CLIENT) {
             EventDispatcher.unbind("mouse.down", onTouchStart);
             EventDispatcher.unbind("mouse.up", onTouchEnd);
             EventDispatcher.unbind("mouse.move", onTouchMove);
@@ -750,7 +750,7 @@ function CameraControllerOrbit(object, domElement) {
 
     }
 
-    if (MOBILE_CLIENT) {
+    if (SETTINGS.MOBILE_CLIENT) {
         EventDispatcher.bind("mouse.down", this, onTouchStart);
         EventDispatcher.bind("mouse.up", this, onTouchEnd);
         EventDispatcher.bind("mouse.move", this, onTouchMove);

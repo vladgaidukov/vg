@@ -41,7 +41,7 @@ Scene5.prototype.activate = function (data) {
     this.add(angar);
 
 
-    var sprite = new VG.AnimatedSprite(data.assets['PlasLaser'], 8, 6, 0.016666666666666666);
+    var sprite = new VG.AnimatedSprite(data.assets['PlasLaser'], 8, 6, 0.016666666666666666, true);
     sprite.scale = 10;
     sprite.position.set(10, 10, 10);
     this.add(sprite);

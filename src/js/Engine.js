@@ -1,13 +1,7 @@
 import {SceneEntity} from "./SceneEntity.js";
 import {EventDispatcher} from "./EventDispatcher.js";
 import {
-    CAMERA_FOV,
-    CAMERA_NEAR,
-    CAMERA_FAR,
-    CAMERA_POSITION,
-    ANTIALIAS,
-    CLEAR_COLOR,
-    DETAIL
+    SETTINGS
 } from "./settings.js";
 
 function Engine(container) {
@@ -19,14 +13,14 @@ function Engine(container) {
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, CAMERA_NEAR, CAMERA_FAR);
-    this.camera.position.copy(CAMERA_POSITION);
+    this.camera = new THREE.PerspectiveCamera(SETTINGS.CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, SETTINGS.CAMERA_NEAR, SETTINGS.CAMERA_FAR);
+    this.camera.position.copy(SETTINGS.CAMERA_POSITION);
     this.view.add(this.camera);
 
     this.renderer = new THREE.WebGLRenderer({
-        antialias: ANTIALIAS || false
+        antialias: SETTINGS.ANTIALIAS || false
     });
-    this.renderer.setClearColor(CLEAR_COLOR);
+    this.renderer.setClearColor(SETTINGS.CLEAR_COLOR);
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
     this.domelement.append(this.renderer.domElement);
 
@@ -40,7 +34,7 @@ function Engine(container) {
 
     var clock = new THREE.Clock();
 
-    this.renderer.setPixelRatio(window.devicePixelRatio * DETAIL);
+    this.renderer.setPixelRatio(window.devicePixelRatio * SETTINGS.DETAIL);
 
     window.addEventListener("resize", function() {
         self.resize();

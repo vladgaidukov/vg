@@ -31,10 +31,9 @@ export {AnimatedMeshMorph} from "./js/meshes/AnimatedMeshMorph";
 export {CameraControllerTopDown} from "./js/cameras/CameraControllerTopDown";
 export {CameraControllerOrbit} from "./js/cameras/CameraControllerOrbit";
 
-export {Matrix2D} from "./js/matrices/Matrix2D";
+export {Matrix2D, MATRIX_VALUES} from "./js/matrices/Matrix2D";
 export {Matrix3D} from "./js/matrices/Matrix3D";
 
 export {UI} from "./js/ui/UI";
 
 export * from "./js/settings";
-

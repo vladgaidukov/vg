@@ -1,6 +1,6 @@
 import {EventDispatcher} from "../EventDispatcher.js";
 import {
-    MOBILE_CLIENT
+    SETTINGS
 } from "../settings.js";
 
 function MouseEventsHandler(domElement) {
@@ -43,7 +43,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorUp(event) {
-        if (MOBILE_CLIENT) {
+        if (SETTINGS.MOBILE_CLIENT) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -59,7 +59,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorDown(event) {
-        if (MOBILE_CLIENT) {
+        if (SETTINGS.MOBILE_CLIENT) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -75,7 +75,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorMove(event) {
-        if (MOBILE_CLIENT) event.stopPropagation();
+        if (SETTINGS.MOBILE_CLIENT) event.stopPropagation();
 
         event.preventDefault();
 
@@ -84,7 +84,7 @@ function MouseEventsHandler(domElement) {
         context.lastMouseY = pt[1];
 
         var sendEvent = false;
-        if (MOBILE_CLIENT) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
+        if (SETTINGS.MOBILE_CLIENT) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
         else sendEvent = (pt[2] || pt[3]);
 
         if (!context.mouseMoved && sendEvent) context.mouseMoved = true;
@@ -114,7 +114,7 @@ function MouseEventsHandler(domElement) {
 
     }
 
-    if (MOBILE_CLIENT) {
+    if (SETTINGS.MOBILE_CLIENT) {
 
         container.addEventListener("touchstart", onSelectorDown, false);
         container.addEventListener("touchmove", onSelectorMove, false);

@@ -1,4 +1,4 @@
-function AnimatedSprite(image, tilesHoriz, tilesVert, tileDispDuration) {
+function AnimatedSprite(image, tilesHoriz, tilesVert, tileDispDuration, infinite = false) {
 
     this.texture = new THREE.Texture(image);
     this.texture.needsUpdate = true;
@@ -31,6 +31,10 @@ AnimatedSprite.prototype = {
 
     currentDisplayTime: 0,
 
+    onComplete: function() {
+
+    },
+
     update: function(dt) {
 
         this.currentDisplayTime += dt;
@@ -40,7 +44,14 @@ AnimatedSprite.prototype = {
             this.currentDisplayTime = 0;
 
             this.currentTile++;
-            if (this.currentTile == this.numberOfTiles) this.currentTile = 0;
+            if (this.currentTile == this.numberOfTiles) {
+                if (this.infinite) {
+                    this.currentTile = 0;
+                }
+                else {
+                    this.onComplete();
+                }
+            }
 
             var currentColumn = this.currentTile % this.tilesHorizontal;
 

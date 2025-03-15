@@ -332,7 +332,7 @@ Object.defineProperty(SceneEntity.prototype, "rotation", {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMERA_FAR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CAMERA_POSITION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return MOBILE_CLIENT; });
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return SETTINGS; });
 var UI = {};
 var Meshes = {};
 
@@ -398,6 +398,21 @@ var MOBILE_CLIENT = (function() {
 
     return false;
 })();
+
+var SETTINGS = {
+    UI: UI,
+    Meshes: Meshes,
+    DEBUG: DEBUG,
+    DETAIL: DETAIL,
+    ANTIALIAS: ANTIALIAS,
+    CLEAR_COLOR: CLEAR_COLOR,
+
+    CAMERA_FOV: CAMERA_FOV,
+    CAMERA_NEA: CAMERA_NEAR,
+    CAMERA_FAR: CAMERA_FAR,
+    CAMERA_POSITION: CAMERA_POSITION,
+    MOBILE_CLIENT: MOBILE_CLIENT
+};
 
 
 /***/ }),
@@ -840,7 +855,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_FAR", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CAMERA_POSITION", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MOBILE_CLIENT", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["i"]; });
-
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SETTINGS", function() { return __WEBPACK_IMPORTED_MODULE_26__js_settings__["k"]; });
 
 
 
@@ -8582,14 +8597,14 @@ function Engine(container) {
 
     this.view = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(__WEBPACK_IMPORTED_MODULE_2__settings_js__["c" /* CAMERA_FOV */] || 45, this.domelement.clientWidth / this.domelement.clientHeight, __WEBPACK_IMPORTED_MODULE_2__settings_js__["d" /* CAMERA_NEAR */], __WEBPACK_IMPORTED_MODULE_2__settings_js__["b" /* CAMERA_FAR */]);
-    this.camera.position.copy(__WEBPACK_IMPORTED_MODULE_2__settings_js__["e" /* CAMERA_POSITION */]);
+    this.camera = new THREE.PerspectiveCamera(__WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].CAMERA_FOV || 45, this.domelement.clientWidth / this.domelement.clientHeight, __WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].CAMERA_NEAR, __WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].CAMERA_FAR);
+    this.camera.position.copy(__WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].CAMERA_POSITION);
     this.view.add(this.camera);
 
     this.renderer = new THREE.WebGLRenderer({
-        antialias: __WEBPACK_IMPORTED_MODULE_2__settings_js__["a" /* ANTIALIAS */] || false
+        antialias: __WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].ANTIALIAS || false
     });
-    this.renderer.setClearColor(__WEBPACK_IMPORTED_MODULE_2__settings_js__["f" /* CLEAR_COLOR */]);
+    this.renderer.setClearColor(__WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].CLEAR_COLOR);
     this.renderer.setSize(this.domelement.clientWidth, this.domelement.clientHeight);
     this.domelement.append(this.renderer.domElement);
 
@@ -8603,7 +8618,7 @@ function Engine(container) {
 
     var clock = new THREE.Clock();
 
-    this.renderer.setPixelRatio(window.devicePixelRatio * __WEBPACK_IMPORTED_MODULE_2__settings_js__["h" /* DETAIL */]);
+    this.renderer.setPixelRatio(window.devicePixelRatio * __WEBPACK_IMPORTED_MODULE_2__settings_js__["k" /* SETTINGS */].DETAIL);
 
     window.addEventListener("resize", function() {
         self.resize();
@@ -8865,9 +8880,7 @@ function KeyboardEventsHandler(domElement) {
     container.addEventListener("keydown",
         function(event) {
 
-            if (!event.key) event.key = String.fromCharCode(event.keyCode).toLowerCase();
-
-            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.keydown." + event.key, event);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.keydown." + event.code, event);
 
             return false;
         }, false);
@@ -8875,12 +8888,10 @@ function KeyboardEventsHandler(domElement) {
     container.addEventListener("keyup",
         function(event) {
 
-            if (!event.key) event.key = String.fromCharCode(event.keyCode).toLowerCase();
-
             if (lastKey && lastKey == event.keyCode) {
                 clearTimeout(timeout);
                 lastKey = null;
-                __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.doublekey." + event.key, event);
+                __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.doublekey." + event.code, event);
 
             }
             else {
@@ -8890,15 +8901,13 @@ function KeyboardEventsHandler(domElement) {
                 }, 600);
             }
 
-            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.keyup." + event.key, event);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.keyup." + event.code, event);
             return false;
         }, false);
 
     container.addEventListener("keypress",
         function(event) {
-
-            if (!event.key) event.key = String.fromCharCode(event.keyCode).toLowerCase();
-            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.keypress." + event.key, event);
+            __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].send("keyboard.keypress." + event.code, event);
         }, false);
 
 }
@@ -8957,7 +8966,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorUp(event) {
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -8973,7 +8982,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorDown(event) {
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -8989,7 +8998,7 @@ function MouseEventsHandler(domElement) {
     }
 
     function onSelectorMove(event) {
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) event.stopPropagation();
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) event.stopPropagation();
 
         event.preventDefault();
 
@@ -8998,7 +9007,7 @@ function MouseEventsHandler(domElement) {
         context.lastMouseY = pt[1];
 
         var sendEvent = false;
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) sendEvent = (Math.sqrt(pt[2] * pt[2] + pt[3] * pt[3]) >= 0);
         else sendEvent = (pt[2] || pt[3]);
 
         if (!context.mouseMoved && sendEvent) context.mouseMoved = true;
@@ -9028,7 +9037,7 @@ function MouseEventsHandler(domElement) {
 
     }
 
-    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) {
 
         container.addEventListener("touchstart", onSelectorDown, false);
         container.addEventListener("touchmove", onSelectorMove, false);
@@ -10547,7 +10556,7 @@ Terrain.influence = function(g, options, f, x, y, r, h, t, e) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedSprite; });
-function AnimatedSprite(image, tilesHoriz, tilesVert, tileDispDuration) {
+function AnimatedSprite(image, tilesHoriz, tilesVert, tileDispDuration, infinite = false) {
 
     this.texture = new THREE.Texture(image);
     this.texture.needsUpdate = true;
@@ -10580,6 +10589,10 @@ AnimatedSprite.prototype = {
 
     currentDisplayTime: 0,
 
+    onComplete: function() {
+
+    },
+
     update: function(dt) {
 
         this.currentDisplayTime += dt;
@@ -10589,7 +10602,14 @@ AnimatedSprite.prototype = {
             this.currentDisplayTime = 0;
 
             this.currentTile++;
-            if (this.currentTile == this.numberOfTiles) this.currentTile = 0;
+            if (this.currentTile == this.numberOfTiles) {
+                if (this.infinite) {
+                    this.currentTile = 0;
+                }
+                else {
+                    this.onComplete();
+                }
+            }
 
             var currentColumn = this.currentTile % this.tilesHorizontal;
 
@@ -10779,7 +10799,7 @@ function CameraControllerOrbit(object, domElement) {
     this.enableKeys = true;
 
     // The four arrow keys
-    this.keys = {LEFT: "a", UP: "w", RIGHT: "d", BOTTOM: "s"};
+    this.keys = {LEFT: "KeyA", UP: "KeyW", RIGHT: "KeyD", BOTTOM: "KeyS"};
 
     // Mouse buttons
     this.mouseButtons = {ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT};
@@ -10907,7 +10927,7 @@ function CameraControllerOrbit(object, domElement) {
 
     this.deactivate = function() {
 
-        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) {
             __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind("mouse.down", onTouchStart);
             __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind("mouse.up", onTouchEnd);
             __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].unbind("mouse.move", onTouchMove);
@@ -11461,7 +11481,7 @@ function CameraControllerOrbit(object, domElement) {
 
     }
 
-    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["i" /* MOBILE_CLIENT */]) {
+    if (__WEBPACK_IMPORTED_MODULE_1__settings_js__["k" /* SETTINGS */].MOBILE_CLIENT) {
         __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind("mouse.down", this, onTouchStart);
         __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind("mouse.up", this, onTouchEnd);
         __WEBPACK_IMPORTED_MODULE_0__EventDispatcher_js__["a" /* EventDispatcher */].bind("mouse.move", this, onTouchMove);
@@ -11625,12 +11645,18 @@ CameraControllerOrbit.prototype = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Matrix2D; });
 function Matrix2D(sizeX, sizeY, array) {
-
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     this.length = this.sizeX * this.sizeY;
+
     this.matrix = new Uint16Array(array || this.length);
 
+    this.VALUES = {
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4
+    };
 }
 
 Matrix2D.prototype = {
@@ -11642,23 +11668,44 @@ Matrix2D.prototype = {
         return true;
     },
 
-    getCell: function(x, y) {
-
+    setCell: function(x, y, value) {
         if (!this.cellExist(x, y)) return;
-
         var index = x * this.sizeX + y;
-        return this.matrix[index];
+
+        var mask = 1 << (value - 1);
+        this.matrix[index] |= mask;
     },
 
-    setCell: function(x, y, value) {
-
-        if (!this.cellExist(x, y)) return;
-
+    getCell: function(x, y) {
+        if (!this.cellExist(x, y)) return [];
         var index = x * this.sizeX + y;
-        this.matrix[index] = value;
+        var cellValue = this.matrix[index];
+        var values = [];
+
+        for (var key in this.VALUES) {
+            var numKey = parseInt(key, 10);
+            var mask = 1 << (numKey - 1);
+            if (cellValue & mask) {
+                values.push(numKey);
+            }
+        }
+        return values;
+    },
+
+    deleteValue: function(x, y, value) {
+        if (!this.cellExist(x, y)) return;
+        var index = x * this.sizeX + y;
+        var mask = 1 << (value - 1);
+
+        this.matrix[index] &= ~mask;
+    },
+
+    clearCell: function(x, y) {
+        if (!this.cellExist(x, y)) return;
+        var index = x * this.sizeX + y;
+        this.matrix[index] = 0;
     }
 };
-
 
 
 

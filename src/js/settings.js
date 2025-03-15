@@ -1,4 +1,3 @@
-
 export var UI = {};
 export var Meshes = {};
 
@@ -64,3 +63,18 @@ export var MOBILE_CLIENT = (function() {
 
     return false;
 })();
+
+export var SETTINGS = {
+    UI: UI,
+    Meshes: Meshes,
+    DEBUG: DEBUG,
+    DETAIL: DETAIL,
+    ANTIALIAS: ANTIALIAS,
+    CLEAR_COLOR: CLEAR_COLOR,
+
+    CAMERA_FOV: CAMERA_FOV,
+    CAMERA_NEA: CAMERA_NEAR,
+    CAMERA_FAR: CAMERA_FAR,
+    CAMERA_POSITION: CAMERA_POSITION,
+    MOBILE_CLIENT: MOBILE_CLIENT
+};
